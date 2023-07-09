@@ -53,7 +53,11 @@ DB-GPT-HUB目前支持的base模型有：
 
 #### Spider+QLoRA+Falcon
 
-该实验项目通过加入表结构信息、调整语言模型的参数等方式构建数据集，然后用QLoRA等方法对base模型进行微调，旨在降低微调成本的同时提高SQL生成的准确性和速度。
+该实验项目通过加入表结构信息、调整语言模型的参数等方式构建数据集，然后用QLoRA对Falcon模型进行微调，旨在降低微调成本的同时提高SQL生成的准确性和速度。可以通过以下命令来执行：
+
+```shell
+sh ./scripts/spider_falcon_finetune.sh
+```
 
 ## 三、使用方法
 
@@ -61,6 +65,7 @@ DB-GPT-HUB目前支持的base模型有：
 
 ```
 git clone https://github.com/csunny/DB-GPT-Hub.git
+cd DB-GPT-Hub
 pip install -r requirements.txt 
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub
@@ -139,7 +144,7 @@ SQL_PROMPT_DICT = {
 模型微调使用的是qlora方法，我们可以运行以下命令来微调模型：
 
 ```bash
-python train_qlora.py --model_name_or_path <path_or_name>
+python src/train/train_qlora.py --model_name_or_path <path_or_name>
 ```
 
 微调后的模型权重会默认保存到output文件夹下面
@@ -149,7 +154,7 @@ python train_qlora.py --model_name_or_path <path_or_name>
 运行以下命令来生成最终合并的模型：
 
 ```bash
-python merge_peft_adapters.py --base_model_name_or_path <path_or_name>
+python src/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
 ```
 
 ## 四、发展路线

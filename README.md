@@ -53,7 +53,11 @@ The approximate hardware resources required to quantize and fine-tune the model 
 
 #### Spider+QLoRA+Falcon
 
-This experimental project builds the dataset by adding table structure information and adjusting the parameters of the language model, and then fine-tunes the base model with methods such as QLoRA, aiming to reduce the cost of fine-tuning while improving the accuracy and speed of SQL generation.
+This experimental project builds a dataset by adding table structure information, adjusting the parameters of the language model and then fine-tuning the Falcon model with QLoRA, aiming to reduce the cost of fine-tuning while increasing the accuracy and speed of SQL generation. This can be executed with the following command:
+
+```shell
+sh . /scripts/spider_falcon_finetune.sh
+```
 
 ## 3. Usage
 
@@ -61,6 +65,7 @@ This experimental project builds the dataset by adding table structure informati
 
 ```
 git clone https://github.com/csunny/DB-GPT-Hub.git
+cd DB-GPT-Hub
 pip install -r requirements.txt 
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub
@@ -140,7 +145,7 @@ SQL_PROMPT_DICT = {
 Model fine-tuning uses the qlora method, where we can run the following command to fine-tune the model:
 
 ```bash
-python train_qlora.py --model_name_or_path <path_or_name>
+python src/train/train_qlora.py --model_name_or_path <path_or_name>
 ```
 
 The fine-tuned model weights will be saved to the output folder by default
@@ -150,7 +155,7 @@ The fine-tuned model weights will be saved to the output folder by default
 Run the following command to generate the final merged model:
 
 ```bash
-python merge_peft_adapters.py --base_model_name_or_path <path_or_name>
+python src/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
 ```
 
 ## 4. The development path

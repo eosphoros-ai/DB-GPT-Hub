@@ -7,16 +7,14 @@ import argparse
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(ROOT_PATH)
-from pilot.configs.config import Config
-from pilot.configs.model_config import LLM_MODEL_CONFIG
-CFG = Config()
-model_path = LLM_MODEL_CONFIG[CFG.LLM_MODEL]
+
+model_path = os.path.join("./model", os.listdir("model")[1])
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--base_model_name_or_path", type=str, default=model_path)
-    parser.add_argument("--peft_model_path", type=str, default="train/output/checkpoint-10/adapter_model")
-    parser.add_argument("--output_dir", type=str, default="train/output/merged_models/")
+    parser.add_argument("--peft_model_path", type=str, default="./adapter/checkpoint-10/adapter_model")
+    parser.add_argument("--output_dir", type=str, default="./merged_models")
     parser.add_argument("--device", type=str, default="cpu")
 
     return parser.parse_args()

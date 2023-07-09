@@ -11,7 +11,7 @@ from tqdm import tqdm
 import logging
 import bitsandbytes as bnb
 import pandas as pd
-
+import argparse
 import torch
 import transformers
 from torch.nn.utils.rnn import pad_sequence
@@ -36,25 +36,18 @@ from peft import (
 )
 from peft.tuners.lora import LoraLayer
 from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
-ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-sys.path.append(ROOT_PATH)
-from pilot.configs.config import Config
-from pilot.configs.model_config import LLM_MODEL_CONFIG
 
 torch.backends.cuda.matmul.allow_tf32 = True
-
 logger = logging.getLogger(__name__)
 
 IGNORE_INDEX = -100
 DEFAULT_PAD_TOKEN = "[PAD]"
-
-CFG = Config()
-model_path = LLM_MODEL_CONFIG[CFG.LLM_MODEL]
+model_path = os.path.join("./model", os.listdir("model")[1])
 
 @dataclass
 class ModelArguments:
     model_name_or_path: Optional[str] = field(
-        default=model_path
+        default=model_path 
     )
     trust_remote_code: Optional[bool] = field(
         default=True,
@@ -170,7 +163,7 @@ class TrainingArguments(transformers.Seq2SeqTrainingArguments):
         default='none',
         metadata={"help": "To use wandb or something else for reporting."}
     )
-    output_dir: str = field(default='./train/output', metadata={"help": 'The output dir for logs and checkpoints'})
+    output_dir: str = field(default='./adapter', metadata={"help": 'The output dir for logs and checkpoints'})
     optim: str = field(default='paged_adamw_32bit', metadata={"help": 'The optimizer to be used'})
     per_device_train_batch_size: int = field(default=1, metadata={"help": 'The training batch size per GPU. Increase for better speed.'})
     gradient_accumulation_steps: int = field(default=16, metadata={"help": 'How many gradients to accumulate before to perform an optimizer step'})
@@ -374,7 +367,7 @@ def smart_tokenizer_and_embedding_resize(
     """
     num_new_tokens = tokenizer.add_special_tokens(special_tokens_dict)
     model.resize_token_embeddings(len(tokenizer))
-
+    
     if num_new_tokens > 0:
         input_embeddings = model.get_input_embeddings().weight.data
         output_embeddings = model.get_output_embeddings().weight.data
@@ -553,7 +546,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
         elif dataset_name == 'vicuna':
             raise NotImplementedError("Vicuna data was not released.")
         elif dataset_name == 'spider':
-            return load_dataset("json", data_files="train/sql_fintune_data.json")
+            return load_dataset("json", data_files="sql_fintune_data.json")
         else:
             if os.path.exists(dataset_name):
                 try:
@@ -833,6 +826,8 @@ def train():
     if (args.do_train or args.do_eval or args.do_predict):
         with open(os.path.join(args.output_dir, "metrics.json"), "w") as fout:
             fout.write(json.dumps(all_metrics))
-
+            
 if __name__ == "__main__":
     train()
+
+    

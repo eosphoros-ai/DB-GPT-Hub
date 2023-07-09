@@ -83,7 +83,7 @@ Before running, you need to create a new data directory, download the dataset an
 
 First we need to extract all the information from the above data such as QA, table structure and database content in the following format:
 
-```json
+```
 {
         "query": sample["query"].
         "question": sample["question"].
@@ -105,7 +105,7 @@ First we need to extract all the information from the above data such as QA, tab
 
 This data is then expressed in natural language, e.g:
 
-```json
+```
 { "instruction": "concert_singer contains tables such as stadium, singer, concert, singer_in_concert. Table stadium has columns such as stadium_id. location, name, capacity, highest, lowest, average. table stadium has columns such as stadium_id, location, name, capacity, highest, lowest, average. stadium_id is the primary key. table singer has columns such as singer_id, name, country, song_name, song_release_year name, song_release_year, age, is_male. singer_id is the primary key. table concert has columns such as concert_id, concert_name, theme, stadium_id. year. Table singer_in_concert has columns such as concert_id, singer_id. concert_id is the primary key. The year of concert is the foreign key of location of stadium. The stadium_id of singer_in_concert is the foreign key of name of singer. concert is the foreign key of concert_name of concert.". 
 "input": "How many singers do we have?". 
 "response": "concert_singer | select count(*) from singer"}
@@ -113,7 +113,7 @@ This data is then expressed in natural language, e.g:
 
 The code implementation of the above data pre-processing section is as follows:
 
-```
+```bash
 python sql_data_process.py
 ```
 
@@ -184,7 +184,6 @@ Thanks to the following open source projects
 * [CoSQL](https://yale-lily.github.io/cosql)
 * [Chase](https://xjtu-intsoft.github.io/chase/)
 * [BIRD-SQL](https://bird-bench.github.io/)
-
 * [LLaMA](https://github.com/facebookresearch/llama/tree/main)
 * [BLOOM](https://huggingface.co/spaces/bigscience/license)
 * [Falcon](https://github.com/hiyouga/LLaMA-Efficient-Tuning/blob/main/LICENSE)

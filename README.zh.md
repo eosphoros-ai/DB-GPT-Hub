@@ -81,7 +81,7 @@ DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信�
 
 首先我们需要将以上数据中的QA、表结构和数据库内容等都信息提取出来，格式如下：
 
-```json
+```
 {
         "query": sample["query"],
         "question": sample["question"],
@@ -103,7 +103,7 @@ DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信�
 
 然后将该数据以自然语言的形式表述，例如：
 
-```json
+```
 {"instruction": "concert_singer contains tables such as stadium, singer, concert, singer_in_concert. Table stadium has columns such as stadium_id, location, name, capacity, highest, lowest, average. stadium_id is the primary key. Table singer has columns such as singer_id, name, country, song_name, song_release_year, age, is_male. singer_id is the primary key. Table concert has columns such as concert_id, concert_name, theme, stadium_id, year. concert_id is the primary key. Table singer_in_concert has columns such as concert_id, singer_id. concert_id is the primary key. The year of concert is the foreign key of location of stadium. The stadium_id of singer_in_concert is the foreign key of name of singer. The singer_id of singer_in_concert is the foreign key of concert_name of concert.", 
 "input": "How many singers do we have?", 
 "response": "concert_singer | select count(*) from singer"}
@@ -111,7 +111,7 @@ DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信�
 
 以上数据预处理部分的代码实现如下：
 
-```
+```bash
 python sql_data_process.py
 ```
 
@@ -181,7 +181,6 @@ python merge_peft_adapters.py --base_model_name_or_path <path_or_name>
 * [CoSQL](https://yale-lily.github.io/cosql)
 * [Chase](https://xjtu-intsoft.github.io/chase/)
 * [BIRD-SQL](https://bird-bench.github.io/)
-
 * [LLaMA](https://github.com/facebookresearch/llama/tree/main)
 * [BLOOM](https://huggingface.co/spaces/bigscience/license)
 * [Falcon](https://github.com/hiyouga/LLaMA-Efficient-Tuning/blob/main/LICENSE)

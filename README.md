@@ -4,27 +4,21 @@
 
 ## 1. What is DB-GPT-Hub
 
-Text-to-SQL is a very important research direction in the direction of database development, with a very strong business requirement. Currently, various teams and companies are actively involved in the research work in this direction. However, in the actual progress, some of the main problems encountered are as follows:
-
-* They have a certain amount of SQL data corpus in their hands but are weak in the logic of the underlying algorithm of LLM.  
-* Algorithm students who are familiar with the underlying algorithm and framework of LLM have some depth of algorithm, but lack of understanding and depth of database, and lack of SQL corpus, Text2SQL fine-tuning understanding is not enough. 
-* There are relatively few integrated teams with both database and algorithm theory, leading to a high barrier to entry in this field.
-
-DB-GPT-Hub is an experimental project to implement Text-to-SQL parsing using LLMs, which mainly includes steps of dataset collection, data pre-processing, model selection and construction, and fine-tuning weights, etc. Through this series of processing, we can reduce the model training cost while improving Text-to-SQL capability, and allow more students to participate in Text-to This series of processing can improve the Text-to-SQL capability while reducing the training cost of the model, allowing more students to participate in the work of improving the accuracy of Text-to-SQL, and finally realizing the automatic database based question and answer capability, allowing users to complete complex database query operations through natural language descriptions, etc.
+DB-GPT-Hub is an experimental project to implement Text-to-SQL parsing using LLMs, which mainly includes dataset collection, data pre-processing, model selection and construction, and fine-tuning weights, etc. Through this series of processing, we can reduce the model training cost while improving Text-to-SQL capability, and allow more developers to participate in the work of improving the accuracy of Text-to-SQL, and finally realizing the automatic database based question and answer capability, allowing users to complete complex database query operations through natural language descriptions.
 
 ## 2. Fine-tuning Text-to-SQL
 
-Large Language Models (LLMs) have achieved impressive results in existing benchmark tests of Text-to-SQL. However, these models remain challenging in the face of large databases and noisy content, and the mysteries behind the huge database values need external knowledge and reasoning to be revealed. We enhance Text-to-SQL based on a large language model sustained SFT
+Large Language Models (LLMs) have achieved impressive results in existing benchmark tests of Text-to-SQL. However, these models remain challenging in the face of large databases and noisy content, and the mysteries behind the huge database values need external knowledge and reasoning to be revealed. We enhance Text-to-SQL based on a large language models sustained SFT
 
 ### 2.1. Dataset
 
-The following publicly available text2sql datasets were used for this project:
+The following publicly available text-to-sql datasets are used for this project:
 
 - [WikiSQL:](https://github.com/salesforce/WikiSQL) A large semantic parsing dataset consisting of 80,654 natural statement expressions and sql annotations of 24,241 tables. Each query in WikiSQL is limited to the same table and does not contain complex operations such as sorting, grouping The queries in WikiSQL are limited to the same table and do not include complex operations such as sorting, grouping, subqueries, etc.
 - [SPIDER](https://yale-lily.github.io/spider): A complex text2sql dataset across domains, containing 10,181 natural language queries, 5,693 SQL distributed across 200 separate databases, covering 138 different domains.
 - [CHASE](https://xjtu-intsoft.github.io/chase/): A cross-domain multi-round interactive text2sql Chinese dataset containing a list of 5,459 multi-round questions consisting of 17,940 <query, SQL> binary groups across 280 different domain databases.
-- [BIRD-SQL:](https://bird-bench.github.io/) dataset is a large-scale cross-domain text-to-SQL benchmark in English, with a particular focus on large database content. The dataset contains 12,751 text-to-SQL data pairs and 95 databases with a total size of 33.4 GB across 37 occupational domains. The BIRD-SQL dataset bridges the gap between text-to-SQL research and real-world applications by exploring three additional challenges, namely dealing with large and messy database values, external knowledge inference and optimising SQL execution efficiency.
-- [CoSQL:](https://yale-lily.github.io/cosql) is a corpus for building cross-domain conversational text-to-SQL systems. It is a conversational version of the Spider and SParC tasks. CoSQL consists of 30k+ rounds and 10k+ annotated SQL queries from Wizard-of-Oz's collection of 3k conversations querying 200 complex databases across 138 domains. Each conversation simulates a realistic DB query scenario in which a staff member explores the database as a user and a SQL expert uses SQL to retrieve answers, clarify ambiguous questions, or otherwise inform.
+- [BIRD-SQL:](https://bird-bench.github.io/) A large-scale cross-domain text-to-SQL benchmark in English, with a particular focus on large database content. The dataset contains 12,751 text-to-SQL data pairs and 95 databases with a total size of 33.4 GB across 37 occupational domains. The BIRD-SQL dataset bridges the gap between text-to-SQL research and real-world applications by exploring three additional challenges, namely dealing with large and messy database values, external knowledge inference and optimising SQL execution efficiency.
+- [CoSQL:](https://yale-lily.github.io/cosql) A corpus for building cross-domain conversational text-to-SQL systems. It is a conversational version of the Spider and SParC tasks. CoSQL consists of 30k+ rounds and 10k+ annotated SQL queries from Wizard-of-Oz's collection of 3k conversations querying 200 complex databases across 138 domains. Each conversation simulates a realistic DB query scenario in which a staff member explores the database as a user and a SQL expert uses SQL to retrieve answers, clarify ambiguous questions, or otherwise inform.
 
 ### 2.2. Model
 
@@ -142,7 +136,7 @@ SQL_PROMPT_DICT = {
 
 ### 3.3. Model fine-tuning
 
-Model fine-tuning uses the qlora method, where we can run the following command to fine-tune the model:
+Model fine-tuning uses the QLoRA method, where we can run the following command to fine-tune the model:
 
 ```bash
 python src/train/train_qlora.py --model_name_or_path <path_or_name>
@@ -158,7 +152,7 @@ Run the following command to generate the final merged model:
 python src/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
 ```
 
-## 4. The development path
+## 4. RoadMap 
 
 The whole process we will divide into three phases:
 

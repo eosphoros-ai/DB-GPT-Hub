@@ -964,7 +964,7 @@ if __name__ == "__main__" :
     data_filepaths = ["data/spider/train_spider.json","data/spider/train_others.json"]
     raw_datasets  = generate_data(data_filepaths,"data/spider/database")
     sql_fintune_data = []
-    fields = ["instruction","input","response"]
+    fields = ["instruction","input","output"]
     for raw_data in tqdm(raw_datasets):
         extend_data = deepcopy(raw_data)
         extend_data.update(spider_add_serialized_schema(extend_data))

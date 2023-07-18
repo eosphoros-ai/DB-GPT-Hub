@@ -1,6 +1,6 @@
 # DB-GPT-Hub: Text-to-SQL parsing with LLMs
 
-[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/CzN7TfK2)|[**Wechat**](assets/wechat.jpg)
+[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/rBgtJW8U)|[**Wechat**](assets/wechat.jpg)
 
 ## 1. What is DB-GPT-Hub
 
@@ -24,14 +24,14 @@ The following publicly available text-to-sql datasets are used for this project:
 
 DB-GPT-HUB currently supports the following base models:
 
-* LLaMa series
+* LLaMa
   * alpaca
   * vicuna
   * guanaco
 
-* Falcon series
-* BLOOM Collection
-* ChatGLM Series
+* Falcon
+* BLOOM
+* ChatGLM
 * WizardLLM
 
 The approximate hardware resources required to quantize and fine-tune the model are as follows:
@@ -45,12 +45,12 @@ The approximate hardware resources required to quantize and fine-tune the model 
 
 ### 2.3. Fine-tuning methods
 
-#### Spider+QLoRA+Falcon
+#### Spider+QLoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa)
 
-This experimental project builds a dataset by adding table structure information, adjusting the parameters of the language model and then fine-tuning the Falcon model with QLoRA, aiming to reduce the cost of fine-tuning while increasing the accuracy and speed of SQL generation. This can be executed with the following command:
+This experimental project builds a dataset by adding table structure information, adjusting the parameters of the language model and then fine-tuning the LLM with QLoRA, aiming to reduce the cost of fine-tuning while increasing the accuracy and speed of SQL generation. This can be executed with the following command:
 
 ```shell
-sh . /scripts/spider_falcon_finetune.sh
+sh . /scripts/spider_qlora_finetune.sh
 ```
 
 ## 3. Usage
@@ -60,10 +60,12 @@ sh . /scripts/spider_falcon_finetune.sh
 ```
 git clone https://github.com/csunny/DB-GPT-Hub.git
 cd DB-GPT-Hub
-pip install -r requirements.txt 
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub
+pip install -r requirements.txt 
+mkdir model 
 ```
+Put the model files under the new Model folder here
 
 ### 3.2. Data preparation
 
@@ -113,7 +115,7 @@ This data is then expressed in natural language, e.g:
 The code implementation of the above data pre-processing section is as follows:
 
 ```bash
-python sql_data_process.py
+python src/sql_data_process.py
 ```
 
 When fine-tuning the model, we also customize the prompt dict to optimize the input: 
@@ -159,7 +161,7 @@ The whole process we will divide into three phases:
 * Stage 1:
   - [ ] LLaMa
     - [ ] LoRA
-    - [ ] QLoRA
+    - [x] QLoRA
   - [ ] Falcon
     - [ ] LoRA
     - [x] QLoRA

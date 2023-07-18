@@ -923,12 +923,13 @@ def spider_get_input(
 
 def spider_get_target(
     query: str,
-    db_id: str,
+    #db_id: str,
     normalize_query: bool,
     target_with_db_id: bool,
 ) -> str:
     _normalize = normalize if normalize_query else (lambda x: x)
-    return f"{db_id} | {_normalize(query)}" if target_with_db_id else _normalize(query)
+    #return f"{db_id} | {_normalize(query)}" if target_with_db_id else _normalize(query)
+    return f"{_normalize(query)}" if target_with_db_id else _normalize(query)
 
 def spider_add_serialized_schema(ex: dict) -> dict:
 
@@ -951,7 +952,7 @@ def spider_pre_process_one_function(item: dict):
 
     seq_out = spider_get_target(
         query=item["query"],
-        db_id=item["db_id"],
+        #db_id=item["db_id"],
         normalize_query=True,
         target_with_db_id=True,
     )

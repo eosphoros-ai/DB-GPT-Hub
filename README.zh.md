@@ -1,6 +1,6 @@
 # DB-GPT-Hub:利用LLMs实现Text-to-SQL
 
-[**英文**](README.md) |[**Discord**](https://discord.gg/CzN7TfK2)|[**Wechat**](assets/wechat.jpg)
+[**英文**](README.md) |[**Discord**](https://discord.gg/rBgtJW8U)|[**Wechat**](assets/wechat.jpg)
 
 ## 一、什么是DB-GPT-Hub
 
@@ -45,12 +45,12 @@ DB-GPT-HUB目前支持的base模型有：
 
 ### 2.3、微调方法
 
-#### Spider+QLoRA+Falcon
+#### Spider+QLoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa)
 
-该实验项目通过加入表结构信息、调整语言模型的参数等方式构建数据集，然后用QLoRA对Falcon模型进行微调，旨在降低微调成本的同时提高SQL生成的准确性和速度。可以通过以下命令来执行：
+该实验项目通过加入表结构信息、调整语言模型的参数等方式构建数据集，然后用QLoRA对LLM模型进行微调，旨在降低微调成本的同时提高SQL生成的准确性和速度。可以通过以下命令来执行：
 
 ```shell
-sh ./scripts/spider_falcon_finetune.sh
+sh ./scripts/spider_qlora_finetune.sh
 ```
 
 ## 三、使用方法
@@ -60,10 +60,12 @@ sh ./scripts/spider_falcon_finetune.sh
 ```
 git clone https://github.com/csunny/DB-GPT-Hub.git
 cd DB-GPT-Hub
-pip install -r requirements.txt 
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub
+pip install -r requirements.txt 
+mkdir model 
 ```
+将模型文件放在这里的新建model文件夹下面
 
 ### 3.2、数据准备
 
@@ -113,7 +115,7 @@ DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信�
 以上数据预处理部分的代码实现如下：
 
 ```bash
-python sql_data_process.py
+python src/sql_data_process.py
 ```
 
 在模型微调时，我们还定制了prompt dict以优化输入：

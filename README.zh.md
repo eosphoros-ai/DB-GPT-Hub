@@ -1,6 +1,6 @@
 # DB-GPT-Hub:利用LLMs实现Text-to-SQL
 
-[**英文**](README.md) |[**Discord**](https://discord.gg/CzN7TfK2)|[**Wechat**](assets/wechat.jpg)
+[**英文**](README.md) |[**Discord**](https://discord.gg/rBgtJW8U)|[**Wechat**](assets/wechat.jpg)
 
 ## 一、什么是DB-GPT-Hub
 

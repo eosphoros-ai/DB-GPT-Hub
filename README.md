@@ -1,6 +1,6 @@
 # DB-GPT-Hub: Text-to-SQL parsing with LLMs
 
-[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/CzN7TfK2)|[**Wechat**](assets/wechat.jpg)
+[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/rBgtJW8U)|[**Wechat**](assets/wechat.jpg)
 
 ## 1. What is DB-GPT-Hub
 

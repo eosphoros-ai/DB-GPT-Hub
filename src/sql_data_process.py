@@ -961,8 +961,13 @@ def spider_pre_process_one_function(item: dict):
 
 
 if __name__ == "__main__" :
-
-    data_filepaths = ["data/spider/train_spider.json","data/spider/train_others.json"]
+    import argparse
+    parser = argparse.ArgumentParser(description='Process some URLs.')
+    parser.add_argument('--data_filepaths', metavar='U', type=str, nargs='+',
+                        default=["data/spider/train_spider.json", "data/spider/train_others.json"])
+    args = parser.parse_args()
+    
+    data_filepaths = args.data_filepaths
     raw_datasets  = generate_data(data_filepaths,"data/spider/database")
     sql_fintune_data = []
     fields = ["instruction","input","output"]

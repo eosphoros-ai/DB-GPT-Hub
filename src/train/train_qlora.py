@@ -231,7 +231,7 @@ def find_all_linear_names(args, model):
 class SavePeftModelCallback(transformers.TrainerCallback):
     def save_model(self, args, state, kwargs):
         print('Saving PEFT checkpoint...')
-        if state.best_model_checkpoint is not None:
+        if state.best_model_checkpoint:
             checkpoint_folder = os.path.join(state.best_model_checkpoint, "adapter_model")
         else:
             checkpoint_folder = os.path.join(args.output_dir, f"{PREFIX_CHECKPOINT_DIR}-{state.global_step}")
@@ -263,7 +263,7 @@ def get_accelerate_model(args, checkpoint_dir):
     device_map = "auto"
 
     # if we are in a distributed setting, we need to set the device map and max memory per device
-    if os.environ.get('LOCAL_RANK') is not None:
+    if os.environ.get('LOCAL_RANK'):
         local_rank = int(os.environ.get('LOCAL_RANK', '0'))
         device_map = {'': local_rank}
         max_memory = {'': max_memory[local_rank]}
@@ -311,7 +311,7 @@ def get_accelerate_model(args, checkpoint_dir):
         model.gradient_checkpointing_enable()
 
     if not args.full_finetune:
-        if checkpoint_dir is not None:
+        if checkpoint_dir:
             print("Loading adapters from checkpoint.")
             model = PeftModel.from_pretrained(model, join(checkpoint_dir, 'adapter_model'), is_trainable=True)
         else:
@@ -427,7 +427,7 @@ class DataCollatorForCausalLM(object):
             'input_ids': input_ids,
             'attention_mask':input_ids.ne(self.tokenizer.pad_token_id),
         }
-        if labels is not None:
+        if labels:
             data_dict['labels'] = labels
         return data_dict
 
@@ -442,7 +442,7 @@ def extract_unnatural_instructions_data(examples, extract_reformulations=False):
             out['output'].append(instance['output'])
     if extract_reformulations:
         for example_reformulations in examples['reformulations']:
-            if example_reformulations is not None:
+            if example_reformulations:
                 for instance in example_reformulations:
                     out['input'].append(instance['instruction_with_input'])
                     out['output'].append(instance['output'])
@@ -561,27 +561,27 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
     def format_dataset(dataset, dataset_format):
         if (
             dataset_format == 'alpaca' or dataset_format == 'alpaca-clean' or 
-            (dataset_format is None and args.dataset in ['alpaca', 'alpaca-clean'])
+            (not dataset_format and args.dataset in ['alpaca', 'alpaca-clean'])
         ):
             dataset = dataset.map(extract_alpaca_dataset, remove_columns=['instruction'])
 
         elif dataset_format == 'spider':
             dataset = dataset.map(extract_sql_dataset, remove_columns=['instruction'])
 
-        elif dataset_format == 'chip2' or (dataset_format is None and args.dataset == 'chip2'):
+        elif dataset_format == 'chip2' or (not dataset_format and args.dataset == 'chip2'):
             dataset = dataset.map(lambda x: {
                 'input': x['text'].split('\n<bot>: ')[0].replace('<human>: ', ''),
                 'output': x['text'].split('\n<bot>: ')[1],
             })
-        elif dataset_format == 'self-instruct' or (dataset_format is None and args.dataset == 'self-instruct'):
+        elif dataset_format == 'self-instruct' or (not dataset_format and args.dataset == 'self-instruct'):
             for old, new in [["prompt", "input"], ["completion", "output"]]:
                 dataset = dataset.rename_column(old, new)
-        elif dataset_format == 'hh-rlhf' or (dataset_format is None and args.dataset == 'hh-rlhf'):
+        elif dataset_format == 'hh-rlhf' or (not dataset_format and args.dataset == 'hh-rlhf'):
             dataset = dataset.map(lambda x: {
                 'input': '',
                 'output': x['chosen']
             })
-        elif dataset_format == 'oasst1' or (dataset_format is None and args.dataset == 'oasst1'):
+        elif dataset_format == 'oasst1' or (not dataset_format and args.dataset == 'oasst1'):
             dataset = dataset.map(lambda x: {
                 'input': '',
                 'output': x['text'],
@@ -609,13 +609,13 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                 test_size=args.eval_dataset_size, shuffle=True, seed=42
             )
             eval_dataset = dataset['test']
-        if args.max_eval_samples is not None and len(eval_dataset) > args.max_eval_samples:
+        if args.max_eval_samples and len(eval_dataset) > args.max_eval_samples:
             eval_dataset = eval_dataset.select(range(args.max_eval_samples))
         if args.group_by_length:
             eval_dataset = eval_dataset.map(lambda x: {'length': len(x['input']) + len(x['output'])})
     if args.do_train:
         train_dataset = dataset['train']
-        if args.max_train_samples is not None and len(train_dataset) > args.max_train_samples:
+        if args.max_train_samples and len(train_dataset) > args.max_train_samples:
             train_dataset = train_dataset.select(range(args.max_train_samples))
         if args.group_by_length:
             train_dataset = train_dataset.map(lambda x: {'length': len(x['input']) + len(x['output'])})
@@ -680,7 +680,7 @@ def train():
         # tokenizer_type='llama' if 'llama' in args.model_name_or_path else None, # Needed for HF name change
         use_auth_token=args.use_auth_token,
     )
-    if tokenizer._pad_token is None:
+    if not tokenizer._pad_token:
         smart_tokenizer_and_embedding_resize(
             special_tokens_dict=dict(pad_token=DEFAULT_PAD_TOKEN),
             tokenizer=tokenizer,
@@ -725,7 +725,7 @@ def train():
             })
             # mmlu_dataset = mmlu_dataset.remove_columns('subject')
         mmlu_dataset = mmlu_dataset[args.mmlu_split]
-        if args.max_mmlu_samples is not None:
+        if args.max_mmlu_samples:
             mmlu_dataset = mmlu_dataset.select(range(args.max_mmlu_samples))
         abcd_idx = [
             tokenizer("A", add_special_tokens=False).input_ids[0],

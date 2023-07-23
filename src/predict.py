@@ -129,7 +129,7 @@ def predict():
         for output in outputs:
             prediction = tokenizer.decode(output, skip_special_tokens=True)
             response = re.split(r"Response:\s*", prediction)[-1]
-            result.append(response)
+            result.append(response.replace("\n", ""))
         print(result)
         print(idx)
     return args.dataset, result

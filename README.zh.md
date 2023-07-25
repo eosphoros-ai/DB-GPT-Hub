@@ -158,9 +158,9 @@ python src/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
 整个过程我们会分为三个阶段：
 
 * 阶段一：
-  - [ ] LLaMa
+  - [ ] LLaMa/LLaMa2
     - [ ] LoRA
-    - [ ] QLoRA
+    - [x] QLoRA
   - [ ] Falcon
     - [ ] LoRA
     - [x] QLoRA

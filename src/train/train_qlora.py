@@ -1,3 +1,6 @@
+# This source code is licensed under the MIT license found in the
+# LICENSE file in the root directory of this source tree.
+
 from collections import defaultdict
 import copy
 import json
@@ -11,7 +14,10 @@ from tqdm import tqdm
 import logging
 import bitsandbytes as bnb
 import pandas as pd
-import argparse
+import importlib
+from packaging import version
+from packaging.version import parse
+
 import torch
 import transformers
 from torch.nn.utils.rnn import pad_sequence
@@ -37,11 +43,36 @@ from peft import (
 from peft.tuners.lora import LoraLayer
 from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR
 
-torch.backends.cuda.matmul.allow_tf32 = True
+def is_ipex_available():
+    def get_major_and_minor_from_version(full_version):
+        return str(version.parse(full_version).major) + "." + str(version.parse(full_version).minor)
+
+    _torch_version = importlib.metadata.version("torch")
+    if importlib.util.find_spec("intel_extension_for_pytorch") is None:
+        return False
+    _ipex_version = "N/A"
+    try:
+        _ipex_version = importlib.metadata.version("intel_extension_for_pytorch")
+    except importlib.metadata.PackageNotFoundError:
+        return False
+    torch_major_and_minor = get_major_and_minor_from_version(_torch_version)
+    ipex_major_and_minor = get_major_and_minor_from_version(_ipex_version)
+    if torch_major_and_minor != ipex_major_and_minor:
+        warnings.warn(
+            f"Intel Extension for PyTorch {ipex_major_and_minor} needs to work with PyTorch {ipex_major_and_minor}.*,"
+            f" but PyTorch {_torch_version} is found. Please switch to the matching version and run again."
+        )
+        return False
+    return True
+
+if torch.cuda.is_available():   
+    torch.backends.cuda.matmul.allow_tf32 = True
+
 logger = logging.getLogger(__name__)
 
 IGNORE_INDEX = -100
 DEFAULT_PAD_TOKEN = "[PAD]"
+
 model_path = os.path.join("./model", os.listdir("model")[1])
 
 @dataclass
@@ -231,7 +262,7 @@ def find_all_linear_names(args, model):
 class SavePeftModelCallback(transformers.TrainerCallback):
     def save_model(self, args, state, kwargs):
         print('Saving PEFT checkpoint...')
-        if state.best_model_checkpoint:
+        if state.best_model_checkpoint is not None:
             checkpoint_folder = os.path.join(state.best_model_checkpoint, "adapter_model")
         else:
             checkpoint_folder = os.path.join(args.output_dir, f"{PREFIX_CHECKPOINT_DIR}-{state.global_step}")
@@ -257,13 +288,17 @@ class SavePeftModelCallback(transformers.TrainerCallback):
 
 def get_accelerate_model(args, checkpoint_dir):
 
-    n_gpus = torch.cuda.device_count()
+    if torch.cuda.is_available():
+        n_gpus = torch.cuda.device_count()
+    if is_ipex_available() and torch.xpu.is_available():
+        n_gpus = torch.xpu.device_count()
+        
     max_memory = f'{args.max_memory_MB}MB'
     max_memory = {i: max_memory for i in range(n_gpus)}
     device_map = "auto"
 
     # if we are in a distributed setting, we need to set the device map and max memory per device
-    if os.environ.get('LOCAL_RANK'):
+    if os.environ.get('LOCAL_RANK') is not None:
         local_rank = int(os.environ.get('LOCAL_RANK', '0'))
         device_map = {'': local_rank}
         max_memory = {'': max_memory[local_rank]}
@@ -294,24 +329,55 @@ def get_accelerate_model(args, checkpoint_dir):
         use_auth_token=args.use_auth_token
     )
     if compute_dtype == torch.float16 and args.bits == 4:
-        major, minor = torch.cuda.get_device_capability()
-        if major >= 8:
+        if torch.cuda.is_bf16_supported():
             print('='*80)
             print('Your GPU supports bfloat16, you can accelerate training with the argument --bf16')
             print('='*80)
+            
+    if compute_dtype == torch.float16 and (is_ipex_available() and torch.xpu.is_available()):
+        compute_dtype = torch.bfloat16
+        print('Intel XPU does not support float16 yet, so switching to bfloat16')
 
     setattr(model, 'model_parallel', True)
     setattr(model, 'is_parallelizable', True)
 
     model.config.torch_dtype=(torch.float32 if args.fp16 else (torch.bfloat16 if args.bf16 else torch.float32))
 
+    # Tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(
+        args.model_name_or_path,
+        cache_dir=args.cache_dir,
+        padding_side="right",
+        use_fast=False, # Fast tokenizer giving issues.
+        tokenizer_type='llama' if 'llama' in args.model_name_or_path else None, # Needed for HF name change
+        trust_remote_code=args.trust_remote_code,
+        use_auth_token=args.use_auth_token,
+    )
+    if tokenizer._pad_token is None:
+        smart_tokenizer_and_embedding_resize(
+            special_tokens_dict=dict(pad_token=DEFAULT_PAD_TOKEN),
+            tokenizer=tokenizer,
+            model=model,
+        )
+    if 'llama' in args.model_name_or_path or isinstance(tokenizer, LlamaTokenizer):
+        # LLaMA tokenizer may not have correct special tokens set.
+        # Check and add them if missing to prevent them from being parsed into different tokens.
+        # Note that these are present in the vocabulary.
+        # Note also that `model.config.pad_token_id` is 0 which corresponds to `<unk>` token.
+        print('Adding special tokens.')
+        tokenizer.add_special_tokens({
+                "eos_token": tokenizer.convert_ids_to_tokens(model.config.eos_token_id),
+                "bos_token": tokenizer.convert_ids_to_tokens(model.config.bos_token_id),
+                "unk_token": tokenizer.convert_ids_to_tokens(
+                    model.config.pad_token_id if model.config.pad_token_id != -1 else tokenizer.pad_token_id
+                ),
+        })
+    
     if not args.full_finetune:
         model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=args.gradient_checkpointing)
-    if args.gradient_checkpointing:
-        model.gradient_checkpointing_enable()
 
     if not args.full_finetune:
-        if checkpoint_dir:
+        if checkpoint_dir is not None:
             print("Loading adapters from checkpoint.")
             model = PeftModel.from_pretrained(model, join(checkpoint_dir, 'adapter_model'), is_trainable=True)
         else:
@@ -337,7 +403,7 @@ def get_accelerate_model(args, checkpoint_dir):
             if hasattr(module, 'weight'):
                 if args.bf16 and module.weight.dtype == torch.float32:
                     module = module.to(torch.bfloat16)
-    return model
+    return model, tokenizer
 
 def print_trainable_parameters(args, model):
     """
@@ -355,7 +421,7 @@ def print_trainable_parameters(args, model):
         f"all params: {all_param} || "
         f"trainable: {100 * trainable_params / all_param}"
     )
-
+    
 def smart_tokenizer_and_embedding_resize(
     special_tokens_dict: Dict,
     tokenizer: transformers.PreTrainedTokenizer,
@@ -369,14 +435,14 @@ def smart_tokenizer_and_embedding_resize(
     model.resize_token_embeddings(len(tokenizer))
     
     if num_new_tokens > 0:
-        input_embeddings = model.get_input_embeddings().weight.data
-        output_embeddings = model.get_output_embeddings().weight.data
+        input_embeddings_data = model.get_input_embeddings().weight.data
+        output_embeddings_data = model.get_output_embeddings().weight.data
 
-        input_embeddings_avg = input_embeddings[:-num_new_tokens].mean(dim=0, keepdim=True)
-        output_embeddings_avg = output_embeddings[:-num_new_tokens].mean(dim=0, keepdim=True)
+        input_embeddings_avg = input_embeddings_data[:-num_new_tokens].mean(dim=0, keepdim=True)
+        output_embeddings_avg = output_embeddings_data[:-num_new_tokens].mean(dim=0, keepdim=True)
 
-        input_embeddings[-num_new_tokens:] = input_embeddings_avg
-        output_embeddings[-num_new_tokens:] = output_embeddings_avg
+        input_embeddings_data[-num_new_tokens:] = input_embeddings_avg
+        output_embeddings_data[-num_new_tokens:] = output_embeddings_avg
 
 @dataclass
 class DataCollatorForCausalLM(object):
@@ -427,7 +493,7 @@ class DataCollatorForCausalLM(object):
             'input_ids': input_ids,
             'attention_mask':input_ids.ne(self.tokenizer.pad_token_id),
         }
-        if labels:
+        if labels is not None:
             data_dict['labels'] = labels
         return data_dict
 
@@ -442,11 +508,12 @@ def extract_unnatural_instructions_data(examples, extract_reformulations=False):
             out['output'].append(instance['output'])
     if extract_reformulations:
         for example_reformulations in examples['reformulations']:
-            if example_reformulations:
+            if example_reformulations is not None:
                 for instance in example_reformulations:
                     out['input'].append(instance['instruction_with_input'])
                     out['output'].append(instance['output'])
     return out
+
 
 ALPACA_PROMPT_DICT = {
     "prompt_input": (
@@ -561,27 +628,27 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
     def format_dataset(dataset, dataset_format):
         if (
             dataset_format == 'alpaca' or dataset_format == 'alpaca-clean' or 
-            (not dataset_format and args.dataset in ['alpaca', 'alpaca-clean'])
+            (dataset_format is None and args.dataset in ['alpaca', 'alpaca-clean'])
         ):
             dataset = dataset.map(extract_alpaca_dataset, remove_columns=['instruction'])
 
         elif dataset_format == 'spider':
             dataset = dataset.map(extract_sql_dataset, remove_columns=['instruction'])
 
-        elif dataset_format == 'chip2' or (not dataset_format and args.dataset == 'chip2'):
+        elif dataset_format == 'chip2' or (dataset_format is None and args.dataset == 'chip2'):
             dataset = dataset.map(lambda x: {
                 'input': x['text'].split('\n<bot>: ')[0].replace('<human>: ', ''),
                 'output': x['text'].split('\n<bot>: ')[1],
             })
-        elif dataset_format == 'self-instruct' or (not dataset_format and args.dataset == 'self-instruct'):
+        elif dataset_format == 'self-instruct' or (dataset_format is None and args.dataset == 'self-instruct'):
             for old, new in [["prompt", "input"], ["completion", "output"]]:
                 dataset = dataset.rename_column(old, new)
-        elif dataset_format == 'hh-rlhf' or (not dataset_format and args.dataset == 'hh-rlhf'):
+        elif dataset_format == 'hh-rlhf' or (dataset_format is None and args.dataset == 'hh-rlhf'):
             dataset = dataset.map(lambda x: {
                 'input': '',
                 'output': x['chosen']
             })
-        elif dataset_format == 'oasst1' or (not dataset_format and args.dataset == 'oasst1'):
+        elif dataset_format == 'oasst1' or (dataset_format is None and args.dataset == 'oasst1'):
             dataset = dataset.map(lambda x: {
                 'input': '',
                 'output': x['text'],
@@ -609,13 +676,13 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                 test_size=args.eval_dataset_size, shuffle=True, seed=42
             )
             eval_dataset = dataset['test']
-        if args.max_eval_samples and len(eval_dataset) > args.max_eval_samples:
+        if args.max_eval_samples is not None and len(eval_dataset) > args.max_eval_samples:
             eval_dataset = eval_dataset.select(range(args.max_eval_samples))
         if args.group_by_length:
             eval_dataset = eval_dataset.map(lambda x: {'length': len(x['input']) + len(x['output'])})
     if args.do_train:
         train_dataset = dataset['train']
-        if args.max_train_samples and len(train_dataset) > args.max_train_samples:
+        if args.max_train_samples is not None and len(train_dataset) > args.max_train_samples:
             train_dataset = train_dataset.select(range(args.max_train_samples))
         if args.group_by_length:
             train_dataset = train_dataset.map(lambda x: {'length': len(x['input']) + len(x['output'])})
@@ -664,42 +731,14 @@ def train():
     if completed_training:
         print('Detected that training was already completed!')
 
-    model = get_accelerate_model(args, checkpoint_dir)
+    model, tokenizer = get_accelerate_model(args, checkpoint_dir)
 
     model.config.use_cache = False
-    print_trainable_parameters(args, model)
     print('loaded model')
     set_seed(args.seed)
 
-    # Tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(
-        args.model_name_or_path,
-        cache_dir=args.cache_dir,
-        padding_side="right",
-        use_fast=False, # Fast tokenizer giving issues.
-        # tokenizer_type='llama' if 'llama' in args.model_name_or_path else None, # Needed for HF name change
-        use_auth_token=args.use_auth_token,
-    )
-    if not tokenizer._pad_token:
-        smart_tokenizer_and_embedding_resize(
-            special_tokens_dict=dict(pad_token=DEFAULT_PAD_TOKEN),
-            tokenizer=tokenizer,
-            model=model,
-        )
-    if 'llama' in args.model_name_or_path or isinstance(tokenizer, LlamaTokenizer):
-        # LLaMA tokenizer may not have correct special tokens set.
-        # Check and add them if missing to prevent them from being parsed into different tokens.
-        # Note that these are present in the vocabulary.
-        # Note also that `model.config.pad_token_id` is 0 which corresponds to `<unk>` token.
-        print('Adding special tokens.')
-        tokenizer.add_special_tokens({
-                "eos_token": tokenizer.convert_ids_to_tokens(model.config.eos_token_id),
-                "bos_token": tokenizer.convert_ids_to_tokens(model.config.bos_token_id),
-                "unk_token": tokenizer.convert_ids_to_tokens(
-                    model.config.pad_token_id if model.config.pad_token_id != -1 else tokenizer.pad_token_id
-                ),
-        })
     data_module = make_data_module(tokenizer=tokenizer, args=args)
+
     trainer = Seq2SeqTrainer(
         model=model,
         tokenizer=tokenizer,
@@ -725,7 +764,7 @@ def train():
             })
             # mmlu_dataset = mmlu_dataset.remove_columns('subject')
         mmlu_dataset = mmlu_dataset[args.mmlu_split]
-        if args.max_mmlu_samples:
+        if args.max_mmlu_samples is not None:
             mmlu_dataset = mmlu_dataset.select(range(args.max_mmlu_samples))
         abcd_idx = [
             tokenizer("A", add_special_tokens=False).input_ids[0],
@@ -773,7 +812,8 @@ def train():
 
         trainer.add_callback(MMLUEvalCallback)
 
-    # Verifying the datatypes.
+   # Verifying the datatypes and parameter counts before training.
+    print_trainable_parameters(args, model)
     dtypes = {}
     for _, p in model.named_parameters():
         dtype = p.dtype

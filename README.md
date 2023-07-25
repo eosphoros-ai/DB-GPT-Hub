@@ -159,7 +159,7 @@ python src/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
 The whole process we will divide into three phases:
 
 * Stage 1:
-  - [ ] LLaMa
+  - [ ] LLaMa/LLaMa
     - [ ] LoRA
     - [x] QLoRA
   - [ ] Falcon
@@ -168,9 +168,9 @@ The whole process we will divide into three phases:
   - [ ] ChatGLM
   - [ ] BLOOM
   - [ ] WizardLM
-* Phase II.
+* Stage 2:
   * Optimize model effects and release the optimized DB-GPT-SFT model
-* Phase III:
+* Stage 3:
   * Evaluate the dataset and methodological criteria
 
 ## 5. Contributions

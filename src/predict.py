@@ -13,7 +13,10 @@ from train.train_qlora import \
 )
 
 
-
+model_path = os.path.join("./model", os.listdir("model")[1])
+checkpoint_dir = [os.path.join("./adapter", folder) for folder in os.listdir("./adapter") if "checkpoint" in folder][0]
+dataset_format = "spider"
+dataset = "spider"
 
 def predict():
     # Parse arguments
@@ -28,17 +31,10 @@ def predict():
         **vars(model_args), **vars(data_args), **vars(training_args), **vars(generation_args)
     )
     device = torch.device("cuda:0")
-    model = get_accelerate_model(args, args.checkpoint_dir)
+    model,tokenizer = get_accelerate_model(args, checkpoint_dir)
     model.config.use_cache = False
     model.to(device)
-    tokenizer = AutoTokenizer.from_pretrained(
-        args.model_name_or_path,
-        cache_dir=args.cache_dir,
-        padding_side="right",
-        use_fast=False, # Fast tokenizer giving issues.
-        # tokenizer_type='llama' if 'llama' in args.model_name_or_path else None, # Needed for HF name change
-        use_auth_token=args.use_auth_token,
-    )
+   
 
     # Load dataset.
     def load_data(dataset_name):
@@ -59,7 +55,7 @@ def predict():
         elif dataset_name == 'vicuna':
             raise NotImplementedError("Vicuna data was not released.")
         elif dataset_name == 'spider':
-            return load_dataset("json", data_files="data/"+args.dataset+"/sql_fintune_data.json")
+            return load_dataset("json", data_files="sql_fintune_data.json")
         else:
             if os.path.exists(dataset_name):
                 try:

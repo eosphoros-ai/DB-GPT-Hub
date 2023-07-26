@@ -965,6 +965,7 @@ if __name__ == "__main__" :
     parser = argparse.ArgumentParser(description='Process some URLs.')
     parser.add_argument('--data_filepaths', metavar='U', type=str, nargs='+',
                         default=["data/spider/train_spider.json", "data/spider/train_others.json"])
+    parser.add_argument('--output_file', type=str, default="sql_fintune_data.json")
     args = parser.parse_args()
     
     data_filepaths = args.data_filepaths
@@ -982,6 +983,6 @@ if __name__ == "__main__" :
         extended_data.update({key: value for key, value in extend_data.items() if key in fields})
         sql_fintune_data.append(extended_data)
         sql_fintune_data
-    with open('sql_fintune_data.json', 'w') as f:
+    with open(args.output_file, 'w') as f:
       json.dump(sql_fintune_data, f)
     print("The raw datasets has been generated")

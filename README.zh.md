@@ -65,7 +65,7 @@ conda activate dbgpt_hub
 pip install -r requirements.txt 
 mkdir model 
 ```
-将模型文件放在这里的新建model文件夹下面
+将下载的大模型文件放在这里的新建model文件夹下面
 
 ### 3.2、数据准备
 
@@ -143,7 +143,9 @@ SQL_PROMPT_DICT = {
 python src/train/train_qlora.py --model_name_or_path <path_or_name>
 ```
 
-微调后的模型权重会默认保存到output文件夹下面
+微调后的模型权重会默认保存到output文件夹下面。
+对应的脚本在scripts/spider_qlora_finetune.sh中，可以增加参数如“--output_dir ./adapter \”来进行指定输出路径。
+对于多卡运行，scripts/spider_qlora_finetune.sh中由于默认是基于QLoRA，建议在一开始就指定运行的GPU编号。如由`python src/train/train_qlora.py` 改为`CUDA_VISIBLE_DEVICES=0,1,2,3 python src/train/train_qlora.py` 。
 
 ### 3.4、合并权重
 
@@ -152,7 +154,7 @@ python src/train/train_qlora.py --model_name_or_path <path_or_name>
 ```bash
 python src/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
 ```
-
+在3.3中生成的输出路径对应此3.4中的“--peft_model_path”参数，如其值默认为“./adapter/checkpoint-10/adapter_model”，其他相关参数的默认值也均在merge_peft_adapters.py中的get_arg函数中。
 ## 四、发展路线
 
 整个过程我们会分为三个阶段：

@@ -75,6 +75,8 @@ DEFAULT_PAD_TOKEN = "[PAD]"
 
 model_path = os.path.join("./model", os.listdir("model")[1])
 
+#CUDA_VISIBLE_DEVICES=1,2,3 #Multi-GPUs training and assignment are displayed as
+
 @dataclass
 class ModelArguments:
     model_name_or_path: Optional[str] = field(
@@ -716,6 +718,7 @@ def get_last_checkpoint(checkpoint_dir):
     return None, False # first training
 
 
+
 def train():
     hfparser = transformers.HfArgumentParser((
         ModelArguments, DataArguments, TrainingArguments, GenerationArguments
@@ -738,7 +741,7 @@ def train():
     set_seed(args.seed)
 
     data_module = make_data_module(tokenizer=tokenizer, args=args)
-
+    
     trainer = Seq2SeqTrainer(
         model=model,
         tokenizer=tokenizer,
@@ -846,7 +849,8 @@ def train():
     # Prediction
     if args.do_predict:
         logger.info("*** Predict ***")
-        prediction_output = trainer.predict(test_dataset=data_module['predict_dataset'],metric_key_prefix="predict")
+        test_dataset = load_dataset("json", data_files="dev_sql.json")
+        prediction_output = trainer.predict(test_dataset=test_dataset if test_dataset else eval_dataset, metric_key_prefix="predict")
         prediction_metrics = prediction_output.metrics
         predictions = prediction_output.predictions
         predictions = np.where(predictions != -100, predictions, tokenizer.pad_token_id)

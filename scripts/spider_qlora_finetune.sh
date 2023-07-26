@@ -2,6 +2,11 @@
 
 python src/sql_data_process.py 
 
+python src/sql_data_process.py \
+    --data_filepaths data/spider/dev.json \
+    --output_file dev_sql.json \
+
+
 python src/train/train_qlora.py \
     --use_auth \
     --logging_steps 10 \

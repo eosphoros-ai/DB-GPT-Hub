@@ -1,6 +1,6 @@
 # DB-GPT-Hub:利用LLMs实现Text-to-SQL
 
-[**英文**](README.md) |[**Discord**](https://discord.gg/rBgtJW8U)|[**Wechat**](assets/wechat.jpg)
+[**英文**](README.md) |[**Discord**](https://discord.gg/rBgtJW8U)|[**Wechat**](https://github.com/csunny/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)
 
 ## 一、什么是DB-GPT-Hub
 
@@ -24,7 +24,7 @@ DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包�
 
 DB-GPT-HUB目前支持的base模型有：
 
-* LLaMa系列
+* LLaMa/LLaMa2系列
   * alpaca
   * vicuna
   * guanaco

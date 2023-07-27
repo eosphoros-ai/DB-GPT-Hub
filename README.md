@@ -1,6 +1,6 @@
 # DB-GPT-Hub: Text-to-SQL parsing with LLMs
 
-[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/rBgtJW8U)|[**Wechat**](assets/wechat.jpg)
+[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/rBgtJW8U)|[**Wechat**](https://github.com/csunny/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)
 
 ## 1. What is DB-GPT-Hub
 
@@ -24,7 +24,7 @@ The following publicly available text-to-sql datasets are used for this project:
 
 DB-GPT-HUB currently supports the following base models:
 
-* LLaMa
+* LLaMa/LLaMa2
   * alpaca
   * vicuna
   * guanaco
@@ -159,7 +159,7 @@ python src/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
 The whole process we will divide into three phases:
 
 * Stage 1:
-  - [ ] LLaMa/LLaMa
+  - [ ] LLaMa/LLaMa2
     - [ ] LoRA
     - [x] QLoRA
   - [ ] Falcon

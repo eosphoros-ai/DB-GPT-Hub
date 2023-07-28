@@ -104,28 +104,50 @@ def predict():
     dataset = load_data(args.dataset)
     dataset = format_dataset(dataset, args.dataset_format)
     dataset = dataset["train"]["input"]
+    dataset_labels = dataset["train"]["output"] 
 
     result = []
     predict_batchsize = 24
     idx = 0
-    while idx < len(dataset):
-        if idx + predict_batchsize < len(dataset):
+    nums_examples =len(dataset)
+    while idx < nums_examples:
+        if idx + predict_batchsize < nums_examples:
             inputs = dataset[idx: idx+predict_batchsize]
             idx += predict_batchsize
         else:
-            inputs = dataset[idx: len(dataset)]
-            idx = len(dataset)
+            inputs = dataset[idx: nums_examples]
+            idx = nums_examples
         encoded_inputs = tokenizer.batch_encode_plus(inputs, 
                                                      return_tensors="pt", 
                                                      padding=True, truncation=True, 
                                                      max_length=512
                                                     )
         encoded_inputs = {name: tensor.to(device) for name, tensor in encoded_inputs.items()}
-        outputs = model.generate(**encoded_inputs, max_length=512)
-        for output in outputs:
+
+        ## support different type LLM 
+        if re.search(r'(?i)falcon', model_path) in model_path:
+            generate_kwargs = {
+              "input_ids": encoded_inputs["input_ids"], 
+              "attention_mask": encoded_inputs["attention_mask"]
+            }
+            outputs = model.generate(**generate_kwargs, max_length=512)
+        elif  re.search(r'(?i)llama', model_path):
+            outputs = model.generate(**encoded_inputs, max_length=512)
+        else:
+            print("right now,not support well")
+
+        ## support the compared format directly ,like origin inputs: \n   orgin outputs labels \n  predict;
+        for i,output in  enumerate(outputs):
+            input_idx = idx-predict_batchsize+i
             prediction = tokenizer.decode(output, skip_special_tokens=True)
             response = re.split(r"Response:\s*", prediction)[-1]
-            result.append(response.replace("\n", ""))
+            compose_i = "origin inputs:\t"+ dataset[input_idx].replace("\n", "") + "\n"+"orgin outputs labels:\t" + dataset_labels[input_idx].replace("\n", "") + "\n"+"predict \t"+ response.replace("\n", "")
+            result.append(compose_i)
+        ## origin only predict format
+        # for output in outputs:
+        #     prediction = tokenizer.decode(output, skip_special_tokens=True)
+        #     response = re.split(r"Response:\s*", prediction)[-1]
+        #     result.append(response.replace("\n", ""))
         print(result)
         print(idx)
     return args.dataset, result

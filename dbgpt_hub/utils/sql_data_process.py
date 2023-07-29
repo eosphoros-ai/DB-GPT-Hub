@@ -965,12 +965,12 @@ if __name__ == "__main__" :
     parser = argparse.ArgumentParser(description='Process some URLs.')
     parser.add_argument('--data_filepaths', metavar='U', type=str, nargs='+',
                         default=["data/spider/train_spider.json", "data/spider/train_others.json"])
-    parser.add_argument('--output_file', type=str, default="sql_fintune_data.json")
+    parser.add_argument('--output_file', type=str, default="sql_finetune_data.json")
     args = parser.parse_args()
     
     data_filepaths = args.data_filepaths
     raw_datasets  = generate_data(data_filepaths,"data/spider/database")
-    sql_fintune_data = []
+    sql_finetune_data = []
     fields = ["instruction","input","output"]
     for raw_data in tqdm(raw_datasets):
         extend_data = deepcopy(raw_data)
@@ -981,8 +981,8 @@ if __name__ == "__main__" :
                 "output": seq_out})
         extended_data = {}
         extended_data.update({key: value for key, value in extend_data.items() if key in fields})
-        sql_fintune_data.append(extended_data)
-        sql_fintune_data
+        sql_finetune_data.append(extended_data)
+        sql_finetune_data
     with open(args.output_file, 'w') as f:
-      json.dump(sql_fintune_data, f)
+      json.dump(sql_finetune_data, f)
     print("The raw datasets has been generated")

@@ -1,13 +1,13 @@
 #!/bin/bash
 
-python src/sql_data_process.py 
+python dbgpt_hub/utils/sql_data_process.py 
 
-python src/sql_data_process.py \
+python dbgpt_hub/utils/sql_data_process.py \
     --data_filepaths data/spider/dev.json \
     --output_file dev_sql.json \
 
 
-python src/train/train_qlora.py \
+python train_qlora.py \
     --use_auth \
     --logging_steps 10 \
     --save_strategy steps \
@@ -47,4 +47,4 @@ python src/train/train_qlora.py \
     --weight_decay 0.0 \
     --seed 0 \
     
-python src/utils/merge_peft_adapters.py
+python dbgpt_hub/utils/merge_peft_adapters.py

@@ -164,11 +164,11 @@ python dbgpt_hub/utils/merge_peft_adapters.py --base_model_name_or_path <path_or
 The whole process we will divide into three phases:
 
 * Stage 1:
-  - [ ] LLaMa/LLaMa2
-    - [ ] LoRA
+  - [x] LLaMa/LLaMa2
+    - [x] LoRA
     - [x] QLoRA
-  - [ ] Falcon
-    - [ ] LoRA
+  - [x] Falcon
+    - [x] LoRA
     - [x] QLoRA
   - [ ] ChatGLM
   - [ ] BLOOM

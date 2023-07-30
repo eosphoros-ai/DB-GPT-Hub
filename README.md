@@ -20,6 +20,9 @@ The following publicly available text-to-sql datasets are used for this project:
 - [BIRD-SQL:](https://bird-bench.github.io/) A large-scale cross-domain text-to-SQL benchmark in English, with a particular focus on large database content. The dataset contains 12,751 text-to-SQL data pairs and 95 databases with a total size of 33.4 GB across 37 occupational domains. The BIRD-SQL dataset bridges the gap between text-to-SQL research and real-world applications by exploring three additional challenges, namely dealing with large and messy database values, external knowledge inference and optimising SQL execution efficiency.
 - [CoSQL:](https://yale-lily.github.io/cosql) A corpus for building cross-domain conversational text-to-SQL systems. It is a conversational version of the Spider and SParC tasks. CoSQL consists of 30k+ rounds and 10k+ annotated SQL queries from Wizard-of-Oz's collection of 3k conversations querying 200 complex databases across 138 domains. Each conversation simulates a realistic DB query scenario in which a staff member explores the database as a user and a SQL expert uses SQL to retrieve answers, clarify ambiguous questions, or otherwise inform.
 
+
+After the data is downloaded by default, it is placed under the first-level directory data, such as data/spider.
+
 ### 2.2. Model
 
 DB-GPT-HUB currently supports the following base models:
@@ -116,7 +119,14 @@ This data is then expressed in natural language, e.g:
 The code implementation of the above data pre-processing section is as follows:
 
 ```bash
-python dbgpt_hub/utils/sql_data_process.py
+## 生成train数据
+python dbgpt_hub/utils/sql_data_process.py 
+
+## 生成dev数据
+python dbgpt_hub/utils/sql_data_process.py \
+    --data_filepaths data/spider/dev.json \
+    --output_file dev_sql.json \
+
 ```
 
 When fine-tuning the model, we also customize the prompt dict to optimize the input: 

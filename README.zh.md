@@ -20,6 +20,8 @@ DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包�
 - [BIRD-SQL：](https://bird-bench.github.io/)数据集是一个英文的大规模跨领域文本到SQL基准测试，特别关注大型数据库内容。该数据集包含12,751对文本到SQL数据对和95个数据库，总大小为33.4GB，跨越37个职业领域。BIRD-SQL数据集通过探索三个额外的挑战，即处理大规模和混乱的数据库值、外部知识推理和优化SQL执行效率，缩小了文本到SQL研究与实际应用之间的差距。
 - [CoSQL:](https://yale-lily.github.io/cosql)是一个用于构建跨域对话文本到sql系统的语料库。它是Spider和SParC任务的对话版本。CoSQL由30k+回合和10k+带注释的SQL查询组成，这些查询来自Wizard-of-Oz的3k个对话集合，查询了跨越138个领域的200个复杂数据库。每个对话都模拟了一个真实的DB查询场景，其中一个工作人员作为用户探索数据库，一个SQL专家使用SQL检索答案，澄清模棱两可的问题，或者以其他方式通知。
 
+默认将数据下载后，放在一级目录data下面，如data/spider .
+
 ### 2.2、模型
 
 DB-GPT-HUB目前支持的base模型有：
@@ -51,9 +53,9 @@ DB-GPT-HUB目前支持的base模型有：
 
 ```shell
 sh scripts/qlora/qlora.sh
-sh scripts/lora/lora.sh
+sh scripts/lora/lora.sh 或者  sh scripts/lora/lora_ds.sh
 ```
-
+其中lora.sh和lora_ds.sh的区别主要是用deepspeed(ds)版本。
 ## 三、使用方法
 
 ### 3.1、环境准备
@@ -116,7 +118,13 @@ DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信�
 以上数据预处理部分的代码实现如下：
 
 ```bash
-python dbgpt_hub/utils/sql_data_process.py
+## 生成train数据
+python dbgpt_hub/utils/sql_data_process.py 
+
+## 生成dev数据
+python dbgpt_hub/utils/sql_data_process.py \
+    --data_filepaths data/spider/dev.json \
+    --output_file dev_sql.json \
 ```
 
 在模型微调时，我们还定制了prompt dict以优化输入：

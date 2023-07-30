@@ -45,12 +45,13 @@ The approximate hardware resources required to quantize and fine-tune the model 
 
 ### 2.3. Fine-tuning methods
 
-#### Spider+QLoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa)
+#### Spider+QLoRA/LoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa)
 
-This experimental project builds a dataset by adding table structure information, adjusting the parameters of the language model and then fine-tuning the LLM with QLoRA, aiming to reduce the cost of fine-tuning while increasing the accuracy and speed of SQL generation. This can be executed with the following command:
+This experimental project builds a dataset by adding table structure information, adjusting the parameters of the language model and then fine-tuning the LLM with QLoRA/LoRA, aiming to reduce the cost of fine-tuning while increasing the accuracy and speed of SQL generation. This can be executed with the following command:
 
 ```shell
-sh . /scripts/spider_qlora_finetune.sh
+sh scripts/qlora/qlora.sh
+sh scripts/lora/lora.sh
 ```
 
 ## 3. Usage
@@ -71,7 +72,7 @@ Put the model files under the new Model folder here
 
 DB-GPT-HUB uses the information matching generation method for data preparation, i.e. the SQL + Repository generation method that combines table information. This method combines data table information to better understand the structure and relationships of the data table, and is suitable for generating SQL statements that meet the requirements.
 
-Before running, you need to create a new data directory, download the dataset and place it in that directory. Here is an example of a spider dataset. The spider dataset contains three main parts:
+Before running, you need to download the SQL data set and put it in this directory. Here, take the spider data set as an example. The spider data set consists of three main parts:
 
 * train_spide.json: each text-to-SQL QA data and database related data is stored as a json file
   * db_id: the name of the database
@@ -115,7 +116,7 @@ This data is then expressed in natural language, e.g:
 The code implementation of the above data pre-processing section is as follows:
 
 ```bash
-python src/sql_data_process.py
+python dbgpt_hub/utils/sql_data_process.py
 ```
 
 When fine-tuning the model, we also customize the prompt dict to optimize the input: 
@@ -138,20 +139,24 @@ SQL_PROMPT_DICT = {
 
 ### 3.3. Model fine-tuning
 
-Model fine-tuning uses the QLoRA method, where we can run the following command to fine-tune the model:
+Model fine-tuning uses the QLoRA/LoRA method, where we can run the following command to fine-tune the model:
 
 ```bash
-python src/train/train_qlora.py --model_name_or_path <path_or_name>
+python train_qlora.py --model_name_or_path <path_or_name>
 ```
+The fine-tuned model weights are saved under the adapter folder by default. The full training script is in scripts/qlora/qlora.sh.For multi-card runs, scripts/spider_qlora_finetune.sh is based on QLoRA by default, so it is recommended to specify the GPU number to run at the beginning. e.g. from `python src/train/train_qlora.py` to `CUDA_VISIBLE_DEVICES=0,1,2,3 python src/train/train_qlora.py` 
 
-The fine-tuned model weights will be saved to the output folder by default
+```bash
+python train_lora.py --model_name_or_path <path_or_name>
+```
+The full training script is in scripts/lora/.
 
 ### 3.4. Merge weights
 
 Run the following command to generate the final merged model:
 
 ```bash
-python src/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
+python dbgpt_hub/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
 ```
 
 ## 4. RoadMap 

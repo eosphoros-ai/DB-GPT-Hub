@@ -45,12 +45,13 @@ DB-GPT-HUB目前支持的base模型有：
 
 ### 2.3、微调方法
 
-#### Spider+QLoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa)
+#### Spider+QLoRA/LoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa)
 
-该实验项目通过加入表结构信息、调整语言模型的参数等方式构建数据集，然后用QLoRA对LLM模型进行微调，旨在降低微调成本的同时提高SQL生成的准确性和速度。可以通过以下命令来执行：
+该实验项目通过加入表结构信息、调整语言模型的参数等方式构建数据集，然后用QLoRA/LoRA对LLM模型进行微调，旨在降低微调成本的同时提高SQL生成的准确性和速度。可以通过以下命令来执行：
 
 ```shell
-sh ./scripts/spider_qlora_finetune.sh
+sh scripts/qlora/qlora.sh
+sh scripts/lora/lora.sh
 ```
 
 ## 三、使用方法
@@ -65,13 +66,13 @@ conda activate dbgpt_hub
 pip install -r requirements.txt 
 mkdir model 
 ```
-将下载的大模型文件放在这里的新建model文件夹下面
+你可以将下载的大模型文件放在新建model文件夹下面
 
 ### 3.2、数据准备
 
 DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信息的 SQL + Repository 生成方式，这种方式结合了数据表信息，能够更好地理解数据表的结构和关系，适用于生成符合需求的 SQL 语句。
 
-运行前需要新建 data 目录，将数据集下载后放在该目录下。这里以spider数据集为例，spider数据集主要包含三部分：
+运行前需要将SQL数据集下载后放在该目录下。这里以spider数据集为例，spider数据集主要包含三部分：
 
 * train_spide.json：每条text-to-SQL的QA数据与数据库相关数据存储为json文件
   * db_id：数据库名称
@@ -115,7 +116,7 @@ DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信�
 以上数据预处理部分的代码实现如下：
 
 ```bash
-python src/sql_data_process.py
+python dbgpt_hub/utils/sql_data_process.py
 ```
 
 在模型微调时，我们还定制了prompt dict以优化输入：
@@ -137,34 +138,41 @@ SQL_PROMPT_DICT = {
 
 ### 3.3、模型微调
 
-模型微调使用的是qlora方法，我们可以运行以下命令来微调模型：
+模型微调使用的是qlora和lora方法，我们可以运行以下命令来微调模型：
 
 ```bash
-python src/train/train_qlora.py --model_name_or_path <path_or_name>
+python train_qlora.py --model_name_or_path <path_or_name>
 ```
 
-微调后的模型权重会默认保存到output文件夹下面。
-对应的脚本在scripts/spider_qlora_finetune.sh中，可以增加参数如“--output_dir ./adapter \”来进行指定输出路径。
+微调后的模型权重会默认保存到adapter文件夹下面。完整的训练脚本在scripts/qlora/qlora.sh中。
 对于多卡运行，scripts/spider_qlora_finetune.sh中由于默认是基于QLoRA，建议在一开始就指定运行的GPU编号。如由`python src/train/train_qlora.py` 改为`CUDA_VISIBLE_DEVICES=0,1,2,3 python src/train/train_qlora.py` 。
+
+当使用lora微调时，我们可以用以下指令：
+
+```bash
+python train_lora.py --model_name_or_path <path_or_name>
+```
+完整的训练脚本在scripts/lora/中。
 
 ### 3.4、合并权重
 
 运行以下命令来生成最终合并的模型：
 
 ```bash
-python src/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
+python dbgpt_hub/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
 ```
 在3.3中生成的输出路径对应此3.4中的“--peft_model_path”参数，如其值默认为“./adapter/checkpoint-10/adapter_model”，其他相关参数的默认值也均在merge_peft_adapters.py中的get_arg函数中。
+
 ## 四、发展路线
 
 整个过程我们会分为三个阶段：
 
 * 阶段一：
-  - [ ] LLaMa/LLaMa2
-    - [ ] LoRA
+  - [x] LLaMa/LLaMa2
+    - [x] LoRA
     - [x] QLoRA
-  - [ ] Falcon
-    - [ ] LoRA
+  - [x] Falcon
+    - [x] LoRA
     - [x] QLoRA
   - [ ] ChatGLM
   - [ ] BLOOM

@@ -18,12 +18,6 @@ self-instruct:
   dataset_format: self-instruct
   multi_turn: False
 
-guanaco:
-  hf_hub_url: JosephusCheung/GuanacoDataset
-  local_path: ''
-  dataset_format: guanaco
-  multi_turn: False
-
 
 openassistant-guanaco:
   hf_hub_url: timdettmers/openassistant-guanaco

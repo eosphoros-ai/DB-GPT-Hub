@@ -39,6 +39,7 @@ class DataArguments:
         metadata={
             'help': 'Which dataset to finetune on. See datamodule for options.'
         })
+
     dataset_dir: str = field(
         default=None,
         metadata={
@@ -57,10 +58,9 @@ class DataArguments:
             'help':
             'Which template to use for constructing prompts in multi-turn dataset training and inference.'
         })
-    
     eval_dataset_size: Optional[float] = field(
         default=0.1, metadata={'help': 'Size of validation dataset.'})
-    
+
     max_train_samples: Optional[int] = field(
         default=None,
         metadata={
@@ -68,6 +68,22 @@ class DataArguments:
             'For debugging purposes or quicker training, truncate the number of training examples to this '
             'value if set.'
         },
+    )
+    source_max_len: int = field(
+        default=1024,
+        metadata={"help": "Maximum source sequence length. Sequences will be right padded (and possibly truncated)."},
+    )
+    target_max_len: int = field(
+        default=256,
+        metadata={"help": "Maximum target sequence length. Sequences will be right padded (and possibly truncated)."},
+    )
+    dataset: str = field(
+        default='spider',
+        metadata={"help": "Which dataset to finetune on. See datamodule for options."}
+    )
+    dataset_format: Optional[str] = field(
+        default="spider",
+        metadata={"help": "Which dataset format is used. [alpaca|chip2|self-instruct|hh-rlhf]"}
     )
 
     max_eval_samples: Optional[int] = field(

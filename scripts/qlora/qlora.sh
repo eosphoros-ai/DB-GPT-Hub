@@ -6,8 +6,10 @@ python dbgpt_hub/utils/sql_data_process.py \
     --data_filepaths data/spider/dev.json \
     --output_file dev_sql.json \
 
-
 python train_qlora.py \
+    --model_name_or_path meta-llama/Llama-2-7b-hf \
+    --output_dir adapter \
+    --dataset_name spider \
     --use_auth \
     --logging_steps 10 \
     --save_strategy steps \
@@ -15,7 +17,6 @@ python train_qlora.py \
     --save_steps 500 \
     --save_total_limit 40 \
     --evaluation_strategy steps \
-    --eval_dataset_size 1024 \
     --max_eval_samples 1000 \
     --per_device_eval_batch_size 1 \
     --max_new_tokens 32 \
@@ -26,7 +27,6 @@ python train_qlora.py \
     --do_train \
     --lora_r 64 \
     --lora_alpha 16 \
-    --lora_modules all \
     --double_quant \
     --quant_type nf4 \
     --bf16 \

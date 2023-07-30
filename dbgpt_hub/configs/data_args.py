@@ -98,8 +98,7 @@ class DataArguments:
     def init_for_training(self):  # support mixing multiple datasets
         dataset_names = [ds.strip() for ds in self.dataset_name.split(',')]
         this_dir = os.path.dirname(os.path.abspath(__file__))
-        datasets_info_path = os.path.join(this_dir, '../..', 'data',
-                                          'dataset_info.yaml')
+        datasets_info_path = os.path.join(this_dir, '../..', 'data','data_info.yaml')
         with open(datasets_info_path, 'r') as f:
             datasets_info = yaml.safe_load(f)
 

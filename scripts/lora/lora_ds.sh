@@ -1,6 +1,13 @@
+python dbgpt_hub/utils/sql_data_process.py 
+
+python dbgpt_hub/utils/sql_data_process.py \
+    --data_filepaths data/spider/dev.json \
+    --output_file dev_sql.json \
+
 CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 train_lora.py \
+    --model_name_or_path meta-llama/Llama-2-7b-hf \
     --data_path sql_finetune_data.json \
-    --output_dir work_dir/alpaca_full-finetune \
+    --output_dir adapter \
     --num_train_epochs 3 \
     --per_device_train_batch_size 4 \
     --per_device_eval_batch_size 4 \
@@ -20,3 +27,5 @@ CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 train_lora.py \
     --do_eval \
     --gradient_checkpointing True \
     --deepspeed "scripts/ds_config/zero3_auto.json"
+    
+python dbgpt_hub/utils/merge_peft_adapters.py

@@ -14,12 +14,12 @@ SQL_PROMPT_DICT = {
     "prompt_input": (
         "I want you to act as a SQL terminal in front of an example database, 
         you need to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.  
-        ###The instruction is {instruction}, ###So please tell me {input} ###Response:"
+        The instruction is {instruction}, So please tell me {input} Response:"
     ),
     "prompt_no_input": (
         "I want you to act as a SQL terminal in front of an example database, 
         you need to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.  
-        ###The instruction is {instruction}, ###Response:"
+        The instruction is {instruction}, Response:"
     ),
 }
 def extract_sql_dataset(example):

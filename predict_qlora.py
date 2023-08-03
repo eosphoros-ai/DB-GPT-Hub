@@ -18,14 +18,6 @@ from datasets import load_dataset, Dataset
 import pandas as pd
 
 
-# LLM path
-model_path = os.path.join("./model", os.listdir("model")[1])
-# qlora adapter outputer path
-checkpoint_dir = [os.path.join("./adapter", folder) for folder in os.listdir("./adapter") if "checkpoint" in folder][0]
-dataset_format = "spider"
-dataset = "spider"
-
-
 ALPACA_PROMPT_DICT = {
     "prompt_input": (
         "Below is an instruction that describes a task, paired with an input that provides further context. "
@@ -103,7 +95,7 @@ def predict():
 
 
     # device = torch.device("cuda:0")
-    model,tokenizer = get_accelerate_model(args, checkpoint_dir)
+    model,tokenizer = get_accelerate_model(args)
     model.config.use_cache = False
     # model.to(device)
    

@@ -1,8 +1,9 @@
 #!/bin/bash
 
+python dbgpt_hub/utils/sql_data_process.py \
+    --data_filepaths data/spider/dev.json \
+    --output_file dev_sql.json \
+    
+python predict.py \
+    --model_name_or_path merged_model \
 
-python src/predict.py \
-    --model_name_or_path model/vicuna-7b-delta-v1.3 \
-    --checkpoint_dir adapter/checkpoint-7000 \
-    --dataset_format spider \
-    --dataset spider \

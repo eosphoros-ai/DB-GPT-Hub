@@ -11,7 +11,7 @@ from deepspeed.runtime.zero.partition_parameters import ZeroParamStatus
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from transformers import (AutoModelForCausalLM, AutoTokenizer,
                           BitsAndBytesConfig, HfArgumentParser,
-                          PreTrainedModel, PreTrainedTokenizer, Trainer,
+                          PreTrainedModel, PreTrainedTokenizer, Seq2SeqTrainer,
                           deepspeed)
 
 from dbgpt_hub.configs import DataArguments, ModelArguments, TrainingArguments
@@ -239,10 +239,10 @@ def train() -> None:
 
     # Create a Trainer object and start training
     logging.warning('Creating a Trainer...')
-    trainer = Trainer(model=model,
-                      tokenizer=tokenizer,
-                      args=training_args,
-                      **data_module)
+    trainer = Seq2SeqTrainer(model=model,
+                          tokenizer=tokenizer,
+                          args=training_args,
+                          **data_module)
 
     logging.warning('Starting training...')
     if training_args.resume_from_checkpoint and list(

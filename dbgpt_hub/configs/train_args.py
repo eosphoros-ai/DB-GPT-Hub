@@ -4,7 +4,7 @@ from transformers import TrainingArguments
 
 
 @dataclass
-class TrainingArguments(TrainingArguments):
+class TrainingArguments(Seq2SeqTrainingArguments):
     cache_dir: Optional[str] = field(default=None)
     train_on_source: Optional[bool] = field(
         default=False,

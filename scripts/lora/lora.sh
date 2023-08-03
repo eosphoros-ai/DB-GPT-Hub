@@ -1,9 +1,5 @@
 python dbgpt_hub/utils/sql_data_process.py 
 
-python dbgpt_hub/utils/sql_data_process.py \
-    --data_filepaths data/spider/dev.json \
-    --output_file dev_sql.json \
-    
 python train_lora.py \
     --dataset_name spider \
     --output_dir adapter \

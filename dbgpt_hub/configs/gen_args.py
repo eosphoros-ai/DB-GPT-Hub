@@ -16,7 +16,7 @@ class GenerationArguments:
         default=None,
         metadata={"help": "Minimum number of new tokens to generate."}
     )
-
+    
     # Generation strategy
     do_sample: Optional[bool] = field(default=False)
     num_beams: Optional[int] = field(default=1)

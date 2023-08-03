@@ -2,10 +2,6 @@
 
 python dbgpt_hub/utils/sql_data_process.py 
 
-python dbgpt_hub/utils/sql_data_process.py \
-    --data_filepaths data/spider/dev.json \
-    --output_file dev_sql.json \
-
 python train_qlora.py \
     --model_name_or_path meta-llama/Llama-2-7b-hf \
     --output_dir adapter \

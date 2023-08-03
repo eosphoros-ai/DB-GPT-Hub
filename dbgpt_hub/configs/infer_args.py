@@ -11,7 +11,7 @@ class ModelInferenceArguments:
         default=model_path,
         metadata={'help': 'Path to pre-trained model'})
     model_max_length: int = field(
-        default=2048,
+        default=1024,
         metadata={
             'help':
             'Maximum sequence length. Sequences will be right padded (and possibly truncated).'

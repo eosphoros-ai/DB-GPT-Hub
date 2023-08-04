@@ -905,10 +905,10 @@ def serialize_schema_natural_language(
         # get the table and column of x
         db_column_names_table_id =[x["table_id"] for x in db_column_names]
         x_table_name = db_table_name_strs[db_column_names_table_id[x]]
-        x_column_name = db_column_name_strs[x]
+        x_column_name = db_column_name_strs[x-1]
         # get the table and column of y
         y_table_name = db_table_name_strs[db_column_names_table_id[y]]
-        y_column_name = db_column_name_strs[y]
+        y_column_name = db_column_name_strs[y-1]
         foreign_key_description_str = foreign_key_description(x_table_name, x_column_name, y_table_name, y_column_name)
         descriptions.append(foreign_key_description_str)
     return " ".join(descriptions)

@@ -12,14 +12,16 @@ from dbgpt_hub.utils.model_utils import smart_tokenizer_and_embedding_resize
 
 SQL_PROMPT_DICT = {
     "prompt_input": (
-        "I want you to act as a SQL terminal in front of an example database, 
-        you need to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.  
-        The instruction is {instruction}, So please tell me {input} Response:"
+        "I want you to act as a SQL terminal in front of an example database, \
+         you need only to return the sql command to me.Below is an instruction that describes a task, \
+         Write a response that appropriately completes the request.  \
+         The instruction is {instruction}, So please tell me {input}, ###Response:"
     ),
     "prompt_no_input": (
-        "I want you to act as a SQL terminal in front of an example database, 
-        you need to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.  
-        The instruction is {instruction}, Response:"
+        "I want you to act as a SQL terminal in front of an example database, \
+        you need only to return the sql command to me.Below is an instruction that describes a task, \
+        Write a response that appropriately completes the request.  \
+        The instruction is {instruction}, ###Response:"
     ),
 }
 def extract_sql_dataset(example):
@@ -131,10 +133,6 @@ def predict():
         #     response = re.split(r"Response:\s*", prediction)[-1]
         #     result.append(response.replace("\n", ""))
     return result
-
-
-
-
 
 if __name__ == "__main__":
 

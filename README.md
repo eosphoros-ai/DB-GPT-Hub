@@ -161,12 +161,28 @@ python train_lora.py --model_name_or_path <path_or_name>
 ```
 The full training script is in scripts/lora/.
 
-### 3.4. Merge weights
+### 3.4. Model Predict
 
-Run the following command to generate the final merged model:
+Create the ./data/out_pred/ folder under the project directory. This is the default output location.
+- Prediction based on LoRA
+Run the following script:
+```bash
+sh scripts/lora/get_predict_lora.sh
+```
+
+- Prediction based on QLoRA
+Run the following script:
+```bash
+sh scripts/qlora/get_predict_qlora.sh
+```
+
+### 3.5 Model Evaluation
+To evaluate model performance on the dataset, default is spider dataset.
+Run the following command:
 
 ```bash
-python dbgpt_hub/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
+cd eval
+python evaluation.py --plug_value --input  Your_model_pred_file
 ```
 
 ## 4. RoadMap 
@@ -174,23 +190,20 @@ python dbgpt_hub/utils/merge_peft_adapters.py --base_model_name_or_path <path_or
 The whole process we will divide into three phases:
 
 * Stage 1:
-  - [x] LLaMa/LLaMa2
-    - [x] LoRA
-    - [x] QLoRA
+  * Set up the basic framework, enabling end-to-end workflow from data processing, model SFT training, prediction output to evaluation based on multiple large models. As of 20230804, the entire pipeline has been established.
+  now,we has supported as follows:
+  - [x] LLaMa/LLaMa
   - [x] Falcon
-    - [x] LoRA
-    - [x] QLoRA
-  - [ ] ChatGLM
-  - [ ] BLOOM
-  - [ ] WizardLM
 * Stage 2:
-  * Optimize model effects and release the optimized DB-GPT-SFT model
+  * Optimize model performance, support fine-tuning more different models in various ways.
+  * Optimize `prompts`
+  * Release evaluation results, optimize `DB-GPT-SFT` models
 * Stage 3:
-  * Evaluate the dataset and methodological criteria
+  * Based on more papers, conduct optimizations, such as `RESDSQL`, etc.
 
 ## 5. Contributions
 
-We welcome your active participation and more comments on the dataset, model fine-tuning and effect evaluation.
+We welcome more folks to participate and provide feedback in areas like datasets, model fine-tuning, performance evaluation, paper recommendations, code reproduction, etc. Feel free to open issues or PRs and we'll actively respond.
 
 ## 6. Acknowledgements
 
@@ -205,3 +218,6 @@ Thanks to the following open source projects
 * [Falcon](https://github.com/hiyouga/LLaMA-Efficient-Tuning/blob/main/LICENSE)
 * [ChatGLM](https://github.com/search?q=ChatGLM&type=repositories)
 * [WizardLM](https://github.com/nlpxucan/WizardLM)
+*  [text-to-sql-wizardcoder](https://github.com/cuplv/text-to-sql-wizardcoder)
+* [test-suite-sql-eval](https://github.com/taoyds/test-suite-sql-eval)
+

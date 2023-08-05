@@ -11,5 +11,6 @@ rapidfuzz
 scipy
 datasets
 deepspeed>=0.10.0 
-
+sqlparse
+nltk
 

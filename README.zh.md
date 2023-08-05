@@ -162,37 +162,55 @@ python train_lora.py --model_name_or_path <path_or_name>
 ```
 完整的训练脚本在scripts/lora/中。
 
-### 3.4、合并权重
+### 3.4、预测
+项目目录下建`./data/out_pred/`文件夹，此文件夹为默认输出的位置。
+- 基于LoRA的预测
+执行如下脚本命令
+```bash
+sh scripts/lora/get_predict_lora.sh
+```
+相关默认输入输出可见， ./data/out_pred/
+- 基于QLoRA的预测
+执行如下脚本命令
+```bash
+sh scripts/qlora/get_predict_qlora.sh
+```
 
-运行以下命令来生成最终合并的模型：
+### 3.5 、模型评估
+对于模型在数据集上的效果评估,默认为在`spider`数据集上。
+运行以下命令来：
 
 ```bash
-python dbgpt_hub/utils/merge_peft_adapters.py --base_model_name_or_path <path_or_name>
+cd eval
+python evaluation.py --plug_value --input  Your_model_pred_file
 ```
-在3.3中生成的输出路径对应此3.4中的“--peft_model_path”参数，如其值默认为“./adapter/checkpoint-10/adapter_model”，其他相关参数的默认值也均在merge_peft_adapters.py中的get_arg函数中。
 
 ## 四、发展路线
 
 整个过程我们会分为三个阶段：
 
-* 阶段一：
-  - [x] LLaMa/LLaMa2
-    - [x] LoRA
-    - [x] QLoRA
+* 阶段一:
+  * 搭建基本框架，基于数个大模型打通从数据处理、模型SFT训练、预测输出和评估的整个流程，截止`20230804`我们已经整个打通。
+  我们现在支持  
+  - [x] LLaMa/LLaMa
   - [x] Falcon
-    - [x] LoRA
-    - [x] QLoRA
+  
+  We preliminarily plan to support the following models going forward. If there are new and better models, we'll keep an eye out and follow up too. Feel free to open an issue to suggest any, we'll glad to see your issues.
   - [ ] ChatGLM
   - [ ] BLOOM
+  - [ ] CodeGeeX
   - [ ] WizardLM
+  
 * 阶段二:
-  * 优化模型效果，放出优化后DB-GPT-SFT模型
+  * 优化模型效果，支持更多不同模型进行不同方式的微调。
+  * 对`prompt`优化
+  * 放出评估效果，优化后`DB-GPT-SFT`模型
 * 阶段三：
-  * 评测数据集和方法标准
+  * 基于更多论文进行优化，如`RESDSQL`等；
 
 ## 五、贡献
 
-欢迎大家在数据集、模型微调、效果评测等方面积极参与并提供更多意见。
+欢迎更多小伙伴在数据集、模型微调、效果评测、论文推荐与复现等方面参与和反馈，如提issues或者pr反馈，我们会积极给出回应。
 
 ## 六、感谢
 
@@ -207,4 +225,6 @@ python dbgpt_hub/utils/merge_peft_adapters.py --base_model_name_or_path <path_or
 * [Falcon](https://github.com/hiyouga/LLaMA-Efficient-Tuning/blob/main/LICENSE)
 * [ChatGLM](https://github.com/search?q=ChatGLM&type=repositories)
 * [WizardLM](https://github.com/nlpxucan/WizardLM)
+* [text-to-sql-wizardcoder](https://github.com/cuplv/text-to-sql-wizardcoder)
+* [test-suite-sql-eval](https://github.com/taoyds/test-suite-sql-eval)
 

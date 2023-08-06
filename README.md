@@ -119,10 +119,10 @@ This data is then expressed in natural language, e.g:
 The code implementation of the above data pre-processing section is as follows:
 
 ```bash
-## 生成train数据
+## Generate train data
 python dbgpt_hub/utils/sql_data_process.py 
 
-## 生成dev数据
+## Generate dev data
 python dbgpt_hub/utils/sql_data_process.py \
     --data_filepaths data/spider/dev.json \
     --output_file dev_sql.json \
@@ -134,15 +134,17 @@ When fine-tuning the model, we also customize the prompt dict to optimize the in
 ``` python
 SQL_PROMPT_DICT = {
     "prompt_input": (
-        "I want you to act as a SQL terminal in front of an example database. "
-        "Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n"
-        "##Instruction:\n{instruction}\n\n###Input:\n{input}\n\n###Response: "
-    ).
+        "I want you to act as a SQL terminal in front of an example database, \
+         you need only to return the sql command to me.Below is an instruction that describes a task, \
+         Write a response that appropriately completes the request.\n\n  \
+         The instruction is {instruction}, So please tell me {input}, ###Response:"
+    ),
     "prompt_no_input": (
-        "I want you to act as a SQL terminal in front of an example database. "
-        "Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n"
-        "####Instruction:\n{instruction}\n\n### Response: "
-    ).
+        "I want you to act as a SQL terminal in front of an example database, \
+        you need only to return the sql command to me.Below is an instruction that describes a task, \
+        Write a response that appropriately completes the request.\n\n  \
+        The instruction is {instruction}, ###Response:"
+    ),
 }
 
 ```
@@ -181,8 +183,7 @@ To evaluate model performance on the dataset, default is spider dataset.
 Run the following command:
 
 ```bash
-cd eval
-python evaluation.py --plug_value --input  Your_model_pred_file
+python eval/evaluation.py --plug_value --input
 ```
 
 ## 4. RoadMap 

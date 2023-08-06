@@ -1,0 +1,2 @@
+Please download the database from this [goolge drive link](https://drive.google.com/file/d/1mkCx2GOFIqNesD4y8TDAO1yX1QZORP5w/view) and decompress in this directory.
+After this step, "test-suite-sql-eval/database/atis/atis.sqlite" should be a valid file path.

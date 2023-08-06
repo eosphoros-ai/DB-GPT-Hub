@@ -111,9 +111,9 @@ First we need to extract all the information from the above data such as QA, tab
 This data is then expressed in natural language, e.g:
 
 ```
-{ "instruction": "concert_singer contains tables such as stadium, singer, concert, singer_in_concert. Table stadium has columns such as stadium_id. location, name, capacity, highest, lowest, average. table stadium has columns such as stadium_id, location, name, capacity, highest, lowest, average. stadium_id is the primary key. table singer has columns such as singer_id, name, country, song_name, song_release_year name, song_release_year, age, is_male. singer_id is the primary key. table concert has columns such as concert_id, concert_name, theme, stadium_id. year. Table singer_in_concert has columns such as concert_id, singer_id. concert_id is the primary key. The year of concert is the foreign key of location of stadium. The stadium_id of singer_in_concert is the foreign key of name of singer. concert is the foreign key of concert_name of concert.". 
-"input": "How many singers do we have?". 
-"response": "concert_singer | select count(*) from singer"}
+{"instruction": "department_management contains tables such as department, head, management. Table department has columns such as department_id, name, creation, ranking, budget_in_billions, num_employees. department_id is the primary key. Table head has columns such as head_id, name, born_state, age. head_id is the primary key. Table management has columns such as department_id, head_id, temporary_acting. department_id is the primary key. The head_id of management is the foreign key of head_id of head. The department_id of management is the foreign key of department_id of department.",
+"input": "How many heads of the departments are older than 56 ?",
+"output": "select count(*) from head where age > 56"}
 ```
 
 The code implementation of the above data pre-processing section is as follows:
@@ -136,14 +136,14 @@ SQL_PROMPT_DICT = {
     "prompt_input": (
         "I want you to act as a SQL terminal in front of an example database, \
          you need only to return the sql command to me.Below is an instruction that describes a task, \
-         Write a response that appropriately completes the request.\n\n  \
-         The instruction is {instruction}, So please tell me {input}, ###Response:"
+         Write a response that appropriately completes the request.\n"  \
+         "##Instruction:\n{instruction}\n###Input:\n{input}\n\n###Response:"
     ),
     "prompt_no_input": (
         "I want you to act as a SQL terminal in front of an example database, \
         you need only to return the sql command to me.Below is an instruction that describes a task, \
-        Write a response that appropriately completes the request.\n\n  \
-        The instruction is {instruction}, ###Response:"
+        Write a response that appropriately completes the request.\n"  \
+        "####Instruction:\n{instruction}\n\###Response: "
     ),
 }
 

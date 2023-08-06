@@ -908,7 +908,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--input', dest='input', type=str, help="the path to the input file", required=True)
     parser.add_argument('--gold', dest='gold', type=str, help="the path to the gold queries", default="")
-    parser.add_argument('--db', dest='db', type=str, help="the directory that contains all the databases and test suites", default="./../data/spider/database")
+    parser.add_argument('--db', dest='db', type=str, help="the directory that contains all the databases and test suites", default="data/spider/database")
     parser.add_argument('--table', dest='table', type=str, help="the tables.json schema file", default="")
     parser.add_argument('--etype', dest='etype', type=str, default='exec',
                         help="evaluation type, exec for test suite accuracy, match for the original exact set match accuracy",
@@ -930,12 +930,12 @@ if __name__ == "__main__":
     # Prepare output file path by appending "2sql" before ".txt" if --natsql is true
     if args.natsql:
         output_file_path = args.input.rsplit('.', 1)[0] + '2sql.' + args.input.rsplit('.', 1)[1]
-        args.gold = "./data/gold_natsql2sql.txt"
-        args.table = "./data/tables_for_natsql2sql.json"
+        args.gold = "./eval/data/gold_natsql2sql.txt"
+        args.table = "./eval/data/tables_for_natsql2sql.json"
     else:
         output_file_path = args.input
-        args.gold = "./data/gold.txt"
-        args.table = "./data/tables.json"
+        args.gold = "./eval/data/gold.txt"
+        args.table = "./eval/data/tables.json"
     args.pred = output_file_path
     
 

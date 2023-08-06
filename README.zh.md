@@ -61,7 +61,7 @@ sh scripts/lora/lora.sh 或者  sh scripts/lora/lora_ds.sh
 ### 3.1、环境准备
 
 ```
-git clone https://github.com/csunny/DB-GPT-Hub.git
+git clone https://github.com/eosphoros-ai/DB-GPT-Hub.git
 cd DB-GPT-Hub
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub

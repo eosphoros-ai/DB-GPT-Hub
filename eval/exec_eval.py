@@ -15,10 +15,10 @@ import subprocess
 from itertools import chain
 
 
-
 threadLock = threading.Lock()
 TIMEOUT = 60
-EXEC_TMP_DIR = 'tmp/'
+EXEC_TMP_DIR = "tmp/"
+
 
 def permute_tuple(element: Tuple, perm: Tuple) -> Tuple:
     assert len(element) == len(perm)
@@ -156,13 +156,14 @@ async def exec_on_db_(sqlite_path: str, query: str) -> Tuple[str, Any]:
         cursor.connection.close()
         return "exception", e
 
+
 async def exec_on_db(
     sqlite_path: str, query: str, process_id: str = "", timeout: int = TIMEOUT
 ) -> Tuple[str, Any]:
     try:
         return await asyncio.wait_for(exec_on_db_(sqlite_path, query), timeout)
     except asyncio.TimeoutError:
-        return ('exception', TimeoutError)
+        return ("exception", TimeoutError)
     except Exception as e:
         return ("exception", e)
 
@@ -170,7 +171,7 @@ async def exec_on_db(
 # postprocess the model predictions to avoid execution errors
 # e.g. removing spaces between ">" and "="
 def postprocess(query: str) -> str:
-    query = query.replace('> =', '>=').replace('< =', '<=').replace('! =', '!=')
+    query = query.replace("> =", ">=").replace("< =", "<=").replace("! =", "!=")
     return query
 
 
@@ -181,7 +182,14 @@ def postprocess(query: str) -> str:
 # 0 if denotationally equivalent
 # 1 otherwise
 # the meaning of each auxillary argument can be seen in the parser definition in evaluation.py
-def eval_exec_match(db: str, p_str: str, g_str: str, plug_value: bool, keep_distinct: bool, progress_bar_for_each_datapoint: bool) -> int:
+def eval_exec_match(
+    db: str,
+    p_str: str,
+    g_str: str,
+    plug_value: bool,
+    keep_distinct: bool,
+    progress_bar_for_each_datapoint: bool,
+) -> int:
     # post-process the prediction.
     # e.g. removing spaces between ">" and "="
     p_str, g_str = postprocess(p_str), postprocess(g_str)
@@ -194,11 +202,15 @@ def eval_exec_match(db: str, p_str: str, g_str: str, plug_value: bool, keep_dist
     # if there is order by in query, then we assume order of the rows matter
     # order by might also be used to find the max/min instead of sorting,
     # but in that case the result mostly only contains one row and hence order_matters does not make a difference
-    order_matters = 'order by' in g_str.lower()
+    order_matters = "order by" in g_str.lower()
 
     # find all databases in the same directory
     db_dir = os.path.dirname(db)
-    db_paths = [os.path.join(db_dir, basename) for basename in os.listdir(db_dir) if '.sqlite' in basename]
+    db_paths = [
+        os.path.join(db_dir, basename)
+        for basename in os.listdir(db_dir)
+        if ".sqlite" in basename
+    ]
 
     preds = [p_str]
     # if plug in value (i.e. we do not consider value prediction correctness)
@@ -211,7 +223,6 @@ def eval_exec_match(db: str, p_str: str, g_str: str, plug_value: bool, keep_dist
         preds = chain([p_str], preds)
 
     for pred in preds:
-
         pred_passes = 1
         # compare the gold and predicted denotations on each database in the directory
         # wrap with progress bar if required
@@ -225,10 +236,12 @@ def eval_exec_match(db: str, p_str: str, g_str: str, plug_value: bool, keep_dist
             p_flag, p_denotation = asyncio.run(exec_on_db(db_path, pred))
 
             # we should expect the gold to be succesfully executed on the database
-            assert g_flag != 'exception', 'gold query %s has error on database file %s' % (g_str, db_path)
+            assert (
+                g_flag != "exception"
+            ), "gold query %s has error on database file %s" % (g_str, db_path)
 
             # wrong if execution fails
-            if p_flag == 'exception':
+            if p_flag == "exception":
                 pred_passes = 0
 
             # if denotations are not equivalent, the prediction must be wrong

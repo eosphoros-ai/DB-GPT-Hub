@@ -9,12 +9,13 @@ class GenerationArguments:
     # Length arguments
     max_new_tokens: Optional[int] = field(
         default=128,
-        metadata={"help": "Maximum number of new tokens to be generated in evaluation or prediction loops"
-                          "if predict_with_generate is set."}
+        metadata={
+            "help": "Maximum number of new tokens to be generated in evaluation or prediction loops"
+            "if predict_with_generate is set."
+        },
     )
-    min_new_tokens : Optional[int] = field(
-        default=None,
-        metadata={"help": "Minimum number of new tokens to generate."}
+    min_new_tokens: Optional[int] = field(
+        default=None, metadata={"help": "Minimum number of new tokens to generate."}
     )
 
     # Generation strategy
@@ -33,9 +34,9 @@ class GenerationArguments:
     repetition_penalty: Optional[float] = field(default=1.0)
     length_penalty: Optional[float] = field(default=1.0)
     no_repeat_ngram_size: Optional[int] = field(default=0)
-    
+
     def to_dict(self) -> Dict[str, Any]:
         args = asdict(self)
-        if args.get('max_new_tokens', None):
-            args.pop('max_length', None)
+        if args.get("max_new_tokens", None):
+            args.pop("max_length", None)
         return args

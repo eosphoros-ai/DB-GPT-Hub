@@ -7,26 +7,27 @@ import pandas as pd
 from datasets import Dataset, DatasetDict, concatenate_datasets, load_dataset
 
 IGNORE_INDEX = -100
-DEFAULT_PAD_TOKEN = '[PAD]'
-DEFAULT_EOS_TOKEN = '</s>'
-DEFAULT_BOS_TOKEN = '<s>'
-DEFAULT_UNK_TOKEN = '<unk>'
+DEFAULT_PAD_TOKEN = "[PAD]"
+DEFAULT_EOS_TOKEN = "</s>"
+DEFAULT_BOS_TOKEN = "<s>"
+DEFAULT_UNK_TOKEN = "<unk>"
 
 DEFAULT_PROMPT_DICT = {
-    'prompt_input': ('{instruction}\n\n{input}\n\n'),
-    'prompt_no_input': ('{instruction}\n\n'),
+    "prompt_input": ("{instruction}\n\n{input}\n\n"),
+    "prompt_no_input": ("{instruction}\n\n"),
 }
 
 ALPACA_PROMPT_DICT = {
-    'prompt_input':
-    ('Below is an instruction that describes a task, paired with an input that provides further context. '
-     'Write a response that appropriately completes the request.\n\n'
-     '### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response: '
-     ),
-    'prompt_no_input':
-    ('Below is an instruction that describes a task. '
-     'Write a response that appropriately completes the request.\n\n'
-     '### Instruction:\n{instruction}\n\n### Response: '),
+    "prompt_input": (
+        "Below is an instruction that describes a task, paired with an input that provides further context. "
+        "Write a response that appropriately completes the request.\n\n"
+        "### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response: "
+    ),
+    "prompt_no_input": (
+        "Below is an instruction that describes a task. "
+        "Write a response that appropriately completes the request.\n\n"
+        "### Instruction:\n{instruction}\n\n### Response: "
+    ),
 }
 
 SQL_PROMPT_DICT = {
@@ -45,36 +46,36 @@ SQL_PROMPT_DICT = {
 
 def extract_default_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:
     # Not random, use pre-defined templates
-    if example.get('input', '') != '':
-        prompt_template = DEFAULT_PROMPT_DICT['prompt_input']
+    if example.get("input", "") != "":
+        prompt_template = DEFAULT_PROMPT_DICT["prompt_input"]
     else:
-        prompt_template = DEFAULT_PROMPT_DICT['prompt_no_input']
+        prompt_template = DEFAULT_PROMPT_DICT["prompt_no_input"]
 
     # Format prompt with example
     formated_prompt = prompt_template.format(**example)
 
-    return {'input': formated_prompt}
+    return {"input": formated_prompt}
 
 
 def extract_alpaca_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:
- 
-    if example.get('input', '') != '':
-        prompt_format = ALPACA_PROMPT_DICT['prompt_input']
+    if example.get("input", "") != "":
+        prompt_format = ALPACA_PROMPT_DICT["prompt_input"]
     else:
-        prompt_format = ALPACA_PROMPT_DICT['prompt_no_input']
-    return {'input': prompt_format.format(**example)}
+        prompt_format = ALPACA_PROMPT_DICT["prompt_no_input"]
+    return {"input": prompt_format.format(**example)}
+
 
 def extract_sql_dataset(example: Dict[str, Any]) -> Dict[str, str]:
-    
     if example.get("input", "") != "":
         prompt_format = SQL_PROMPT_DICT["prompt_input"]
     else:
         prompt_format = SQL_PROMPT_DICT["prompt_no_input"]
-    return {'input': prompt_format.format(**example)}
+    return {"input": prompt_format.format(**example)}
 
 
-def local_dataset(dataset_path: str,
-                  eval_dataset_size: float = 0.1) -> Tuple[Dataset, Dataset]:
+def local_dataset(
+    dataset_path: str, eval_dataset_size: float = 0.1
+) -> Tuple[Dataset, Dataset]:
     """
     Reads in a dataset from a file and returns it as a split train-test dataset.
 
@@ -90,28 +91,26 @@ def local_dataset(dataset_path: str,
     """
 
     # Read in the full dataset from file based on the file format
-    if dataset_path.endswith('.json'):
-        full_dataset = load_dataset('json', data_files=dataset_path)
-    elif dataset_path.endswith('.jsonl'):
-        full_dataset = load_dataset('json', data_files=dataset_path)
-    elif dataset_path.endswith('.csv'):
+    if dataset_path.endswith(".json"):
+        full_dataset = load_dataset("json", data_files=dataset_path)
+    elif dataset_path.endswith(".jsonl"):
+        full_dataset = load_dataset("json", data_files=dataset_path)
+    elif dataset_path.endswith(".csv"):
         full_dataset = Dataset.from_pandas(pd.read_csv(dataset_path))
-    elif dataset_path.endswith('.tsv'):
-        full_dataset = Dataset.from_pandas(
-            pd.read_csv(dataset_path, delimiter='\t'))
+    elif dataset_path.endswith(".tsv"):
+        full_dataset = Dataset.from_pandas(pd.read_csv(dataset_path, delimiter="\t"))
     else:
-        raise ValueError(f'Unsupported dataset format: {dataset_path}')
-    if 'train' not in full_dataset:
-        split_dataset = full_dataset.train_test_split(
-            test_size=eval_dataset_size)
+        raise ValueError(f"Unsupported dataset format: {dataset_path}")
+    if "train" not in full_dataset:
+        split_dataset = full_dataset.train_test_split(test_size=eval_dataset_size)
         return split_dataset
     else:
         return full_dataset
 
 
 def load_data(
-        dataset_path: str,
-        eval_dataset_size: float = 0.1) -> Union[Dict[str, Dataset], None]:
+    dataset_path: str, eval_dataset_size: float = 0.1
+) -> Union[Dict[str, Dataset], None]:
     """
     Load a dataset based on its name.
 
@@ -134,26 +133,26 @@ def load_data(
     if not os.path.exists(dataset_path):
         # Download dataset from HuggingFace Datasets
         print(
-            f'Lodding dataset from huggingface, please ref to https://huggingface.co/datasets/{dataset_path}'
+            f"Lodding dataset from huggingface, please ref to https://huggingface.co/datasets/{dataset_path}"
         )
-        dataset = load_dataset(dataset_path,
-                               cache_dir='~/.cache/huggingface/datasets')
+        dataset = load_dataset(dataset_path, cache_dir="~/.cache/huggingface/datasets")
         return dataset
     else:
         # Load dataset from local file
         try:
-            print(f'Lodding dataset from local path: {dataset_path}')
+            print(f"Lodding dataset from local path: {dataset_path}")
             dataset = local_dataset(dataset_path, eval_dataset_size)
             return dataset
         except:
-            raise ValueError(f'Error loading dataset from {dataset_path}')
+            raise ValueError(f"Error loading dataset from {dataset_path}")
 
 
 def formate_instruction_dataset(
-        dataset: Dataset,
-        dataset_name: str,
-        dataset_format: str,
-        instruction_template: str = 'default') -> Optional[Dict[str, Dataset]]:
+    dataset: Dataset,
+    dataset_name: str,
+    dataset_format: str,
+    instruction_template: str = "default",
+) -> Optional[Dict[str, Dataset]]:
     """
     Formats a given dataset based on its name and format.
 
@@ -180,47 +179,50 @@ def formate_instruction_dataset(
 
         hf_url: https://huggingface.co/datasets/yizhongw/self_instruct/viewer/self_instruct/train
         """
-        dataset = dataset.rename_column('prompt', 'input')
-        dataset = dataset.rename_column('completion', 'output')
+        dataset = dataset.rename_column("prompt", "input")
+        dataset = dataset.rename_column("completion", "output")
         return dataset
 
     def _remove_unused_columns(dataset):
         """Remove columns not named 'input' or 'output'."""
-        dataset = dataset.remove_columns([
-            col for col in dataset.column_names['train']
-            if col not in ['input', 'output']
-        ])
+        dataset = dataset.remove_columns(
+            [
+                col
+                for col in dataset.column_names["train"]
+                if col not in ["input", "output"]
+            ]
+        )
         return dataset
 
     # Format dataset
-    print(f'The {dataset_name} using {dataset_format} dataset format.')
-    if dataset_format == 'alpaca':
-        print('By default, We support the Alpaca dataset format.')
-    elif dataset_format == 'spider':
-        print('By default, We support the spider dataset format.')
-    elif dataset_format == 'dolly':
+    print(f"The {dataset_name} using {dataset_format} dataset format.")
+    if dataset_format == "alpaca":
+        print("By default, We support the Alpaca dataset format.")
+    elif dataset_format == "spider":
+        print("By default, We support the spider dataset format.")
+    elif dataset_format == "dolly":
         dataset = _format_dolly15k(dataset)
-    elif dataset_format == 'chip2':
+    elif dataset_format == "chip2":
         dataset = _format_chip2(dataset)
-    elif dataset_format == 'self-instruct':
+    elif dataset_format == "self-instruct":
         dataset = _format_self_instruct(dataset)
-    elif dataset_format == 'hh-rlhf':
+    elif dataset_format == "hh-rlhf":
         dataset = _format_hh_rlhf(dataset)
-    elif dataset_format == 'oasst1':
+    elif dataset_format == "oasst1":
         dataset = _format_oasst1(dataset)
-    elif dataset_format == '100PoisonMpts':
+    elif dataset_format == "100PoisonMpts":
         dataset = _format_100Poison(dataset)
     else:
         raise NotImplementedError(
-            f'Unsupported dataset format: {dataset_format},  Please add the formate function in data_utils.py'
+            f"Unsupported dataset format: {dataset_format},  Please add the formate function in data_utils.py"
         )
     # encode_instruction_example
-    print(f'Applying instruction template: {instruction_template}')
-    if instruction_template == 'alpaca':
+    print(f"Applying instruction template: {instruction_template}")
+    if instruction_template == "alpaca":
         dataset = dataset.map(extract_alpaca_prompt_dataset)
-    elif instruction_template == 'spider':
+    elif instruction_template == "spider":
         dataset = dataset.map(extract_sql_prompt_dataset)
-    elif instruction_template == 'random':
+    elif instruction_template == "random":
         dataset = dataset.map(extract_random_prompt_dataset)
     else:
         dataset = dataset.map(extract_default_prompt_dataset)
@@ -264,35 +266,34 @@ def split_train_eval(
     train_dataset, eval_dataset = None, None
     # Prepare evaluation dataset
     if do_eval:
-        if 'eval' in dataset:
-            eval_dataset = dataset['eval']
+        if "eval" in dataset:
+            eval_dataset = dataset["eval"]
         else:
             # Split train dataset in train and validation according to `eval_dataset_size`
             print(
-                f'Splitting the dataset into train and validation according to `eval_dataset_size`:  {eval_dataset_size}'
+                f"Splitting the dataset into train and validation according to `eval_dataset_size`:  {eval_dataset_size}"
             )
-            dataset = dataset['train'].train_test_split(
-                test_size=eval_dataset_size, shuffle=True, seed=42)
-            eval_dataset = dataset['test']
+            dataset = dataset["train"].train_test_split(
+                test_size=eval_dataset_size, shuffle=True, seed=42
+            )
+            eval_dataset = dataset["test"]
 
         # Reduce evaluation dataset size (if specified)
         print(
-            f'You have set the max_eval_samples: {max_eval_samples}, will do sampling ...'
+            f"You have set the max_eval_samples: {max_eval_samples}, will do sampling ..."
         )
-        if max_eval_samples is not None and len(
-                eval_dataset) > max_eval_samples:
+        if max_eval_samples is not None and len(eval_dataset) > max_eval_samples:
             eval_dataset = eval_dataset.select(np.arange(max_eval_samples))
 
     # Prepare training dataset
     if do_train:
-        train_dataset = dataset['train']
+        train_dataset = dataset["train"]
 
         # Reduce training dataset size (if specified)
         print(
-            f'You have set the max_train_samples: {max_train_samples}, will do sampling ...'
+            f"You have set the max_train_samples: {max_train_samples}, will do sampling ..."
         )
-        if max_train_samples is not None and len(
-                train_dataset) > max_train_samples:
+        if max_train_samples is not None and len(train_dataset) > max_train_samples:
             train_dataset = train_dataset.select(np.arange(max_train_samples))
 
     return train_dataset, eval_dataset
@@ -324,28 +325,25 @@ def make_data_module(args):
     """
     train_datasets: List[Dataset] = []
     eval_datasets: List[Dataset] = []
-    dataset_name_list = args.dataset_name.split(',')
-    print(f'Loading datasets: {dataset_name_list}')
-    mutliturn_lst = [
-        dataset_attr.multi_turn for dataset_attr in args.datasets_list
-    ]
+    dataset_name_list = args.dataset_name.split(",")
+    print(f"Loading datasets: {dataset_name_list}")
+    mutliturn_lst = [dataset_attr.multi_turn for dataset_attr in args.datasets_list]
     assert mutliturn_lst.count(mutliturn_lst[0]) == len(
         mutliturn_lst
-    ), 'All datasets should be multi-turn or single-turn. As follwing we will concat all datasets, so they should be in the same format.'
+    ), "All datasets should be multi-turn or single-turn. As follwing we will concat all datasets, so they should be in the same format."
 
     for dataset_attr in args.datasets_list:
-        print('=' * 80)
-        print('DatasetAttr: {}'.format(dataset_attr))
+        print("=" * 80)
+        print("DatasetAttr: {}".format(dataset_attr))
 
         if dataset_attr.load_from_local:
             dataset_path = dataset_attr.local_path
         elif dataset_attr.hf_hub_url:
             dataset_path = dataset_attr.hf_hub_url
         else:
-            raise ValueError('Please set the dataset path or hf_hub_url.')
+            raise ValueError("Please set the dataset path or hf_hub_url.")
 
-        dataset = load_data(dataset_path,
-                            eval_dataset_size=args.eval_dataset_size)
+        dataset = load_data(dataset_path, eval_dataset_size=args.eval_dataset_size)
 
         if not dataset_attr.multi_turn:
             dataset = formate_instruction_dataset(
@@ -364,22 +362,29 @@ def make_data_module(args):
             max_train_samples=args.max_train_samples,
         )
         if train_dataset:
-            print('loaded dataset:', dataset_attr.dataset_name, ' ',
-                  '#train data size:', len(train_dataset))
+            print(
+                "loaded dataset:",
+                dataset_attr.dataset_name,
+                " ",
+                "#train data size:",
+                len(train_dataset),
+            )
             train_datasets.append(train_dataset)
         if eval_dataset:
-            print('loaded dataset:', dataset_attr.dataset_name, ' '
-                  '#eval data size:', len(eval_dataset))
+            print(
+                "loaded dataset:",
+                dataset_attr.dataset_name,
+                " " "#eval data size:",
+                len(eval_dataset),
+            )
             eval_datasets.append(eval_dataset)
 
-    concate_train = concatenate_datasets(
-        train_datasets) if train_datasets else None
+    concate_train = concatenate_datasets(train_datasets) if train_datasets else None
     print(
-        f'Concatenated dataset list: {dataset_name_list}, #train dataset size: {len(concate_train)}'
+        f"Concatenated dataset list: {dataset_name_list}, #train dataset size: {len(concate_train)}"
     ) if concate_train else None
-    concate_eval = concatenate_datasets(
-        eval_datasets) if eval_datasets else None
+    concate_eval = concatenate_datasets(eval_datasets) if eval_datasets else None
     print(
-        f'Concatenated dataset list: {dataset_name_list}, #eval dataset size: {len(concate_eval)}'
+        f"Concatenated dataset list: {dataset_name_list}, #eval dataset size: {len(concate_eval)}"
     ) if concate_eval else None
     return concate_train, concate_eval, mutliturn_lst[0]

@@ -116,6 +116,7 @@ def dump_db_json_schema(db, f):
 
     return data
 
+
 logger = datasets.logging.get_logger(__name__)
 
 _CITATION = """\
@@ -129,35 +130,41 @@ _CITATION = """\
 
 
 def generate_data(data_filepaths, db_path):
-  raw_data = []
-  schema_cache = dict()
-  for data_filepath in data_filepaths:
-    with open(data_filepath, encoding="utf-8") as f:
-      spider = json.load(f)
-      for  sample in spider:
-          db_id = sample["db_id"]
-          if db_id not in schema_cache:
-            schema_cache[db_id] = dump_db_json_schema(db=os.path.join(db_path, db_id, f"{db_id}.sqlite"), f=db_id)
-          schema = schema_cache[db_id]
-          raw_data.append({
-              "query": sample["query"],
-              "question": sample["question"],
-              "db_id": db_id,
-              "db_path": db_path,
-              "db_table_names": schema["table_names_original"],
-              "db_column_names": [
-                  {"table_id": table_id, "column_name": column_name}
-                  for table_id, column_name in schema["column_names_original"]
-              ],
-              "db_column_types": schema["column_types"],
-              "db_primary_keys": [{"column_id": column_id} for column_id in schema["primary_keys"]],
-              "db_foreign_keys": [
-                  {"column_id": column_id, "other_column_id": other_column_id}
-                  for column_id, other_column_id in schema["foreign_keys"]
-              ],
-          })
-  return raw_data
-
+    raw_data = []
+    schema_cache = dict()
+    for data_filepath in data_filepaths:
+        with open(data_filepath, encoding="utf-8") as f:
+            spider = json.load(f)
+            for sample in spider:
+                db_id = sample["db_id"]
+                if db_id not in schema_cache:
+                    schema_cache[db_id] = dump_db_json_schema(
+                        db=os.path.join(db_path, db_id, f"{db_id}.sqlite"), f=db_id
+                    )
+                schema = schema_cache[db_id]
+                raw_data.append(
+                    {
+                        "query": sample["query"],
+                        "question": sample["question"],
+                        "db_id": db_id,
+                        "db_path": db_path,
+                        "db_table_names": schema["table_names_original"],
+                        "db_column_names": [
+                            {"table_id": table_id, "column_name": column_name}
+                            for table_id, column_name in schema["column_names_original"]
+                        ],
+                        "db_column_types": schema["column_types"],
+                        "db_primary_keys": [
+                            {"column_id": column_id}
+                            for column_id in schema["primary_keys"]
+                        ],
+                        "db_foreign_keys": [
+                            {"column_id": column_id, "other_column_id": other_column_id}
+                            for column_id, other_column_id in schema["foreign_keys"]
+                        ],
+                    }
+                )
+    return raw_data
 
 
 """
@@ -428,6 +435,7 @@ def get_database_matches(
                         break
     return matches
 
+
 @dataclass
 class DataTrainingArguments:
     """
@@ -522,11 +530,15 @@ class DataTrainingArguments:
     )
     source_prefix: Optional[str] = field(
         default=None,
-        metadata={"help": "A prefix to add before every source text (useful for T5 models)."},
+        metadata={
+            "help": "A prefix to add before every source text (useful for T5 models)."
+        },
     )
     schema_serialization_type: str = field(
         default="peteshaw",
-        metadata={"help": "Choose between ``verbose`` and ``peteshaw`` schema serialization."},
+        metadata={
+            "help": "Choose between ``verbose`` and ``peteshaw`` schema serialization."
+        },
     )
     schema_serialization_randomized: bool = field(
         default=False,
@@ -534,16 +546,24 @@ class DataTrainingArguments:
     )
     schema_serialization_with_db_id: bool = field(
         default=True,
-        metadata={"help": "Whether or not to add the database id to the context. Needed for Picard."},
+        metadata={
+            "help": "Whether or not to add the database id to the context. Needed for Picard."
+        },
     )
     schema_serialization_with_db_content: bool = field(
         default=True,
-        metadata={"help": "Whether or not to use the database content to resolve field matches."},
+        metadata={
+            "help": "Whether or not to use the database content to resolve field matches."
+        },
     )
-    normalize_query: bool = field(default=True, metadata={"help": "Whether to normalize the SQL queries."})
+    normalize_query: bool = field(
+        default=True, metadata={"help": "Whether to normalize the SQL queries."}
+    )
     target_with_db_id: bool = field(
         default=True,
-        metadata={"help": "Whether or not to add the database id to the target. Needed for Picard."},
+        metadata={
+            "help": "Whether or not to add the database id to the target. Needed for Picard."
+        },
     )
 
     def __post_init__(self):
@@ -554,7 +574,9 @@ class DataTrainingArguments:
 @dataclass
 class DataArguments:
     dataset: str = field(
-        metadata={"help": "The dataset to be used. Choose between ``spider``, ``cosql``, or ``cosql+spider``, or ``spider_realistic``, or ``spider_syn``, or ``spider_dk``."},
+        metadata={
+            "help": "The dataset to be used. Choose between ``spider``, ``cosql``, or ``cosql+spider``, or ``spider_realistic``, or ``spider_syn``, or ``spider_dk``."
+        },
     )
     dataset_paths: Dict[str, str] = field(
         default_factory=lambda: {
@@ -562,36 +584,39 @@ class DataArguments:
             "cosql": "./seq2seq/datasets/cosql",
             "spider_realistic": "./seq2seq/datasets/spider_realistic",
             "spider_syn": "./seq2seq/datasets/spider_syn",
-            "spider_dk": "./seq2seq/datasets/spider_dk"
-
+            "spider_dk": "./seq2seq/datasets/spider_dk",
         },
         metadata={"help": "Paths of the dataset modules."},
     )
     metric_config: str = field(
         default="both",
-        metadata={"help": "Choose between ``exact_match``, ``test_suite``, or ``both``."},
+        metadata={
+            "help": "Choose between ``exact_match``, ``test_suite``, or ``both``."
+        },
     )
-    #we are referencing spider_realistic to spider metrics only as both use the main spider dataset as base.
+    # we are referencing spider_realistic to spider metrics only as both use the main spider dataset as base.
     metric_paths: Dict[str, str] = field(
         default_factory=lambda: {
             "spider": "./seq2seq/metrics/spider",
-            "spider_realistic" : "./seq2seq/metrics/spider",
+            "spider_realistic": "./seq2seq/metrics/spider",
             "cosql": "./seq2seq/metrics/cosql",
-            "spider_syn":"./seq2seq/metrics/spider",
-            "spider_dk":"./seq2seq/metrics/spider"
+            "spider_syn": "./seq2seq/metrics/spider",
+            "spider_dk": "./seq2seq/metrics/spider",
         },
         metadata={"help": "Paths of the metric modules."},
     )
     test_suite_db_dir: Optional[str] = field(
-        default=None,
-        metadata={"help": "Path to the test-suite databases."})
-    data_config_file : Optional[str] = field(
-        default=None,
-        metadata={"help": "Path to data configuration file (specifying the database splits)"}
+        default=None, metadata={"help": "Path to the test-suite databases."}
     )
-    test_sections : Optional[List[str]] = field(
+    data_config_file: Optional[str] = field(
         default=None,
-        metadata={"help": "Sections from the data config to use for testing"}
+        metadata={
+            "help": "Path to data configuration file (specifying the database splits)"
+        },
+    )
+    test_sections: Optional[List[str]] = field(
+        default=None,
+        metadata={"help": "Sections from the data config to use for testing"},
     )
 
 
@@ -666,8 +691,10 @@ def _prepare_eval_split(
     add_serialized_schema: Callable[[dict], dict],
     pre_process_function: Callable[[dict, Optional[int], Optional[int]], dict],
 ) -> EvalSplit:
-    if (data_training_args.max_val_samples is not None
-            and data_training_args.max_val_samples < len(dataset)):
+    if (
+        data_training_args.max_val_samples is not None
+        and data_training_args.max_val_samples < len(dataset)
+    ):
         eval_examples = dataset.select(range(data_training_args.max_val_samples))
     else:
         eval_examples = dataset
@@ -743,7 +770,7 @@ def prepare_splits(
         train_split=train_split,
         eval_split=eval_split,
         test_splits=test_splits,
-        schemas=schemas
+        schemas=schemas,
     )
 
 
@@ -758,7 +785,9 @@ def normalize(query: str) -> str:
 
     def lower(s):
         # Convert everything except text between (single or double) quotation marks to lower case
-        return re.sub(r"\b(?<!['\"])(\w+)(?!['\"])\b", lambda match: match.group(1).lower(), s)
+        return re.sub(
+            r"\b(?<!['\"])(\w+)(?!['\"])\b", lambda match: match.group(1).lower(), s
+        )
 
     return comma_fix(white_space_fix(lower(query)))
 
@@ -805,7 +834,9 @@ def serialize_schema(
                 db_path=(db_path + "/" + db_id + "/" + db_id + ".sqlite"),
             )
             if matches:
-                return column_str_with_values.format(column=column_name_str, values=value_sep.join(matches))
+                return column_str_with_values.format(
+                    column=column_name_str, values=value_sep.join(matches)
+                )
             else:
                 return column_str_without_values.format(column=column_name_str)
         else:
@@ -837,31 +868,42 @@ def serialize_schema(
         serialized_schema = table_sep.join(tables)
     return serialized_schema
 
+
 def serialize_schema_natural_language(
-        question: str,
-        db_path: str,
-        db_id: str,
-        db_column_names: Dict[str, str],
-        db_table_names: List[str],
-        db_primary_keys,
-        db_foreign_keys,
-        schema_serialization_with_db_content: bool = False,
-        normalize_query: bool = True,
+    question: str,
+    db_path: str,
+    db_id: str,
+    db_column_names: Dict[str, str],
+    db_table_names: List[str],
+    db_primary_keys,
+    db_foreign_keys,
+    schema_serialization_with_db_content: bool = False,
+    normalize_query: bool = True,
 ) -> str:
-    overall_description = f'{db_id} contains tables such as ' \
-                          f'{", ".join([table_name.lower() if normalize_query else table_name for table_name in db_table_names])}.'
-    table_description_primary_key_template = lambda table_name, primary_key: \
-        f'{primary_key} is the primary key.'
-    table_description = lambda table_name, column_names: \
-        f'Table {table_name} has columns such as {", ".join(column_names)}.'
-    value_description = lambda column_value_pairs: \
-        f'{"".join(["The {} contains values such as {}.".format(column, value) for column, value in column_value_pairs])}'
-    foreign_key_description = lambda table_1, column_1, table_2, column_2: \
-        f'The {column_1} of {table_1} is the foreign key of {column_2} of {table_2}.'
+    overall_description = (
+        f"{db_id} contains tables such as "
+        f'{", ".join([table_name.lower() if normalize_query else table_name for table_name in db_table_names])}.'
+    )
+    table_description_primary_key_template = (
+        lambda table_name, primary_key: f"{primary_key} is the primary key."
+    )
+    table_description = (
+        lambda table_name, column_names: f'Table {table_name} has columns such as {", ".join(column_names)}.'
+    )
+    value_description = (
+        lambda column_value_pairs: f'{"".join(["The {} contains values such as {}.".format(column, value) for column, value in column_value_pairs])}'
+    )
+    foreign_key_description = (
+        lambda table_1, column_1, table_2, column_2: f"The {column_1} of {table_1} is the foreign key of {column_2} of {table_2}."
+    )
 
     db_primary_keys = [x["column_id"] for x in db_primary_keys]
-    db_foreign_keys = list(zip([x["column_id"] for x in db_foreign_keys], [x["other_column_id"] for x in db_foreign_keys]))
-
+    db_foreign_keys = list(
+        zip(
+            [x["column_id"] for x in db_foreign_keys],
+            [x["other_column_id"] for x in db_foreign_keys],
+        )
+    )
 
     descriptions = [overall_description]
     db_table_name_strs = []
@@ -873,7 +915,12 @@ def serialize_schema_natural_language(
         columns = []
         column_value_pairs = []
         primary_keys = []
-        for column_id, (x, y) in enumerate(zip([x["table_id"] for x in db_column_names], [x["column_name"] for x in db_column_names])):
+        for column_id, (x, y) in enumerate(
+            zip(
+                [x["table_id"] for x in db_column_names],
+                [x["column_name"] for x in db_column_names],
+            )
+        ):
             if column_id == 0:
                 continue
             column_str = y.lower() if normalize_query else y
@@ -894,24 +941,28 @@ def serialize_schema_natural_language(
 
         table_description_columns_str = table_description(table_name_str, columns)
         descriptions.append(table_description_columns_str)
-        table_description_primary_key_str = table_description_primary_key_template(table_name_str, ", ".join(primary_keys))
+        table_description_primary_key_str = table_description_primary_key_template(
+            table_name_str, ", ".join(primary_keys)
+        )
         descriptions.append(table_description_primary_key_str)
         if len(column_value_pairs) > 0:
             value_description_str = value_description(column_value_pairs)
             descriptions.append(value_description_str)
 
-
     for x, y in db_foreign_keys:
         # get the table and column of x
-        db_column_names_table_id =[x["table_id"] for x in db_column_names]
+        db_column_names_table_id = [x["table_id"] for x in db_column_names]
         x_table_name = db_table_name_strs[db_column_names_table_id[x]]
-        x_column_name = db_column_name_strs[x-1]
+        x_column_name = db_column_name_strs[x - 1]
         # get the table and column of y
         y_table_name = db_table_name_strs[db_column_names_table_id[y]]
-        y_column_name = db_column_name_strs[y-1]
-        foreign_key_description_str = foreign_key_description(x_table_name, x_column_name, y_table_name, y_column_name)
+        y_column_name = db_column_name_strs[y - 1]
+        foreign_key_description_str = foreign_key_description(
+            x_table_name, x_column_name, y_table_name, y_column_name
+        )
         descriptions.append(foreign_key_description_str)
     return " ".join(descriptions)
+
 
 def spider_get_input(
     question: str,
@@ -923,36 +974,37 @@ def spider_get_input(
 
 def spider_get_target(
     query: str,
-    #db_id: str,
+    # db_id: str,
     normalize_query: bool,
     target_with_db_id: bool,
 ) -> str:
     _normalize = normalize if normalize_query else (lambda x: x)
-    #return f"{db_id} | {_normalize(query)}" if target_with_db_id else _normalize(query)
+    # return f"{db_id} | {_normalize(query)}" if target_with_db_id else _normalize(query)
     return f"{_normalize(query)}" if target_with_db_id else _normalize(query)
 
-def spider_add_serialized_schema(ex: dict) -> dict:
 
+def spider_add_serialized_schema(ex: dict) -> dict:
     serialized_schema = serialize_schema_natural_language(
-            question=ex["question"],
-            db_path=ex["db_path"],
-            db_id=ex["db_id"],
-            db_column_names=ex["db_column_names"],
-            db_table_names=ex["db_table_names"],
-            db_primary_keys=ex["db_primary_keys"],
-            db_foreign_keys=ex["db_foreign_keys"],
-            schema_serialization_with_db_content=True,
-            normalize_query=True,
-        )
+        question=ex["question"],
+        db_path=ex["db_path"],
+        db_id=ex["db_id"],
+        db_column_names=ex["db_column_names"],
+        db_table_names=ex["db_table_names"],
+        db_primary_keys=ex["db_primary_keys"],
+        db_foreign_keys=ex["db_foreign_keys"],
+        schema_serialization_with_db_content=True,
+        normalize_query=True,
+    )
 
     return {"serialized_schema": serialized_schema}
+
 
 def spider_pre_process_one_function(item: dict):
     prefix = ""
 
     seq_out = spider_get_target(
         query=item["query"],
-        #db_id=item["db_id"],
+        # db_id=item["db_id"],
         normalize_query=True,
         target_with_db_id=True,
     )
@@ -960,29 +1012,41 @@ def spider_pre_process_one_function(item: dict):
     return prefix + item["question"].strip(), seq_out
 
 
-if __name__ == "__main__" :
+if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser(description='Process some URLs.')
-    parser.add_argument('--data_filepaths', metavar='U', type=str, nargs='+',
-                        default=["data/spider/train_spider.json", "data/spider/train_others.json"])
-    parser.add_argument('--output_file', type=str, default="sql_finetune_data.json")
+
+    parser = argparse.ArgumentParser(description="Process some URLs.")
+    parser.add_argument(
+        "--data_filepaths",
+        metavar="U",
+        type=str,
+        nargs="+",
+        default=["data/spider/train_spider.json", "data/spider/train_others.json"],
+    )
+    parser.add_argument("--output_file", type=str, default="sql_finetune_data.json")
     args = parser.parse_args()
-    
+
     data_filepaths = args.data_filepaths
-    raw_datasets  = generate_data(data_filepaths,"data/spider/database")
+    raw_datasets = generate_data(data_filepaths, "data/spider/database")
     sql_finetune_data = []
-    fields = ["instruction","input","output"]
+    fields = ["instruction", "input", "output"]
     for raw_data in tqdm(raw_datasets):
         extend_data = deepcopy(raw_data)
         extend_data.update(spider_add_serialized_schema(extend_data))
         question, seq_out = spider_pre_process_one_function(extend_data)
-        extend_data.update({"instruction": extend_data["serialized_schema"].strip(),
+        extend_data.update(
+            {
+                "instruction": extend_data["serialized_schema"].strip(),
                 "input": question,
-                "output": seq_out})
+                "output": seq_out,
+            }
+        )
         extended_data = {}
-        extended_data.update({key: value for key, value in extend_data.items() if key in fields})
+        extended_data.update(
+            {key: value for key, value in extend_data.items() if key in fields}
+        )
         sql_finetune_data.append(extended_data)
         sql_finetune_data
-    with open(args.output_file, 'w') as f:
-      json.dump(sql_finetune_data, f)
+    with open(args.output_file, "w") as f:
+        json.dump(sql_finetune_data, f)
     print("The raw datasets has been generated")

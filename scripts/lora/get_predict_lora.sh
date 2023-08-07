@@ -8,4 +8,3 @@ python dbgpt_hub/utils/sql_data_process.py \
 # get lora predict 
 CUDA_VISIBLE_DEVICES=3 python ./predict_lora.py \
 
-

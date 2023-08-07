@@ -25,7 +25,7 @@ class LoraArguments:
     lora_alpha: int = 16
     lora_dropout: float = 0.05
     lora_target_modules: List[str] = field(
-        default_factory=lambda: ['q_proj', 'v_proj','k_proj',"down_proj","gate_proj","up_proj"])
+        default_factory=lambda: ['q_proj', 'v_proj', 'k_proj', "down_proj", "gate_proj", "up_proj"])
     lora_weight_path: str = ''
     lora_bias: str = 'none'
     q_lora: bool = False
@@ -142,6 +142,15 @@ def load_model_tokenizer(
         'trust_remote_code': args.trust_remote_code,
     }
 
+    # support multi gpu
+    if torch.cuda.is_available():
+        n_gpus = torch.cuda.device_count()
+    device_map = "auto"
+    # if we are in a distributed setting, we need to set the device map and max memory per device
+    if os.environ.get('LOCAL_RANK') is not None:
+        local_rank = int(os.environ.get('LOCAL_RANK', '0'))
+        device_map = {'': local_rank}
+
     # Load the pre-trained model
     print(f'Loading Model from {args.model_name_or_path}...')
     model = AutoModelForCausalLM.from_pretrained(
@@ -240,9 +249,9 @@ def train() -> None:
     # Create a Trainer object and start training
     logging.warning('Creating a Trainer...')
     trainer = Seq2SeqTrainer(model=model,
-                          tokenizer=tokenizer,
-                          args=training_args,
-                          **data_module)
+                             tokenizer=tokenizer,
+                             args=training_args,
+                             **data_module)
 
     logging.warning('Starting training...')
     if training_args.resume_from_checkpoint and list(

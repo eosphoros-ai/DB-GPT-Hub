@@ -6,9 +6,9 @@ from sqlparse.tokens import Whitespace
 import itertools
 from collections import namedtuple
 
-Token = namedtuple('Token', ['ttype', 'value'])
-VALUE_NUM_SYMBOL = 'VALUERARE'
-QUOTE_CHARS = {'`', '\'', '"'}
+Token = namedtuple("Token", ["ttype", "value"])
+VALUE_NUM_SYMBOL = "VALUERARE"
+QUOTE_CHARS = {"`", "'", '"'}
 
 
 def tokenize(query: str) -> List[Token]:
@@ -17,17 +17,17 @@ def tokenize(query: str) -> List[Token]:
 
 
 def join_tokens(tokens: List[Token]) -> str:
-    return ''.join([x.value for x in tokens]).strip().replace('  ', ' ')
+    return "".join([x.value for x in tokens]).strip().replace("  ", " ")
 
 
 def round_trip_test(query: str) -> None:
     tokens = tokenize(query)
-    reconstructed = ''.join([token.value for token in tokens])
+    reconstructed = "".join([token.value for token in tokens])
     assert query == reconstructed, "Round trip test fails for string %s" % query
 
 
 def postprocess(query: str) -> str:
-    query = query.replace('> =', '>=').replace('< =', '<=').replace('! =', '!=')
+    query = query.replace("> =", ">=").replace("< =", "<=").replace("! =", "!=")
     return query
 
 
@@ -46,8 +46,12 @@ def strip_query(query: str) -> Tuple[List[str], List[str]]:
         """
 
     toks = sqlparse.parse(query)[0].flatten()
-    values = [t.value for t in toks if t.ttype == sqlparse.tokens.Literal.String.Single or t.ttype == sqlparse.tokens.Literal.String.Symbol]
-
+    values = [
+        t.value
+        for t in toks
+        if t.ttype == sqlparse.tokens.Literal.String.Single
+        or t.ttype == sqlparse.tokens.Literal.String.Symbol
+    ]
 
     for val in values:
         all_values.append(val)
@@ -56,13 +60,17 @@ def strip_query(query: str) -> Tuple[List[str], List[str]]:
     query_tokenized = query.split()
     float_nums = re.findall("[-+]?\d*\.\d+", query)
     all_values += [qt for qt in query_tokenized if qt in float_nums]
-    query_tokenized = [VALUE_NUM_SYMBOL if qt in float_nums else qt for qt in query_tokenized]
+    query_tokenized = [
+        VALUE_NUM_SYMBOL if qt in float_nums else qt for qt in query_tokenized
+    ]
 
     query = " ".join(query_tokenized)
     int_nums = [i.strip() for i in re.findall("[^tT]\d+", query)]
 
     all_values += [qt for qt in query_tokenized if qt in int_nums]
-    query_tokenized = [VALUE_NUM_SYMBOL if qt in int_nums else qt for qt in query_tokenized]
+    query_tokenized = [
+        VALUE_NUM_SYMBOL if qt in int_nums else qt for qt in query_tokenized
+    ]
     # print int_nums, query, query_tokenized
 
     for tok in query_tokenized:
@@ -82,7 +90,9 @@ def strip_query(query: str) -> Tuple[List[str], List[str]]:
 
 def reformat_query(query: str) -> str:
     query = query.strip().replace(";", "").replace("\t", "")
-    query = ' '.join([t.value for t in tokenize(query) if t.ttype != sqlparse.tokens.Whitespace])
+    query = " ".join(
+        [t.value for t in tokenize(query) if t.ttype != sqlparse.tokens.Whitespace]
+    )
     t_stars = ["t1.*", "t2.*", "t3.*", "T1.*", "T2.*", "T3.*"]
     for ts in t_stars:
         query = query.replace(ts, "*")
@@ -90,7 +100,7 @@ def reformat_query(query: str) -> str:
 
 
 def replace_values(sql: str) -> Tuple[List[str], Set[str]]:
-    sql = sqlparse.format(sql, reindent=False, keyword_case='upper')
+    sql = sqlparse.format(sql, reindent=False, keyword_case="upper")
     # sql = re.sub(r"(<=|>=|!=|=|<|>|,)", r" \1 ", sql)
     sql = re.sub(r"(T\d+\.)\s", r"\1", sql)
     query_toks_no_value, values = strip_query(sql)
@@ -109,17 +119,23 @@ def extract_query_values(sql: str) -> Tuple[List[str], Set[str]]:
 def plugin(query_value_replaced: List[str], values_in_order: List[str]) -> str:
     q_length = len(query_value_replaced)
     query_w_values = query_value_replaced[:]
-    value_idx = [idx for idx in range(q_length) if query_value_replaced[idx] == VALUE_NUM_SYMBOL.lower()]
+    value_idx = [
+        idx
+        for idx in range(q_length)
+        if query_value_replaced[idx] == VALUE_NUM_SYMBOL.lower()
+    ]
     assert len(value_idx) == len(values_in_order)
 
     for idx, value in zip(value_idx, values_in_order):
         query_w_values[idx] = value
-    return ' '.join(query_w_values)
+    return " ".join(query_w_values)
 
 
 # a generator generating all possible ways of
 # filling values into predicted query
-def plugin_all_permutations(query_value_replaced: List[str], values: Set[str]) -> Iterator[str]:
+def plugin_all_permutations(
+    query_value_replaced: List[str], values: Set[str]
+) -> Iterator[str]:
     num_slots = len([v for v in query_value_replaced if v == VALUE_NUM_SYMBOL.lower()])
     for values in itertools.product(*[list(values) for _ in range(num_slots)]):
         yield plugin(query_value_replaced, list(values))
@@ -131,19 +147,23 @@ def plugin_all_permutations(query_value_replaced: List[str], values: Set[str]) -
 def get_all_preds_for_execution(gold: str, pred: str) -> Tuple[int, Iterator[str]]:
     _, gold_values = extract_query_values(gold)
     pred_query_value_replaced, _ = extract_query_values(pred)
-    num_slots = len([v for v in pred_query_value_replaced if v == VALUE_NUM_SYMBOL.lower()])
+    num_slots = len(
+        [v for v in pred_query_value_replaced if v == VALUE_NUM_SYMBOL.lower()]
+    )
     num_alternatives = len(gold_values) ** num_slots
-    return num_alternatives, plugin_all_permutations(pred_query_value_replaced, gold_values)
+    return num_alternatives, plugin_all_permutations(
+        pred_query_value_replaced, gold_values
+    )
 
 
 def remove_distinct(s):
     toks = [t.value for t in list(sqlparse.parse(s)[0].flatten())]
-    return ''.join([t for t in toks if t.lower() != 'distinct'])
+    return "".join([t for t in toks if t.lower() != "distinct"])
 
 
 def extract_all_comparison_from_node(node: Token) -> List[Comparison]:
     comparison_list = []
-    if hasattr(node, 'tokens'):
+    if hasattr(node, "tokens"):
         for t in node.tokens:
             comparison_list.extend(extract_all_comparison_from_node(t))
     if type(node) == Comparison:
@@ -166,17 +186,13 @@ def extract_info_from_comparison(comparison_node: Comparison) -> Dict[str, Any]:
     tokens = extract_toks_from_comparison(comparison_node)
     left, op, right = tokens
 
-    returned_dict = {
-        'left': left,
-        'op': op.value,
-        'right': right
-    }
+    returned_dict = {"left": left, "op": op.value, "right": right}
 
     if type(left) != Identifier:
         return returned_dict
 
     table = None
-    if len(left.tokens) == 3 and re.match('^[tT][0-9]$', left.tokens[0].value) is None:
+    if len(left.tokens) == 3 and re.match("^[tT][0-9]$", left.tokens[0].value) is None:
         table = left.tokens[0].value.lower()
     col = left.tokens[-1].value
 
@@ -190,7 +206,10 @@ def extract_info_from_comparison(comparison_node: Comparison) -> Dict[str, Any]:
     else:
         return returned_dict
 
-    returned_dict['table_col'], returned_dict['val'] = (table, col.upper()), process_str_value(right_val)
+    returned_dict["table_col"], returned_dict["val"] = (
+        table,
+        col.upper(),
+    ), process_str_value(right_val)
 
     return returned_dict
 
@@ -200,11 +219,19 @@ def extract_all_comparison_from_query(query: str) -> List[Dict[str, Any]]:
     return [extract_info_from_comparison(c) for c in comparison_list]
 
 
-def extract_typed_value_in_comparison_from_query(query: str) -> List[Tuple[Tuple[Union[str, None], str], str]]:
+def extract_typed_value_in_comparison_from_query(
+    query: str,
+) -> List[Tuple[Tuple[Union[str, None], str], str]]:
     cmps = extract_all_comparison_from_query(query)
-    typed_values = [(cmp['table_col'], cmp['val']) for cmp in cmps if 'table_col' in cmp]
-    for table, col, val1, val2 in re.findall('(?:([^\.\s]*)\.)?([^\.\s]+) between ([^\s;]+) and ([^\s;]+)', query, re.IGNORECASE):
-        if table == '':
+    typed_values = [
+        (cmp["table_col"], cmp["val"]) for cmp in cmps if "table_col" in cmp
+    ]
+    for table, col, val1, val2 in re.findall(
+        "(?:([^\.\s]*)\.)?([^\.\s]+) between ([^\s;]+) and ([^\s;]+)",
+        query,
+        re.IGNORECASE,
+    ):
+        if table == "":
             table = None
         else:
             table = table.lower()

@@ -9,12 +9,17 @@ from transformers import PreTrainedModel, PreTrainedTokenizer, Trainer
 from transformers.generation.logits_process import LogitsProcessor
 from transformers.generation.utils import LogitsProcessorList
 
-from dbgpt_hub.data.data_utils import (DEFAULT_BOS_TOKEN, DEFAULT_EOS_TOKEN,
-                                      DEFAULT_PAD_TOKEN, DEFAULT_UNK_TOKEN)
+from dbgpt_hub.data.data_utils import (
+    DEFAULT_BOS_TOKEN,
+    DEFAULT_EOS_TOKEN,
+    DEFAULT_PAD_TOKEN,
+    DEFAULT_UNK_TOKEN,
+)
 
 
-def add_special_tokens_if_missing(tokenizer: PreTrainedTokenizer,
-                                  model: PreTrainedModel) -> None:
+def add_special_tokens_if_missing(
+    tokenizer: PreTrainedTokenizer, model: PreTrainedModel
+) -> None:
     """
     If 'llama' or 'baichuan' is in the model name or path, check if the special tokens are set correctly.
     Add any missing special tokens to prevent them from being parsed into different tokens.
@@ -33,24 +38,25 @@ def add_special_tokens_if_missing(tokenizer: PreTrainedTokenizer,
 
     # Check if each special token is present. If not, add it to the special_tokens_dict with its default value.
     if tokenizer.pad_token is None:
-        special_tokens_dict['pad_token'] = DEFAULT_PAD_TOKEN
+        special_tokens_dict["pad_token"] = DEFAULT_PAD_TOKEN
     if tokenizer.eos_token is None:
-        special_tokens_dict['eos_token'] = DEFAULT_EOS_TOKEN
+        special_tokens_dict["eos_token"] = DEFAULT_EOS_TOKEN
     if tokenizer.bos_token is None:
-        special_tokens_dict['bos_token'] = DEFAULT_BOS_TOKEN
+        special_tokens_dict["bos_token"] = DEFAULT_BOS_TOKEN
     if tokenizer.unk_token is None:
-        special_tokens_dict['unk_token'] = DEFAULT_UNK_TOKEN
+        special_tokens_dict["unk_token"] = DEFAULT_UNK_TOKEN
 
     # If there are any missing special tokens, call `smart_tokenizer_and_embedding_resize()` to add them to the
     # tokenizer and resize the embedding accordingly.
     if len(special_tokens_dict) > 0:
-        smart_tokenizer_and_embedding_resize(special_tokens_dict, tokenizer,
-                                             model)
+        smart_tokenizer_and_embedding_resize(special_tokens_dict, tokenizer, model)
 
 
-def smart_tokenizer_and_embedding_resize(special_tokens_dict: Dict[str, str],
-                                         tokenizer: PreTrainedTokenizer,
-                                         model: PreTrainedModel) -> None:
+def smart_tokenizer_and_embedding_resize(
+    special_tokens_dict: Dict[str, str],
+    tokenizer: PreTrainedTokenizer,
+    model: PreTrainedModel,
+) -> None:
     """Resize tokenizer and embedding to accommodate new special tokens.
     改变tokenizer和embedding的尺寸。
     一般需要将tokenizer和embedding的尺寸设置为64的倍数，方便GPU加速。
@@ -79,16 +85,19 @@ def smart_tokenizer_and_embedding_resize(special_tokens_dict: Dict[str, str],
 
         # Compute average embeddings of existing tokens
         input_embeddings_avg = input_embeddings_data[:-num_new_tokens].mean(
-            dim=0, keepdim=True)
+            dim=0, keepdim=True
+        )
         output_embeddings_avg = output_embeddings_data[:-num_new_tokens].mean(
-            dim=0, keepdim=True)
+            dim=0, keepdim=True
+        )
 
         input_embeddings_data[-num_new_tokens:] = input_embeddings_avg
         output_embeddings_data[-num_new_tokens:] = output_embeddings_avg
 
 
-def find_all_linear_names(args: argparse.Namespace,
-                          model: torch.nn.Module) -> List[str]:
+def find_all_linear_names(
+    args: argparse.Namespace, model: torch.nn.Module
+) -> List[str]:
     """
     Returns a list of names of all linear layers present in the given model.
     Args:
@@ -125,19 +134,20 @@ def find_all_linear_names(args: argparse.Namespace,
         # Check if the current module is an instance of the linear layer class
         if isinstance(module, cls):
             # If yes, split the name of the module into its component parts and add the first or last part to the set
-            names = name.split('.')
+            names = name.split(".")
             lora_module_names.add(names[0] if len(names) == 1 else names[-1])
 
     # Remove 'lm_head' from the set if present (needed for 16-bit)
-    if 'lm_head' in lora_module_names:
-        lora_module_names.remove('lm_head')
+    if "lm_head" in lora_module_names:
+        lora_module_names.remove("lm_head")
 
     # Convert the set into a list and return it
     return list(lora_module_names)
 
 
-def print_trainable_parameters(args: argparse.Namespace,
-                               model: torch.nn.Module) -> None:
+def print_trainable_parameters(
+    args: argparse.Namespace, model: torch.nn.Module
+) -> None:
     """
     Prints the number of trainable parameters in the given model.
 
@@ -165,7 +175,9 @@ def print_trainable_parameters(args: argparse.Namespace,
     for _, param in model.named_parameters():
         all_param += param.numel()
         # Add the number of elements in the parameter tensor to the total count
-        if param.requires_grad:  # If the parameter requires gradient computation during backpropagation
+        if (
+            param.requires_grad
+        ):  # If the parameter requires gradient computation during backpropagation
             trainable_params += param.numel()
             # Add its number of elements to the trainable parameters count
 
@@ -176,13 +188,14 @@ def print_trainable_parameters(args: argparse.Namespace,
 
     # Compute and print the percentage of trainable vs all parameters
     trainable_percent = 100 * trainable_params / all_param
-    print(f'trainable params: {trainable_params} || '
-          f'all params: {all_param} || '
-          f'trainable: {trainable_percent}%')
+    print(
+        f"trainable params: {trainable_params} || "
+        f"all params: {all_param} || "
+        f"trainable: {trainable_percent}%"
+    )
 
 
 def verify_dtypes(model: torch.nn.Module) -> None:
-
     dtypes = {}
 
     for _, p in model.named_parameters():
@@ -194,7 +207,7 @@ def verify_dtypes(model: torch.nn.Module) -> None:
     total = sum(dtypes.values())
 
     for k, v in dtypes.items():
-        print(f'{k}: {v} ({100 * v / total:.2f}%)')
+        print(f"{k}: {v} ({100 * v / total:.2f}%)")
     return None
 
 
@@ -212,25 +225,24 @@ def get_last_checkpoint(checkpoint_dir: str) -> Tuple[str, bool]:
     """
     # Check if provided directory exists
     if isdir(checkpoint_dir):
-
         # Check if 'completed' file exists in the directory - indicates training has completed
-        is_completed = exists(join(checkpoint_dir, 'completed'))
+        is_completed = exists(join(checkpoint_dir, "completed"))
         if is_completed:
             return None, True  # Already finished
 
         # Find the latest checkpoint by checking all subdirectories named 'checkpoint-*'
         max_step = 0
         for filename in os.listdir(checkpoint_dir):
-            if isdir(join(checkpoint_dir,
-                          filename)) and filename.startswith('checkpoint'):
-                max_step = max(max_step,
-                               int(filename.replace('checkpoint-', '')))
+            if isdir(join(checkpoint_dir, filename)) and filename.startswith(
+                "checkpoint"
+            ):
+                max_step = max(max_step, int(filename.replace("checkpoint-", "")))
         if max_step == 0:
             return None, is_completed  # Training started, but no checkpoint found
 
         # Return path to the latest checkpoint directory
-        checkpoint_dir = join(checkpoint_dir, f'checkpoint-{max_step}')
-        print(f'Found a previous checkpoint at: {checkpoint_dir}')
+        checkpoint_dir = join(checkpoint_dir, f"checkpoint-{max_step}")
+        print(f"Found a previous checkpoint at: {checkpoint_dir}")
         return checkpoint_dir, is_completed
 
     # The directory does not exist, meaning this is the first time the training is being run
@@ -241,18 +253,16 @@ def safe_save_model_for_hf_trainer(trainer: Trainer, output_dir: str):
     """Collects the state dict and dump to disk."""
     state_dict = trainer.model.state_dict()
     if trainer.args.should_save:
-        cpu_state_dict = {
-            key: value.cpu()
-            for key, value in state_dict.items()
-        }
+        cpu_state_dict = {key: value.cpu() for key, value in state_dict.items()}
         del state_dict
         trainer._save(output_dir, state_dict=cpu_state_dict)  # noqa
 
 
 # Avoid runtime error in model.generate(do_sample=True).
 class InvalidScoreLogitsProcessor(LogitsProcessor):
-    def __call__(self, input_ids: torch.LongTensor,
-                 scores: torch.FloatTensor) -> torch.FloatTensor:
+    def __call__(
+        self, input_ids: torch.LongTensor, scores: torch.FloatTensor
+    ) -> torch.FloatTensor:
         if torch.isnan(scores).any() or torch.isinf(scores).any():
             scores.zero_()
             scores[..., 0] = 1.0

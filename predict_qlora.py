@@ -179,13 +179,19 @@ def predict():
             print("right now,not support well")
 
         # support the compared format directly ,like origin inputs: \n   orgin outputs labels \n  predict;
-        for output in outputs:
+        for i, output in enumerate(outputs):
+            input_idx = idx-predict_batchsize+i
             prediction = tokenizer.decode(output, skip_special_tokens=True)
             response = re.split(r"Response:\s*", prediction)[-1]
-            result.append(response)
-            print(response)
-            print(idx)
-    return result
+            # compose_i = "origin inputs:\t" + dataset[input_idx].replace("\n", "") + "\n"+"orgin   outputs labels:\t" + dataset_labels[input_idx].replace(
+            # "\n", "") + "\n"+"predict outputs labels:\t" + response.replace("\n", "")
+            # test
+            compose_i = response.replace("\n", "")
+            print(f'compos_i \t {compose_i}')
+            result.append(compose_i)
+        print(result)
+        print(idx)
+    return args.dataset, result
 
 
 if __name__ == "__main__":

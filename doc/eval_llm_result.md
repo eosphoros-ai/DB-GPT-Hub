@@ -2,12 +2,12 @@
 
 This doc aims to summarize the performance of publicly available big models when evaluated on the spider dataset. We hope it will provide a point of reference for folks using these big models for Text-to-SQL tasks. We'll keep sharing eval results from models we've tested and seen others use, and we welcome any contributions to make this more comprehensive.
 
-## 1.通用型大模型
+## 1.LLMs
 | name        | Execution Accuracy | reference                                                          |
 | ----------- | ------------------ | ------------------------------------------------------------------ |
-| ChatGPT     | 0.728              | [出处](https://www.numbersstation.ai/post/nsql-llama-2-7b)         |
-| GPT 4       | 0.762              | [出处](https://www.numbersstation.ai/post/nsql-llama-2-7b)         |
-| wizardcoder | 0.610              | [出处](https://github.com/cuplv/text-to-sql-wizardcoder/tree/main) |
+| ChatGPT     | 0.728              | [quote](https://www.numbersstation.ai/post/nsql-llama-2-7b)         |
+| GPT 4       | 0.762              | [quote](https://www.numbersstation.ai/post/nsql-llama-2-7b)         |
+| wizardcoder | 0.610              | [quote](https://github.com/cuplv/text-to-sql-wizardcoder/tree/main) |
 
 
 

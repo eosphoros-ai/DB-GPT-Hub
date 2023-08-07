@@ -6,6 +6,7 @@ python dbgpt_hub/utils/sql_data_process.py \
     --output_file dev_sql.json \
 
 # get lora predict 
-CUDA_VISIBLE_DEVICES=3 python ./predict_lora.py \
+# CUDA_VISIBLE_DEVICES=3
+python predict_lora.py \
 
 

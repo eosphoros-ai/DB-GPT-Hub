@@ -128,6 +128,7 @@ python dbgpt_hub/utils/sql_data_process.py \
     --output_file dev_sql.json \
 
 ```
+If you don't want to do this step, you can [download](https://drive.google.com/drive/folders/1MkNSJgJn9mTH5TTjdn06gf5N3ghG1wnn?usp=drive_link) the data set we've already processed, Then put it under the project
 
 When fine-tuning the model, we also customize the prompt dict to optimize the input: 
 
@@ -163,6 +164,12 @@ python train_lora.py --model_name_or_path <path_or_name>
 ```
 The full training script is in scripts/lora/.
 
+If you want to merge the finetuning weights into the base model, you can execute the following command:
+
+```bash
+python dbgpt_hub/utils/merge_peft_adapters.py --peft_model_path Your_adapter_model
+```
+
 ### 3.4. Model Predict
 
 Create the ./data/out_pred/ folder under the project directory. This is the default output location.
@@ -183,7 +190,7 @@ To evaluate model performance on the dataset, default is spider dataset.
 Run the following command:
 
 ```bash
-python eval/evaluation.py --plug_value --input
+python eval/evaluation.py --plug_value --input Your_model_pred_file
 ```
 You can find the results of our latest review [here](doc/eval_llm_result.md)
 ## 4. RoadMap 

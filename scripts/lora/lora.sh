@@ -3,7 +3,7 @@ python dbgpt_hub/utils/sql_data_process.py
 CUDA_VISIBLE_DEVICES=3 python train_lora.py \
     --dataset_name spider \
     --model_name_or_path meta-llama/Llama-2-7b-hf \
-    --output_dir adapter \
+    --output_dir adapter\lora \
     --num_train_epochs 1 \
     --per_device_train_batch_size 4 \
     --per_device_eval_batch_size 4 \

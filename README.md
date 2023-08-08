@@ -128,6 +128,7 @@ python dbgpt_hub/utils/sql_data_process.py \
     --output_file dev_sql.json \
 
 ```
+If you don't want to do this step, you can [download](https://drive.google.com/drive/folders/1MkNSJgJn9mTH5TTjdn06gf5N3ghG1wnn?usp=drive_link) the data set we've already processed, Then put it under the project
 
 When fine-tuning the model, we also customize the prompt dict to optimize the input: 
 

@@ -127,6 +127,7 @@ python dbgpt_hub/utils/sql_data_process.py \
     --data_filepaths data/spider/dev.json \
     --output_file dev_sql.json \
 ```
+如果你不想做这一步，你可以[下载](https://drive.google.com/drive/folders/1MkNSJgJn9mTH5TTjdn@6gf5N3ghG1wnn?usp-drive_link)我们已经处理过的数据集，然后把它放在该项目文件夹下即可
 
 在模型微调时，我们还定制了prompt dict以优化输入：
 
@@ -164,6 +165,12 @@ python train_qlora.py --model_name_or_path <path_or_name>
 python train_lora.py --model_name_or_path <path_or_name>
 ```
 完整的训练脚本在scripts/lora/中。
+
+如果需要将微调权重合并到base模型中，可以执行以下命令
+
+```bash
+python dbgpt_hub/utils/merge_peft_adapters.py --peft_model_path Your_adapter_model
+```
 
 ### 3.4、预测
 项目目录下建`./data/out_pred/`文件夹，此文件夹为默认输出的位置。

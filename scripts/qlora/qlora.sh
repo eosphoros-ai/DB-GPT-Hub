@@ -4,7 +4,7 @@ python dbgpt_hub/utils/sql_data_process.py
 
 python train_qlora.py \
     --model_name_or_path meta-llama/Llama-2-7b-hf \
-    --output_dir adapter \
+    --output_dir adapter\qlora \
     --dataset_name spider \
     --use_auth \
     --logging_steps 10 \

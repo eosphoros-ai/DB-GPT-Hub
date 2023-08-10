@@ -2,6 +2,9 @@
 
 python dbgpt_hub/utils/sql_data_process.py 
 
+start_time=`date +"%Y-%m-%d %H:%M:%S"`
+echo "[INFO] date:${start_time} "
+
 python train_qlora.py \
     --model_name_or_path meta-llama/Llama-2-7b-hf \
     --output_dir adapter\qlora \
@@ -41,6 +44,8 @@ python train_qlora.py \
     --max_grad_norm 0.3 \
     --lora_dropout 0.1 \
     --weight_decay 0.0 \
-    --seed 0 \
+    --seed 0 
     
-python dbgpt_hub/utils/merge_peft_adapters.py
+start_time=`date +"%Y-%m-%d %H:%M:%S"`
+echo "[INFO] date:${start_time} "
+# python dbgpt_hub/utils/merge_peft_adapters.py

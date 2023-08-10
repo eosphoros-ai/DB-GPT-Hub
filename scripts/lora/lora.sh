@@ -1,5 +1,8 @@
 python dbgpt_hub/utils/sql_data_process.py 
 
+start_time=`date +"%Y-%m-%d %H:%M:%S"`
+echo "[INFO] date:${start_time} "
+
 CUDA_VISIBLE_DEVICES=3 python train_lora.py \
     --dataset_name spider \
     --model_name_or_path meta-llama/Llama-2-7b-hf \
@@ -26,4 +29,7 @@ CUDA_VISIBLE_DEVICES=3 python train_lora.py \
     --do_train \
     --gradient_checkpointing True
 
-python dbgpt_hub/utils/merge_peft_adapters.py
+end_time=`date +"%Y-%m-%d %H:%M:%S"`
+echo "finished"
+echo "[INFO] date:${end_time} "
+# python dbgpt_hub/utils/merge_peft_adapters.py

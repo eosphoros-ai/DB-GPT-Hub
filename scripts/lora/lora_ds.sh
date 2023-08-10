@@ -2,7 +2,10 @@ python dbgpt_hub/utils/sql_data_process.py
 
 python dbgpt_hub/utils/sql_data_process.py \
     --data_filepaths data/spider/dev.json \
-    --output_file dev_sql.json \
+    --output_file dev_sql.json 
+
+start_time=`date +"%Y-%m-%d %H:%M:%S"`
+echo "[INFO] date:${start_time} "
 
 CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 train_lora.py \
     --model_name_or_path meta-llama/Llama-2-7b-hf \
@@ -27,5 +30,9 @@ CUDA_VISIBLE_DEVICES=0 torchrun --nproc_per_node=1 train_lora.py \
     --do_eval \
     --gradient_checkpointing True \
     --deepspeed "scripts/ds_config/zero3_auto.json"
+
+end_time=`date +"%Y-%m-%d %H:%M:%S"`
+echo "finished"
+echo "[INFO] date:${end_time} "
     
-python dbgpt_hub/utils/merge_peft_adapters.py
+# python dbgpt_hub/utils/merge_peft_adapters.py

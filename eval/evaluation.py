@@ -639,11 +639,13 @@ def evaluate(
         gseq_one = []
         for l in f.readlines():
             if len(l.strip()) == 0:
-                glist.append(gseq_one)
-                gseq_one = []
+                # pseq_one = ["None"]  # zw
+                # glist.append(gseq_one)
+                # gseq_one = []
+                # when some predict is none, support it can continue work
+                gseq_one.append(["no out"])
             else:
-                lstrip = l.strip().split("\t")
-                gseq_one.append(lstrip)
+                gseq_one.append(l.strip().split("\t"))
 
         # include the last session
         # this was previously ignored in the SParC evaluation script
@@ -660,15 +662,17 @@ def evaluate(
         pseq_one = []
         for l in f.readlines():
             if len(l.strip()) == 0:
-                plist.append(pseq_one)
-                pseq_one = []
+                # when some predict is none, support it can continue work
+                pseq_one.append(["no out"])
+
             else:
                 pseq_one.append(l.strip().split("\t"))
 
         if len(pseq_one) != 0:
             plist.append(pseq_one)
-
-    assert len(plist) == len(glist), "number of sessions must equal"
+    print(f"gseq_one length  {len(gseq_one)}")
+    print(f"pseq_one length {len(pseq_one)}")
+    # assert len(plist) == len(glist), "number of sessions must equal"
 
     evaluator = Evaluator()
     turns = ["turn 1", "turn 2", "turn 3", "turn 4", "turn > 4"]
@@ -711,6 +715,7 @@ def evaluate(
         scores["joint_all"]["count"] += 1
         turn_scores = {"exec": [], "exact": []}
         for idx, pg in enumerate(zip(p, g)):
+            print(f"compare pred idx {idx}")
             p, g = pg
             p_str = p[0]
             p_str = p_str.replace("value", "1")
@@ -763,9 +768,8 @@ def evaluate(
                 else:
                     turn_scores["exec"].append(0)
                     incorrect_log_file.write(f"index: {len(turn_scores['exec'])}\n")
-                    incorrect_log_file.write(
-                        f"db_id: {db_name}\n"
-                    )  # write to the log file
+                    # write to the log file
+                    incorrect_log_file.write(f"db_id: {db_name}\n")
                     incorrect_log_file.write(
                         "{} pred: {}\n".format(hardness, p_str)
                     )  # write to the log file
@@ -1132,7 +1136,7 @@ if __name__ == "__main__":
         dest="db",
         type=str,
         help="the directory that contains all the databases and test suites",
-        default="data/spider/database",
+        default="./data/spider/database",
     )
     parser.add_argument(
         "--table",

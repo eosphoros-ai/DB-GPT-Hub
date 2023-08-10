@@ -174,6 +174,12 @@ python dbgpt_hub/utils/merge_peft_adapters.py --peft_model_path Your_adapter_mod
 
 ### 3.4、预测
 项目目录下建`./data/out_pred/`文件夹，此文件夹为默认输出的位置。
+
+- 基于基础模型的直接预测
+```bash
+sh scripts/no_peft/get_predict_no_peft_llama2_13b_hf.sh
+```
+
 - 基于LoRA的预测
 执行如下脚本命令
 ```bash

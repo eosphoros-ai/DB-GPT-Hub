@@ -173,6 +173,12 @@ python dbgpt_hub/utils/merge_peft_adapters.py --peft_model_path Your_adapter_mod
 ### 3.4. Model Predict
 
 Create the ./data/out_pred/ folder under the project directory. This is the default output location.
+
+- Prediction just on base model
+```bash
+sh scripts/no_peft/get_predict_no_peft_llama2_13b_hf.sh
+```
+
 - Prediction based on LoRA
 Run the following script:
 ```bash
@@ -188,11 +194,12 @@ sh scripts/qlora/get_predict_qlora.sh
 ### 3.5 Model Evaluation
 To evaluate model performance on the dataset, default is spider dataset.
 Run the following command:
-
 ```bash
 python eval/evaluation.py --plug_value --input Your_model_pred_file
 ```
 You can find the results of our latest review [here](doc/eval_llm_result.md)
+
+
 ## 4. RoadMap 
 
 The whole process we will divide into three phases:

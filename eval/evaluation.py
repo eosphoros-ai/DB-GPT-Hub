@@ -10,6 +10,9 @@ import subprocess
 
 from process_sql import get_schema, Schema, get_sql
 from exec_eval import eval_exec_match
+from func_timeout import func_timeout, FunctionTimedOut
+
+TIMEOUT = 30 # maximum waiting time for a single query
 
 # Flag to disable value evaluation
 DISABLE_VALUE = True
@@ -752,14 +755,21 @@ def evaluate(
                 }
 
             if etype in ["all", "exec"]:
-                exec_score = eval_exec_match(
-                    db=db,
-                    p_str=p_str,
-                    g_str=g_str,
-                    plug_value=plug_value,
-                    keep_distinct=keep_distinct,
-                    progress_bar_for_each_datapoint=progress_bar_for_each_datapoint,
-                )
+                # --- Updated 8/28/2023 by simonkorl ---
+                # Try to execute the query within a duration of TIMEOUT
+                # or return None
+                try:
+                    exec_score = func_timeout(TIMEOUT, eval_exec_match, kwargs={
+                        "db": db,
+                        "p_str": p_str,
+                        "g_str": g_str,
+                        "plug_value": plug_value,
+                        "keep_distinct": keep_distinct,
+                        "progress_bar_for_each_datapoint": progress_bar_for_each_datapoint
+                    })
+                except FunctionTimedOut:
+                    exec_score = None
+
                 if exec_score:
                     scores[hardness]["exec"] += 1
                     scores[turn_id]["exec"] += 1

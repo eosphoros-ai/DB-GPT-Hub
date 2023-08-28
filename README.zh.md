@@ -199,7 +199,7 @@ sh scripts/qlora/get_predict_qlora.sh
 ```bash
 python eval/evaluation.py --plug_value --input  Your_model_pred_file
 ```
-你可以在[这里](doc/eval_llm_result.md)找到我们最新的审查结果。
+你可以在[这里](docs/eval_llm_result.md)找到我们最新的审查结果。
 ## 四、发展路线
 
 整个过程我们会分为三个阶段：

@@ -197,7 +197,7 @@ Run the following command:
 ```bash
 python eval/evaluation.py --plug_value --input Your_model_pred_file
 ```
-You can find the results of our latest review [here](doc/eval_llm_result.md)
+You can find the results of our latest review [here](docs/eval_llm_result.md)
 
 
 ## 4. RoadMap 

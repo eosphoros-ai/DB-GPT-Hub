@@ -7,6 +7,7 @@ import json
 import sqlite3
 import argparse
 import subprocess
+import json
 
 from process_sql import get_schema, Schema, get_sql
 from exec_eval import eval_exec_match
@@ -663,13 +664,28 @@ def evaluate(
     with open(predict) as f:
         plist = []
         pseq_one = []
-        for l in f.readlines():
-            if len(l.strip()) == 0:
-                # when some predict is none, support it can continue work
-                pseq_one.append(["no out"])
+        if predict.endswith(".sql"):
+            for l in f.readlines():
+                if len(l.strip()) == 0:
+                    # when some predict is none, support it can continue work
+                    pseq_one.append(["no out"])
 
-            else:
-                pseq_one.append(l.strip().split("\t"))
+                else:
+                    pseq_one.append(l.strip().split("\t"))
+        elif predict.endswith(".jsonl"):
+            # --- Updated by simonkorl 8/28/2023 ---
+            # Support format in ChatGLM-Efficient-Tuning
+            # You can now evaluate ChatGLM-Efficient-Tuning predict results
+            for l in f.readlines():
+                obj = json.loads(l)
+                if len(obj['predict'].strip()) == 0:
+                    # when some predict is none, support it can continue work
+                    pseq_one.append(["no out"])
+
+                else:
+                    pseq_one.append(obj['predict'].strip().split("\t"))
+        else:
+            return None
 
         if len(pseq_one) != 0:
             plist.append(pseq_one)

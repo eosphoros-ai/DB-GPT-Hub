@@ -13,3 +13,4 @@ datasets
 deepspeed>=0.10.0
 sqlparse
 nltk
+func-timeout==4.3.5

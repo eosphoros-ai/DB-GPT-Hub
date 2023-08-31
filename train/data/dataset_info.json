@@ -1,0 +1,22 @@
+{
+  "mini_text2sql": {
+    "file_name": "example_text2sql.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "history": "history"
+    },
+    "stage": "sft"
+  },
+  "text2sql": {
+    "file_name": "text2sql.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "history": "history"
+    },
+    "stage": "sft"
+  }
+}

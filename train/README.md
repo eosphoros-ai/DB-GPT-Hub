@@ -38,33 +38,13 @@
 - 模板格式如下：
 
   ```json
-    {
+  {
         "db_id": "database",
-        "instruction": "CREATE TABLE mountain (
-                        mountain_name,
-                        mountain_altitude,
-                        state_name,\ncountry_name
-                        )
-                        
-                        CREATE TABLE city (
-                        city_name,
-                        state_name,
-                        population,
-                        country_name
-                        )
-                        
-                        CREATE TABLE road (
-                        road_name,
-                        state_name)
-                        
-                        -- Using valid SQLite, answer the following questions for the tables provided above.
-                        
-                        -- which states border arizona
-                        SELECT",
+        "instruction": "CREATE TABLE mountain (\nmountain_name,\nmountain_altitude,\nstate_name,\ncountry_name\n)\n\nCREATE TABLE city (\ncity_name,\nstate_name,\npopulation,\ncountry_name\n)\n\nCREATE TABLE road (\nroad_name,\nstate_name\n)\n\nCREATE TABLE border_info (\nstate_name,\nborder\n)\n\nCREATE TABLE river (\nriver_name,\nlength,\ntraverse,\ncountry_name\n)\n\nCREATE TABLE state (\nstate_name,\ncapital,\npopulation,\narea,\ncountry_name,\ndensity\n)\n\nCREATE TABLE highlow (\nstate_name,\nhighest_point,\nhighest_elevation,\nlowest_point,\nlowest_elevation\n)\n\nCREATE TABLE lake (\nlake_name,\narea,\nstate_name,\ncountry_name\n)\n\n\n-- Using valid SQLite, answer the following questions for the tables provided above.\n\n-- which states border arizona\nSELECT",
         "input": "",
         "output": "SELECT border FROM border_info WHERE state_name = 'arizona'",
         "history": []
-      }
+  }
   ```
 
 | Datasets               | License      | Link                                                                                                                 |

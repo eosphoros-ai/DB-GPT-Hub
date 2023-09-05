@@ -1,27 +1,27 @@
 import re
 import os
 import torch
-import pandas as pd
+import argparse
 import transformers
 from transformers import AutoTokenizer
 from transformers import AutoModelForCausalLM, AutoTokenizer, LlamaTokenizer
 from dbgpt_hub.configs import GenerationArguments, ModelInferenceArguments
-from datasets import load_dataset, Dataset
+from datasets import load_dataset
 from dbgpt_hub.utils.model_utils import get_logits_processor
 from dbgpt_hub.utils.model_utils import smart_tokenizer_and_embedding_resize
 from peft import PeftModel
-import argparse
 
+from dbgpt_hub.configs.config import OUT_DIR, MODEL_PATH
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base_model_name_or_path", type=str, default="./model")
+    parser.add_argument("--base_model_name_or_path", type=str, default=MODEL_PATH)
     parser.add_argument("--peft_ckpt_path", type=str, default="Your lora ckpt path")
     parser.add_argument("--input_data_json", type=str, default="dev_sql.json")
     parser.add_argument(
         "--output_name",
         type=str,
-        default="./data/out_pred/pre_lora_8_lr_2e4_drop1e1.sql",
+        default=OUT_DIR + "/pre_lora_8_lr_2e4_drop1e1.sql",
     )
     return parser.parse_args()
 
@@ -184,6 +184,10 @@ def predict():
 
 if __name__ == "__main__":
     result = predict()
+
+    # Judge path exists, if not need create  
+    if not os.path.exists(OUT_DIR):
+        os.mkdir(OUT_DIR)
 
     with open(local_parser.output_name, "w") as f:
         for p in result:

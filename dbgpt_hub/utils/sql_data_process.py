@@ -10,7 +10,6 @@ import difflib
 import functools
 import re
 import random
-import numpy as np
 from tqdm import tqdm
 from copy import deepcopy
 from rapidfuzz import fuzz

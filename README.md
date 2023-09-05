@@ -1,6 +1,22 @@
 # DB-GPT-Hub: Text-to-SQL parsing with LLMs
 
-[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/c2xxQ8Rq)|[**Wechat**](https://github.com/csunny/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)
+[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)
+
+## Contents
+- [1. Introduction](#1-what-is-db-gpt-hub)
+- [2. Text2SQL Finetune](#2-fine-tuning-text-to-sql)
+  - [2.1 Dataset](#21-dataset)
+  - [2.2 BaseModel](#22-model)
+  - [2.3 Finetune methods](#23-fine-tuning-methods)
+- [3. Usage](#3-usage)
+  - [3.1 Environment preparation](#31-environment-preparation)
+  - [3.2 Data preparation](#32-data-preparation)
+  - [3.3 Model fine-tuning](#33-model-fine-tuning)
+  - [3.4 Model Predict](#34-model-predict)
+  - [3.5 Model Evaluation](#35-model-evaluation)
+- [4. Model Evaluation](#4-roadmap)
+- [5. Model Evaluation](#5-contributions)
+- [6. Model Evaluation](#6-acknowledgements)
 
 ## 1. What is DB-GPT-Hub
 
@@ -25,9 +41,10 @@ After the data is downloaded by default, it is placed under the first-level dire
 
 ### 2.2. Model
 
-DB-GPT-HUB currently supports the following base models:
+DB-GPT-Hub currently supports the following base models:
 
 * LLaMa/LLaMa2
+  * codeLlama
   * alpaca
   * vicuna
   * guanaco
@@ -48,7 +65,7 @@ The approximate hardware resources required to quantize and fine-tune the model 
 
 ### 2.3. Fine-tuning methods
 
-#### Spider+QLoRA/LoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa)
+#### Spider+QLoRA/LoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa2/CodeLlama)
 
 This experimental project builds a dataset by adding table structure information, adjusting the parameters of the language model and then fine-tuning the LLM with QLoRA/LoRA, aiming to reduce the cost of fine-tuning while increasing the accuracy and speed of SQL generation. This can be executed with the following command:
 
@@ -233,6 +250,6 @@ Thanks to the following open source projects
 * [Falcon](https://github.com/hiyouga/LLaMA-Efficient-Tuning/blob/main/LICENSE)
 * [ChatGLM](https://github.com/search?q=ChatGLM&type=repositories)
 * [WizardLM](https://github.com/nlpxucan/WizardLM)
-*  [text-to-sql-wizardcoder](https://github.com/cuplv/text-to-sql-wizardcoder)
+* [text-to-sql-wizardcoder](https://github.com/cuplv/text-to-sql-wizardcoder)
 * [test-suite-sql-eval](https://github.com/taoyds/test-suite-sql-eval)
 

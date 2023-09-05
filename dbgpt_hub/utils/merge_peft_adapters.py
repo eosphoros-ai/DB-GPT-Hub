@@ -1,12 +1,8 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
 import torch
-import sys
 import os
 import argparse
-
-ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-sys.path.append(ROOT_PATH)
 
 model_path = os.path.join("./model", os.listdir("model")[1])
 

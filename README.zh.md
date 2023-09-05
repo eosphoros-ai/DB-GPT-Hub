@@ -1,6 +1,6 @@
 # DB-GPT-Hub:利用LLMs实现Text-to-SQL
 
-[**英文**](README.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)
+[**英文**](README.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)|[**Huggingface**](https://huggingface.co/eosphoros)
 
 ## Contents
 - [1. 简介](#一简介)
@@ -13,7 +13,8 @@
   - [3.2 数据准备](#32数据准备)
   - [3.3 模型微调](#33模型微调)
   - [3.4 模型预测](#34模型预测)
-  - [3.5 模型评估](#35模型评估)
+  - [3.5 模型权重](#35模型权重)
+  - [3.6 模型评估](#36模型评估)
 - [4. 发展路线](#四发展路线)
 - [5. 贡献](#五贡献)
 - [6. 感谢](#六感谢)
@@ -209,7 +210,10 @@ sh scripts/lora/get_predict_lora.sh
 sh scripts/qlora/get_predict_qlora.sh
 ```
 
-### 3.5、模型评估
+# 3.5、模型权重
+可以从Huggingface查看对应的模型权重。 [huggingface地址](https://huggingface.co/eosphoros)
+
+### 3.6、模型评估
 对于模型在数据集上的效果评估,默认为在`spider`数据集上。
 运行以下命令来：
 

@@ -1,6 +1,6 @@
 # DB-GPT-Hub: Text-to-SQL parsing with LLMs
 
-[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)
+[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)|[**Huggingface**](https://huggingface.co/eosphoros)
 
 ## Contents
 - [1. Introduction](#1-what-is-db-gpt-hub)
@@ -13,10 +13,11 @@
   - [3.2 Data preparation](#32-data-preparation)
   - [3.3 Model fine-tuning](#33-model-fine-tuning)
   - [3.4 Model Predict](#34-model-predict)
-  - [3.5 Model Evaluation](#35-model-evaluation)
-- [4. Model Evaluation](#4-roadmap)
-- [5. Model Evaluation](#5-contributions)
-- [6. Model Evaluation](#6-acknowledgements)
+  - [3.5 Model Weights](#35-model-weights)
+  - [3.6 Model Evaluation](#36-model-evaluation)
+- [4. roadmap](#4-roadmap)
+- [5. contributions](#5-contributions)
+- [6. acknowledgements](#6-acknowledgements)
 
 ## 1. What is DB-GPT-Hub
 
@@ -208,14 +209,17 @@ Run the following script:
 sh scripts/qlora/get_predict_qlora.sh
 ```
 
-### 3.5 Model Evaluation
+### 3.5 Model Weights
+You can find weights from huggingface. [hg-eosphoros-ai
+](https://huggingface.co/eosphoros)
+
+### 3.6 Model Evaluation
 To evaluate model performance on the dataset, default is spider dataset.
 Run the following command:
 ```bash
 python eval/evaluation.py --plug_value --input Your_model_pred_file
 ```
 You can find the results of our latest review [here](docs/eval_llm_result.md)
-
 
 ## 4. RoadMap 
 

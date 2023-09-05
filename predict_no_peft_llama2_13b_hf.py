@@ -2,30 +2,28 @@
 import re
 import os
 import torch
-import pandas as pd
+import argparse
 import transformers
+from datasets import load_dataset 
 from transformers import AutoTokenizer
 from transformers import AutoModelForCausalLM, AutoTokenizer, LlamaTokenizer
 from dbgpt_hub.configs import GenerationArguments, ModelInferenceArguments
-from datasets import load_dataset, Dataset
+from dbgpt_hub.configs.config import MODEL_PATH, OUT_DIR, DEFAULT_FT_MODEL_NAME
 from dbgpt_hub.utils.model_utils import get_logits_processor
 from dbgpt_hub.utils.model_utils import smart_tokenizer_and_embedding_resize
-from peft import PeftModel
-import argparse
-
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--base_model_name_or_path",
         type=str,
-        default="./model/Your_llama2_13b_chat_hf_files",
+        default=os.path.join(MODEL_PATH, DEFAULT_FT_MODEL_NAME)
     )
     parser.add_argument("--input_data_json", type=str, default="dev_sql.json")
     parser.add_argument(
         "--output_name",
         type=str,
-        default="./data/out_pred/predict_no_peft_llama2_13b_hf_new.sql",
+        default= OUT_DIR + "/predict_no_peft_llama2_13b_hf_new.sql",
     )
 
     return parser.parse_args()
@@ -145,9 +143,12 @@ def predict():
 
     return result
 
-
 if __name__ == "__main__":
     result = predict()
+
+    # Judge path exists, if not need create  
+    if not os.path.exists(OUT_DIR):
+        os.mkdir(OUT_DIR)
 
     with open(local_parser.output_name, "w") as f:
         for p in result:

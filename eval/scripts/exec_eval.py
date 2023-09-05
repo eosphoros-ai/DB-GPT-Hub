@@ -9,11 +9,7 @@ from collections import defaultdict
 import tqdm
 import random
 from scripts.parse import get_all_preds_for_execution, remove_distinct
-import time
-import pickle as pkl
-import subprocess
 from itertools import chain
-
 
 threadLock = threading.Lock()
 TIMEOUT = 60

@@ -1,5 +1,6 @@
 import re
 import os
+import argparse
 import torch
 import transformers
 from transformers import AutoTokenizer
@@ -13,27 +14,23 @@ from dbgpt_hub.configs import (
     QuantArguments,
     TrainingArguments,
 )
+
 from dbgpt_hub.model import get_accelerate_model
-
-from datasets import load_dataset, Dataset
-import pandas as pd
-from peft import PeftModel
-import argparse
-
+from dbgpt_hub.configs.config import MODEL_PATH, DEFAULT_FT_MODEL_NAME,OUT_DIR
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--base_model_name_or_path",
         type=str,
-        default="/home/model_files/Llama-2-13b-chat-hf",
+        default= os.path.join(MODEL_PATH, DEFAULT_FT_MODEL_NAME)
     )
     parser.add_argument(
         "--peft_ckpt_path", type=str, default="Your peft qlora ckpt path"
     )
     parser.add_argument("--input_data_json", type=str, default="dev_sql.json")
     parser.add_argument(
-        "--output_name", type=str, default="./data/out_pred/qlora_8_lr_2e4_drop1e1.sql"
+        "--output_name", type=str, default= OUT_DIR + "/qlora_8_lr_2e4_drop1e1.sql"
     )
 
     return parser.parse_args()
@@ -231,6 +228,10 @@ def predict():
 
 if __name__ == "__main__":
     dataset_name, result = predict()
+
+    # Judge path exists, if not need create  
+    if not os.path.exists(OUT_DIR):
+        os.mkdir(OUT_DIR)
 
     with open(local_parser.output_name, "w") as f:
         for p in result:

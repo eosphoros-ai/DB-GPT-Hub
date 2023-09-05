@@ -224,9 +224,10 @@ python eval/evaluation.py --plug_value --input  Your_model_pred_file
 * 阶段一:
   * 搭建基本框架，基于数个大模型打通从数据处理、模型SFT训练、预测输出和评估的整个流程，截止`20230804`我们已经整个打通。
   我们现在支持  
-  - [x] LLaMa/LLaMa
+  - [x] LLaMa/LLaMa2
   - [x] Falcon
-  
+  - [x] CodeLlama
+
   We preliminarily plan to support the following models going forward. If there are new and better models, we'll keep an eye out and follow up too. Feel free to open an issue to suggest any, we'll glad to see your issues.
   - [ ] ChatGLM
   - [ ] BLOOM

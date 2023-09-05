@@ -44,7 +44,7 @@ After the data is downloaded by default, it is placed under the first-level dire
 DB-GPT-Hub currently supports the following base models:
 
 * LLaMa/LLaMa2
-  * codeLlama
+  * CodeLlama
   * alpaca
   * vicuna
   * guanaco
@@ -224,8 +224,9 @@ The whole process we will divide into three phases:
 * Stage 1:
   * Set up the basic framework, enabling end-to-end workflow from data processing, model SFT training, prediction output to evaluation based on multiple large models. As of 20230804, the entire pipeline has been established.
   now,we has supported as follows:
-  - [x] LLaMa/LLaMa
+  - [x] LLaMa/LLaMa2
   - [x] Falcon
+  - [x] CodeLlama
 * Stage 2:
   * Optimize model performance, support fine-tuning more different models in various ways.
   * Optimize `prompts`

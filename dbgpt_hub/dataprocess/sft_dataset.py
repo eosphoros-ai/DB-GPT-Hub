@@ -1,10 +1,11 @@
 import copy
 import logging
+import datasets
+import torch
+
 from dataclasses import dataclass
 from typing import Dict, List
 
-import datasets
-import torch
 from datasets import DatasetDict
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import Dataset

@@ -1,11 +1,12 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from peft import PeftModel
-import torch
 import os
+import torch
 import argparse
 
-model_path = os.path.join("./model", os.listdir("model")[1])
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import PeftModel
+from dbgpt_hub.configs.config import MODEL_PATH, DEFAULT_FT_MODEL_NAME, MERGED_MODELS
 
+model_path = os.path.join(MODEL_PATH, DEFAULT_FT_MODEL_NAME)
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -13,7 +14,7 @@ def get_args():
     parser.add_argument(
         "--peft_model_path", type=str, default="./adapter/checkpoint-10/adapter_model"
     )
-    parser.add_argument("--output_dir", type=str, default="./merged_models")
+    parser.add_argument("--output_dir", type=str, default=MERGED_MODELS)
     parser.add_argument("--device", type=str, default="cpu")
 
     return parser.parse_args()

@@ -5,6 +5,7 @@ import torch
 import transformers
 from transformers import AutoTokenizer
 from transformers import set_seed, Seq2SeqTrainer, GenerationConfig
+from datasets import load_dataset
 
 from dbgpt_hub.configs import (
     DataArguments,
@@ -15,7 +16,7 @@ from dbgpt_hub.configs import (
     TrainingArguments,
 )
 
-from dbgpt_hub.model import get_accelerate_model
+from dbgpt_hub.llms import get_accelerate_model
 from dbgpt_hub.configs.config import MODEL_PATH, DEFAULT_FT_MODEL_NAME,OUT_DIR
 
 def get_args():

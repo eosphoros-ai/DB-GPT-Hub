@@ -3,14 +3,13 @@ import re
 import asyncio
 import sqlite3
 import threading
+import tqdm
+import random
 from typing import Tuple, Any, List, Set
 from itertools import product
 from collections import defaultdict
-import tqdm
-import random
-from scripts.parse import get_all_preds_for_execution, remove_distinct
+from .parse import get_all_preds_for_execution, remove_distinct
 from itertools import chain
-
 
 threadLock = threading.Lock()
 TIMEOUT = 60

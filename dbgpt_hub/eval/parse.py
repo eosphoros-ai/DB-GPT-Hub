@@ -1,9 +1,9 @@
 import re
 import sqlparse
+import itertools
 from typing import List, Tuple, Set, Iterator, Dict, Any, Union
 from sqlparse.sql import Comparison, Identifier
 from sqlparse.tokens import Whitespace
-import itertools
 from collections import namedtuple
 
 Token = namedtuple("Token", ["ttype", "value"])

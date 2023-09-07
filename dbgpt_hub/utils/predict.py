@@ -17,13 +17,11 @@ from train.train_qlora import (
     ALPACA_PROMPT_DICT,
 )
 
+from dbgpt_hub.configs.config import MODEL_PATH, DEFAULT_FT_MODEL_NAME, ADAPTER_PATH, DATA_PATH
+model_path = os.path.join(MODEL_PATH, DEFAULT_FT_MODEL_NAME)
 
-model_path = os.path.join("./model", os.listdir("model")[1])
-checkpoint_dir = [
-    os.path.join("./adapter", folder)
-    for folder in os.listdir("./adapter")
-    if "checkpoint" in folder
-][0]
+checkpoint_dir = [os.path.join(ADAPTER_PATH, folder) for folder in os.listdir(ADAPTER_PATH) if "checkpoint" in folder][0]
+
 dataset_format = "spider"
 dataset = "spider"
 
@@ -203,6 +201,11 @@ def predict():
 
 if __name__ == "__main__":
     dataset_name, result = predict()
+
+    # Judge path exists, if not need create  
+    dataset_name_path = os.path.join(DATA_PATH, dataset_name)
+    if not os.path.exists(dataset_name_path):
+        os.mkdir(dataset_name_path)
 
     with open("data/" + dataset_name + "/dev_pred.sql", "w") as f:
         for p in result:

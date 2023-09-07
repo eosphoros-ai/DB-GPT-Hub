@@ -1,15 +1,14 @@
 import copy
 import os
+import torch
+import transformers
 from dataclasses import dataclass, field
 from typing import Optional, Dict, Sequence
 import pandas as pd
-import torch
-import transformers
 from torch.nn.utils.rnn import pad_sequence
 from datasets import load_dataset, Dataset
 
 IGNORE_INDEX = -100
-
 
 @dataclass
 class DataCollatorForCausalLM(object):

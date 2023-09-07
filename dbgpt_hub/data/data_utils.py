@@ -94,13 +94,11 @@ def local_dataset(
     elif dataset_path.endswith(".csv"):
         full_dataset = Dataset.from_pandas(pd.read_csv(dataset_path))
     elif dataset_path.endswith(".tsv"):
-        full_dataset = Dataset.from_pandas(
-            pd.read_csv(dataset_path, delimiter="\t"))
+        full_dataset = Dataset.from_pandas(pd.read_csv(dataset_path, delimiter="\t"))
     else:
         raise ValueError(f"Unsupported dataset format: {dataset_path}")
     if "train" not in full_dataset:
-        split_dataset = full_dataset.train_test_split(
-            test_size=eval_dataset_size)
+        split_dataset = full_dataset.train_test_split(test_size=eval_dataset_size)
         return split_dataset
     else:
         return full_dataset
@@ -133,8 +131,7 @@ def load_data(
         print(
             f"Lodding dataset from huggingface, please ref to https://huggingface.co/datasets/{dataset_path}"
         )
-        dataset = load_dataset(
-            dataset_path, cache_dir="~/.cache/huggingface/datasets")
+        dataset = load_dataset(dataset_path, cache_dir="~/.cache/huggingface/datasets")
         return dataset
     else:
         # Load dataset from local file
@@ -326,8 +323,7 @@ def make_data_module(args):
     eval_datasets: List[Dataset] = []
     dataset_name_list = args.dataset_name.split(",")
     print(f"Loading datasets: {dataset_name_list}")
-    mutliturn_lst = [
-        dataset_attr.multi_turn for dataset_attr in args.datasets_list]
+    mutliturn_lst = [dataset_attr.multi_turn for dataset_attr in args.datasets_list]
     assert mutliturn_lst.count(mutliturn_lst[0]) == len(
         mutliturn_lst
     ), "All datasets should be multi-turn or single-turn. As follwing we will concat all datasets, so they should be in the same format."
@@ -343,8 +339,7 @@ def make_data_module(args):
         else:
             raise ValueError("Please set the dataset path or hf_hub_url.")
 
-        dataset = load_data(
-            dataset_path, eval_dataset_size=args.eval_dataset_size)
+        dataset = load_data(dataset_path, eval_dataset_size=args.eval_dataset_size)
 
         if not dataset_attr.multi_turn:
             dataset = formate_instruction_dataset(
@@ -380,13 +375,11 @@ def make_data_module(args):
             )
             eval_datasets.append(eval_dataset)
 
-    concate_train = concatenate_datasets(
-        train_datasets) if train_datasets else None
+    concate_train = concatenate_datasets(train_datasets) if train_datasets else None
     print(
         f"Concatenated dataset list: {dataset_name_list}, #train dataset size: {len(concate_train)}"
     ) if concate_train else None
-    concate_eval = concatenate_datasets(
-        eval_datasets) if eval_datasets else None
+    concate_eval = concatenate_datasets(eval_datasets) if eval_datasets else None
     print(
         f"Concatenated dataset list: {dataset_name_list}, #eval dataset size: {len(concate_eval)}"
     ) if concate_eval else None

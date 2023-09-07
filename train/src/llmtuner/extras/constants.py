@@ -10,20 +10,14 @@ LAYERNORM_NAMES = ["norm", "ln_f", "ln_attn", "ln_mlp"]
 
 METHODS = ["full", "freeze", "lora"]
 
-STAGES = [
-    "SFT",
-    "Reward Modeling",
-    "PPO",
-    "DPO",
-    "Pre-Training"
-]
+STAGES = ["SFT", "Reward Modeling", "PPO", "DPO", "Pre-Training"]
 
 DATASET_STAGE_MAP = {
     "SFT": "sft",
     "Pre-Training": "pt",
     "Reward Modeling": "rm",
     "PPO": "sft",
-    "DPO": "rm"
+    "DPO": "rm",
 }
 
 SUPPORTED_MODELS = {
@@ -59,7 +53,7 @@ SUPPORTED_MODELS = {
     "Qwen-7B": "Qwen/Qwen-7B",
     "Qwen-7B-Chat": "Qwen/Qwen-7B-Chat",
     "XVERSE-13B": "xverse/XVERSE-13B",
-    "ChatGLM2-6B-Chat": "THUDM/chatglm2-6b"
+    "ChatGLM2-6B-Chat": "THUDM/chatglm2-6b",
 }
 
 DEFAULT_MODULE = {
@@ -73,7 +67,7 @@ DEFAULT_MODULE = {
     "InternLM": "q_proj,v_proj",
     "Qwen": "c_attn",
     "XVERSE": "q_proj,v_proj",
-    "ChatGLM2": "query_key_value"
+    "ChatGLM2": "query_key_value",
 }
 
 DEFAULT_TEMPLATE = {
@@ -82,5 +76,5 @@ DEFAULT_TEMPLATE = {
     "Baichuan": "baichuan",
     "InternLM": "intern",
     "Qwen": "chatml",
-    "ChatGLM2": "chatglm2"
+    "ChatGLM2": "chatglm2",
 }

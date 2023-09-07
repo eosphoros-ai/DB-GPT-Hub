@@ -119,7 +119,7 @@ def predict():
     print(f"just test {nums_examples} examples\n")
     while idx < nums_examples:
         if idx + predict_batchsize < nums_examples:
-            inputs = dataset[idx: idx + predict_batchsize]
+            inputs = dataset[idx : idx + predict_batchsize]
             idx += predict_batchsize
         else:
             inputs = dataset[idx:nums_examples]

@@ -12,6 +12,7 @@ class AverageMeter:
     r"""
     Computes and stores the average and current value.
     """
+
     def __init__(self):
         self.reset()
 
@@ -63,29 +64,34 @@ def prepare_model_for_training(
     finetuning_type: str,
     output_layer_name: Optional[str] = "lm_head",
     use_gradient_checkpointing: Optional[bool] = True,
-    layer_norm_names: Optional[List[str]] = LAYERNORM_NAMES
+    layer_norm_names: Optional[List[str]] = LAYERNORM_NAMES,
 ) -> "PreTrainedModel":
     for name, param in model.named_parameters():
-        if param.ndim == 1 and any(layer_norm_name in name for layer_norm_name in layer_norm_names):
+        if param.ndim == 1 and any(
+            layer_norm_name in name for layer_norm_name in layer_norm_names
+        ):
             param.data = param.data.to(torch.float32)
 
     if use_gradient_checkpointing:
         if hasattr(model, "enable_input_require_grads"):
             model.enable_input_require_grads()
         else:
+
             def make_inputs_require_grad(module, input, output):
                 output.requires_grad_(True)
+
             model.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
 
         model.gradient_checkpointing_enable()
-        model.config.use_cache = False # turn off when gradient checkpointing is enabled
+        model.config.use_cache = (
+            False  # turn off when gradient checkpointing is enabled
+        )
 
     if finetuning_type != "full" and hasattr(model, output_layer_name):
         output_layer: torch.nn.Linear = getattr(model, output_layer_name)
         input_dtype = output_layer.weight.dtype
 
         class CastOutputToFloat(torch.nn.Sequential):
-
             def forward(self, x: torch.Tensor) -> torch.Tensor:
                 return super().forward(x.to(input_dtype)).to(torch.float32)
 
@@ -108,7 +114,9 @@ def dispatch_model(model: "PreTrainedModel") -> "PreTrainedModel":
     Dispatches a pre-trained model to GPUs with balanced memory.
     Borrowed from: https://github.com/huggingface/transformers/blob/v4.31.0/src/transformers/modeling_utils.py#L2803
     """
-    if getattr(model, "is_loaded_in_8bit", False) or getattr(model, "is_loaded_in_4bit", False): # do nothing
+    if getattr(model, "is_loaded_in_8bit", False) or getattr(
+        model, "is_loaded_in_4bit", False
+    ):  # do nothing
         return model
 
     if torch.cuda.device_count() > 1:
@@ -116,9 +124,14 @@ def dispatch_model(model: "PreTrainedModel") -> "PreTrainedModel":
         from accelerate.utils import infer_auto_device_map, get_balanced_memory
 
         if model._no_split_modules is None:
-            raise ValueError("The model class needs to implement the `_no_split_modules` attribute.")
+            raise ValueError(
+                "The model class needs to implement the `_no_split_modules` attribute."
+            )
 
-        kwargs = {"dtype": model.dtype, "no_split_module_classes": model._no_split_modules}
+        kwargs = {
+            "dtype": model.dtype,
+            "no_split_module_classes": model._no_split_modules,
+        }
         max_memory = get_balanced_memory(model, **kwargs)
         # Make sure tied weights are tied before creating the device map.
         model.tie_weights()

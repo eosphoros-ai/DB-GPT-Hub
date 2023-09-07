@@ -3,7 +3,6 @@ import logging
 
 
 class LoggerHandler(logging.Handler):
-
     def __init__(self):
         super().__init__()
         self.log = ""
@@ -31,7 +30,7 @@ def reset_logging():
 def get_logger(name: str) -> logging.Logger:
     formatter = logging.Formatter(
         fmt="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
-        datefmt="%m/%d/%Y %H:%M:%S"
+        datefmt="%m/%d/%Y %H:%M:%S",
     )
     handler = logging.StreamHandler(sys.stdout)
     handler.setFormatter(formatter)

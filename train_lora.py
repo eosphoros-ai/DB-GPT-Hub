@@ -91,7 +91,8 @@ def get_peft_state_maybe_zero_3(
     if bias == "none":
         to_return = {k: t for k, t in named_params if "lora_" in k}
     elif bias == "all":
-        to_return = {k: t for k, t in named_params if "lora_" in k or "bias" in k}
+        to_return = {k: t for k,
+                     t in named_params if "lora_" in k or "bias" in k}
     elif bias == "lora_only":
         maybe_lora_bias: Dict[str, torch.Tensor] = {}
         lora_bias_names: set() = set()
@@ -141,7 +142,8 @@ def load_model_tokenizer(
     if args.q_lora:
         world_size = int(os.environ.get("WORLD_SIZE", 1))
         device_map = (
-            {"": int(os.environ.get("LOCAL_RANK") or 0)} if world_size != 1 else None
+            {"": int(os.environ.get("LOCAL_RANK") or 0)
+             } if world_size != 1 else None
         )
         if len(args.fsdp) > 0 or deepspeed.is_deepspeed_zero3_enabled():
             logging.warning(
@@ -262,11 +264,13 @@ def train() -> None:
     logging.warning("Successfully loaded model and tokenizer.")
 
     if "llama" in args.model_name_or_path or "baichuan" in args.model_name_or_path:
-        logging.warning(f"Adding special tokens for {args.model_name_or_path}.")
+        logging.warning(
+            f"Adding special tokens for {args.model_name_or_path}.")
         add_special_tokens_if_missing(tokenizer, model)
 
     # Create a supervised dataset and Trainer, then train the model
     logging.warning("Creating a supervised dataset and DataCollator...")
+    args.instruction_template = "spider"
     data_module = make_supervised_data_module(tokenizer=tokenizer, args=args)
 
     # Create a Trainer object and start training

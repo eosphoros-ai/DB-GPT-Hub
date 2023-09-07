@@ -11,11 +11,13 @@ from dbgpt_hub.utils.model_utils import get_logits_processor
 from dbgpt_hub.utils.model_utils import smart_tokenizer_and_embedding_resize
 from peft import PeftModel
 
-from dbgpt_hub.configs.config import OUT_DIR, MODEL_PATH
+from dbgpt_hub.configs.config import OUT_DIR, MODEL_PATH, DEFAULT_FT_MODEL_NAME
+model_path = os.path.join(MODEL_PATH, DEFAULT_FT_MODEL_NAME)
+
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--base_model_name_or_path", type=str, default=MODEL_PATH)
+    parser.add_argument("--base_model_name_or_path", type=str, default=model_path)
     parser.add_argument("--peft_ckpt_path", type=str, default="Your lora ckpt path")
     parser.add_argument("--input_data_json", type=str, default="dev_sql.json")
     parser.add_argument(

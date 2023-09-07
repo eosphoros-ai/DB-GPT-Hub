@@ -267,6 +267,7 @@ def train() -> None:
 
     # Create a supervised dataset and Trainer, then train the model
     logging.warning("Creating a supervised dataset and DataCollator...")
+    args.instruction_template = "spider"
     data_module = make_supervised_data_module(tokenizer=tokenizer, args=args)
 
     # Create a Trainer object and start training

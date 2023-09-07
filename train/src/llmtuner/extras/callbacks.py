@@ -18,7 +18,6 @@ logger = get_logger(__name__)
 
 
 class LogCallback(TrainerCallback):
-
     def __init__(self, runner=None):
         self.runner = runner
         self.in_training = False
@@ -36,7 +35,13 @@ class LogCallback(TrainerCallback):
         self.elapsed_time = str(timedelta(seconds=int(elapsed_time)))
         self.remaining_time = str(timedelta(seconds=int(remaining_time)))
 
-    def on_train_begin(self, args: "TrainingArguments", state: "TrainerState", control: "TrainerControl", **kwargs):
+    def on_train_begin(
+        self,
+        args: "TrainingArguments",
+        state: "TrainerState",
+        control: "TrainerControl",
+        **kwargs
+    ):
         r"""
         Event called at the beginning of training.
         """
@@ -48,7 +53,13 @@ class LogCallback(TrainerCallback):
                 logger.warning("Previous log file in this folder will be deleted.")
                 os.remove(os.path.join(args.output_dir, LOG_FILE_NAME))
 
-    def on_train_end(self, args: "TrainingArguments", state: "TrainerState", control: "TrainerControl", **kwargs):
+    def on_train_end(
+        self,
+        args: "TrainingArguments",
+        state: "TrainerState",
+        control: "TrainerControl",
+        **kwargs
+    ):
         r"""
         Event called at the end of training.
         """
@@ -57,15 +68,31 @@ class LogCallback(TrainerCallback):
             self.cur_steps = 0
             self.max_steps = 0
 
-    def on_substep_end(self, args: "TrainingArguments", state: "TrainerState", control: "TrainerControl", **kwargs):
+    def on_substep_end(
+        self,
+        args: "TrainingArguments",
+        state: "TrainerState",
+        control: "TrainerControl",
+        **kwargs
+    ):
         r"""
         Event called at the end of an substep during gradient accumulation.
         """
-        if state.is_local_process_zero and self.runner is not None and self.runner.aborted:
+        if (
+            state.is_local_process_zero
+            and self.runner is not None
+            and self.runner.aborted
+        ):
             control.should_epoch_stop = True
             control.should_training_stop = True
 
-    def on_step_end(self, args: "TrainingArguments", state: "TrainerState", control: "TrainerControl", **kwargs):
+    def on_step_end(
+        self,
+        args: "TrainingArguments",
+        state: "TrainerState",
+        control: "TrainerControl",
+        **kwargs
+    ):
         r"""
         Event called at the end of a training step.
         """
@@ -76,7 +103,13 @@ class LogCallback(TrainerCallback):
                 control.should_epoch_stop = True
                 control.should_training_stop = True
 
-    def on_evaluate(self, args: "TrainingArguments", state: "TrainerState", control: "TrainerControl", **kwargs):
+    def on_evaluate(
+        self,
+        args: "TrainingArguments",
+        state: "TrainerState",
+        control: "TrainerControl",
+        **kwargs
+    ):
         r"""
         Event called after an evaluation phase.
         """
@@ -84,7 +117,14 @@ class LogCallback(TrainerCallback):
             self.cur_steps = 0
             self.max_steps = 0
 
-    def on_predict(self, args: "TrainingArguments", state: "TrainerState", control: "TrainerControl", *other, **kwargs):
+    def on_predict(
+        self,
+        args: "TrainingArguments",
+        state: "TrainerState",
+        control: "TrainerControl",
+        *other,
+        **kwargs
+    ):
         r"""
         Event called after a successful prediction.
         """
@@ -92,7 +132,13 @@ class LogCallback(TrainerCallback):
             self.cur_steps = 0
             self.max_steps = 0
 
-    def on_log(self, args: "TrainingArguments", state: "TrainerState", control: "TrainerControl", **kwargs) -> None:
+    def on_log(
+        self,
+        args: "TrainingArguments",
+        state: "TrainerState",
+        control: "TrainerControl",
+        **kwargs
+    ) -> None:
         r"""
         Event called after logging the last logs.
         """
@@ -108,20 +154,34 @@ class LogCallback(TrainerCallback):
             reward=state.log_history[-1].get("reward", None),
             learning_rate=state.log_history[-1].get("learning_rate", None),
             epoch=state.log_history[-1].get("epoch", None),
-            percentage=round(self.cur_steps / self.max_steps * 100, 2) if self.max_steps != 0 else 100,
+            percentage=round(self.cur_steps / self.max_steps * 100, 2)
+            if self.max_steps != 0
+            else 100,
             elapsed_time=self.elapsed_time,
-            remaining_time=self.remaining_time
+            remaining_time=self.remaining_time,
         )
         os.makedirs(args.output_dir, exist_ok=True)
-        with open(os.path.join(args.output_dir, "trainer_log.jsonl"), "a", encoding="utf-8") as f:
+        with open(
+            os.path.join(args.output_dir, "trainer_log.jsonl"), "a", encoding="utf-8"
+        ) as f:
             f.write(json.dumps(logs) + "\n")
 
-    def on_prediction_step(self, args: "TrainingArguments", state: "TrainerState", control: "TrainerControl", **kwargs):
+    def on_prediction_step(
+        self,
+        args: "TrainingArguments",
+        state: "TrainerState",
+        control: "TrainerControl",
+        **kwargs
+    ):
         r"""
         Event called after a prediction step.
         """
         eval_dataloader = kwargs.pop("eval_dataloader", None)
-        if state.is_local_process_zero and has_length(eval_dataloader) and not self.in_training:
+        if (
+            state.is_local_process_zero
+            and has_length(eval_dataloader)
+            and not self.in_training
+        ):
             if self.max_steps == 0:
                 self.max_steps = len(eval_dataloader)
             self.cur_steps += 1

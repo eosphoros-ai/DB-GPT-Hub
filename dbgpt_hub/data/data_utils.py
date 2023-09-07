@@ -32,14 +32,10 @@ ALPACA_PROMPT_DICT = {
 
 SQL_PROMPT_DICT = {
     "prompt_input": (
-        "I want you to act as a SQL terminal in front of an example database. "
-        "Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n"
-        "###Instruction:\n{instruction}\n\n###Input:\n{input}\n\n###Response: "
+        "You are now a data analyst, especially proficient in writing SQL code. Based on the database and table information provided by the user, please think through step-by-step and write the SQL code that can answer the user's questions, meet the user's data query needs, and pay attention to returning only the corresponding SQL . The database and table information is below: \n{instruction}, So please tell me the SQL code that meet the query of  {input} \n The answer is :"
     ),
     "prompt_no_input": (
-        "I want you to act as a SQL terminal in front of an example database. "
-        "Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\n"
-        "###Instruction:\n{instruction}\n\n### Response: "
+        "You are now a data analyst, especially proficient in writing SQL code. Based on the database and table information provided by the user, please think through step-by-step and write the SQL code that can answer the user's questions, meet the user's data query needs, and pay attention to returning only the corresponding SQL . The database and table information and query is below:{instruction}\n The answer is :"
     ),
 }
 
@@ -65,7 +61,7 @@ def extract_alpaca_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:
     return {"input": prompt_format.format(**example)}
 
 
-def extract_sql_dataset(example: Dict[str, Any]) -> Dict[str, str]:
+def extract_sql_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:
     if example.get("input", "") != "":
         prompt_format = SQL_PROMPT_DICT["prompt_input"]
     else:

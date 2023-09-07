@@ -12,14 +12,16 @@ from llmtuner.hparams import (
     ModelArguments,
     DataArguments,
     FinetuningArguments,
-    GeneratingArguments
+    GeneratingArguments,
 )
 
 
 logger = get_logger(__name__)
 
 
-def _parse_args(parser: HfArgumentParser, args: Optional[Dict[str, Any]] = None) -> Tuple[Any]:
+def _parse_args(
+    parser: HfArgumentParser, args: Optional[Dict[str, Any]] = None
+) -> Tuple[Any]:
     if args is not None:
         return parser.parse_dict(args)
     elif len(sys.argv) == 2 and sys.argv[1].endswith(".yaml"):
@@ -39,30 +41,24 @@ def parse_train_args(
     FinetuningArguments,
     GeneratingArguments,
 ]:
-    parser = HfArgumentParser((
-        ModelArguments,
-        DataArguments,
-        Seq2SeqTrainingArguments,
-        FinetuningArguments,
-        GeneratingArguments,
-    ))
+    parser = HfArgumentParser(
+        (
+            ModelArguments,
+            DataArguments,
+            Seq2SeqTrainingArguments,
+            FinetuningArguments,
+            GeneratingArguments,
+        )
+    )
     return _parse_args(parser, args)
 
 
 def parse_infer_args(
     args: Optional[Dict[str, Any]] = None
-) -> Tuple[
-    ModelArguments,
-    DataArguments,
-    FinetuningArguments,
-    GeneratingArguments
-]:
-    parser = HfArgumentParser((
-        ModelArguments,
-        DataArguments,
-        FinetuningArguments,
-        GeneratingArguments
-    ))
+) -> Tuple[ModelArguments, DataArguments, FinetuningArguments, GeneratingArguments]:
+    parser = HfArgumentParser(
+        (ModelArguments, DataArguments, FinetuningArguments, GeneratingArguments)
+    )
     return _parse_args(parser, args)
 
 
@@ -75,7 +71,13 @@ def get_train_args(
     FinetuningArguments,
     GeneratingArguments,
 ]:
-    model_args, data_args, training_args, finetuning_args, generating_args = parse_train_args(args)
+    (
+        model_args,
+        data_args,
+        training_args,
+        finetuning_args,
+        generating_args,
+    ) = parse_train_args(args)
 
     # Setup logging
     if training_args.should_log:
@@ -98,20 +100,32 @@ def get_train_args(
         raise ValueError("Streaming mode should have an integer val size.")
 
     if training_args.do_train and training_args.predict_with_generate:
-        raise ValueError("`predict_with_generate` cannot be set as True while training.")
+        raise ValueError(
+            "`predict_with_generate` cannot be set as True while training."
+        )
 
-    if training_args.do_train and finetuning_args.finetuning_type == "lora" and finetuning_args.lora_target is None:
+    if (
+        training_args.do_train
+        and finetuning_args.finetuning_type == "lora"
+        and finetuning_args.lora_target is None
+    ):
         raise ValueError("Please specify `lora_target` in LoRA training.")
 
-    if model_args.quantization_bit is not None and finetuning_args.finetuning_type != "lora":
+    if (
+        model_args.quantization_bit is not None
+        and finetuning_args.finetuning_type != "lora"
+    ):
         raise ValueError("Quantization is only compatible with the LoRA method.")
 
     if model_args.checkpoint_dir is not None:
         if finetuning_args.finetuning_type != "lora":
             if len(model_args.checkpoint_dir) != 1:
                 raise ValueError("Only LoRA tuning accepts multiple checkpoints.")
-        elif model_args.quantization_bit is not None and len(model_args.checkpoint_dir) != 1:
-                raise ValueError("Quantized model only accepts a single checkpoint.")
+        elif (
+            model_args.quantization_bit is not None
+            and len(model_args.checkpoint_dir) != 1
+        ):
+            raise ValueError("Quantized model only accepts a single checkpoint.")
 
     if model_args.quantization_bit is not None and (not training_args.do_train):
         logger.warning("Evaluating model in 4/8-bit mode may cause lower scores.")
@@ -121,7 +135,9 @@ def get_train_args(
 
     # postprocess data_args
     if data_args.max_samples is not None and data_args.streaming:
-        logger.warning("`max_samples` is incompatible with `streaming`. Disabling max_samples.")
+        logger.warning(
+            "`max_samples` is incompatible with `streaming`. Disabling max_samples."
+        )
         data_args.max_samples = None
 
     # postprocess training_args
@@ -130,7 +146,9 @@ def get_train_args(
         and training_args.ddp_find_unused_parameters is None
         and finetuning_args.finetuning_type == "lora"
     ):
-        logger.warning("`ddp_find_unused_parameters` needs to be set as False for LoRA in DDP training.")
+        logger.warning(
+            "`ddp_find_unused_parameters` needs to be set as False for LoRA in DDP training."
+        )
         training_args_dict = training_args.to_dict()
         training_args_dict.update(dict(ddp_find_unused_parameters=False))
         training_args = Seq2SeqTrainingArguments(**training_args_dict)
@@ -143,7 +161,9 @@ def get_train_args(
     ):
         last_checkpoint = get_last_checkpoint(training_args.output_dir)
         if last_checkpoint is None and len(os.listdir(training_args.output_dir)) > 0:
-            raise ValueError("Output directory already exists and is not empty. Use `overwrite_output_dir`.")
+            raise ValueError(
+                "Output directory already exists and is not empty. Use `overwrite_output_dir`."
+            )
 
         if last_checkpoint is not None:
             training_args_dict = training_args.to_dict()
@@ -161,13 +181,20 @@ def get_train_args(
     else:
         model_args.compute_dtype = torch.float16
 
-    model_args.model_max_length = data_args.max_source_length + data_args.max_target_length
+    model_args.model_max_length = (
+        data_args.max_source_length + data_args.max_target_length
+    )
 
     # Log on each process the small summary:
-    logger.info("Process rank: {}, device: {}, n_gpu: {}\n  distributed training: {}, compute dtype: {}".format(
-        training_args.local_rank, training_args.device, training_args.n_gpu,
-        bool(training_args.local_rank != -1), str(model_args.compute_dtype)
-    ))
+    logger.info(
+        "Process rank: {}, device: {}, n_gpu: {}\n  distributed training: {}, compute dtype: {}".format(
+            training_args.local_rank,
+            training_args.device,
+            training_args.n_gpu,
+            bool(training_args.local_rank != -1),
+            str(model_args.compute_dtype),
+        )
+    )
     logger.info(f"Training/evaluation parameters {training_args}")
 
     # Set seed before initializing model.
@@ -178,22 +205,23 @@ def get_train_args(
 
 def get_infer_args(
     args: Optional[Dict[str, Any]] = None
-) -> Tuple[
-    ModelArguments,
-    DataArguments,
-    FinetuningArguments,
-    GeneratingArguments
-]:
+) -> Tuple[ModelArguments, DataArguments, FinetuningArguments, GeneratingArguments]:
     model_args, data_args, finetuning_args, generating_args = parse_infer_args(args)
 
-    if model_args.quantization_bit is not None and finetuning_args.finetuning_type != "lora":
+    if (
+        model_args.quantization_bit is not None
+        and finetuning_args.finetuning_type != "lora"
+    ):
         raise ValueError("Quantization is only compatible with the LoRA method.")
 
     if model_args.checkpoint_dir is not None:
         if finetuning_args.finetuning_type != "lora":
             if len(model_args.checkpoint_dir) != 1:
                 raise ValueError("Only LoRA tuning accepts multiple checkpoints.")
-        elif model_args.quantization_bit is not None and len(model_args.checkpoint_dir) != 1:
-                raise ValueError("Quantized model only accepts a single checkpoint.")
+        elif (
+            model_args.quantization_bit is not None
+            and len(model_args.checkpoint_dir) != 1
+        ):
+            raise ValueError("Quantized model only accepts a single checkpoint.")
 
     return model_args, data_args, finetuning_args, generating_args

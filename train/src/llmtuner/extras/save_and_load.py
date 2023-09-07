@@ -27,11 +27,15 @@ def load_trainable_params(model: torch.nn.Module, checkpoint_dir: os.PathLike) -
     weights_file = os.path.join(checkpoint_dir, WEIGHTS_NAME)
     if os.path.exists(weights_file):
         model_state_dict = torch.load(weights_file, map_location="cpu")
-        model.load_state_dict(model_state_dict, strict=False) # skip missing keys
+        model.load_state_dict(model_state_dict, strict=False)  # skip missing keys
     elif os.path.exists(os.path.join(checkpoint_dir, WEIGHTS_INDEX_NAME)):
         load_sharded_checkpoint(model, checkpoint_dir, strict=False)
     else:
-        logger.warning("Provided path ({}) does not contain pre-trained weights.".format(checkpoint_dir))
+        logger.warning(
+            "Provided path ({}) does not contain pre-trained weights.".format(
+                checkpoint_dir
+            )
+        )
         return False
     return True
 
@@ -39,11 +43,19 @@ def load_trainable_params(model: torch.nn.Module, checkpoint_dir: os.PathLike) -
 def load_valuehead_params(model: torch.nn.Module, checkpoint_dir: os.PathLike) -> bool:
     valuehead_file = os.path.join(checkpoint_dir, VALUE_HEAD_FILE_NAME)
     if not os.path.exists(valuehead_file):
-        logger.warning("Provided path ({}) does not contain valuehead weights.".format(checkpoint_dir))
+        logger.warning(
+            "Provided path ({}) does not contain valuehead weights.".format(
+                checkpoint_dir
+            )
+        )
         return False
     valuehead_state_dict = torch.load(valuehead_file, map_location="cpu")
     model.register_buffer("reward_head_weight", valuehead_state_dict["summary.weight"])
     model.register_buffer("reward_head_bias", valuehead_state_dict["summary.bias"])
-    model.register_buffer("default_head_weight", torch.zeros_like(valuehead_state_dict["summary.weight"]))
-    model.register_buffer("default_head_bias", torch.zeros_like(valuehead_state_dict["summary.bias"]))
+    model.register_buffer(
+        "default_head_weight", torch.zeros_like(valuehead_state_dict["summary.weight"])
+    )
+    model.register_buffer(
+        "default_head_bias", torch.zeros_like(valuehead_state_dict["summary.bias"])
+    )
     return True

@@ -25,7 +25,7 @@ class PeftModelMixin:
     Patches the save and load methods in Hugging Face Trainer for PeftModel and ModelWithValueHead.
     """
 
-    def __init__(self) -> None: # for type checking
+    def __init__(self) -> None:  # for type checking
         self.model: PreTrainedModel = None
         self.tokenizer: "PreTrainedTokenizer" = None
         self.args: "Seq2SeqTrainingArguments" = None
@@ -33,7 +33,11 @@ class PeftModelMixin:
         self.state: "TrainerState" = None
         raise AssertionError("Mixin should not be initialized.")
 
-    def _save(self, output_dir: Optional[str] = None, state_dict: Optional[Dict[str, torch.Tensor]] = None) -> None:
+    def _save(
+        self,
+        output_dir: Optional[str] = None,
+        state_dict: Optional[Dict[str, torch.Tensor]] = None,
+    ) -> None:
         r"""
         Saves trainable parameters as model checkpoint.
 
@@ -50,31 +54,48 @@ class PeftModelMixin:
             # Custom state dict: https://github.com/lvwerra/trl/blob/v0.4.7/trl/models/modeling_value_head.py#L200
             model_state_dict = state_dict or model.state_dict()
             v_head_state_dict = {
-                name.replace("v_head.", ""): model_state_dict[name].cpu().clone().detach()
-                for name in model_state_dict.keys() if name.startswith("v_head.")
+                name.replace("v_head.", ""): model_state_dict[name]
+                .cpu()
+                .clone()
+                .detach()
+                for name in model_state_dict.keys()
+                if name.startswith("v_head.")
             }
 
-            torch.save(v_head_state_dict, os.path.join(output_dir, VALUE_HEAD_FILE_NAME))
+            torch.save(
+                v_head_state_dict, os.path.join(output_dir, VALUE_HEAD_FILE_NAME)
+            )
             model = model.pretrained_model
 
         state_dict = state_dict or get_state_dict(model)
         if isinstance(model, (PeftModel, PreTrainedModel)):
             model.config.use_cache = True
-            model.save_pretrained(output_dir, state_dict=state_dict, safe_serialization=self.args.save_safetensors)
+            model.save_pretrained(
+                output_dir,
+                state_dict=state_dict,
+                safe_serialization=self.args.save_safetensors,
+            )
             model.config.use_cache = False
         else:
             torch.save(state_dict, os.path.join(output_dir, WEIGHTS_NAME))
 
-        if self.finetuning_args.finetuning_type == "full" and self.tokenizer is not None:
+        if (
+            self.finetuning_args.finetuning_type == "full"
+            and self.tokenizer is not None
+        ):
             try:
                 self.tokenizer.save_pretrained(output_dir)
             except:
                 logger.warning("Cannot save tokenizer, copy the files manually.")
 
-        with open(os.path.join(output_dir, TRAINING_ARGS_NAME), "w", encoding="utf-8") as f:
+        with open(
+            os.path.join(output_dir, TRAINING_ARGS_NAME), "w", encoding="utf-8"
+        ) as f:
             f.write(self.args.to_json_string() + "\n")
 
-        self.finetuning_args.save_to_json(os.path.join(output_dir, FINETUNING_ARGS_NAME))
+        self.finetuning_args.save_to_json(
+            os.path.join(output_dir, FINETUNING_ARGS_NAME)
+        )
 
     def _load_best_model(self):
         r"""
@@ -82,18 +103,25 @@ class PeftModelMixin:
 
         Subclass and override to inject custom behavior. It should not be directly used by external scripts.
         """
-        logger.info(f"Loading best model from {self.state.best_model_checkpoint} (score: {self.state.best_metric}).")
+        logger.info(
+            f"Loading best model from {self.state.best_model_checkpoint} (score: {self.state.best_metric})."
+        )
         model = unwrap_model(self.model)
 
         if isinstance(model, PreTrainedModelWrapper):
-            model.v_head.load_state_dict(torch.load(
-                os.path.join(self.state.best_model_checkpoint, VALUE_HEAD_FILE_NAME), map_location="cpu"
-            ))
+            model.v_head.load_state_dict(
+                torch.load(
+                    os.path.join(
+                        self.state.best_model_checkpoint, VALUE_HEAD_FILE_NAME
+                    ),
+                    map_location="cpu",
+                )
+            )
             model = model.pretrained_model
 
         if isinstance(model, PeftModel):
             model.load_adapter(self.state.best_model_checkpoint, model.active_adapter)
-        else: # freeze/full-tuning
+        else:  # freeze/full-tuning
             load_trainable_params(model, self.state.best_model_checkpoint)
 
 

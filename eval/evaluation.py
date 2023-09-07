@@ -13,7 +13,7 @@ from process_sql import get_schema, Schema, get_sql
 from exec_eval import eval_exec_match
 from func_timeout import func_timeout, FunctionTimedOut
 
-TIMEOUT = 30 # maximum waiting time for a single query
+TIMEOUT = 30  # maximum waiting time for a single query
 
 # Flag to disable value evaluation
 DISABLE_VALUE = True
@@ -678,12 +678,12 @@ def evaluate(
             # You can now evaluate ChatGLM-Efficient-Tuning predict results
             for l in f.readlines():
                 obj = json.loads(l)
-                if len(obj['predict'].strip()) == 0:
+                if len(obj["predict"].strip()) == 0:
                     # when some predict is none, support it can continue work
                     pseq_one.append(["no out"])
 
                 else:
-                    pseq_one.append(obj['predict'].strip().split("\t"))
+                    pseq_one.append(obj["predict"].strip().split("\t"))
         else:
             return None
 
@@ -775,14 +775,18 @@ def evaluate(
                 # Try to execute the query within a duration of TIMEOUT
                 # or return None
                 try:
-                    exec_score = func_timeout(TIMEOUT, eval_exec_match, kwargs={
-                        "db": db,
-                        "p_str": p_str,
-                        "g_str": g_str,
-                        "plug_value": plug_value,
-                        "keep_distinct": keep_distinct,
-                        "progress_bar_for_each_datapoint": progress_bar_for_each_datapoint
-                    })
+                    exec_score = func_timeout(
+                        TIMEOUT,
+                        eval_exec_match,
+                        kwargs={
+                            "db": db,
+                            "p_str": p_str,
+                            "g_str": g_str,
+                            "plug_value": plug_value,
+                            "keep_distinct": keep_distinct,
+                            "progress_bar_for_each_datapoint": progress_bar_for_each_datapoint,
+                        },
+                    )
                 except FunctionTimedOut:
                     exec_score = None
 

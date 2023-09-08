@@ -1,8 +1,25 @@
 # DB-GPT-Hub:利用LLMs实现Text-to-SQL
 
-[**英文**](README.md) |[**Discord**](https://discord.gg/c2xxQ8Rq)|[**Wechat**](https://github.com/csunny/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)
+[**英文**](README.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)|[**Huggingface**](https://huggingface.co/eosphoros)
 
-## 一、什么是DB-GPT-Hub
+## Contents
+- [1. 简介](#一简介)
+- [2. Text2SQL微调](#二text-to-sql微调)
+  - [2.1 数据集](#21数据集)
+  - [2.2 基座模型](#22基座模型)
+  - [2.3 微调方法](#23微调方法)
+- [3. 使用](#三使用方法)
+  - [3.1 环境准备](#31环境准备)
+  - [3.2 数据准备](#32数据准备)
+  - [3.3 模型微调](#33模型微调)
+  - [3.4 模型预测](#34模型预测)
+  - [3.5 模型权重](#35模型权重)
+  - [3.6 模型评估](#36模型评估)
+- [4. 发展路线](#四发展路线)
+- [5. 贡献](#五贡献)
+- [6. 感谢](#六感谢)
+
+## 一、简介
 
 DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包含数据集收集、数据预处理、模型选择与构建和微调权重等步骤，通过这一系列的处理可以在提高Text-to-SQL能力的同时降低模型训练成本，让更多的开发者参与到Text-to-SQL的准确度提升工作当中，最终实现基于数据库的自动问答能力，让用户可以通过自然语言描述完成复杂数据库的查询操作等工作。
 
@@ -22,11 +39,12 @@ DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包�
 
 默认将数据下载后，放在一级目录data下面，如data/spider .
 
-### 2.2、模型
+### 2.2、基座模型
 
 DB-GPT-HUB目前支持的base模型有：
 
 * LLaMa/LLaMa2系列
+  * codeLlama
   * alpaca
   * vicuna
   * guanaco
@@ -47,7 +65,7 @@ DB-GPT-HUB目前支持的base模型有：
 
 ### 2.3、微调方法
 
-#### Spider+QLoRA/LoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa)
+#### Spider+QLoRA/LoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa/LLaMa2/CodeLlama)
 
 该实验项目通过加入表结构信息、调整语言模型的参数等方式构建数据集，然后用QLoRA/LoRA对LLM模型进行微调，旨在降低微调成本的同时提高SQL生成的准确性和速度。可以通过以下命令来执行：
 
@@ -172,7 +190,7 @@ python train_lora.py --model_name_or_path <path_or_name>
 python dbgpt_hub/utils/merge_peft_adapters.py --peft_model_path Your_adapter_model
 ```
 
-### 3.4、预测
+### 3.4、模型预测
 项目目录下建`./data/out_pred/`文件夹，此文件夹为默认输出的位置。
 
 - 基于基础模型的直接预测
@@ -192,7 +210,10 @@ sh scripts/lora/get_predict_lora.sh
 sh scripts/qlora/get_predict_qlora.sh
 ```
 
-### 3.5 、模型评估
+# 3.5、模型权重
+可以从Huggingface查看对应的模型权重。 [huggingface地址](https://huggingface.co/eosphoros)
+
+### 3.6、模型评估
 对于模型在数据集上的效果评估,默认为在`spider`数据集上。
 运行以下命令来：
 
@@ -207,9 +228,10 @@ python eval/evaluation.py --plug_value --input  Your_model_pred_file
 * 阶段一:
   * 搭建基本框架，基于数个大模型打通从数据处理、模型SFT训练、预测输出和评估的整个流程，截止`20230804`我们已经整个打通。
   我们现在支持  
-  - [x] LLaMa/LLaMa
+  - [x] LLaMa/LLaMa2
   - [x] Falcon
-  
+  - [x] CodeLlama
+
   We preliminarily plan to support the following models going forward. If there are new and better models, we'll keep an eye out and follow up too. Feel free to open an issue to suggest any, we'll glad to see your issues.
   - [ ] ChatGLM
   - [ ] BLOOM

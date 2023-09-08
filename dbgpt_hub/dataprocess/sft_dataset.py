@@ -1,16 +1,17 @@
 import copy
 import logging
+import datasets
+import torch
+
 from dataclasses import dataclass
 from typing import Dict, List
 
-import datasets
-import torch
 from datasets import DatasetDict
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import Dataset
 from transformers.tokenization_utils import PreTrainedTokenizer
 
-from dbgpt_hub.data.data_utils import IGNORE_INDEX, make_data_module
+from dbgpt_hub.dataprocess.data_utils import IGNORE_INDEX, make_data_module
 
 logger = logging.getLogger(__name__)
 

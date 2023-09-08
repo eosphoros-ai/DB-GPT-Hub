@@ -1,11 +1,10 @@
+import os
+import torch
 import argparse
 import logging
-import os
 import pathlib
 from dataclasses import dataclass, field
 from typing import Dict, List, Tuple, Union
-
-import torch
 from deepspeed import zero
 from deepspeed.runtime.zero.partition_parameters import ZeroParamStatus
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
@@ -21,7 +20,7 @@ from transformers import (
 )
 
 from dbgpt_hub.configs import DataArguments, ModelArguments, TrainingArguments
-from dbgpt_hub.data import make_supervised_data_module
+from dbgpt_hub.dataprocess import make_supervised_data_module
 from dbgpt_hub.utils.model_utils import add_special_tokens_if_missing
 
 

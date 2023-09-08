@@ -1,9 +1,8 @@
 import os
-import random
-from typing import Any, Dict, List, Optional, Tuple, Union
-
 import numpy as np
 import pandas as pd
+
+from typing import Any, Dict, List, Optional, Tuple, Union
 from datasets import Dataset, DatasetDict, concatenate_datasets, load_dataset
 
 IGNORE_INDEX = -100
@@ -196,18 +195,18 @@ def formate_instruction_dataset(
         print("By default, We support the Alpaca dataset format.")
     elif dataset_format == "spider":
         print("By default, We support the spider dataset format.")
-    elif dataset_format == "dolly":
-        dataset = _format_dolly15k(dataset)
-    elif dataset_format == "chip2":
-        dataset = _format_chip2(dataset)
     elif dataset_format == "self-instruct":
         dataset = _format_self_instruct(dataset)
-    elif dataset_format == "hh-rlhf":
-        dataset = _format_hh_rlhf(dataset)
-    elif dataset_format == "oasst1":
-        dataset = _format_oasst1(dataset)
-    elif dataset_format == "100PoisonMpts":
-        dataset = _format_100Poison(dataset)
+    # elif dataset_format == "hh-rlhf":
+    #     dataset = _format_hh_rlhf(dataset)
+    # elif dataset_format == "oasst1":
+    #     dataset = _format_oasst1(dataset)
+    # elif dataset_format == "100PoisonMpts":
+    #     dataset = _format_100Poison(dataset)
+    # elif dataset_format == "dolly":
+    #     dataset = _format_dolly15k(dataset)
+    # elif dataset_format == "chip2":
+    #     dataset = _format_chip2(dataset)
     else:
         raise NotImplementedError(
             f"Unsupported dataset format: {dataset_format},  Please add the formate function in data_utils.py"
@@ -216,10 +215,10 @@ def formate_instruction_dataset(
     print(f"Applying instruction template: {instruction_template}")
     if instruction_template == "alpaca":
         dataset = dataset.map(extract_alpaca_prompt_dataset)
-    elif instruction_template == "spider":
-        dataset = dataset.map(extract_sql_prompt_dataset)
-    elif instruction_template == "random":
-        dataset = dataset.map(extract_random_prompt_dataset)
+    # elif instruction_template == "spider":
+    #     dataset = dataset.map(extract_sql_prompt_dataset)
+    # elif instruction_template == "random":
+    #     dataset = dataset.map(extract_random_prompt_dataset)
     else:
         dataset = dataset.map(extract_default_prompt_dataset)
 

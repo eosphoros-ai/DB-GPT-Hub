@@ -1,6 +1,23 @@
 # DB-GPT-Hub: Text-to-SQL parsing with LLMs
 
-[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/c2xxQ8Rq)|[**Wechat**](https://github.com/csunny/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)
+[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)|[**Huggingface**](https://huggingface.co/eosphoros)
+
+## Contents
+- [1. Introduction](#1-what-is-db-gpt-hub)
+- [2. Text2SQL Finetune](#2-fine-tuning-text-to-sql)
+  - [2.1 Dataset](#21-dataset)
+  - [2.2 BaseModel](#22-model)
+  - [2.3 Finetune methods](#23-fine-tuning-methods)
+- [3. Usage](#3-usage)
+  - [3.1 Environment preparation](#31-environment-preparation)
+  - [3.2 Data preparation](#32-data-preparation)
+  - [3.3 Model fine-tuning](#33-model-fine-tuning)
+  - [3.4 Model Predict](#34-model-predict)
+  - [3.5 Model Weights](#35-model-weights)
+  - [3.6 Model Evaluation](#36-model-evaluation)
+- [4. roadmap](#4-roadmap)
+- [5. contributions](#5-contributions)
+- [6. acknowledgements](#6-acknowledgements)
 
 ## 1. What is DB-GPT-Hub
 
@@ -25,9 +42,10 @@ After the data is downloaded by default, it is placed under the first-level dire
 
 ### 2.2. Model
 
-DB-GPT-HUB currently supports the following base models:
+DB-GPT-Hub currently supports the following base models:
 
 * LLaMa/LLaMa2
+  * CodeLlama
   * alpaca
   * vicuna
   * guanaco
@@ -48,7 +66,7 @@ The approximate hardware resources required to quantize and fine-tune the model 
 
 ### 2.3. Fine-tuning methods
 
-#### Spider+QLoRA/LoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa)
+#### Spider+QLoRA/LoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa2/CodeLlama)
 
 This experimental project builds a dataset by adding table structure information, adjusting the parameters of the language model and then fine-tuning the LLM with QLoRA/LoRA, aiming to reduce the cost of fine-tuning while increasing the accuracy and speed of SQL generation. This can be executed with the following command:
 
@@ -191,14 +209,17 @@ Run the following script:
 sh scripts/qlora/get_predict_qlora.sh
 ```
 
-### 3.5 Model Evaluation
+### 3.5 Model Weights
+You can find weights from huggingface. [hg-eosphoros-ai
+](https://huggingface.co/eosphoros)
+
+### 3.6 Model Evaluation
 To evaluate model performance on the dataset, default is spider dataset.
 Run the following command:
 ```bash
 python eval/evaluation.py --plug_value --input Your_model_pred_file
 ```
 You can find the results of our latest review [here](docs/eval_llm_result.md)
-
 
 ## 4. RoadMap 
 
@@ -207,8 +228,9 @@ The whole process we will divide into three phases:
 * Stage 1:
   * Set up the basic framework, enabling end-to-end workflow from data processing, model SFT training, prediction output to evaluation based on multiple large models. As of 20230804, the entire pipeline has been established.
   now,we has supported as follows:
-  - [x] LLaMa/LLaMa
+  - [x] LLaMa/LLaMa2
   - [x] Falcon
+  - [x] CodeLlama
 * Stage 2:
   * Optimize model performance, support fine-tuning more different models in various ways.
   * Optimize `prompts`
@@ -233,6 +255,6 @@ Thanks to the following open source projects
 * [Falcon](https://github.com/hiyouga/LLaMA-Efficient-Tuning/blob/main/LICENSE)
 * [ChatGLM](https://github.com/search?q=ChatGLM&type=repositories)
 * [WizardLM](https://github.com/nlpxucan/WizardLM)
-*  [text-to-sql-wizardcoder](https://github.com/cuplv/text-to-sql-wizardcoder)
+* [text-to-sql-wizardcoder](https://github.com/cuplv/text-to-sql-wizardcoder)
 * [test-suite-sql-eval](https://github.com/taoyds/test-suite-sql-eval)
 

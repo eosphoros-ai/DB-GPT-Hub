@@ -491,7 +491,6 @@ register_template(
     sep=[]
 )
 
-
 r"""
 Supports: https://huggingface.co/baichuan-inc/Baichuan-13B-Chat
 Used for inference of the original model.

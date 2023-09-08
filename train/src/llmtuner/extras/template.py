@@ -488,8 +488,10 @@ register_template(
         {"token": "<reserved_103>"} # assistant token
     ],
     system="",
-    sep=[]
+    sep=[],
+    stop_words=[],
 )
+
 
 r"""
 Supports: https://huggingface.co/baichuan-inc/Baichuan-13B-Chat

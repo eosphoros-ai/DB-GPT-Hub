@@ -1,12 +1,12 @@
 deepspeed --num_gpus 2 --master_port=9901 src/train_bash.py \
     --deepspeed ds_config.json \
     --quantization_bit 4 \
-    --model_name_or_path /home/pci/data/cpf/Baichuan-13B-Base \
+    --model_name_or_path /home/pci/data/cpf/Baichuan2-13B-Chat \
     --do_train \
     --dataset example_text2sql \
     --max_source_length 2048 \
     --max_target_length 512 \
-    --template baichuan \
+    --template baichuan2 \
     --finetuning_type lora \
     --lora_rank 32 \
     --lora_alpha 64 \

@@ -11,6 +11,7 @@
 | [BLOOMZ](https://huggingface.co/bigscience/bloomz)       | 560M/1.1B/1.7B/3B/7.1B/176B | query_key_value   | -        |
 | [Falcon](https://huggingface.co/tiiuae/falcon-7b)        | 7B/40B                      | query_key_value   | -        |
 | [Baichuan](https://github.com/baichuan-inc/baichuan-13B) | 7B/13B                      | W_pack            | baichuan |
+| [Baichuan2](https://github.com/baichuan-inc/Baichuan2)   | 7B/13B                      | W_pack            | baichuan2 |
 | [InternLM](https://github.com/InternLM/InternLM)         | 7B                          | q_proj,v_proj     | intern   |
 | [Qwen](https://github.com/QwenLM/Qwen-7B)                | 7B                          | c_attn            | chatml   |
 | [XVERSE](https://github.com/xverse-ai/XVERSE-13B)        | 13B                         | q_proj,v_proj     | xverse   |
@@ -130,17 +131,16 @@ pip install https://github.com/jllllll/bitsandbytes-windows-webui/releases/downl
 
 ```bash
 CUDA_VISIBLE_DEVICES=0 python src/train_bash.py \
-    --stage sft \
-    --model_name_or_path path_to_llama_model \
+    --model_name_or_path Baichuan2-13B-Base \
     --do_train \
-    --dataset text2sql \
+    --dataset example_text2sql \
     --max_source_length 1024 \
     --max_target_length 512 \
     --template default \
     --finetuning_type lora \
     --lora_rank 32 \
     --lora_alpha 64 \
-    --lora_target q_proj,v_proj \
+    --lora_target W_pack \
     --output_dir path_to_sft_checkpoint \
     --overwrite_cache \
     --per_device_train_batch_size 4 \

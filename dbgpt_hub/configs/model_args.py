@@ -180,6 +180,12 @@ class DataArguments:
             dataset_attr.local_path = datasets_info[name].get("local_path", None)
             dataset_attr.multi_turn = datasets_info[name].get("multi_turn", False)
 
+            print(datasets_info[name]["local_path"])
+            print(os.path.exists(
+                datasets_info[name]["local_path"]
+            ))
+            print(">>>>>>>>")
+            
             if datasets_info[name]["local_path"] and os.path.exists(
                 datasets_info[name]["local_path"]
             ):

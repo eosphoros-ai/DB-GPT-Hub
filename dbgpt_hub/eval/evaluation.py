@@ -1218,12 +1218,13 @@ if __name__ == "__main__":
         output_file_path = (
             args.input.rsplit(".", 1)[0] + "2sql." + args.input.rsplit(".", 1)[1]
         )
-        args.gold = "./eval/data/gold_natsql2sql.txt"
-        args.table = "./eval/data/tables_for_natsql2sql.json"
+        args.gold = "./data/eval/gold_natsql2sql.txt"
+        args.table = "./data/eval/tables_for_natsql2sql.json"
     else:
         output_file_path = args.input
-        args.gold = "./eval/data/gold.txt"
-        args.table = "./eval/data/tables.json"
+        # args.gold = "./eval/data/gold.txt"
+        args.gold = "./data/eval/gold.txt"
+        args.table = "./data/eval/tables.json"
     args.pred = output_file_path
 
     # only evaluating exact match needs this argument

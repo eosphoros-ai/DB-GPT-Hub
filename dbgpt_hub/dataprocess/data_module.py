@@ -10,6 +10,7 @@ from datasets import load_dataset, Dataset
 
 IGNORE_INDEX = -100
 
+
 @dataclass
 class DataCollatorForCausalLM(object):
     tokenizer: transformers.PreTrainedTokenizer
@@ -46,20 +47,17 @@ class DataCollatorForCausalLM(object):
             tokenized_sources_with_prompt["input_ids"], tokenized_targets["input_ids"]
         ):
             if not self.predict_with_generate:
-                input_ids.append(torch.tensor(
-                    tokenized_source + tokenized_target))
+                input_ids.append(torch.tensor(tokenized_source + tokenized_target))
                 if not self.train_on_source:
                     labels.append(
                         torch.tensor(
-                            [IGNORE_INDEX for _ in range(
-                                len(tokenized_source))]
+                            [IGNORE_INDEX for _ in range(len(tokenized_source))]
                             + copy.deepcopy(tokenized_target)
                         )
                     )
                 else:
                     labels.append(
-                        torch.tensor(copy.deepcopy(
-                            tokenized_source + tokenized_target))
+                        torch.tensor(copy.deepcopy(tokenized_source + tokenized_target))
                     )
             else:
                 input_ids.append(torch.tensor(tokenized_source))
@@ -124,13 +122,11 @@ def local_dataset(dataset_name):
     if dataset_name.endswith(".json"):
         full_dataset = Dataset.from_json(path_or_paths=dataset_name)
     elif dataset_name.endswith(".jsonl"):
-        full_dataset = Dataset.from_json(
-            filename=dataset_name, format="jsonlines")
+        full_dataset = Dataset.from_json(filename=dataset_name, format="jsonlines")
     elif dataset_name.endswith(".csv"):
         full_dataset = Dataset.from_pandas(pd.read_csv(dataset_name))
     elif dataset_name.endswith(".tsv"):
-        full_dataset = Dataset.from_pandas(
-            pd.read_csv(dataset_name, delimiter="\t"))
+        full_dataset = Dataset.from_pandas(pd.read_csv(dataset_name, delimiter="\t"))
     else:
         raise ValueError(f"Unsupported dataset format: {dataset_name}")
 
@@ -183,8 +179,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                     full_dataset = local_dataset(dataset_name)
                     return full_dataset
                 except:
-                    raise ValueError(
-                        f"Error loading dataset from {dataset_name}")
+                    raise ValueError(f"Error loading dataset from {dataset_name}")
             else:
                 raise NotImplementedError(
                     f"Dataset {dataset_name} not implemented yet."
@@ -201,8 +196,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
             )
 
         elif dataset_format == "spider":
-            dataset = dataset.map(extract_sql_dataset,
-                                  remove_columns=["instruction"])
+            dataset = dataset.map(extract_sql_dataset, remove_columns=["instruction"])
 
         elif dataset_format == "self-instruct" or (
             dataset_format is None and args.dataset == "self-instruct"

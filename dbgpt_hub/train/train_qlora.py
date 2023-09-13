@@ -136,8 +136,7 @@ def main():
         )
         prediction_metrics = prediction_output.metrics
         predictions = prediction_output.predictions
-        predictions = np.where(predictions != -100,
-                               predictions, tokenizer.pad_token_id)
+        predictions = np.where(predictions != -100, predictions, tokenizer.pad_token_id)
         predictions = tokenizer.batch_decode(
             predictions, skip_special_tokens=True, clean_up_tokenization_spaces=True
         )

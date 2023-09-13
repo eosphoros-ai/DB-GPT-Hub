@@ -454,16 +454,14 @@ Used for training and inference of the fine-tuned models.
 """
 register_template(
     name="baichuan2",
-    prefix=[
-        "{{system}}"
-    ],
+    prefix=["{{system}}"],
     prompt=[
-        {"token": "<reserved_106>"}, # user token
+        {"token": "<reserved_106>"},  # user token
         "{{query}}",
-        {"token": "<reserved_107>"} # assistant token
+        {"token": "<reserved_107>"},  # assistant token
     ],
     system="",
-    sep=[]
+    sep=[],
 )
 
 
@@ -474,19 +472,11 @@ Used for inference of the original model.
 """
 register_template(
     name="baichuan2_eval",
-    prefix=[
-        "{{system}}",
-        {"token": "<reserved_106>"} # user token
-    ],
-    prompt=[
-        "{{query}}",
-        {"token": "<reserved_107>"} # assistant token
-    ],
+    prefix=["{{system}}", {"token": "<reserved_106>"}],  # user token
+    prompt=["{{query}}", {"token": "<reserved_107>"}],  # assistant token
     system="",
     sep=[],
-    stop_words=[
-        "<reserved_106>" # user token
-    ]
+    stop_words=["<reserved_106>"],  # user token
 )
 
 

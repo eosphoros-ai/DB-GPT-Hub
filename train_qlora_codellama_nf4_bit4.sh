@@ -23,7 +23,7 @@ model_dir=/home/model_files/codellama/CodeLlama-7b-Instruct-hf
 output_dir=./output_pred/qlora_bit4
 
 
-CUDA_VISIBLE_DEVICES=5,6 python ./dbgpt_hub/train/train_qlora.py \
+CUDA_VISIBLE_DEVICES=2,3,4,5 python ./dbgpt_hub/train/train_qlora.py \
     --model_name_or_path $model_dir \
     --output_dir $output_dir \
     --dataset_name spider \
@@ -63,7 +63,7 @@ CUDA_VISIBLE_DEVICES=5,6 python ./dbgpt_hub/train/train_qlora.py \
     --lora_dropout 0.1 \
     --weight_decay 0.0 \
     --seed 0 \
-    2>&1 | tee $output_dir/log/log.txt
+    2>&1 | tee $output_dir/log/train_log.txt
     
 start_time=`date +"%Y-%m-%d %H:%M:%S"`
 echo "[INFO] date:${start_time} "

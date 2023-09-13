@@ -8,6 +8,7 @@ from dbgpt_hub.configs.config import MODEL_PATH, DEFAULT_FT_MODEL_NAME, MERGED_M
 
 model_path = os.path.join(MODEL_PATH, DEFAULT_FT_MODEL_NAME)
 
+
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--base_model_name_or_path", type=str, default=model_path)

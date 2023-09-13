@@ -16,6 +16,7 @@ from dbgpt_hub.dataprocess.data_utils import (
     DEFAULT_UNK_TOKEN,
 )
 
+
 def add_special_tokens_if_missing(
     tokenizer: PreTrainedTokenizer, model: PreTrainedModel
 ) -> None:

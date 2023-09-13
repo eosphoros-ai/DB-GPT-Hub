@@ -1,6 +1,6 @@
 import os
-ROOT_PATH = os.path.dirname(os.path.dirname(
-    os.path.dirname(os.path.abspath(__file__))))
+
+ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # ROOT_PATH = "/root/autodl-tmp"
 
 MODEL_PATH = "/home/model_files/codellama/"

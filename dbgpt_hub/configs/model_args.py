@@ -3,10 +3,16 @@ import yaml
 from dataclasses import dataclass, field, asdict
 from typing import Optional, Any, Dict, List
 from transformers import Seq2SeqTrainingArguments
-from dbgpt_hub.configs.config import MODEL_PATH, DEFAULT_FT_MODEL_NAME, DATA_PATH, ADAPTER_PATH
+from dbgpt_hub.configs.config import (
+    MODEL_PATH,
+    DEFAULT_FT_MODEL_NAME,
+    DATA_PATH,
+    ADAPTER_PATH,
+)
 
 # Config this from config.py
 model_path = os.path.join(MODEL_PATH, DEFAULT_FT_MODEL_NAME)
+
 
 @dataclass
 class ModelArguments:
@@ -64,6 +70,7 @@ class ModelInferenceArguments:
     source_prefix: Optional[str] = field(
         default=None, metadata={"help": "Prefix to prepend to every source text."}
     )
+
 
 @dataclass
 class DatasetAttr(object):
@@ -181,11 +188,9 @@ class DataArguments:
             dataset_attr.multi_turn = datasets_info[name].get("multi_turn", False)
 
             print(datasets_info[name]["local_path"])
-            print(os.path.exists(
-                datasets_info[name]["local_path"]
-            ))
+            print(os.path.exists(datasets_info[name]["local_path"]))
             print(">>>>>>>>")
-            
+
             if datasets_info[name]["local_path"] and os.path.exists(
                 datasets_info[name]["local_path"]
             ):

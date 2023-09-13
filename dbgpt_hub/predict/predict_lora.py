@@ -12,6 +12,7 @@ from dbgpt_hub.utils.model_utils import smart_tokenizer_and_embedding_resize
 from peft import PeftModel
 
 from dbgpt_hub.configs.config import OUT_DIR, MODEL_PATH, DEFAULT_FT_MODEL_NAME
+
 model_path = os.path.join(MODEL_PATH, DEFAULT_FT_MODEL_NAME)
 
 
@@ -187,7 +188,7 @@ def predict():
 if __name__ == "__main__":
     result = predict()
 
-    # Judge path exists, if not need create  
+    # Judge path exists, if not need create
     if not os.path.exists(OUT_DIR):
         os.mkdir(OUT_DIR)
 

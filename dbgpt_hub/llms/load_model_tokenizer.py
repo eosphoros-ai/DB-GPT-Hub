@@ -20,6 +20,7 @@ from dbgpt_hub.utils.model_utils import (
     find_all_linear_names,
 )
 
+
 def is_ipex_available():
     def get_major_and_minor_from_version(full_version):
         return (
@@ -124,7 +125,9 @@ def get_accelerate_model(
         padding_side="right",
         use_fast=False,  # Fast tokenizer giving issues.
         tokenizer_type="llama"
-        if ("llama" in args.model_name_or_path or "CodeLlama" in args.model_name_or_path)
+        if (
+            "llama" in args.model_name_or_path or "CodeLlama" in args.model_name_or_path
+        )
         else None,  # Needed for HF name change
         trust_remote_code=args.trust_remote_code,
         use_auth_token=args.use_auth_token,

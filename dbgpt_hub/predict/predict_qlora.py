@@ -17,21 +17,22 @@ from dbgpt_hub.configs import (
 )
 
 from dbgpt_hub.llms import get_accelerate_model
-from dbgpt_hub.configs.config import MODEL_PATH, DEFAULT_FT_MODEL_NAME,OUT_DIR
+from dbgpt_hub.configs.config import MODEL_PATH, DEFAULT_FT_MODEL_NAME, OUT_DIR
+
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--base_model_name_or_path",
         type=str,
-        default= os.path.join(MODEL_PATH, DEFAULT_FT_MODEL_NAME)
+        default=os.path.join(MODEL_PATH, DEFAULT_FT_MODEL_NAME),
     )
     parser.add_argument(
         "--peft_ckpt_path", type=str, default="Your peft qlora ckpt path"
     )
     parser.add_argument("--input_data_json", type=str, default="dev_sql.json")
     parser.add_argument(
-        "--output_name", type=str, default= OUT_DIR + "/qlora_8_lr_2e4_drop1e1.sql"
+        "--output_name", type=str, default=OUT_DIR + "/qlora_8_lr_2e4_drop1e1.sql"
     )
 
     return parser.parse_args()
@@ -230,7 +231,7 @@ def predict():
 if __name__ == "__main__":
     dataset_name, result = predict()
 
-    # Judge path exists, if not need create  
+    # Judge path exists, if not need create
     if not os.path.exists(OUT_DIR):
         os.mkdir(OUT_DIR)
 

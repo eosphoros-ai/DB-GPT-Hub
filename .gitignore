@@ -8,7 +8,12 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+#09 refactore data , ouput and wandb ignore
 data/spider
+data/eval
+output_pred/
+wandb/
+#
 build/
 develop-eggs/
 dist/
@@ -79,7 +84,7 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 # vscode ignore
-.vscode/
+# .vscode/
 
 # IPython
 profile_default/

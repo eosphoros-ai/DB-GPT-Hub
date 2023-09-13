@@ -27,6 +27,7 @@ DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包�
 DB-GPT-HUB目前支持的base模型有：
 
 * LLaMa/LLaMa2系列
+  * CodeLlama（在refactor分支）
   * alpaca
   * vicuna
   * guanaco
@@ -44,6 +45,7 @@ DB-GPT-HUB目前支持的base模型有：
 | 13b      | 8.4GB（28.7GB） | 5.9GB   | 60.2GB |
 | 33b      | 18.3GB（OOM）   | 8.4GB   | 122GB  |
 | 65b      | 38.7GB（OOM）   | 13.1GB  | 434GB  |
+
 
 ### 2.3、微调方法
 
@@ -207,15 +209,21 @@ python eval/evaluation.py --plug_value --input  Your_model_pred_file
 * 阶段一:
   * 搭建基本框架，基于数个大模型打通从数据处理、模型SFT训练、预测输出和评估的整个流程，截止`20230804`我们已经整个打通。
   我们现在支持  
+  - [x] CodeLlama（在refactor分支）
   - [x] LLaMa/LLaMa
   - [x] Falcon
-  
-  We preliminarily plan to support the following models going forward. If there are new and better models, we'll keep an eye out and follow up too. Feel free to open an issue to suggest any, we'll glad to see your issues.
-  - [ ] ChatGLM
-  - [ ] BLOOM
+  - [x] ChatGLM
+  - [x] BLOOM 
+
+  后续初步计划支持如下：
   - [ ] CodeGeeX
   - [ ] WizardLM
+  最近我们也在重构代码，关于CodeLlama的支持和实验结果我们放到了refactore分支中。  
   
+  **如果你觉得有帮助，给我们的项目点个star是对我们的最好鼓励，也是我们放出更多代码和实验结果的动力。谢谢你的鼓励！**
+
+
+
 * 阶段二:
   * 优化模型效果，支持更多不同模型进行不同方式的微调。
   * 对`prompt`优化

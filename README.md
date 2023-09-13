@@ -28,6 +28,7 @@ After the data is downloaded by default, it is placed under the first-level dire
 DB-GPT-HUB currently supports the following base models:
 
 * LLaMa/LLaMa2
+  * CodeLlama(in branch refactor)
   * alpaca
   * vicuna
   * guanaco
@@ -207,8 +208,21 @@ The whole process we will divide into three phases:
 * Stage 1:
   * Set up the basic framework, enabling end-to-end workflow from data processing, model SFT training, prediction output to evaluation based on multiple large models. As of 20230804, the entire pipeline has been established.
   now,we has supported as follows:
+  - [x] CodeLlama（在refactor分支）
   - [x] LLaMa/LLaMa
   - [x] Falcon
+  - [x] ChatGLM
+  - [x] BLOOM  
+  
+  The preliminary plans for future support are as follows:
+  - [ ] CodeGeeX
+  - [ ] WizardLM 
+    
+  We have also been refactoring the code recently. The support for CodeLlama and the experiment results have been moved to the refactor branch。
+  
+**If you find a little help to you ,Starring our project is the best way to encourage us and motivate us to release more code and experiment results,thanks for your encouragement.**
+
+
 * Stage 2:
   * Optimize model performance, support fine-tuning more different models in various ways.
   * Optimize `prompts`

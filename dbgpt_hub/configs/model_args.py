@@ -221,37 +221,60 @@ class DataArguments:
 
 
 @dataclass
-class GenerationArguments:
-    # For more hyperparameters check:
-    # https://huggingface.co/docs/transformers/main_classes/text_generation#transformers.GenerationConfig
-    # Length arguments
-    max_new_tokens: Optional[int] = field(
-        default=128,
+class GeneratingArguments:
+    r"""
+    Arguments pertaining to specify the decoding parameters.
+    """
+    do_sample: Optional[bool] = field(
+        default=True,
         metadata={
-            "help": "Maximum number of new tokens to be generated in evaluation or prediction loops"
-            "if predict_with_generate is set."
+            "help": "Whether or not to use sampling, use greedy decoding otherwise."
         },
     )
-    min_new_tokens: Optional[int] = field(
-        default=None, metadata={"help": "Minimum number of new tokens to generate."}
+    temperature: Optional[float] = field(
+        default=0.95,
+        metadata={"help": "The value used to modulate the next token probabilities."},
     )
-
-    # Generation strategy
-    do_sample: Optional[bool] = field(default=False)
-    num_beams: Optional[int] = field(default=1)
-    num_beam_groups: Optional[int] = field(default=1)
-    penalty_alpha: Optional[float] = field(default=None)
-    use_cache: Optional[bool] = field(default=False)
-
-    # Hyperparameters for logit manipulation
-    temperature: Optional[float] = field(default=1.0)
-    top_k: Optional[int] = field(default=50)
-    top_p: Optional[float] = field(default=1.0)
-    typical_p: Optional[float] = field(default=1.0)
-    diversity_penalty: Optional[float] = field(default=0.0)
-    repetition_penalty: Optional[float] = field(default=1.0)
-    length_penalty: Optional[float] = field(default=1.0)
-    no_repeat_ngram_size: Optional[int] = field(default=0)
+    top_p: Optional[float] = field(
+        default=0.7,
+        metadata={
+            "help": "The smallest set of most probable tokens with probabilities that add up to top_p or higher are kept."
+        },
+    )
+    top_k: Optional[int] = field(
+        default=50,
+        metadata={
+            "help": "The number of highest probability vocabulary tokens to keep for top-k filtering."
+        },
+    )
+    num_beams: Optional[int] = field(
+        default=1,
+        metadata={"help": "Number of beams for beam search. 1 means no beam search."},
+    )
+    max_length: Optional[int] = field(
+        default=None,
+        metadata={
+            "help": "The maximum length the generated tokens can have. It can be overridden by max_new_tokens."
+        },
+    )
+    max_new_tokens: Optional[int] = field(
+        default=512,
+        metadata={
+            "help": "The maximum numbers of tokens to generate, ignoring the number of tokens in the prompt."
+        },
+    )
+    repetition_penalty: Optional[float] = field(
+        default=1.0,
+        metadata={
+            "help": "The parameter for repetition penalty. 1.0 means no penalty."
+        },
+    )
+    length_penalty: Optional[float] = field(
+        default=1.0,
+        metadata={
+            "help": "Exponential penalty to the length that is used with beam-based generation."
+        },
+    )
 
     def to_dict(self) -> Dict[str, Any]:
         args = asdict(self)

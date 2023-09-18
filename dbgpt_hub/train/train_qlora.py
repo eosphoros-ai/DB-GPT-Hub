@@ -17,8 +17,8 @@ from dbgpt_hub.configs import (
     QuantArguments,
     TrainingArguments,
 )
-from dbgpt_hub.dataprocess.data_module import make_data_module
-from dbgpt_hub.llms import SavePeftModelCallback, get_accelerate_model
+from dbgpt_hub.data_process.data_utils import make_data_module
+from dbgpt_hub.llm_base import SavePeftModelCallback, get_accelerate_model
 from dbgpt_hub.utils.model_utils import (
     get_last_checkpoint,
     print_trainable_parameters,

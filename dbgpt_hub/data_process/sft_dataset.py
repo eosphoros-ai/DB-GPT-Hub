@@ -282,3 +282,5 @@ def make_instruction_data_module(tokenizer: PreTrainedTokenizer, args):
         "eval_dataset": eval_dataset,
         "data_collator": data_collator,
     }
+
+## TODO  增加 _pad_tensors_to_target_len 函数，并适配

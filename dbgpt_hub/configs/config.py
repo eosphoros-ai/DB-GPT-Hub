@@ -3,7 +3,10 @@ import os
 ### path config 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # ROOT_PATH = "/root/autodl-tmp"
-MODEL_PATH = "/home/model_files/codellama/"
+MODELS_PARENT_PATH = "/home/model_files/codellama/"
+DEFAULT_FT_MODEL_NAME = "CodeLlama-7b-Instruct-hf"
+MODEL_PATH = os.path.join(MODELS_PARENT_PATH, DEFAULT_FT_MODEL_NAME)
+
 # MODEL_PATH = os.path.join(ROOT_PATH, "model")
 ADAPTER_PATH = os.path.join(ROOT_PATH, "adapter")
 MERGED_MODELS = os.path.join(ROOT_PATH, "merged_models")
@@ -13,11 +16,6 @@ MERGED_MODELS = os.path.join(ROOT_PATH, "merged_models")
 
 DATA_PATH = os.path.join(ROOT_PATH, "data")
 OUT_DIR = os.path.join(DATA_PATH, "out_pred")
-
-DEFAULT_FT_MODEL_NAME = "CodeLlama-7b-Instruct-hf"
-# Config this from config.py
-model_path = os.path.join(MODEL_PATH, DEFAULT_FT_MODEL_NAME)
-
 
 ## model constants 
 IGNORE_INDEX = -100

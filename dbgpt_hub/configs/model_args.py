@@ -122,7 +122,7 @@ class ModelArguments:
 class ModelInferenceArguments:
     cache_dir: Optional[str] = field(default=None)
     model_name_or_path: Optional[str] = field(
-        default=model_path, metadata={"help": "Path to pre-trained model"}
+        default=MODEL_PATH, metadata={"help": "Path to pre-trained model"}
     )
     model_max_length: int = field(
         default=1024,

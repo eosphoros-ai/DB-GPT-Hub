@@ -18,6 +18,7 @@ from dbgpt_hub.configs import (
 
 from dbgpt_hub.llms import get_accelerate_model
 from dbgpt_hub.configs.config import MODEL_PATH, DEFAULT_FT_MODEL_NAME, OUT_DIR
+from dbgpt_hub.configs.data_args import DEFAULT_PROMPT_DICT,ALPACA_PROMPT_DICT,SQL_PROMPT_DICT
 
 
 def get_args():
@@ -40,34 +41,6 @@ def get_args():
 
 local_parser = get_args()
 
-
-ALPACA_PROMPT_DICT = {
-    "prompt_input": (
-        "Below is an instruction that describes a task, paired with an input that provides further context. "
-        "Write a response that appropriately completes the request.\n\n"
-        "### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response: "
-    ),
-    "prompt_no_input": (
-        "Below is an instruction that describes a task. "
-        "Write a response that appropriately completes the request.\n\n"
-        "### Instruction:\n{instruction}\n\n### Response: "
-    ),
-}
-
-SQL_PROMPT_DICT = {
-    "prompt_input": (
-        "I want you to act as a SQL terminal in front of an example database, \
-         you need only to return the sql command to me.Below is an instruction that describes a task, \
-         Write a response that appropriately completes the request.\n"
-        "##Instruction:\n{instruction}\n###Input:\n{input}\n\n###Response:"
-    ),
-    "prompt_no_input": (
-        "I want you to act as a SQL terminal in front of an example database, \
-        you need only to return the sql command to me.Below is an instruction that describes a task, \
-        Write a response that appropriately completes the request.\n"
-        "####Instruction:\n{instruction}\n\###Response: "
-    ),
-}
 
 
 def extract_alpaca_dataset(example):

@@ -11,6 +11,7 @@ from dbgpt_hub.configs import GenerationArguments, ModelInferenceArguments
 from dbgpt_hub.configs.config import MODEL_PATH, OUT_DIR, DEFAULT_FT_MODEL_NAME
 from dbgpt_hub.utils.model_utils import get_logits_processor
 from dbgpt_hub.utils.model_utils import smart_tokenizer_and_embedding_resize
+from dbgpt_hub.configs.data_args import DEFAULT_PROMPT_DICT,ALPACA_PROMPT_DICT,SQL_PROMPT_DICT
 
 
 def get_args():
@@ -33,14 +34,6 @@ def get_args():
 local_parser = get_args()
 
 
-SQL_PROMPT_DICT = {
-    "prompt_input": (
-        "I want you to act as a SQL terminal in front of an example database, you need to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.  The instruction is {instruction}, So please tell me {input} Response:"
-    ),
-    "prompt_no_input": (
-        "I want you to act as a SQL terminal in front of an example database, you need to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.  The instruction is {instruction}, Response:"
-    ),
-}
 
 
 def extract_sql_dataset(example):

@@ -3,6 +3,8 @@ import os
 import torch
 import transformers
 from transformers import AutoTokenizer
+from dbgpt_hub.configs.data_args import DEFAULT_PROMPT_DICT,ALPACA_PROMPT_DICT,SQL_PROMPT_DICT
+
 from train.train_qlora import (
     ModelArguments,
     DataArguments,

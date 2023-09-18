@@ -11,7 +11,7 @@ from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import Dataset
 from transformers.tokenization_utils import PreTrainedTokenizer
 
-from dbgpt_hub.dataprocess.data_utils import IGNORE_INDEX, make_data_module
+from dbgpt_hub.data_process.data_utils import IGNORE_INDEX, make_data_module
 
 logger = logging.getLogger(__name__)
 

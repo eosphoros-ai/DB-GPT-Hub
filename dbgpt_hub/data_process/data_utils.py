@@ -4,39 +4,13 @@ import pandas as pd
 
 from typing import Any, Dict, List, Optional, Tuple, Union
 from datasets import Dataset, DatasetDict, concatenate_datasets, load_dataset
+from dbgpt_hub.configs.data_args import DEFAULT_PROMPT_DICT,ALPACA_PROMPT_DICT,SQL_PROMPT_DICT
 
 IGNORE_INDEX = -100
 DEFAULT_PAD_TOKEN = "[PAD]"
 DEFAULT_EOS_TOKEN = "</s>"
 DEFAULT_BOS_TOKEN = "<s>"
 DEFAULT_UNK_TOKEN = "<unk>"
-
-DEFAULT_PROMPT_DICT = {
-    "prompt_input": ("{instruction}\n\n{input}\n\n"),
-    "prompt_no_input": ("{instruction}\n\n"),
-}
-
-ALPACA_PROMPT_DICT = {
-    "prompt_input": (
-        "Below is an instruction that describes a task, paired with an input that provides further context. "
-        "Write a response that appropriately completes the request.\n\n"
-        "### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response: "
-    ),
-    "prompt_no_input": (
-        "Below is an instruction that describes a task. "
-        "Write a response that appropriately completes the request.\n\n"
-        "### Instruction:\n{instruction}\n\n### Response: "
-    ),
-}
-
-SQL_PROMPT_DICT = {
-    "prompt_input": (
-        "You are now a data analyst, especially proficient in writing SQL code. Based on the database and table information provided by the user, please think through step-by-step and write the SQL code that can answer the user's questions, meet the user's data query needs, and pay attention to returning only the corresponding SQL . The database and table information is below: \n{instruction}, So please tell me the SQL code that meet the query of  {input} \n The answer is :"
-    ),
-    "prompt_no_input": (
-        "You are now a data analyst, especially proficient in writing SQL code. Based on the database and table information provided by the user, please think through step-by-step and write the SQL code that can answer the user's questions, meet the user's data query needs, and pay attention to returning only the corresponding SQL . The database and table information and query is below:{instruction}\n The answer is :"
-    ),
-}
 
 
 def extract_default_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:

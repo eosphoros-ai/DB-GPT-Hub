@@ -3,6 +3,40 @@ import json
 from typing import List, Literal, Optional
 from dataclasses import dataclass, field
 
+DEFAULT_PROMPT_DICT = {
+    "prompt_input": ("{instruction}\n\n{input}\n\n"),
+    "prompt_no_input": ("{instruction}\n\n"),
+}
+
+
+ALPACA_PROMPT_DICT = {
+    "prompt_input": (
+        "Below is an instruction that describes a task, paired with an input that provides further context. "
+        "Write a response that appropriately completes the request.\n\n"
+        "### Instruction:\n{instruction}\n\n### Input:\n{input}\n\n### Response: "
+    ),
+    "prompt_no_input": (
+        "Below is an instruction that describes a task. "
+        "Write a response that appropriately completes the request.\n\n"
+        "### Instruction:\n{instruction}\n\n### Response: "
+    ),
+}
+
+SQL_PROMPT_DICT = {
+    "prompt_input": (
+        "I want you to act as a SQL terminal in front of an example database, \
+         you need only to return the sql command to me.Below is an instruction that describes a task, \
+         Write a response that appropriately completes the request.\n"
+        "##Instruction:\n{instruction}\n###Input:\n{input}\n\n###Response:"
+    ),
+    "prompt_no_input": (
+        "I want you to act as a SQL terminal in front of an example database, \
+        you need only to return the sql command to me.Below is an instruction that describes a task, \
+        Write a response that appropriately completes the request.\n"
+        "####Instruction:\n{instruction}\n\###Response: "
+    ),
+}
+
 
 @dataclass
 class DatasetAttr:

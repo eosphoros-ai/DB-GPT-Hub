@@ -48,6 +48,7 @@ def is_ipex_available():
     return True
 
 
+## TODO 待将此处的所有调用都替换掉，过去在train_qlora和predict_qlora中用了，待替换，然后删除此处历史代码。
 def get_accelerate_model(
     args: argparse.Namespace = None, checkpoint_dir: Optional[str] = None
 ):

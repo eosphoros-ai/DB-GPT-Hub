@@ -26,7 +26,7 @@ def init_adapter(
     r"""
     Initializes the adapters.
 
-    Support full-parameter, freeze and LoRA training.
+    Support full-parameter, freeze and LoRA ,QLoRA,training.
 
     Note that the trainable parameters must be cast to float32.
     """

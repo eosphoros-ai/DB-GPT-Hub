@@ -1,4 +1,4 @@
-from llmtuner import export_model
+from dbgpt_hub.llm_base.model_trainer import export_model
 
 
 def main():

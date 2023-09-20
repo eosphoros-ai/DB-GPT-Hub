@@ -9,9 +9,11 @@ import math
 from rouge_chinese import Rouge
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 from dataclasses import dataclass
-from dbgpt_hub.llm_base.config_parser import get_state_dict,load_trainable_params
 from dbgpt_hub.configs.config import IGNORE_INDEX
 from dbgpt_hub.llm_base.loggings import get_logger
+from dbgpt_hub.llm_base.config_parser import get_train_args, get_state_dict,load_trainable_params
+from dbgpt_hub.llm_base.load_tokenizer import load_model_and_tokenizer
+
 from dbgpt_hub.configs import VALUE_HEAD_FILE_NAME,FINETUNING_ARGS_NAME
 from transformers import Seq2SeqTrainer
 from transformers.trainer import TRAINING_ARGS_NAME, WEIGHTS_NAME
@@ -391,3 +393,18 @@ def plot_loss(
             "Figure saved:",
             os.path.join(save_dictionary, "training_{}.png".format(key)),
         )
+
+def export_model(
+    args: Optional[Dict[str, Any]] = None, max_shard_size: Optional[str] = "10GB"
+):
+    model_args, _, training_args, finetuning_args, _ = get_train_args(args)
+    model, tokenizer = load_model_and_tokenizer(model_args, finetuning_args)
+    model.save_pretrained(training_args.output_dir, max_shard_size=max_shard_size)
+    try:
+        tokenizer.save_pretrained(training_args.output_dir)
+    except:
+        logger.warning("Cannot save tokenizer, please copy the files manually.")
+
+
+if __name__ == "__main__":
+    run_exp()

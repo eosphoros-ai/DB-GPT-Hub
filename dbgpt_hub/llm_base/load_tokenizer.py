@@ -538,3 +538,27 @@ def load_valuehead_params(model: torch.nn.Module, checkpoint_dir: os.PathLike) -
         "default_head_bias", torch.zeros_like(valuehead_state_dict["summary.bias"])
     )
     return True
+
+def dispatch_model(model: "PreTrainedModel") -> "PreTrainedModel":
+    r"""
+    Dispatches a pre-trained model to GPUs with balanced memory.
+    Borrowed from: https://github.com/huggingface/transformers/blob/v4.31.0/src/transformers/modeling_utils.py#L2803
+    """
+    if getattr(model, "is_loaded_in_8bit", False) or getattr(model, "is_loaded_in_4bit", False): # do nothing
+        return model
+
+    if torch.cuda.device_count() > 1:
+        from accelerate import dispatch_model
+        from accelerate.utils import infer_auto_device_map, get_balanced_memory
+
+        if model._no_split_modules is None:
+            raise ValueError("The model class needs to implement the `_no_split_modules` attribute.")
+
+        kwargs = {"dtype": model.dtype, "no_split_module_classes": model._no_split_modules}
+        max_memory = get_balanced_memory(model, **kwargs)
+        # Make sure tied weights are tied before creating the device map.
+        model.tie_weights()
+        device_map = infer_auto_device_map(model, max_memory=max_memory, **kwargs)
+        return dispatch_model(model, device_map)
+    else:
+        return model.cuda()

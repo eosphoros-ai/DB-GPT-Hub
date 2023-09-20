@@ -16,7 +16,7 @@ from dbgpt_hub.configs import (
     TrainingArguments,
 )
 
-from dbgpt_hub.llms import get_accelerate_model
+from dbgpt_hub.llm_base import get_accelerate_model
 from dbgpt_hub.configs.config import MODEL_PATH, DEFAULT_FT_MODEL_NAME, OUT_DIR
 from dbgpt_hub.configs.data_args import DEFAULT_PROMPT_DICT,ALPACA_PROMPT_DICT,SQL_PROMPT_DICT
 

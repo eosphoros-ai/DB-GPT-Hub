@@ -25,7 +25,7 @@ DEFAULT_BOS_TOKEN = "<s>"
 DEFAULT_UNK_TOKEN = "<unk>"
 
 
-# LOG_FILE_NAME = "trainer_log.jsonl"
+LOG_FILE_NAME = "trainer_log.jsonl"
 
 # head_state_dict,model save name
 VALUE_HEAD_FILE_NAME = "value_head.bin"

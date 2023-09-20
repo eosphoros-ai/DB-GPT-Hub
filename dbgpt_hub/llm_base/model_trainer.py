@@ -3,22 +3,35 @@ import json
 import torch
 import numpy as np
 import torch.nn as nn
+import jieba
+import matplotlib.pyplot as plt
+import math 
+from rouge_chinese import Rouge
+from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
+from dataclasses import dataclass
 from dbgpt_hub.llm_base.config_parser import get_state_dict,load_trainable_params
 from dbgpt_hub.configs.config import IGNORE_INDEX
-from dbgpt_hub.llm_base.logging import get_logger
+from dbgpt_hub.llm_base.loggings import get_logger
 from dbgpt_hub.configs import VALUE_HEAD_FILE_NAME,FINETUNING_ARGS_NAME
 from transformers import Seq2SeqTrainer
 from transformers.trainer import TRAINING_ARGS_NAME, WEIGHTS_NAME
 from transformers.modeling_utils import PreTrainedModel, unwrap_model,load_sharded_checkpoint
-from transformers.trainer import WEIGHTS_NAME, WEIGHTS_INDEX_NAME
+from transformers.trainer import WEIGHTS_NAME, WEIGHTS_INDEX_NAME,TRAINER_STATE_NAME
+from transformers.generation.logits_process import LogitsProcessor
+from transformers.generation.utils import LogitsProcessorList
+
+
 from peft import PeftModel
 from trl import PreTrainedModelWrapper
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union,Sequence
+
 
 if TYPE_CHECKING:
     from transformers import PreTrainedTokenizer, Seq2SeqTrainingArguments, TrainerState
     from transformers.trainer import PredictionOutput
     from dbgpt_hub.configs.model_args  import FinetuningArguments
+
+
 
 
 logger = get_logger(__name__)
@@ -254,3 +267,127 @@ class Seq2SeqPeftTrainer(PeftTrainer):
                     json.dumps({"label": label, "predict": pred}, ensure_ascii=False)
                 )
             writer.write("\n".join(res))
+
+
+@dataclass
+class ComputeMetrics:
+    r"""
+    Wraps the tokenizer into metric functions, used in Seq2SeqPeftTrainer.
+    """
+
+    tokenizer: "PreTrainedTokenizer"
+
+    def __call__(
+        self, eval_preds: Sequence[Union[np.ndarray, Tuple[np.ndarray]]]
+    ) -> Dict[str, float]:
+        r"""
+        Uses the model predictions to compute metrics.
+        """
+        preds, labels = eval_preds
+        score_dict = {"rouge-1": [], "rouge-2": [], "rouge-l": [], "bleu-4": []}
+
+        preds = np.where(preds != IGNORE_INDEX, preds, self.tokenizer.pad_token_id)
+        labels = np.where(labels != IGNORE_INDEX, labels, self.tokenizer.pad_token_id)
+
+        decoded_preds = self.tokenizer.batch_decode(preds, skip_special_tokens=True)
+        decoded_labels = self.tokenizer.batch_decode(labels, skip_special_tokens=True)
+
+        for pred, label in zip(decoded_preds, decoded_labels):
+            hypothesis = list(jieba.cut(pred))
+            reference = list(jieba.cut(label))
+
+            if (
+                len(" ".join(hypothesis).split()) == 0
+                or len(" ".join(reference).split()) == 0
+            ):
+                result = {
+                    "rouge-1": {"f": 0.0},
+                    "rouge-2": {"f": 0.0},
+                    "rouge-l": {"f": 0.0},
+                }
+            else:
+                rouge = Rouge()
+                scores = rouge.get_scores(" ".join(hypothesis), " ".join(reference))
+                result = scores[0]
+
+            for k, v in result.items():
+                score_dict[k].append(round(v["f"] * 100, 4))
+
+            bleu_score = sentence_bleu(
+                [list(label)],
+                list(pred),
+                smoothing_function=SmoothingFunction().method3,
+            )
+            score_dict["bleu-4"].append(round(bleu_score * 100, 4))
+
+        return {k: float(np.mean(v)) for k, v in score_dict.items()}
+
+
+# Avoid runtime error in model.generate(do_sample=True).
+class InvalidScoreLogitsProcessor(LogitsProcessor):
+    def __call__(
+        self, input_ids: torch.LongTensor, scores: torch.FloatTensor
+    ) -> torch.FloatTensor:
+        if torch.isnan(scores).any() or torch.isinf(scores).any():
+            scores.zero_()
+            scores[..., 0] = 1.0
+        return scores
+
+
+def get_logits_processor() -> LogitsProcessorList:
+    logits_processor = LogitsProcessorList()
+    logits_processor.append(InvalidScoreLogitsProcessor())
+    return logits_processor
+
+
+# metric used
+def smooth(scalars: List[float]) -> List[float]:
+    r"""
+    EMA implementation according to TensorBoard.
+    """
+    last = scalars[0]
+    smoothed = list()
+    weight = 1.8 * (
+        1 / (1 + math.exp(-0.05 * len(scalars))) - 0.5
+    )  # a sigmoid function
+    for next_val in scalars:
+        smoothed_val = last * weight + (1 - weight) * next_val
+        smoothed.append(smoothed_val)
+        last = smoothed_val
+    return smoothed
+
+def plot_loss(
+    save_dictionary: os.PathLike, keys: Optional[List[str]] = ["loss"]
+) -> None:
+    with open(
+        os.path.join(save_dictionary, TRAINER_STATE_NAME), "r", encoding="utf-8"
+    ) as f:
+        data = json.load(f)
+
+    for key in keys:
+        steps, metrics = [], []
+        for i in range(len(data["log_history"])):
+            if key in data["log_history"][i]:
+                steps.append(data["log_history"][i]["step"])
+                metrics.append(data["log_history"][i][key])
+
+        if len(metrics) == 0:
+            logger.warning(f"No metric {key} to plot.")
+            continue
+
+        plt.figure()
+        plt.plot(steps, metrics, alpha=0.4, label="original")
+        plt.plot(steps, smooth(metrics), label="smoothed")
+        plt.title("training {} of {}".format(key, save_dictionary))
+        plt.xlabel("step")
+        plt.ylabel(key)
+        plt.legend()
+        plt.savefig(
+            os.path.join(save_dictionary, "training_{}.png".format(key)),
+            format="png",
+            dpi=100,
+        )
+        print(
+            "Figure saved:",
+            os.path.join(save_dictionary, "training_{}.png".format(key)),
+        )

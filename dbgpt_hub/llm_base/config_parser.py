@@ -260,3 +260,5 @@ def get_infer_args(
             raise ValueError("Quantized model only accepts a single checkpoint.")
 
     return model_args, data_args, finetuning_args, generating_args
+
+

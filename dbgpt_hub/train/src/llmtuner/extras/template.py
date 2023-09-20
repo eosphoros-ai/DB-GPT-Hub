@@ -160,6 +160,7 @@ class Template:
         return token_ids
 
 
+
 @dataclass
 class Llama2Template(Template):
     def _encode(

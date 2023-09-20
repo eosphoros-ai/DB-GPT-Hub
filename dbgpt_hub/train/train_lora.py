@@ -19,8 +19,9 @@ from transformers import (
     deepspeed,
 )
 
+# TODO 待解决引用问题，白色的。0919
 from dbgpt_hub.configs import DataArguments, ModelArguments, TrainingArguments
-from dbgpt_hub.dataprocess import make_supervised_data_module
+from dbgpt_hub.data_process import make_supervised_data_module
 from dbgpt_hub.utils.model_utils import add_special_tokens_if_missing
 
 

@@ -35,6 +35,7 @@ FINETUNING_ARGS_NAME = "finetuning_args.json"
 
 #  when prepare_model_for_training ,layer_norm_names
 LAYERNORM_NAMES = ["norm", "ln_f", "ln_attn", "ln_mlp"]
+EXT2TYPE = {"csv": "csv", "json": "json", "jsonl": "json", "txt": "text"}
 
 # METHODS = ["full", "freeze", "lora"]
 

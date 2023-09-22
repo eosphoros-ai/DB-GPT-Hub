@@ -24,9 +24,9 @@ from dbgpt_hub.utils.model_utils import (
     print_trainable_parameters,
 )
 
-sys.path.append(
-    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-)
+# sys.path.append(
+#     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# )
 
 if torch.cuda.is_available():
     torch.backends.cuda.matmul.allow_tf32 = True

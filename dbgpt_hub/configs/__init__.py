@@ -1,19 +1,17 @@
 from .model_args import (
     ModelArguments,
-    DataArguments,
-    QuantArguments,
     TrainingArguments,
-    GenerationArguments,
     ModelInferenceArguments,
-    LoraArguments,
+)
+from .data_args import(
+    DataArguments,
+    Llama2Template
 )
 
 __all__ = [
     "DataArguments",
-    "GenerationArguments",
+    "Llama2Template",
     "ModelArguments",
     "TrainingArguments",
     "ModelInferenceArguments",
-    "LoraArguments",
-    "QuantArguments",
 ]

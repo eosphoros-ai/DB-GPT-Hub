@@ -2,16 +2,14 @@ import copy
 import logging
 import datasets
 import torch
-
-from dataclasses import dataclass
-from typing import Dict, List
-
-from datasets import DatasetDict
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import Dataset
+from dataclasses import dataclass
+from datasets import DatasetDict
 from transformers.tokenization_utils import PreTrainedTokenizer
+from dbgpt_hub.configs.config import IGNORE_INDEX
+from typing import Dict, List
 
-from dbgpt_hub.data_process.data_utils import IGNORE_INDEX, make_data_module
 
 logger = logging.getLogger(__name__)
 
@@ -238,49 +236,4 @@ class DataCollatorForSupervisedDataset:
         return data_dict
 
 
-def make_instruction_data_module(tokenizer: PreTrainedTokenizer, args):
-    train_dataset, eval_dataset = make_data_module(args)
-    train_dataset = (
-        SupervisedDataset(
-            train_dataset,
-            tokenizer=tokenizer,
-            source_max_len=args.source_max_len,
-            target_max_len=args.target_max_len,
-            train_on_source=args.train_on_source,
-            predict_with_generate=args.predict_with_generate,
-        )
-        if args.do_train
-        else None
-    )
-
-    eval_dataset = (
-        SupervisedDataset(
-            eval_dataset,
-            tokenizer=tokenizer,
-            source_max_len=args.source_max_len,
-            target_max_len=args.target_max_len,
-            train_on_source=args.train_on_source,
-            predict_with_generate=args.predict_with_generate,
-        )
-        if args.do_eval
-        else None
-    )
-
-    print(
-        f"train_dataset: {type(train_dataset)}, #length: {len(train_dataset)}"
-    ) if args.do_train else None
-    print(
-        f"eval_dataset: {type(eval_dataset)}, #length: {len(eval_dataset)}"
-    ) if args.do_eval else None
-    print("Adding data collator: ", DataCollatorForSupervisedDataset)
-    data_collator = DataCollatorForSupervisedDataset(
-        tokenizer=tokenizer, predict_with_generate=args.predict_with_generate
-    )
-
-    return {
-        "train_dataset": train_dataset,
-        "eval_dataset": eval_dataset,
-        "data_collator": data_collator,
-    }
-
-## TODO  增加 _pad_tensors_to_target_len 函数，并适配
+# ## TODO  增加 _pad_tensors_to_target_len 函数，并适配

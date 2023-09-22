@@ -1,1 +1,0 @@
-the default  database  path is  '/DB-GPT-Hub/data/spider/database' ,which the database can download from [goolge drive link](https://drive.google.com/file/d/1mkCx2GOFIqNesD4y8TDAO1yX1QZORP5w/view) and decompress.

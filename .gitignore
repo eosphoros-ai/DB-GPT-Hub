@@ -13,6 +13,11 @@ data/spider
 data/eval
 output_pred/
 wandb/
+dbgpt_hub/data/*
+dbgpt_hub/ouput/*
+dbgpt_hub/scripts/*
+
+
 #
 build/
 develop-eggs/

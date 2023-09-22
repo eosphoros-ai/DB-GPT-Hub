@@ -14,8 +14,13 @@ data/eval
 output_pred/
 wandb/
 dbgpt_hub/data/*
+# But track the data/eval_data folder itself
+!dbgpt_hub/data/eval_data/
+#09 Ignore everything in the output folder
 dbgpt_hub/ouput/*
-dbgpt_hub/scripts/*
+# But track the ouput folder itself
+!dbgpt_hub/ouput/
+
 
 
 #

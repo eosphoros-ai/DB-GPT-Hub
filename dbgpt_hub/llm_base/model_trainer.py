@@ -14,7 +14,7 @@ from dbgpt_hub.llm_base.loggings import get_logger
 from dbgpt_hub.llm_base.config_parser import get_train_args, get_state_dict,load_trainable_params
 from dbgpt_hub.llm_base.load_tokenizer import load_model_and_tokenizer
 
-from dbgpt_hub.configs import VALUE_HEAD_FILE_NAME,FINETUNING_ARGS_NAME
+from dbgpt_hub.configs.config import VALUE_HEAD_FILE_NAME,FINETUNING_ARGS_NAME
 from transformers import Seq2SeqTrainer
 from transformers.trainer import TRAINING_ARGS_NAME, WEIGHTS_NAME
 from transformers.modeling_utils import PreTrainedModel, unwrap_model,load_sharded_checkpoint

@@ -5,8 +5,10 @@ import importlib
 import torch
 from packaging import version
 from os.path import join
-from typing import Optional, Tuple
+from typing import Optional, Tuple,Dict
+import bitsandbytes as bnb
 from peft import LoraConfig, PeftModel, get_peft_model, prepare_model_for_kbit_training
+from transformers import PreTrainedModel, PreTrainedTokenizer
 from peft.tuners.lora import LoraLayer
 from transformers import (
     AutoTokenizer,
@@ -57,10 +59,10 @@ require_version("peft>=0.4.0", "To fix: pip install peft>=0.4.0")
 require_version("trl>=0.5.0", "To fix: pip install trl>=0.5.0")
 
 
-from dbgpt_hub.utils.model_utils import (
-    smart_tokenizer_and_embedding_resize,
-    find_all_linear_names,
-)
+# from dbgpt_hub.utils.model_utils import (
+#     smart_tokenizer_and_embedding_resize,
+#     find_all_linear_names,
+# )
 
 
 
@@ -89,6 +91,101 @@ def is_ipex_available():
         )
         return False
     return True
+
+
+def smart_tokenizer_and_embedding_resize(
+    special_tokens_dict: Dict[str, str],
+    tokenizer: PreTrainedTokenizer,
+    model: PreTrainedModel,
+) -> None:
+    """Resize tokenizer and embedding to accommodate new special tokens.
+    改变tokenizer和embedding的尺寸。
+    一般需要将tokenizer和embedding的尺寸设置为64的倍数，方便GPU加速。
+
+    Args:
+        special_tokens_dict (Dict[str, str]): A dictionary of special tokens to be added to the tokenizer.
+        tokenizer (PreTrainedTokenizer): The tokenizer object to be resized.
+        model (PreTrainedModel): The model object whose token embeddings are to be resized.
+
+    Returns:
+        None
+
+    Note: This function resizes the tokenizer to accommodate additional special tokens and the
+    embedding matrix of the model to match the new size of the tokenizer. If any new special tokens
+    have been added, the function computes the average embedding values of the existing embeddings
+    and sets those values for the new special token embeddings. This is done separately for the input
+    embeddings and output embeddings of the model.
+    """
+
+    num_new_tokens = tokenizer.add_special_tokens(special_tokens_dict)
+    model.resize_token_embeddings(len(tokenizer))
+
+    if num_new_tokens > 0:
+        input_embeddings_data = model.get_input_embeddings().weight.data
+        output_embeddings_data = model.get_output_embeddings().weight.data
+
+        # Compute average embeddings of existing tokens
+        input_embeddings_avg = input_embeddings_data[:-num_new_tokens].mean(
+            dim=0, keepdim=True
+        )
+        output_embeddings_avg = output_embeddings_data[:-num_new_tokens].mean(
+            dim=0, keepdim=True
+        )
+
+        input_embeddings_data[-num_new_tokens:] = input_embeddings_avg
+        output_embeddings_data[-num_new_tokens:] = output_embeddings_avg
+
+
+def find_all_linear_names(
+    args: argparse.Namespace, model: torch.nn.Module
+) -> List[str]:
+    """
+    Returns a list of names of all linear layers present in the given model.
+    Args:
+        args (argparse.Namespace): A namespace containing arguments of the script.
+        model (torch.nn.Module): The PyTorch model to extract linear layer names from.
+
+    Returns:
+        List[str]: A list of names of all linear layers present in the given model.
+
+    Raises:
+        TypeError: If `args` is not an instance of `argparse.Namespace`, or if `model` is not an instance \
+            of `torch.nn.Module`.
+        ValueError: If `args.bits` is not 4 or 8.
+
+    Example Usage:
+        >>> import argparse
+        >>> parser = argparse.ArgumentParser()
+        >>> parser.add_argument('--bits', type=int)
+        >>> args = parser.parse_args(['--bits', '4'])
+        >>> model = torch.nn.Sequential(torch.nn.Linear(10, 5), torch.nn.Linear(5, 1))
+        >>> find_all_linear_names(args, model)
+        ['0', '1']
+    """
+    # Determine the correct linear layer class based on the value of `args.bits`
+    if args.bits == 4:
+        cls = bnb.nn.Linear4bit
+    elif args.bits == 8:
+        cls = bnb.nn.Linear8bitLt
+    else:
+        torch.nn.Linear
+
+    lora_module_names = set()
+    for name, module in model.named_modules():
+        # Check if the current module is an instance of the linear layer class
+        if isinstance(module, cls):
+            # If yes, split the name of the module into its component parts and add the first or last part to the set
+            names = name.split(".")
+            lora_module_names.add(names[0] if len(names) == 1 else names[-1])
+
+    # Remove 'lm_head' from the set if present (needed for 16-bit)
+    if "lm_head" in lora_module_names:
+        lora_module_names.remove("lm_head")
+
+    # Convert the set into a list and return it
+    return list(lora_module_names)
+
+
 
 
 ## TODO 待将此处的所有调用都替换掉，过去在train_qlora和predict_qlora中用了，待替换，然后删除此处历史代码。

@@ -9,13 +9,13 @@ from dbgpt_hub.data_process.data_utils import extract_sql_prompt_dataset
 from dbgpt_hub.llm_base.chat_model import ChatModel
 from dbgpt_hub.configs.config import PREDICTED_DATA_PATH, OUT_DIR
 
-def prepare_dataset() -> List(Dict):
+def prepare_dataset() -> List[Dict]:
     with open(PREDICTED_DATA_PATH, "r") as fp:
         data = json.load(fp)
     predict_data = [extract_sql_prompt_dataset[item] for item in data] 
     return predict_data
 
-def inference(model: ChatModel, predict_data: List(Dict), **input_kwargs):
+def inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
     predict_out_dir = os.path.join(OUT_DIR, "pred")
     if not os.path.exists(predict_out_dir):
         os.mkdir(predict_out_dir)

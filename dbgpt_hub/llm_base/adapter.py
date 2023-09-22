@@ -5,8 +5,8 @@ from typing import TYPE_CHECKING
 from peft import PeftModel, TaskType, LoraConfig, get_peft_model
 from peft.utils import CONFIG_NAME, WEIGHTS_NAME
 
-from logging import get_logger
-from config_parser import load_trainable_params
+from dbgpt_hub.llm_base.loggings import get_logger
+from dbgpt_hub.llm_base.config_parser import load_trainable_params
 
 if TYPE_CHECKING:
     from transformers.modeling_utils import PreTrainedModel

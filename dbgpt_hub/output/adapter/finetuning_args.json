@@ -1,0 +1,15 @@
+{
+  "dpo_beta": 0.1,
+  "finetuning_type": "lora",
+  "lora_alpha": 32.0,
+  "lora_dropout": 0.1,
+  "lora_rank": 8,
+  "lora_target": [
+    "W_pack"
+  ],
+  "name_module_trainable": "mlp",
+  "num_hidden_layers": 32,
+  "num_layer_trainable": 3,
+  "ppo_score_norm": false,
+  "resume_lora_training": true
+}

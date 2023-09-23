@@ -4,8 +4,10 @@ import os
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # ROOT_PATH = "/root/autodl-tmp"
-MODELS_PARENT_PATH = "/home/model_files/codellama/"
-DEFAULT_FT_MODEL_NAME = "CodeLlama-7b-Instruct-hf"
+# MODELS_PARENT_PATH = "/home/model_files/codellama/"
+# DEFAULT_FT_MODEL_NAME = "CodeLlama-7b-Instruct-hf"
+MODELS_PARENT_PATH="/home/model/"
+DEFAULT_FT_MODEL_NAME="Baichuan2-13B-Chat"
 MODEL_PATH = os.path.join(MODELS_PARENT_PATH, DEFAULT_FT_MODEL_NAME)
 
 # MODEL_PATH = os.path.join(ROOT_PATH, "model")

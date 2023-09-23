@@ -6,7 +6,7 @@ import tiktoken
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
 
-from dbgpt_hub.llm_base.loggings import get_logger
+# from dbgpt_hub.llm_base.loggings import get_logger
 
 if TYPE_CHECKING:
     from transformers import PreTrainedTokenizer
@@ -82,7 +82,7 @@ class DataArguments:
         },
     )
     dataset_dir: Optional[str] = field(
-        default="data", metadata={"help": "The name of the folder containing datasets."}
+        default="dbgpt_hub/data/", metadata={"help": "The name of the folder containing datasets."}
     )
     split: Optional[str] = field(
         default="train",

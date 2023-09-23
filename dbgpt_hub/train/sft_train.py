@@ -1,3 +1,5 @@
+import sys
+sys.path.append('/home/zw/explained/DB-GPT-Hub')
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 from transformers import DataCollatorForSeq2Seq, Seq2SeqTrainingArguments
 

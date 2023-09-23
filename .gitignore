@@ -16,13 +16,9 @@ wandb/
 dbgpt_hub/data/*
 # But track the data/eval_data folder itself
 !dbgpt_hub/data/eval_data/
-# ignore dbgpt_hub/ouput/ all
+# Ignore everything under dbgpt_hub/ouput/ except the adapter directory
 dbgpt_hub/ouput/*
-# not ignore dbgpt_hub/ouput/ self 
-!dbgpt_hub/ouput/
-# not ignore dbgpt_hub/ouput/adapter/ dir self 
 !dbgpt_hub/ouput/adapter/
-# ignore dbgpt_hub/ouput/adapter/ all
 dbgpt_hub/ouput/adapter/*
 
 

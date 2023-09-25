@@ -17,7 +17,7 @@ def prepare_dataset() -> List[Dict]:
 
 def inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
     res = []
-    for item in predict_data[0:20]:
+    for item in predict_data:
         response, _ = model.chat(
             query=item["input"], 
             history=[],
@@ -39,7 +39,7 @@ def main():
     
     with open(predict_output_dir_name, "w") as f:
         for p in result:
-            f.write(p + "\n")
+            f.write(p.replace("\n", " ") + "\n")
     
     
 if __name__ == "__main__":

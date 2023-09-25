@@ -16,6 +16,9 @@ wandb/
 dbgpt_hub/data/*
 # But track the data/eval_data folder itself
 !dbgpt_hub/data/eval_data/
+!dbgpt_hub/data/dataset_info.json
+!dbgpt_hub/data/example_text2sql.json
+
 # Ignore everything under dbgpt_hub/ouput/ except the adapter directory
 dbgpt_hub/output/*
 !dbgpt_hub/output/adapter/

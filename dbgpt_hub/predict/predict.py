@@ -34,7 +34,10 @@ def main():
     if not os.path.exists(predict_out_dir):
         os.mkdir(predict_out_dir)
     
-    with open(os.path.join(predict_out_dir, PREDICTED_OUT_FILENAME), "w") as f:
+    predict_output_dir_name = os.path.join(predict_out_dir, PREDICTED_OUT_FILENAME)
+    print(f"predict_output_dir_name \t{predict_output_dir_name}")
+    
+    with open(predict_output_dir_name, "w") as f:
         for p in result:
             f.write(p + "\n")
     

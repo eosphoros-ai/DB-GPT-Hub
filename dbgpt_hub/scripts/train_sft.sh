@@ -22,6 +22,6 @@ CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
     --logging_steps 10 \
     --save_steps 500 \
     --learning_rate 5e-5 \
-    --num_train_epochs 2 \
+    --num_train_epochs 1 \
     --plot_loss 
     # --bf16#v100不支持bf16

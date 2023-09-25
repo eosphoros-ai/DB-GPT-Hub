@@ -1,3 +1,5 @@
+wandb offline
+
 deepspeed --num_gpus 1 --master_port=9945 dbgpt_hub/train/sft_train.py \
     --deepspeed dbgpt_hub/configs/ds_config.json \
     --quantization_bit 4 \

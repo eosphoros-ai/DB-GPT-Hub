@@ -107,7 +107,7 @@ class ProcessSqlData:
             for key in foreign_keys:
                 source += "The " + coloumns[key[0]-1][1] + " of " + tables[coloumns[key[0]-1][0]] + " is the foreign key of " + coloumns[key[1]-1][1] + " of " + tables[coloumns[key[1]-1][0]] + ".\n"
 
-            db_dict[item["db_id"]] = source.format()
+            db_dict[item["db_id"]] = source
     
         # 单论对话
         res = []

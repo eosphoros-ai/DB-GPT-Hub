@@ -70,7 +70,7 @@ class ProcessSqlData:
         # one-turn conversation
         # if not is_multiple_turn:
 
-    def decode_json_file(self, data_file, table_file, out_file):
+    def decode_json_file(self, data_file_list, table_file, out_file):
         """
             TO DO:
                 1.将相关prompt放入config中
@@ -78,10 +78,17 @@ class ProcessSqlData:
                 3.支持多轮对话数据集
         """
 
-        if data_file.endswith(".jsonl"):
-            datas, tables = jsonlines.open(data_file), jsonlines.open(table_file)
-        elif data_file.endswith(".json"):
-            datas, tables = json.load(open(data_file)), json.load(open(table_file))
+        if table_file.endswith(".jsonl"):
+            tables = jsonlines.open(table_file)
+            datas = []
+            for data_file in data_file_list:
+                datas.extend(jsonlines.open(data_file))
+           
+        elif table_file.endswith(".json"):
+            tables = json.load(open(table_file))
+            datas = []
+            for data_file in data_file_list:
+                datas.extend(json.load(open(data_file)))    
         else:
             print("Unsupported file types")
             raise 
@@ -128,13 +135,17 @@ class ProcessSqlData:
 
     def create_sft_raw_data(self):
         for data_info in SQL_DATA_INFO:
+            
+            train_data_file_list = [os.path.join(DATA_PATH, data_info["data_source"], file) for file in data_info["train_file"]]
             self.decode_json_file(
-                data_file=os.path.join(DATA_PATH, data_info["data_source"], data_info["train_file"]),
+                data_file_list=train_data_file_list,
                 table_file=os.path.join(DATA_PATH, data_info["data_source"], data_info["tables_file"]),
                 out_file=os.path.join(DATA_PATH, "example_text2sql_train.json")
             )
+
+            dev_data_file_list = [os.path.join(DATA_PATH, data_info["data_source"], file) for file in data_info["dev_file"]]
             self.decode_json_file(
-                data_file=os.path.join(DATA_PATH, data_info["data_source"], data_info["dev_file"]),
+                data_file_list=dev_data_file_list,
                 table_file=os.path.join(DATA_PATH, data_info["data_source"], data_info["tables_file"]),
                 out_file=os.path.join(DATA_PATH, "example_text2sql_dev.json")
             )

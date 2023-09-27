@@ -47,8 +47,8 @@ EXT2TYPE = {"csv": "csv", "json": "json", "jsonl": "json", "txt": "text"}
 SQL_DATA_INFO = [
     {
         "data_source": "spider",
-        "train_file": "train_spider.json",
-        "dev_file": "dev.json",
+        "train_file": ["train_spider.json", "train_others.json"],
+        "dev_file": ["dev.json"],
         "tables_file": "tables.json",
         "db_id_name": "db_id",
         "is_multiple_turn": False

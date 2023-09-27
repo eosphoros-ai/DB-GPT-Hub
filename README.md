@@ -97,7 +97,7 @@ Before running, you need to download the SQL data set and put it in this directo
   * db_id: the name of the database
   * question: the command issued to the database in natural language
   * query: sql code that accepts the natural language command and executes it exactly
-* train_gold.slq: the real slq code for the question
+* train_gold.sql: the real sql code for the question
 * database: the database source file
   * schema.sql: the table build statement.
   * sqlite: the specifics of the database.

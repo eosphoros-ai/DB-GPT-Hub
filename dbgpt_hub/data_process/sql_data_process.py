@@ -1,6 +1,9 @@
 import os
 import json
 import jsonlines
+import sys
+ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(ROOT_PATH)
 
 from tqdm import tqdm
 

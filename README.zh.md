@@ -42,16 +42,14 @@ DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包�
 
 DB-GPT-HUB目前支持的base模型有：
 
-* LLaMa/LLaMa2系列
-  * codeLlama
-  * alpaca
-  * vicuna
-  * guanaco
-
-* Falcon系列
-* BLOOM系列
-* ChatGLM系列
-* WizardLLM
+  - [x] CodeLlama
+  - [x] Baichuan2 
+  - [x] LLaMa/LLaMa2
+  - [x] Falcon
+  - [x] Qwen
+  - [x] XVERSE
+  - [x] ChatGLM2
+  - [x] internlm
 
 模型量化微调所需的硬件资源大概如下：
 
@@ -83,7 +81,6 @@ cd DB-GPT-Hub
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub
 pip install -r requirements.txt 
-mkdir model 
 ```
 你可以将下载的大模型文件放在新建model文件夹下面
 

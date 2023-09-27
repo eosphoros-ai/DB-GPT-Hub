@@ -44,17 +44,15 @@ The following publicly available text-to-sql datasets are used for this project:
 
 DB-GPT-Hub currently supports the following base models:
 
-* LLaMa/LLaMa2
-  * CodeLlama
-  * alpaca
-  * vicuna
-  * guanaco
-
-* Falcon
-* BLOOM
-* ChatGLM
-* WizardLLM
-
+  - [x] CodeLlama
+  - [x] Baichuan2 
+  - [x] LLaMa/LLaMa2
+  - [x] Falcon
+  - [x] Qwen
+  - [x] XVERSE
+  - [x] ChatGLM2
+  - [x] internlm
+  
 The approximate hardware resources required to quantize and fine-tune the model are as follows:
 
 | Model Parameters | GPU RAM        | CPU RAM | DISK   |
@@ -194,7 +192,7 @@ You can find weights from huggingface. [hg-eosphoros-ai
 To evaluate model performance on the dataset, default is spider dataset.
 Run the following command:
 ```bash
-python eval/evaluation.py --plug_value --input Your_model_pred_file
+python dbgpt_hub/eval/evaluation.py --plug_value --input Your_model_pred_file
 ```
 You can find the results of our latest review [here](docs/eval_llm_result.md)
 

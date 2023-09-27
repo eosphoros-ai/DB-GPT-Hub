@@ -1,12 +1,11 @@
 {
   "example_text2sql": {
-    "file_name": "example_text2sql.json",
+    "file_name": "example_text2sql_train.json",
     "columns": {
       "prompt": "instruction",
       "query": "input",
       "response": "output",
       "history": "history"
-    },
-    "stage": "sft"
+    }
   }
 }

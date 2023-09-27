@@ -30,29 +30,26 @@ DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包�
 ### 2.1、数据集
 
 本项目主要使用了以下公开的text2sql数据集：
-
+- [Spider](https://yale-lily.github.io/spider): 一个跨域的复杂text2sql数据集，包含了10,181条自然语言问句、分布在200个独立数据库中的5,693条SQL，内容覆盖了138个不同的领域。[下载链接](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ)
 - [WikiSQL:](https://github.com/salesforce/WikiSQL) 一个大型的语义解析数据集，由80,654个自然语句表述和24,241张表格的sql标注构成。WikiSQL中每一个问句的查询范围仅限于同一张表，不包含排序、分组、子查询等复杂操作。
-- [Spider](https://yale-lily.github.io/spider): 一个跨域的复杂text2sql数据集，包含了10,181条自然语言问句、分布在200个独立数据库中的5,693条SQL，内容覆盖了138个不同的领域。
 - [CHASE](https://xjtu-intsoft.github.io/chase/): 一个跨领域多轮交互text2sql中文数据集，包含5459个多轮问题组成的列表，一共17940个<query, SQL>二元组，涉及280个不同领域的数据库。
 - [BIRD-SQL：](https://bird-bench.github.io/)数据集是一个英文的大规模跨领域文本到SQL基准测试，特别关注大型数据库内容。该数据集包含12,751对文本到SQL数据对和95个数据库，总大小为33.4GB，跨越37个职业领域。BIRD-SQL数据集通过探索三个额外的挑战，即处理大规模和混乱的数据库值、外部知识推理和优化SQL执行效率，缩小了文本到SQL研究与实际应用之间的差距。
 - [CoSQL:](https://yale-lily.github.io/cosql)是一个用于构建跨域对话文本到sql系统的语料库。它是Spider和SParC任务的对话版本。CoSQL由30k+回合和10k+带注释的SQL查询组成，这些查询来自Wizard-of-Oz的3k个对话集合，查询了跨越138个领域的200个复杂数据库。每个对话都模拟了一个真实的DB查询场景，其中一个工作人员作为用户探索数据库，一个SQL专家使用SQL检索答案，澄清模棱两可的问题，或者以其他方式通知。
 
-默认将数据下载后，放在一级目录data下面，如data/spider .
+
 
 ### 2.2、基座模型
 
 DB-GPT-HUB目前支持的base模型有：
 
-* LLaMa/LLaMa2系列
-  * codeLlama
-  * alpaca
-  * vicuna
-  * guanaco
-
-* Falcon系列
-* BLOOM系列
-* ChatGLM系列
-* WizardLLM
+  - [x] CodeLlama
+  - [x] Baichuan2 
+  - [x] LLaMa/LLaMa2
+  - [x] Falcon
+  - [x] Qwen
+  - [x] XVERSE
+  - [x] ChatGLM2
+  - [x] internlm
 
 模型量化微调所需的硬件资源大概如下：
 
@@ -84,7 +81,6 @@ cd DB-GPT-Hub
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub
 pip install -r requirements.txt 
-mkdir model 
 ```
 你可以将下载的大模型文件放在新建model文件夹下面
 
@@ -134,18 +130,14 @@ DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信�
 
 ```
 
-以上数据预处理部分的代码实现如下：
+从[下载链接](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ) 下载spider数据集，默认将数据下载解压后，放在目录dbgpt_hub/data下面，即路径为dbgpt_hub/data/spider
 
+数据预处理部分的代码实现如下：
 ```bash
-## 生成train数据
-python dbgpt_hub/utils/sql_data_process.py 
-
-## 生成dev数据
-python dbgpt_hub/utils/sql_data_process.py \
-    --data_filepaths data/spider/dev.json \
-    --output_file dev_sql.json \
+## 生成train数据 和dev数据,
+sh dbgpt_hub/scripts/train_eval_data_gen.sh
 ```
-如果你不想做这一步，你可以[下载](https://drive.google.com/drive/folders/1MkNSJgJn9mTH5TTjdn@6gf5N3ghG1wnn?usp-drive_link)我们已经处理过的数据集，然后把它放在该项目文件夹下即可
+在dbgpt_hub/data目录你会得到新生成的训练文件example_text2sql_train.json 和测试文件example_text2sql_dev.json ，数据量分别为8659和1034条。
 
 在模型微调时，我们还定制了prompt dict以优化输入：
 
@@ -168,47 +160,26 @@ SQL_PROMPT_DICT = {
 
 ### 3.3、模型微调
 
-模型微调使用的是qlora和lora方法，我们可以运行以下命令来微调模型：
+模型微调支持qlora和lora方法，我们可以运行以下命令来微调模型，默认带着参数`--quantization_bit `为qlora的微调方式，转换为lora只需在脚本中去掉相关参数即可。
+运行命令：
 
 ```bash
-python train_qlora.py --model_name_or_path <path_or_name>
+sh dbgpt_hub/scripts/train_sft.sh
 ```
 
-微调后的模型权重会默认保存到adapter文件夹下面。完整的训练脚本在scripts/qlora/qlora.sh中。
-对于多卡运行，scripts/spider_qlora_finetune.sh中由于默认是基于QLoRA，建议在一开始就指定运行的GPU编号。如由`python src/train/train_qlora.py` 改为`CUDA_VISIBLE_DEVICES=0,1,2,3 python src/train/train_qlora.py` 。
+微调后的模型权重会默认保存到adapter文件夹下面，即dbgpt_hub/output/adapter目录中。
 
-当使用lora微调时，我们可以用以下指令：
-
-```bash
-python train_lora.py --model_name_or_path <path_or_name>
-```
-完整的训练脚本在scripts/lora/中。
-
-如果需要将微调权重合并到base模型中，可以执行以下命令
-
-```bash
-python dbgpt_hub/utils/merge_peft_adapters.py --peft_model_path Your_adapter_model
-```
 
 ### 3.4、模型预测
-项目目录下建`./data/out_pred/`文件夹，此文件夹为默认输出的位置。
+项目目录下`./dbgpt_hub/output/pred/`，此文件夹为关于模型预测默认输出的位置。
 
-- 基于基础模型的直接预测
+
 ```bash
-sh scripts/no_peft/get_predict_no_peft_llama2_13b_hf.sh
+sh ./dbgpt_hub/scripts/predict_sft.sh
 ```
 
-- 基于LoRA的预测
-执行如下脚本命令
-```bash
-sh scripts/lora/get_predict_lora.sh
-```
-相关默认输入输出可见， ./data/out_pred/
-- 基于QLoRA的预测
-执行如下脚本命令
-```bash
-sh scripts/qlora/get_predict_qlora.sh
-```
+脚本中默认带着参数`--quantization_bit `为QLoRA的预测，去掉即为LoRA的预测方式。
+
 
 # 3.5、模型权重
 可以从Huggingface查看对应的模型权重。 [huggingface地址](https://huggingface.co/eosphoros)
@@ -218,7 +189,7 @@ sh scripts/qlora/get_predict_qlora.sh
 运行以下命令来：
 
 ```bash
-python eval/evaluation.py --plug_value --input  Your_model_pred_file
+python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_pred_file
 ```
 你可以在[这里](docs/eval_llm_result.md)找到我们最新的审查结果。
 ## 四、发展路线
@@ -227,31 +198,36 @@ python eval/evaluation.py --plug_value --input  Your_model_pred_file
 
 * 阶段一:
   * 搭建基本框架，基于数个大模型打通从数据处理、模型SFT训练、预测输出和评估的整个流程，截止`20230804`我们已经整个打通。
-  我们现在支持  
+  我们现在支持 
+  - [x] CodeLlama
+  - [x] Baichuan2 
   - [x] LLaMa/LLaMa2
   - [x] Falcon
-  - [x] CodeLlama
+  - [x] Qwen
+  - [x] XVERSE
+  - [x] ChatGLM2
+  - [x] internlm
+
+
+
 
   We preliminarily plan to support the following models going forward. If there are new and better models, we'll keep an eye out and follow up too. Feel free to open an issue to suggest any, we'll glad to see your issues.
-  - [ ] ChatGLM
-  - [ ] BLOOM
-  - [ ] CodeGeeX
-  - [ ] WizardLM
+
   
 * 阶段二:
   * 优化模型效果，支持更多不同模型进行不同方式的微调。
   * 对`prompt`优化
   * 放出评估效果，优化后`DB-GPT-SFT`模型
 * 阶段三：
-  * 基于更多论文进行优化，如`RESDSQL`等；
+  * 基于更多论文进行优化，如`RESDSQL`等，结合我们社区的兄弟项目[Awesome-Text2SQL](https://github.com/eosphoros-ai/Awesome-Text2SQL)进行更多的优化；
 
 ## 五、贡献
 
-欢迎更多小伙伴在数据集、模型微调、效果评测、论文推荐与复现等方面参与和反馈，如提issues或者pr反馈，我们会积极给出回应。
+欢迎更多小伙伴在数据集、模型微调、效果评测、论文推荐与复现等方面参与和反馈，如提issues或者pr反馈，我们会积极给出回应。提交代码前请先将代码按black格式化。
 
 ## 六、感谢
 
-感谢以下开源项目
+我们的工作主要是在众多开源工作的基础上开展的，非常感谢以下开源项目。
 
 * [Spider](https://github.com/ElementAI/spider)
 * [CoSQL](https://yale-lily.github.io/cosql)
@@ -264,4 +240,5 @@ python eval/evaluation.py --plug_value --input  Your_model_pred_file
 * [WizardLM](https://github.com/nlpxucan/WizardLM)
 * [text-to-sql-wizardcoder](https://github.com/cuplv/text-to-sql-wizardcoder)
 * [test-suite-sql-eval](https://github.com/taoyds/test-suite-sql-eval)
+* [LLaMa-Efficient-Tuning](https://github.com/hiyouga/LLaMA-Efficient-Tuning) 
 

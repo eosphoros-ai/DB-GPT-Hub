@@ -26,3 +26,4 @@ rapidfuzz
 scipy
 sqlparse
 nltk
+jsonlines

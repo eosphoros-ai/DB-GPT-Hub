@@ -111,7 +111,7 @@ class ProcessSqlData:
     
         # 单论对话
         res = []
-        for data in tqdm(datas[0: 100]):
+        for data in tqdm(datas):
             if data["db_id"] in db_dict.keys():
                 input = {
                     "db_id": data["db_id"],

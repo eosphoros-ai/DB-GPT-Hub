@@ -94,7 +94,7 @@ DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信�
   * db_id：数据库名称
   * question: 以自然语言的方式向数据库发出的指令
   * query：接受自然语言指令后，能够准确执行指令的sql代码
-* train_gold.slq：question的真实slq代码
+* train_gold.sql：question的真实sql代码
 * database：数据库源文件
   * schema.sql: 建表语句。
   * sqlite: 数据库的具体内容。

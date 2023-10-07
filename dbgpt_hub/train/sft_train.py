@@ -1,5 +1,7 @@
+import os 
 import sys
-sys.path.append('/home/zw/explained/DB-GPT-Hub')
+ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(ROOT_PATH)
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 from transformers import DataCollatorForSeq2Seq, Seq2SeqTrainingArguments
 

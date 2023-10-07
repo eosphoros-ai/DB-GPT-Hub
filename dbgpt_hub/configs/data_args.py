@@ -76,7 +76,7 @@ class DataArguments:
         }
     )
     dataset: Optional[str] = field(
-        default="alpaca_en",
+        default="example_text2sql",
         metadata={
             "help": "The name of provided dataset(s) to use. Use commas to separate multiple datasets."
         },

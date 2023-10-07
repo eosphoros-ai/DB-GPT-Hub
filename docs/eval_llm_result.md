@@ -9,7 +9,7 @@ This doc aims to summarize the performance of publicly available big language mo
 | GPT 4                          | 0.762              | [quote](https://www.numbersstation.ai/post/nsql-llama-2-7b)                        |
 | wizardcoder                    | 0.610              | [quote](https://github.com/cuplv/text-to-sql-wizardcoder/tree/main)                |
 | llama2_13b_hf                  | 0.252              | run in this project,default param set                                              |
-| llama2_13b_hf_lora             | 0.622              | run in this project,default param set                                              |
+| llama2_13b_hf_lora             | 0.697             | run in this project,default param set                                              |
 | CodeLlama-7b-Instruct-hf_qlora | 0.649              | run in this project,in refactor branch, with qlora and nf4,bit4 SFT, only 500 step |
 
 We will support CodeLlama with lora soon ,and give more exp . 

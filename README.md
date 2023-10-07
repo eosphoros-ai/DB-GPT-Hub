@@ -185,8 +185,18 @@ sh ./dbgpt_hub/scripts/predict_sft.sh
 In the script, by default with the parameter --quantization_bit, it predicts using QLoRA. Removing it switches to the LoRA prediction method.
 
 ### 3.5 Model Weights
-You can find weights from huggingface. [hg-eosphoros-ai
-](https://huggingface.co/eosphoros)
+You can find the corresponding model weights we uploaded in August from Huggingface.[hg-eosphoros-ai
+](https://huggingface.co/eosphoros)   
+
+We will release a better version of the new weights as soon as possible. 
+
+## 3.5.2 Model and fine-tuned weight merging 
+
+Run the following script, and be sure to replace the relevant parameter path values ​​in the script with the path corresponding to your project.   
+
+```bash
+sh ./dbgpt_hub/scripts/export_merge.sh
+```
 
 ### 3.6 Model Evaluation
 To evaluate model performance on the dataset, default is spider dataset.

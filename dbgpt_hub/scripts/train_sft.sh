@@ -18,10 +18,10 @@ CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 4 \
     --lr_scheduler_type cosine_with_restarts \
-    --logging_steps 10 \
-    --save_steps 20 \
+    --logging_steps 250 \
+    --save_steps 500 \
     --learning_rate 5e-5 \
-    --num_train_epochs 0.1 \
+    --num_train_epochs 2 \
     --plot_loss 
     # --bf16#v100不支持bf16
     # test  num_train_epochs set to 0.1

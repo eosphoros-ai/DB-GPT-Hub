@@ -182,7 +182,14 @@ sh ./dbgpt_hub/scripts/predict_sft.sh
 
 
 # 3.5、模型权重
-可以从Huggingface查看对应的模型权重。 [huggingface地址](https://huggingface.co/eosphoros)
+可以从Huggingface查看我们之前8月份上传的对应的模型权重。 [huggingface地址](https://huggingface.co/eosphoros)  
+新的权重我们将尽快释放出一版效果更好的。  
+## 3.5.2 模型和微调权重合并
+运行如下脚本，注意将脚本中的相关参数路径值替换为你项目所对应的路径。
+```bash
+sh ./dbgpt_hub/scripts/export_merge.sh
+```
+
 
 ### 3.6、模型评估
 对于模型在数据集上的效果评估,默认为在`spider`数据集上。

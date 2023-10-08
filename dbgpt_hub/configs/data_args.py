@@ -156,6 +156,13 @@ class DataArguments:
             "help": "Size of the development set, should be an integer or a float in range `[0,1)`."
         },
     )
+    predicted_out_filename: Optional[str] = field(
+        default="pred_sql.sql",
+        metadata={
+            "help": "Filename to save predicted outcomes"
+        },
+    )
+
 
     def init_for_training(self):  # support mixing multiple datasets
         dataset_names = [ds.strip() for ds in self.dataset.split(",")]

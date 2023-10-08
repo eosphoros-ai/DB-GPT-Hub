@@ -16,12 +16,12 @@ from dbgpt_hub.data_process.data_utils import extract_sql_prompt_dataset
 class ChatModel:
 
     def __init__(self, args: Optional[Dict[str, Any]] = None) -> None:
-        model_args, data_args, finetuning_args, self.generating_args = get_infer_args(args)
+        model_args, self.data_args, finetuning_args, self.generating_args = get_infer_args(args)
         self.model, self.tokenizer = load_model_and_tokenizer(model_args, finetuning_args)
         self.tokenizer.padding_side = "left"
         self.model = dispatch_model(self.model)
-        self.template = get_template_and_fix_tokenizer(data_args.template, self.tokenizer)
-        self.system_prompt = data_args.system_prompt
+        self.template = get_template_and_fix_tokenizer(self.data_args.template, self.tokenizer)
+        self.system_prompt = self.data_args.system_prompt
 
     def process_args(
         self,

@@ -18,8 +18,8 @@ def prepare_dataset() -> List[Dict]:
 def inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
     res = []
     #test
-    for item in predict_data[:20]:
-    # for item in predict_data:
+    # for item in predict_data[:20]:
+    for item in predict_data:
         response, _ = model.chat(
             query=item["input"], 
             history=[],
@@ -36,7 +36,7 @@ def main():
     if not os.path.exists(predict_out_dir):
         os.mkdir(predict_out_dir)
     
-    predict_output_dir_name = os.path.join(predict_out_dir, PREDICTED_OUT_FILENAME)
+    predict_output_dir_name = os.path.join(predict_out_dir, model.data_args.predicted_out_filename)
     print(f"predict_output_dir_name \t{predict_output_dir_name}")
     
     with open(predict_output_dir_name, "w") as f:

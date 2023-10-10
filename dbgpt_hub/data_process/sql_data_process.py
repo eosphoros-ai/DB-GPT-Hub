@@ -13,66 +13,6 @@ class ProcessSqlData:
     def __init__(self) -> None:
         pass
 
-    # def decode_json_file(self, 
-    #                      data_file: AnyStr, 
-    #                      table_file: AnyStr, 
-    #                      is_multiple_turn=False) -> None: 
-
-    #     # load data form sql_data_info
-        
-    #     if data_file.endswith(".jsonl"):
-    #         datas, tables = jsonlines.open(data_file), jsonlines.open(table_file)
-    #     elif data_file.endswith(".json"):
-    #         datas, tables = json.load(open(data_file)), json.load(open(table_file))
-            
-    #     """ get table info of table name and columns names, examples: 
-    #         {
-    #             'perpetrator': {
-    #                 'tables': ['perpetrator', 'people'], 
-    #                 'tables_and_columns': {
-    #                     'perpetrator': ['Perpetrator_ID', 'People_ID', 'Date', 'Year', 'Location', 'Country', 'Killed', 'Injured'], 
-    #                     'people': ['People_ID', 'Name', 'Height', 'Weight', 'Home Town']
-    #                     },
-    #                 'tables_and_primary_key': {
-    #                     'perpetrator': 'Perpetrator_ID' , 
-    #                     'people': 'People_ID',
-    #                     },
-    #             }
-    #         }
-
-    #     """
-
-    #     db_dict = {}
-    #     for item in tables[0:1]:
-
-    #         db_dict[item["db_id"]] = {}
-    #         db_dict[item["db_id"]]["tables"] = item["table_names_original"]
-    #         db_dict[item["db_id"]]["tables_and_columns"] = {}
-    #         db_dict[item["db_id"]]["tables_and_primary_key"] = {}
-    #         db_dict[item["db_id"]]["tables_and_foreign_key"] = {}
-    #         print(db_dict)
-
-    #         coloumns = item["column_names_original"][1:]
-    #         primary_key = item["primary_keys"]
-    #         foreign_keys = item["foreign_keys"]
-            
-    #         for i, table_name in enumerate(item["table_names_original"]):
-    #             coloumns_name = [col[1] for col in coloumns if col[0] == i]
-    #             db_dict[item["db_id"]]["tables_and_columns"][table_name] = coloumns_name
-
-    #             # get promary key info
-    #             for j in range(len(primary_key)):
-    #                 if coloumns[primary_key[j]-1][0] == i:
-    #                     db_dict[item["db_id"]]["tables_and_primary_key"][table_name] = coloumns[primary_key[j]-1][1]
-                
-    #         for key in foreign_keys:
-    #             source += "The " + coloumns[key[0]-1][1] + " of " + tables[coloumns[key[0]-1][0]] + " is the foreign key of " + coloumns[key[1]-1][1] + " of " + tables[coloumns[key[1]-1][0]] + ".\n"
-
-    #     print(db_dict)
-
-        # one-turn conversation
-        # if not is_multiple_turn:
-
     def decode_json_file(self, data_file_list, table_file, out_file):
         """
             TO DO:

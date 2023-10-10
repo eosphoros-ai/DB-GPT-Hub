@@ -5,10 +5,8 @@ import json
 import time
 from typing import TYPE_CHECKING
 from datetime import timedelta
-
 from transformers import TrainerCallback
 from transformers.trainer_utils import has_length
-
 from dbgpt_hub.configs.config import LOG_FILE_NAME
 
 if TYPE_CHECKING:

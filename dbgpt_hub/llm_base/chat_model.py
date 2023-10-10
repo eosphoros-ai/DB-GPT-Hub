@@ -9,8 +9,6 @@ from dbgpt_hub.llm_base.config_parser import get_infer_args
 from dbgpt_hub.llm_base.load_tokenizer import dispatch_model, load_model_and_tokenizer
 from dbgpt_hub.llm_base.model_trainer import  get_logits_processor
 from dbgpt_hub.data_process.data_utils import get_template_and_fix_tokenizer
-from dbgpt_hub.data_process.data_utils import extract_sql_prompt_dataset
-## TODO： 待参考 src/llmtuner/chat/stream_chat.py
 
 
 class ChatModel:

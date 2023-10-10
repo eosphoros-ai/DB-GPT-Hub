@@ -1,15 +1,11 @@
 import os
 import json
-from typing import List, Literal, Optional
-from dataclasses import dataclass, field
 import tiktoken
-from dataclasses import dataclass
-from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union
-
-# from dbgpt_hub.llm_base.loggings import get_logger
-
+from dataclasses import dataclass, field
+from typing import TYPE_CHECKING, Dict, List, Literal, Optional, Tuple, Union
 if TYPE_CHECKING:
     from transformers import PreTrainedTokenizer
+
 
 DEFAULT_PROMPT_DICT = {
     "prompt_input": ("{instruction}\n\n{input}\n\n"),

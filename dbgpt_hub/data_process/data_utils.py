@@ -1,25 +1,21 @@
 import hashlib
-from itertools import chain
 import os
 import numpy as np
 import pandas as pd
 import tiktoken
-
+from itertools import chain
 from typing import Any, Dict, List, Optional, Tuple, Union,TYPE_CHECKING,Generator
 from datasets import Dataset, DatasetDict, concatenate_datasets, load_dataset, interleave_datasets
+from transformers.tokenization_utils import PreTrainedTokenizer
 
 from dbgpt_hub.configs.config import EXT2TYPE, IGNORE_INDEX
 from dbgpt_hub.configs.data_args import DEFAULT_PROMPT_DICT,ALPACA_PROMPT_DICT,SQL_PROMPT_DICT,Template,Llama2Template
-from transformers.tokenization_utils import PreTrainedTokenizer
-
-from .sft_dataset import DataCollatorForSupervisedDataset, SFTInstructionDataset
 
 if TYPE_CHECKING:
-    from dbgpt_hub.configs.model_args import ModelArguments,FinetuningArguments,GeneratingArguments
+    from dbgpt_hub.configs.model_args import ModelArguments
     from dbgpt_hub.configs.data_args import DataArguments
-    from datasets import Dataset, IterableDataset
+    from datasets import  IterableDataset
     from transformers import TrainingArguments,Seq2SeqTrainingArguments
-    from datasets import Dataset, IterableDataset
 
 from dbgpt_hub.llm_base.loggings import get_logger
 
@@ -129,91 +125,6 @@ def load_data(
             raise ValueError(f"Error loading dataset from {dataset_path}")
 
 
-def formate_instruction_dataset(
-    dataset: Dataset,
-    dataset_name: str,
-    dataset_format: str,
-    instruction_template: str = "default",
-) -> Optional[Dict[str, Dataset]]:
-    """
-    Formats a given dataset based on its name and format.
-
-
-    Removes unused columns, renames columns to 'input' and 'output',
-    and applies dataset-specific formatting based on the dataset_name.
-
-    Returns formatted dataset dict if dataset can be formatted, else None.
-
-    Args:
-        dataset: A dataset object to be formatted.
-        dataset_name: A string representing the name of the dataset to be formatted.
-        dataset_format: A string representing the name of the dataset format to be used.
-        instruction_template: A string representing the name of the prompt template to be used.
-
-    Returns:
-        A dictionary containing the formatted dataset if the dataset exists in the
-        specified format.
-        None if the dataset does not exist or if the format is not recognized.
-    """
-
-    def _format_self_instruct(dataset: Dataset) -> Dataset:
-        """Format Self-Instruct dataset.
-
-        hf_url: https://huggingface.co/datasets/yizhongw/self_instruct/viewer/self_instruct/train
-        """
-        dataset = dataset.rename_column("prompt", "input")
-        dataset = dataset.rename_column("completion", "output")
-        return dataset
-
-    def _remove_unused_columns(dataset):
-        """Remove columns not named 'input' or 'output'."""
-        dataset = dataset.remove_columns(
-            [
-                col
-                for col in dataset.column_names["train"]
-                if col not in ["input", "output"]
-            ]
-        )
-        return dataset
-
-    # Format dataset
-    print(f"The {dataset_name} using {dataset_format} dataset format.")
-    if dataset_format == "alpaca":
-        print("By default, We support the Alpaca dataset format.")
-    elif dataset_format == "spider":
-        print("By default, We support the spider dataset format.")
-    elif dataset_format == "self-instruct":
-        dataset = _format_self_instruct(dataset)
-    # elif dataset_format == "hh-rlhf":
-    #     dataset = _format_hh_rlhf(dataset)
-    # elif dataset_format == "oasst1":
-    #     dataset = _format_oasst1(dataset)
-    # elif dataset_format == "100PoisonMpts":
-    #     dataset = _format_100Poison(dataset)
-    # elif dataset_format == "dolly":
-    #     dataset = _format_dolly15k(dataset)
-    # elif dataset_format == "chip2":
-    #     dataset = _format_chip2(dataset)
-    else:
-        raise NotImplementedError(
-            f"Unsupported dataset format: {dataset_format},  Please add the formate function in data_utils.py"
-        )
-    # encode_instruction_example
-    print(f"Applying instruction template: {instruction_template}")
-    if instruction_template == "alpaca":
-        dataset = dataset.map(extract_alpaca_prompt_dataset)
-    # elif instruction_template == "spider":
-    #     dataset = dataset.map(extract_sql_prompt_dataset)
-    # elif instruction_template == "random":
-    #     dataset = dataset.map(extract_random_prompt_dataset)
-    else:
-        dataset = dataset.map(extract_default_prompt_dataset)
-
-    # Remove unused columns.
-    print("Removing the unused columns, keep only 'input' and 'output'")
-    dataset = _remove_unused_columns(dataset)
-
-    return dataset
 
 
 templates: Dict[str, Template] = {}
@@ -711,28 +622,6 @@ def preprocess_dataset(
 
         return model_inputs
 
-    def preprocess_pairwise_dataset(examples):
-        # build input pairs with format `<bos> X`, `Y1 <eos>` and `Y2 <eos>`
-        model_inputs = {"prompt_ids": [], "chosen_ids": [], "rejected_ids": []}
-        for query, response, history, system in construct_example(examples):
-            prompt_ids, chosen_ids = template.encode_oneturn(
-                tokenizer, query, response[0], history, system
-            )
-            _, rejected_ids = template.encode_oneturn(
-                tokenizer, query, response[1], history, system
-            )
-
-            if len(prompt_ids) > data_args.max_source_length:
-                prompt_ids = prompt_ids[: data_args.max_source_length]
-            if len(chosen_ids) > data_args.max_target_length:
-                chosen_ids = chosen_ids[: data_args.max_target_length]
-            if len(rejected_ids) > data_args.max_target_length:
-                rejected_ids = rejected_ids[: data_args.max_target_length]
-
-            model_inputs["prompt_ids"].append(prompt_ids)
-            model_inputs["chosen_ids"].append(chosen_ids)
-            model_inputs["rejected_ids"].append(rejected_ids)
-        return model_inputs
 
     def print_supervised_dataset_example(example):
         print("input_ids:\n{}".format(example["input_ids"]))
@@ -751,34 +640,6 @@ def preprocess_dataset(
                     ],
                     skip_special_tokens=False,
                 )
-            )
-        )
-
-    def print_pairwise_dataset_example(example):
-        print("prompt_ids:\n{}".format(example["prompt_ids"]))
-        print(
-            "prompt:\n{}".format(
-                tokenizer.decode(example["prompt_ids"], skip_special_tokens=False)
-            )
-        )
-        print("chosen_ids:\n{}".format(example["chosen_ids"]))
-        print(
-            "chosen:\n{}".format(
-                tokenizer.decode(example["chosen_ids"], skip_special_tokens=False)
-            )
-        )
-        print("rejected_ids:\n{}".format(example["rejected_ids"]))
-        print(
-            "rejected:\n{}".format(
-                tokenizer.decode(example["rejected_ids"], skip_special_tokens=False)
-            )
-        )
-
-    def print_unsupervised_dataset_example(example):
-        print("input_ids:\n{}".format(example["input_ids"]))
-        print(
-            "inputs:\n{}".format(
-                tokenizer.decode(example["input_ids"], skip_special_tokens=False)
             )
         )
 
@@ -1002,135 +863,3 @@ def split_train_eval(
     return train_dataset, eval_dataset
 
 
-def make_data_module(args):
-    """
-    Make dataset and collator for supervised fine-tuning.
-    Datasets are expected to have the following columns: { `input`, `output` }
-
-    Available datasets to be selected with `dataset` argument:
-        - alpaca, 52002 examples
-        - alpaca cleaned, 51942 examples
-        - chip2 (OIG), 210289 examples
-        - self-instruct, 82612 examples
-        - hh-rlhf (Anthropic), 160800 examples
-        - longform, 23.7k examples
-        - oasst1 (OpenAssistant) primary message tree only, 9,846 examples
-
-    Coming soon:
-        - unnatural instructions core, 66010 examples
-        - unnatural instructions full, 240670 examples
-        - alpaca-gpt4, 52002 examples
-        - unnatural-instructions-gpt4, 9000 examples
-        - supernatural-instructions, 69624 examples (same as paper with 100 ex/task more can be used)
-        - flan (FLAN v2), up to 20M examples available
-        - vicuna
-
-    """
-    train_datasets: List[Dataset] = []
-    eval_datasets: List[Dataset] = []
-    dataset_name_list = args.dataset_name.split(",")
-    print(f"Loading datasets: {dataset_name_list}")
-    mutliturn_lst = [dataset_attr.multi_turn for dataset_attr in args.datasets_list]
-    assert mutliturn_lst.count(mutliturn_lst[0]) == len(
-        mutliturn_lst
-    ), "All datasets should be multi-turn or single-turn. As follwing we will concat all datasets, so they should be in the same format."
-
-    for dataset_attr in args.datasets_list:
-        print("=" * 80)
-        print("DatasetAttr: {}".format(dataset_attr))
-
-        if dataset_attr.load_from_local:
-            dataset_path = dataset_attr.local_path
-        elif dataset_attr.hf_hub_url:
-            dataset_path = dataset_attr.hf_hub_url
-        else:
-            raise ValueError("Please set the dataset path or hf_hub_url.")
-
-        dataset = load_data(dataset_path, eval_dataset_size=args.eval_dataset_size)
-
-        if not dataset_attr.multi_turn:
-            dataset = formate_instruction_dataset(
-                dataset,
-                dataset_name=dataset_attr.dataset_name,
-                dataset_format=dataset_attr.dataset_format,
-                instruction_template=args.instruction_template,
-            )
-
-        train_dataset, eval_dataset = split_train_eval(
-            dataset,
-            do_eval=args.do_eval,
-            eval_dataset_size=args.eval_dataset_size,
-            max_eval_samples=args.max_eval_samples,
-            do_train=args.do_train,
-            max_train_samples=args.max_train_samples,
-        )
-        if train_dataset:
-            print(
-                "loaded dataset:",
-                dataset_attr.dataset_name,
-                " ",
-                "#train data size:",
-                len(train_dataset),
-            )
-            train_datasets.append(train_dataset)
-        if eval_dataset:
-            print(
-                "loaded dataset:",
-                dataset_attr.dataset_name,
-                " " "#eval data size:",
-                len(eval_dataset),
-            )
-            eval_datasets.append(eval_dataset)
-
-    concate_train = concatenate_datasets(train_datasets) if train_datasets else None
-    print(
-        f"Concatenated dataset list: {dataset_name_list}, #train dataset size: {len(concate_train)}"
-    ) if concate_train else None
-    concate_eval = concatenate_datasets(eval_datasets) if eval_datasets else None
-    print(
-        f"Concatenated dataset list: {dataset_name_list}, #eval dataset size: {len(concate_eval)}"
-    ) if concate_eval else None
-    return concate_train, concate_eval, mutliturn_lst[0]
-
-
-def make_supervised_data_module(tokenizer: PreTrainedTokenizer, args):
-    train_dataset, eval_dataset, multi_turn = make_data_module(args)
-    max_seq_length = tokenizer.model_max_length
-
-    train_dataset = (
-        SFTInstructionDataset(
-            train_dataset,
-            tokenizer=tokenizer,
-            max_seq_len=max_seq_length,
-        )
-        if args.do_train
-        else None
-    )
-
-    eval_dataset = (
-        SFTInstructionDataset(
-            eval_dataset,
-            tokenizer=tokenizer,
-            max_seq_len=max_seq_length,
-        )
-        if args.do_eval
-        else None
-    )
-
-    print(
-        f"train_dataset: {type(train_dataset)}, mutlti-turn: {multi_turn},  #length: {len(train_dataset)}"
-    ) if args.do_train else None
-    print(
-        f"eval_dataset: {type(eval_dataset)}, mutlti-turn: {multi_turn}, #length: {len(eval_dataset)}"
-    ) if args.do_eval else None
-
-    print("Adding data collator: ", DataCollatorForSupervisedDataset)
-    data_collator = DataCollatorForSupervisedDataset(
-        tokenizer=tokenizer, predict_with_generate=args.predict_with_generate
-    )
-
-    return {
-        "train_dataset": train_dataset,
-        "eval_dataset": eval_dataset,
-        "data_collator": data_collator,
-    }

@@ -1,14 +1,10 @@
 import json
-import os
-import yaml
 import torch
 from dataclasses import dataclass, field, asdict
-from typing import Optional, Any, Dict, List,Literal
+from typing import Optional, Any, Dict,Literal
 from transformers import Seq2SeqTrainingArguments
 from dbgpt_hub.configs.config import (
     MODEL_PATH,
-    DEFAULT_FT_MODEL_NAME,
-    DATA_PATH,
     ADAPTER_PATH,
 )
 
@@ -117,28 +113,6 @@ class ModelArguments:
 
             HfFolder.save_token(self.hf_auth_token)
 
-
-@dataclass
-class ModelInferenceArguments:
-    cache_dir: Optional[str] = field(default=None)
-    model_name_or_path: Optional[str] = field(
-        default=MODEL_PATH, metadata={"help": "Path to pre-trained model"}
-    )
-    model_max_length: int = field(
-        default=1024,
-        metadata={
-            "help": "Maximum sequence length. Sequences will be right padded (and possibly truncated)."
-        },
-    )
-    prompt_template: str = field(
-        default="default",
-        metadata={
-            "help": "Prompt template name. Such as vanilla, alpaca, llama2, vicuna..., etc."
-        },
-    )
-    source_prefix: Optional[str] = field(
-        default=None, metadata={"help": "Prefix to prepend to every source text."}
-    )
 
 
 

@@ -39,6 +39,7 @@ DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包�
 - [CHASE](https://xjtu-intsoft.github.io/chase/): 一个跨领域多轮交互text2sql中文数据集，包含5459个多轮问题组成的列表，一共17940个<query, SQL>二元组，涉及280个不同领域的数据库。
 - [BIRD-SQL：](https://bird-bench.github.io/)数据集是一个英文的大规模跨领域文本到SQL基准测试，特别关注大型数据库内容。该数据集包含12,751对文本到SQL数据对和95个数据库，总大小为33.4GB，跨越37个职业领域。BIRD-SQL数据集通过探索三个额外的挑战，即处理大规模和混乱的数据库值、外部知识推理和优化SQL执行效率，缩小了文本到SQL研究与实际应用之间的差距。
 - [CoSQL:](https://yale-lily.github.io/cosql)是一个用于构建跨域对话文本到sql系统的语料库。它是Spider和SParC任务的对话版本。CoSQL由30k+回合和10k+带注释的SQL查询组成，这些查询来自Wizard-of-Oz的3k个对话集合，查询了跨越138个领域的200个复杂数据库。每个对话都模拟了一个真实的DB查询场景，其中一个工作人员作为用户探索数据库，一个SQL专家使用SQL检索答案，澄清模棱两可的问题，或者以其他方式通知。
+- 按照[NSQL](https://github.com/NumbersStationAI/NSQL)的处理模板，对数据集做简单处理，共得到约[20w条训练数据](https://huggingface.co/datasets/Healthy13/Text2SQL/tree/main)
 
 
 
@@ -54,8 +55,10 @@ DB-GPT-HUB目前已经支持的base模型有：
   - [x] XVERSE
   - [x] ChatGLM2
   - [x] internlm
+  - [x] Falcon
 
-模型基于quantization_bit为4的量化微调(QLoRA)所需的最低硬件资源大概如下：
+
+模型基于quantization_bit为4的量化微调(QLoRA)所需的最低硬件资源,可以参考如下：
 
 | 模型参数 | GPU RAM         | CPU RAM | DISK   |
 | -------- | --------------- | ------- | ------ |
@@ -127,13 +130,46 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
 ```   
 其他省略(...)的部分均保持一致即可。 如果想要更改默认的deepseed配置，进入 `dbgpt_hub/configs` 目录，在ds_config.json 更改即可。
 
+脚本中微调时不同模型对应的关键参数lora_target 和 template，如下表：
+
+| 模型名                                                   |  lora_target           | template |
+| -------------------------------------------------------- |  ----------------- |----------|
+| [LLaMA-2](https://huggingface.co/meta-llama)             |  q_proj,v_proj     | llama2   |
+| [CodeLlama-2](https://huggingface.co/codellama/)             |  q_proj,v_proj     | llama2   |
+| [Baichuan2](https://github.com/baichuan-inc/Baichuan2)   |  W_pack            | baichuan2 |
+| [InternLM](https://github.com/InternLM/InternLM)         | q_proj,v_proj     | intern   |
+| [Qwen](https://github.com/QwenLM/Qwen-7B)                | c_attn            | chatml   |
+| [XVERSE](https://github.com/xverse-ai/XVERSE-13B)        | q_proj,v_proj     | xverse   |
+| [ChatGLM2](https://github.com/THUDM/ChatGLM2-6B)         | query_key_value   | chatglm2 |
+| [LLaMA](https://github.com/facebookresearch/llama)       |  q_proj,v_proj     | -        |
+| [BLOOM](https://huggingface.co/bigscience/bloom)         |  query_key_value   | -        |
+| [BLOOMZ](https://huggingface.co/bigscience/bloomz)       |  query_key_value   | -        |
+| [Baichuan](https://github.com/baichuan-inc/baichuan-13B) | W_pack            | baichuan |
+| [Falcon](https://huggingface.co/tiiuae/falcon-7b)        | query_key_value   | -        |
+
+`train_sft.sh`中其他关键参数含义：
+> quantization_bit：是否量化，取值为[4或者8]   
+> model_name_or_path：  LLM模型的路径   
+> dataset： 取值为训练数据集的配置名字，对应在dbgpt_hub/data/dataset_info.json 中外层key值，如example_text2sql。   
+> max_source_length： 输入模型的文本长度，如果计算资源支持，可以尽能设大，如1024或者2048。  
+> max_target_length： 输出模型的sql内容长度，设置为512一般足够。   
+> output_dir ： SFT微调时Peft模块输出的路径，默认设置在dbgpt_hub/output/adapter/路径下 。  
+> per_device_train_batch_size ： batch的大小，如果计算资源支持，可以设置为更大，默认为1。   
+> gradient_accumulation_steps ： 梯度更新的累计steps值 
+> save_steps ： 模型保存的ckpt的steps大小值，默认可以设置为100。  
+> num_train_epochs ： 训练数据的epoch数   
+
+
+
+
 ### 3.4、模型预测
 项目目录下`./dbgpt_hub/`下的`output/pred/`，此文件路径为关于模型预测结果默认输出的位置(如果没有则建上)。   
 预测运行命令：
 ```bash
 sh ./dbgpt_hub/scripts/predict_sft.sh
 ```   
-脚本中默认带着参数`--quantization_bit `为QLoRA的预测，去掉即为LoRA的预测方式。
+脚本中默认带着参数`--quantization_bit `为QLoRA的预测，去掉即为LoRA的预测方式。  
+其中参数--predicted_out_filename 的值为模型预测的结果文件名，结果在`dbgpt_hub/output/pred`目录下可以找到。
 
 
 ### 3.5、模型权重

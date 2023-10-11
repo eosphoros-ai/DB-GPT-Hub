@@ -22,19 +22,20 @@
 ## 一、简介
 
 DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包含数据集收集、数据预处理、模型选择与构建和微调权重等步骤，通过这一系列的处理可以在提高Text-to-SQL能力的同时降低模型训练成本，让更多的开发者参与到Text-to-SQL的准确度提升工作当中，最终实现基于数据库的自动问答能力，让用户可以通过自然语言描述完成复杂数据库的查询操作等工作。     
-目前我们已经基于多个大模型打通从数据处理、模型SFT训练、预测输出和评估的整个流程，代码在本项目中均可以直接复用。   
+目前我们已经基于多个大模型打通从数据处理、模型SFT训练、预测输出和评估的整个流程，**代码在本项目中均可以直接复用**。   
 截止20231010，我们利用本项目基于开源的13B大小的模型微调后，在Spider的评估集上的执行准确率，**已经超越GPT-4!**   
 
 ## 二、Text-to-SQL微调
 
- 我们基于大语言模型的SFT来提升Text-to-SQL的效果
+ 我们基于大语言模型的SFT来提升Text-to-SQL的效果。
 
 ### 2.1、数据集
 
-本项目案例数据主要以[Spider]数据集为示例 ：
+本项目案例数据主要以**Spider**数据集为示例 ：
 - [Spider](https://yale-lily.github.io/spider): 一个跨域的复杂text2sql数据集，包含了10,181条自然语言问句、分布在200个独立数据库中的5,693条SQL，内容覆盖了138个不同的领域。[下载链接](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ)
 
-其他数据集：
+其他数据集：  
+
 - [WikiSQL:](https://github.com/salesforce/WikiSQL) 一个大型的语义解析数据集，由80,654个自然语句表述和24,241张表格的sql标注构成。WikiSQL中每一个问句的查询范围仅限于同一张表，不包含排序、分组、子查询等复杂操作。
 - [CHASE](https://xjtu-intsoft.github.io/chase/): 一个跨领域多轮交互text2sql中文数据集，包含5459个多轮问题组成的列表，一共17940个<query, SQL>二元组，涉及280个不同领域的数据库。
 - [BIRD-SQL：](https://bird-bench.github.io/)数据集是一个英文的大规模跨领域文本到SQL基准测试，特别关注大型数据库内容。该数据集包含12,751对文本到SQL数据对和95个数据库，总大小为33.4GB，跨越37个职业领域。BIRD-SQL数据集通过探索三个额外的挑战，即处理大规模和混乱的数据库值、外部知识推理和优化SQL执行效率，缩小了文本到SQL研究与实际应用之间的差距。
@@ -58,14 +59,14 @@ DB-GPT-HUB目前已经支持的base模型有：
   - [x] Falcon
 
 
-模型基于quantization_bit为4的量化微调(QLoRA)所需的最低硬件资源,可以参考如下：
+模型可以基于quantization_bit为4的量化微调(QLoRA)所需的最低硬件资源,可以参考如下：
 
 | 模型参数 | GPU RAM         | CPU RAM | DISK   |
 | -------- | --------------- | ------- | ------ |
 | 7b       | 6GB | 3.6GB   | 36.4GB |
 | 13b      | 13.4GB | 5.9GB   | 60.2GB | 
 
-其中相关参数均设置的为最低，batch_size为1，max_length为512。根据经验，为了效果更好，建议相关长度值设置为1024或者2048。  
+其中相关参数均设置的为最小，batch_size为1，max_length为512。根据经验，如果计算资源足够，为了效果更好，建议相关长度值设置为1024或者2048。  
 
 ## 三、使用方法
 
@@ -78,19 +79,18 @@ conda create -n dbgpt_hub python=3.10
 conda activate dbgpt_hub
 pip install -r requirements.txt 
 ```
-你可以将下载的大模型文件放在新建model文件夹下面
 
 ### 3.2、数据准备
 
-DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信息的 SQL + Repository 生成方式，这种方式结合了数据表信息，能够更好地理解数据表的结构和关系，适用于生成符合需求的 SQL 语句。 
-从[spider数据集链接](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ) 下载spider数据集，默认将数据下载解压后，放在目录dbgpt_hub/data下面，即路径为dbgpt_hub/data/spider。 
+DB-GPT-Hub使用的是信息匹配生成法进行数据准备，即结合表信息的 SQL + Repository 生成方式，这种方式结合了数据表信息，能够更好地理解数据表的结构和关系，适用于生成符合需求的 SQL 语句。 
+从[spider数据集链接](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ) 下载spider数据集，默认将数据下载解压后，放在目录dbgpt_hub/data下面，即路径为`dbgpt_hub/data/spider`。 
 
 数据预处理部分，**只需运行如下脚本**即可：
 ```bash
-## 生成train数据 和dev数据,
+## 生成train数据 和dev(eval)数据,
 sh dbgpt_hub/scripts/train_eval_data_gen.sh
 ```
-在dbgpt_hub/data目录你会得到新生成的训练文件example_text2sql_train.json 和测试文件example_text2sql_dev.json ，数据量分别为8659和1034条。 
+在`dbgpt_hub/data/`目录你会得到新生成的训练文件example_text2sql_train.json 和测试文件example_text2sql_dev.json ，数据量分别为8659和1034条。 
 
 生成的json中的数据形如：  
 ```
@@ -106,15 +106,15 @@ sh dbgpt_hub/scripts/train_eval_data_gen.sh
 
 ### 3.3、模型微调
 
-本项目微调不仅能支持qlora和lora方法，还支持deepseed。 可以运行以下命令来微调模型，默认带着参数`--quantization_bit `为qlora的微调方式，如果想要转换为lora的微调，只需在脚本中去掉quantization_bit参数即可。
-运行命令：
+本项目微调不仅能支持QLoRA和LoRA法，还支持deepseed。 可以运行以下命令来微调模型，默认带着参数`--quantization_bit `为QLoRA的微调方式，如果想要转换为lora的微调，只需在脚本中去掉quantization_bit参数即可。
+默认QLoRA微调，运行命令：
 
 ```bash
 sh dbgpt_hub/scripts/train_sft.sh
 ```
 微调后的模型权重会默认保存到adapter文件夹下面，即dbgpt_hub/output/adapter目录中。  
 **如果使用多卡训练，想要用deepseed** ，则将train_sft.sh中默认的内容进行更改，
-默认为：
+调整为：
 
 ```
 CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
@@ -169,7 +169,7 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
 sh ./dbgpt_hub/scripts/predict_sft.sh
 ```   
 脚本中默认带着参数`--quantization_bit `为QLoRA的预测，去掉即为LoRA的预测方式。  
-其中参数--predicted_out_filename 的值为模型预测的结果文件名，结果在`dbgpt_hub/output/pred`目录下可以找到。
+其中参数 `--predicted_out_filename` 的值为模型预测的结果文件名，结果在`dbgpt_hub/output/pred`目录下可以找到。
 
 
 ### 3.5、模型权重

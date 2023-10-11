@@ -190,7 +190,7 @@ You can find the corresponding model weights we uploaded in August from Huggingf
 
 We will release a better version of the new weights as soon as possible. 
 
-## 3.5.2 Model and fine-tuned weight merging 
+#### 3.5.2 Model and fine-tuned weight merging 
 
 Run the following script, and be sure to replace the relevant parameter path values ​​in the script with the path corresponding to your project.   
 

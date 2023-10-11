@@ -21,16 +21,20 @@
 
 ## 一、简介
 
-DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包含数据集收集、数据预处理、模型选择与构建和微调权重等步骤，通过这一系列的处理可以在提高Text-to-SQL能力的同时降低模型训练成本，让更多的开发者参与到Text-to-SQL的准确度提升工作当中，最终实现基于数据库的自动问答能力，让用户可以通过自然语言描述完成复杂数据库的查询操作等工作。
+DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包含数据集收集、数据预处理、模型选择与构建和微调权重等步骤，通过这一系列的处理可以在提高Text-to-SQL能力的同时降低模型训练成本，让更多的开发者参与到Text-to-SQL的准确度提升工作当中，最终实现基于数据库的自动问答能力，让用户可以通过自然语言描述完成复杂数据库的查询操作等工作。     
+目前我们已经基于多个大模型打通从数据处理、模型SFT训练、预测输出和评估的整个流程，代码在本项目中均可以直接复用。   
+截止20231010，我们利用本项目基于开源的13B大小的模型微调后，在Spider的评估集上的执行准确率，**已经超越GPT-4!**   
 
 ## 二、Text-to-SQL微调
 
-大型语言模型（LLMs）在现有Text-to-SQL的基准测试中取得了令人印象深刻的成果。然而，这些模型在面对大型数据库和嘈杂内容时仍然存在挑战，而且巨大的数据库价值背后的奥秘需要外部知识和推理来揭示。 我们基于大语言模型持续的SFT来提升Text-to-SQL的效果
+ 我们基于大语言模型的SFT来提升Text-to-SQL的效果
 
 ### 2.1、数据集
 
-本项目主要使用了以下公开的text2sql数据集：
+本项目案例数据主要以[Spider]数据集为示例 ：
 - [Spider](https://yale-lily.github.io/spider): 一个跨域的复杂text2sql数据集，包含了10,181条自然语言问句、分布在200个独立数据库中的5,693条SQL，内容覆盖了138个不同的领域。[下载链接](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ)
+
+其他数据集：
 - [WikiSQL:](https://github.com/salesforce/WikiSQL) 一个大型的语义解析数据集，由80,654个自然语句表述和24,241张表格的sql标注构成。WikiSQL中每一个问句的查询范围仅限于同一张表，不包含排序、分组、子查询等复杂操作。
 - [CHASE](https://xjtu-intsoft.github.io/chase/): 一个跨领域多轮交互text2sql中文数据集，包含5459个多轮问题组成的列表，一共17940个<query, SQL>二元组，涉及280个不同领域的数据库。
 - [BIRD-SQL：](https://bird-bench.github.io/)数据集是一个英文的大规模跨领域文本到SQL基准测试，特别关注大型数据库内容。该数据集包含12,751对文本到SQL数据对和95个数据库，总大小为33.4GB，跨越37个职业领域。BIRD-SQL数据集通过探索三个额外的挑战，即处理大规模和混乱的数据库值、外部知识推理和优化SQL执行效率，缩小了文本到SQL研究与实际应用之间的差距。
@@ -40,7 +44,7 @@ DB-GPT-Hub是一个利用LLMs实现Text-to-SQL解析的实验项目，主要包�
 
 ### 2.2、基座模型
 
-DB-GPT-HUB目前支持的base模型有：
+DB-GPT-HUB目前已经支持的base模型有：
 
   - [x] CodeLlama
   - [x] Baichuan2 
@@ -51,26 +55,15 @@ DB-GPT-HUB目前支持的base模型有：
   - [x] ChatGLM2
   - [x] internlm
 
-模型量化微调所需的硬件资源大概如下：
+模型基于quantization_bit为4的量化微调(QLoRA)所需的最低硬件资源大概如下：
 
 | 模型参数 | GPU RAM         | CPU RAM | DISK   |
 | -------- | --------------- | ------- | ------ |
-| 7b       | 4.8GB（14.7GB） | 3.6GB   | 36.4GB |
-| 13b      | 8.4GB（28.7GB） | 5.9GB   | 60.2GB |
-| 33b      | 18.3GB（OOM）   | 8.4GB   | 122GB  |
-| 65b      | 38.7GB（OOM）   | 13.1GB  | 434GB  |
+| 7b       | 6GB | 3.6GB   | 36.4GB |
+| 13b      | 13.4GB | 5.9GB   | 60.2GB | 
 
-### 2.3、微调方法
+其中相关参数均设置的为最低，batch_size为1，max_length为512。根据经验，为了效果更好，建议相关长度值设置为1024或者2048。  
 
-#### Spider+QLoRA/LoRA+LLM(Falcon/Vicuna/Guanaco/LLaMa/LLaMa2/CodeLlama)
-
-该实验项目通过加入表结构信息、调整语言模型的参数等方式构建数据集，然后用QLoRA/LoRA对LLM模型进行微调，旨在降低微调成本的同时提高SQL生成的准确性和速度。可以通过以下命令来执行：
-
-```shell
-sh scripts/qlora/qlora.sh
-sh scripts/lora/lora.sh 或者  sh scripts/lora/lora_ds.sh
-```
-其中lora.sh和lora_ds.sh的区别主要是用deepspeed(ds)版本。
 ## 三、使用方法
 
 ### 3.1、环境准备
@@ -86,109 +79,72 @@ pip install -r requirements.txt
 
 ### 3.2、数据准备
 
-DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信息的 SQL + Repository 生成方式，这种方式结合了数据表信息，能够更好地理解数据表的结构和关系，适用于生成符合需求的 SQL 语句。
+DB-GPT-HUB使用的是信息匹配生成法进行数据准备，即结合表信息的 SQL + Repository 生成方式，这种方式结合了数据表信息，能够更好地理解数据表的结构和关系，适用于生成符合需求的 SQL 语句。 
+从[spider数据集链接](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ) 下载spider数据集，默认将数据下载解压后，放在目录dbgpt_hub/data下面，即路径为dbgpt_hub/data/spider。 
 
-运行前需要将SQL数据集下载后放在该目录下。这里以spider数据集为例，spider数据集主要包含三部分：
-
-* train_spide.json：每条text-to-SQL的QA数据与数据库相关数据存储为json文件
-  * db_id：数据库名称
-  * question: 以自然语言的方式向数据库发出的指令
-  * query：接受自然语言指令后，能够准确执行指令的sql代码
-* train_gold.sql：question的真实sql代码
-* database：数据库源文件
-  * schema.sql: 建表语句。
-  * sqlite: 数据库的具体内容。
-
-首先我们需要将以上数据中的QA、表结构和数据库内容等都信息提取出来，格式如下：
-
-```
-{
-        "query": sample["query"],
-        "question": sample["question"],
-        "db_id": db_id,
-        "db_path": db_path,
-        "db_table_names": schema["table_names_original"],
-        "db_column_names": [
-            {"table_id": table_id, "column_name": column_name}
-            for table_id, column_name in schema["column_names_original"]
-        ],
-        "db_column_types": schema["column_types"],
-        "db_primary_keys": [{"column_id": column_id} for column_id in schema["primary_keys"]],
-        "db_foreign_keys": [
-            {"column_id": column_id, "other_column_id": other_column_id}
-            for column_id, other_column_id in schema["foreign_keys"]
-        ],
-    }
-```
-
-然后将该数据以自然语言的形式表述，例如：
-
-```
-{"instruction": "department_management contains tables such as department, head, management. Table department has columns such as department_id, name, creation, ranking, budget_in_billions, num_employees. department_id is the primary key. Table head has columns such as head_id, name, born_state, age. head_id is the primary key. Table management has columns such as department_id, head_id, temporary_acting. department_id is the primary key. The head_id of management is the foreign key of head_id of head. The department_id of management is the foreign key of department_id of department.",
-"input": "How many heads of the departments are older than 56 ?",
-"output": "select count(*) from head where age > 56"}
-
-```
-
-从[下载链接](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ) 下载spider数据集，默认将数据下载解压后，放在目录dbgpt_hub/data下面，即路径为dbgpt_hub/data/spider
-
-数据预处理部分的代码实现如下：
+数据预处理部分，**只需运行如下脚本**即可：
 ```bash
 ## 生成train数据 和dev数据,
 sh dbgpt_hub/scripts/train_eval_data_gen.sh
 ```
-在dbgpt_hub/data目录你会得到新生成的训练文件example_text2sql_train.json 和测试文件example_text2sql_dev.json ，数据量分别为8659和1034条。
+在dbgpt_hub/data目录你会得到新生成的训练文件example_text2sql_train.json 和测试文件example_text2sql_dev.json ，数据量分别为8659和1034条。 
 
-在模型微调时，我们还定制了prompt dict以优化输入：
-
-```python
-SQL_PROMPT_DICT = {
-    "prompt_input": (
-        "I want you to act as a SQL terminal in front of an example database, \
-         you need only to return the sql command to me.Below is an instruction that describes a task, \
-         Write a response that appropriately completes the request.\n"  \
-         "##Instruction:\n{instruction}\n###Input:\n{input}\n\n###Response:"
-    ),
-    "prompt_no_input": (
-        "I want you to act as a SQL terminal in front of an example database, \
-        you need only to return the sql command to me.Below is an instruction that describes a task, \
-        Write a response that appropriately completes the request.\n"  \
-        "####Instruction:\n{instruction}\n\###Response: "
-    ),
-}
+生成的json中的数据形如：  
 ```
+    {
+        "db_id": "department_management",
+        "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\n\"\n##Instruction:\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\nThe head_ID of management is the foreign key of head_ID of head.\nThe department_ID of management is the foreign key of Department_ID of department.\n\n",
+        "input": "###Input:\nHow many heads of the departments are older than 56 ?\n\n###Response:",
+        "output": "SELECT count(*) FROM head WHERE age  >  56",
+        "history": []
+    }, 
+```  
+
 
 ### 3.3、模型微调
 
-模型微调支持qlora和lora方法，我们可以运行以下命令来微调模型，默认带着参数`--quantization_bit `为qlora的微调方式，转换为lora只需在脚本中去掉相关参数即可。
+本项目微调不仅能支持qlora和lora方法，还支持deepseed。 可以运行以下命令来微调模型，默认带着参数`--quantization_bit `为qlora的微调方式，如果想要转换为lora的微调，只需在脚本中去掉quantization_bit参数即可。
 运行命令：
 
 ```bash
 sh dbgpt_hub/scripts/train_sft.sh
 ```
+微调后的模型权重会默认保存到adapter文件夹下面，即dbgpt_hub/output/adapter目录中。  
+**如果使用多卡训练，想要用deepseed** ，则将train_sft.sh中默认的内容进行更改，
+默认为：
 
-微调后的模型权重会默认保存到adapter文件夹下面，即dbgpt_hub/output/adapter目录中。
-
+```
+CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
+    --quantization_bit 4 \
+    ...
+```    
+更改为： 
+```
+deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
+    --deepspeed dbgpt_hub/configs/ds_config.json \
+    --quantization_bit 4 \
+    ...
+```   
+其他省略(...)的部分均保持一致即可。 如果想要更改默认的deepseed配置，进入 `dbgpt_hub/configs` 目录，在ds_config.json 更改即可。
 
 ### 3.4、模型预测
-项目目录下`./dbgpt_hub/output/pred/`，此文件夹为关于模型预测默认输出的位置。
-
-
+项目目录下`./dbgpt_hub/`下的`output/pred/`，此文件路径为关于模型预测结果默认输出的位置(如果没有则建上)。   
+预测运行命令：
 ```bash
 sh ./dbgpt_hub/scripts/predict_sft.sh
-```
-
+```   
 脚本中默认带着参数`--quantization_bit `为QLoRA的预测，去掉即为LoRA的预测方式。
 
 
-# 3.5、模型权重
-可以从Huggingface查看我们之前8月份上传的对应的模型权重。 [huggingface地址](https://huggingface.co/eosphoros)  
-新的权重我们将尽快释放出一版效果更好的。  
-## 3.5.2 模型和微调权重合并
-运行如下脚本，注意将脚本中的相关参数路径值替换为你项目所对应的路径。
+### 3.5、模型权重
+可以从Huggingface查看我们之前8月份上传的对应的Peft模块的权重[huggingface地址](https://huggingface.co/eosphoros) 。 新的更好的在spider的评估集上执行准确率超越GPT-4的权重我们将尽快释放出。    
+
+#### 3.5.1 模型和微调权重合并
+如果你需要将训练的基础模型和微调的Peft模块的权重合并，导出一个完整的模型。则运行如下模型导出脚本：  
 ```bash
 sh ./dbgpt_hub/scripts/export_merge.sh
 ```
+注意将脚本中的相关参数路径值替换为你项目所对应的路径。   
 
 
 ### 3.6、模型评估
@@ -198,7 +154,7 @@ sh ./dbgpt_hub/scripts/export_merge.sh
 ```bash
 python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_pred_file
 ```
-你可以在[这里](docs/eval_llm_result.md)找到我们最新的审查结果。
+你可以在[这里](docs/eval_llm_result.md)找到我们最新的评估结果。
 ## 四、发展路线
 
 整个过程我们会分为三个阶段：
@@ -216,15 +172,11 @@ python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_pred_file
   - [x] internlm
 
 
-
-
-  We preliminarily plan to support the following models going forward. If there are new and better models, we'll keep an eye out and follow up too. Feel free to open an issue to suggest any, we'll glad to see your issues.
-
   
 * 阶段二:
-  * 优化模型效果，支持更多不同模型进行不同方式的微调。
-  * 对`prompt`优化
-  * 放出评估效果，优化后`DB-GPT-SFT`模型
+  - [x]  优化模型效果，支持更多不同模型进行不同方式的微调。截止`20231010`，我们已经完成对项目代码的重构，支持更多的模型。
+  - [x] 对`prompt`优化
+  * 放出评估效果，和优化后的还不错的模型
 * 阶段三：
   * 基于更多论文进行优化，如`RESDSQL`等，结合我们社区的兄弟项目[Awesome-Text2SQL](https://github.com/eosphoros-ai/Awesome-Text2SQL)进行更多的优化；
 

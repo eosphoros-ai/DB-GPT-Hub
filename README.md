@@ -25,7 +25,9 @@ DB-GPT-Hub is an experimental project utilizing LLMs (Large Language Models) to 
 
 So far, we have successfully integrated multiple large models and established a complete workflow, including data processing, model SFT (Supervised Fine-Tuning) training, prediction output, and evaluation. The code is readily reusable within this project.    
 
-As of October 10, 2023, by fine-tuning an open-source model of 13 billion parameters using this project, **the execution accuracy on the Spider evaluation dataset has surpassed that of GPT-4!**
+As of October 10, 2023, by fine-tuning an open-source model of 13 billion parameters using this project, **the execution accuracy on the Spider evaluation dataset has surpassed that of GPT-4!**  
+
+Part of the experimental results have been compiled into the [document](docs/eval_llm_result.md) in this project. By utilizing this project and combining more related data, the execution accuracy on the Spider evaluation set has already reached **0.825**.
 
 ## 2. Fine-tuning Text-to-SQL
 
@@ -204,7 +206,7 @@ Run the following command:
 ```bash
 python dbgpt_hub/eval/evaluation.py --plug_value --input Your_model_pred_file
 ```
-You can find the results of our latest review [here](docs/eval_llm_result.md)
+You can find the results of our latest review and part of experiment results [here](docs/eval_llm_result.md)
 
 ## 4. RoadMap 
 

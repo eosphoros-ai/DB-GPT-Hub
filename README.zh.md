@@ -89,7 +89,7 @@ DB-GPT-Hub使用的是信息匹配生成法进行数据准备，即结合表信�
 数据预处理部分，**只需运行如下脚本**即可：
 ```bash
 ## 生成train数据 和dev(eval)数据,
-sh dbgpt_hub/scripts/train_eval_data_gen.sh
+sh dbgpt_hub/scripts/gen_train_eval_data.sh
 ```
 在`dbgpt_hub/data/`目录你会得到新生成的训练文件example_text2sql_train.json 和测试文件example_text2sql_dev.json ，数据量分别为8659和1034条。 
 

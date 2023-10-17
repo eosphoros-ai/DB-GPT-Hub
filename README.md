@@ -96,7 +96,7 @@ Download the [Spider dataset]((https://drive.google.com/uc?export=download&id=1T
 For the data preprocessing part, simply **run the following script** :
 ```bash
 ## generate train and dev(eval) data
-sh dbgpt_hub/scripts/train_eval_data_gen.sh
+sh dbgpt_hub/scripts/gen_train_eval_data.sh
 ```
 
 In the directory `dbgpt_hub/data/`, you will find the newly generated training file example_text2sql_train.json and testing file example_text2sql_dev.json, containing 8659 and 1034 entries respectively.

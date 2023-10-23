@@ -174,7 +174,7 @@ sh ./dbgpt_hub/scripts/predict_sft.sh
 
 
 ### 3.5、模型权重
-可以从Huggingface查看我们之前8月份上传的对应的Peft模块的权重[huggingface地址](https://huggingface.co/eosphoros) 。 新的更好的在spider的评估集上执行准确率超越GPT-4的权重我们将尽快释放出。    
+可以从Huggingface查看我们社区上传的第二版Peft模块权重[huggingface地址](https://huggingface.co/Wangzaistone123/CodeLlama-13b-sql-lora) (202310) ,在spider评估集上的执行准确率达到0.789。    
 
 #### 3.5.1 模型和微调权重合并
 如果你需要将训练的基础模型和微调的Peft模块的权重合并，导出一个完整的模型。则运行如下模型导出脚本：  

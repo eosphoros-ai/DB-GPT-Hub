@@ -185,10 +185,8 @@ In the script, by default with the parameter `--quantization_bit`, it predicts u
 The value of the parameter  `--predicted_out_filename` is the file name of the model's predicted results, which can be found in the   `dbgpt_hub/output/pred` directory.
 
 ### 3.5 Model Weights
-You can find the corresponding model weights we uploaded in August from Huggingface.[hg-eosphoros-ai
-](https://huggingface.co/eosphoros)   
-
- We will soon release new model and improved weights that outperform GPT-4 in accuracy on the spider evaluation set.
+You can find the second corresponding model weights  from Huggingface [hg-eosphoros-ai
+](https://huggingface.co/Wangzaistone123/CodeLlama-13b-sql-lora)  ,we uploaded the LoRA weights in October,which execution accuracy on the Spider evaluation set reached 0.789.  
 
 #### 3.5.1 Model and fine-tuned weight merging 
 

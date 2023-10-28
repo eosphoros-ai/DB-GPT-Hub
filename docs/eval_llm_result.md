@@ -7,14 +7,15 @@ This doc aims to summarize the performance of publicly available big language mo
 | ------------------------------ | ------------------ | ---------------------------------------------------------------------------------- |
 | **GPT-4**                         | **0.762**              | [numbersstation-eval-res](https://www.numbersstation.ai/post/nsql-llama-2-7b)    |
 | ChatGPT                        | 0.728              | [numbersstation-eval-res](https://www.numbersstation.ai/post/nsql-llama-2-7b)| 
-| **CodeLlama-13b-Instruct-hf_lora** | **0.789**              | sft train by our this project,only used spider train dataset ,the same eval  way in this project  with lora SFT. the [weights](https://huggingface.co/Wangzaistone123/CodeLlama-13b-sql-lora) has pulished . |
-| **CodeLlama-13b-Instruct-hf_qlora** | **0.825**              | sft train by our this project, used around 50 thousand pieces of text-to-sql data. ,the same eval  way in this project  with lora SFT,and we make sure the training set has filtered the spider eval dataset. |
-| CodeLlama-13b-Instruct-hf_qlora | 0.774              | sft train by our this project,only used spider train dataset ,the same eval  way in this project  with qlora and nf4,bit4 SFT.|
+| **CodeLlama-13b-Instruct-hf_lora** | **0.789**              | sft train by our this project,only used spider train dataset, the same eval way in this project with lora SFT. The [weights](https://huggingface.co/Wangzaistone123/CodeLlama-13b-sql-lora) has pulished . |
+| **CodeLlama-13b-Instruct-hf_qlora** | **0.825**              | sft train by our this project, used around 50 thousand pieces of text-to-sql data. The same eval way in this project with lora SFT, and we make sure the training set has filtered the spider eval dataset. |
+| CodeLlama-13b-Instruct-hf_qlora | 0.774              | sft train by our this project, only used spider train dataset, the same eval way in this project with qlora and nf4, bit4 SFT.|
+| CodeLlama-7b-Instruct-hf_qlora | 0.623              | sft train by this project, which only used **Spider** train dataset, the same eval way in this project with qlora and nf4, bit4 SFT.|
 | wizardcoder                    | 0.610              | [text-to-sql-wizardcoder](https://github.com/cuplv/text-to-sql-wizardcoder/tree/main)                |  
 |CodeLlama-13b-Instruct-hf| 0.556 | eval in this project default param|
 |Baichuan2-13B-Chat|0.392|  eval in this project default param|
 | llama2_13b_hf                  | 0.449        | [numbersstation-eval-res](https://www.numbersstation.ai/post/nsql-llama-2-7b)  |
-| llama2_13b_hf_lora_best             | 0.744           | sft train by our this project,only used spider train dataset ,the same eval  way in this project. |
+| llama2_13b_hf_lora_best             | 0.744           | sft train by our this project,only used spider train dataset, the same eval way in this project. |
 
 
 

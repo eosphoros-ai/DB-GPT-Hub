@@ -1,0 +1,27 @@
+database:
+  dbtype: mysql
+  host:
+  port: 3306
+  user: 用户
+  passwd:
+  db: 库名称
+
+table-configs:
+  store:
+    tables: ["store"]
+    ## 各表的主键
+    primary_keys:
+      "store": "entity_id"
+    ## 表之间的主外键关系
+    foreign_keys:
+
+  store-computer:
+    ## 表，主表第一个，必须，从表，建议按你想要的顺序依次列出
+    tables: ["store","store_computer"]
+    ## 各表的主键
+    primary_keys:
+      "store": "entity_id"
+      "store_computer": "entity_id"
+    ## 表之间的主外键关系
+    foreign_keys:
+      "store_computer_fk": [{"store":"entity_id"},{"store_computer":"store_id"}]

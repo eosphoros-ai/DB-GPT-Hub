@@ -27,3 +27,6 @@ scipy
 sqlparse
 nltk
 jsonlines
+pymysql
+pyyaml
+json

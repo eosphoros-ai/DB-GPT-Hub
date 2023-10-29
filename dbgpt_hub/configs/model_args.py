@@ -1,7 +1,7 @@
 import json
 import torch
 from dataclasses import dataclass, field, asdict
-from typing import Optional, Any, Dict,Literal
+from typing import Optional, Any, Dict, Literal
 from transformers import Seq2SeqTrainingArguments
 from dbgpt_hub.configs.config import (
     MODEL_PATH,
@@ -112,8 +112,6 @@ class ModelArguments:
             from huggingface_hub.hf_api import HfFolder  # lazy load
 
             HfFolder.save_token(self.hf_auth_token)
-
-
 
 
 @dataclass

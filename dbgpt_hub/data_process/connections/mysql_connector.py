@@ -7,9 +7,21 @@ from dbgpt_hub.data_process.connections.base_connector import BaseConnector
 
 
 class MySQLConnector(BaseConnector, ABC):
-    def __init__(self, host="127.0.0.1", port=3306, user=None, passwd=None, db=None, charset="utf8", *args, **kwargs):
+    def __init__(
+        self,
+        host="127.0.0.1",
+        port=3306,
+        user=None,
+        passwd=None,
+        db=None,
+        charset="utf8",
+        *args,
+        **kwargs
+    ):
         super().__init__(host, port, user, passwd, db, charset, args, kwargs)
-        self._conn = pymysql.connect(host=host, port=port, user=user, passwd=passwd, db=db, charset=charset)
+        self._conn = pymysql.connect(
+            host=host, port=port, user=user, passwd=passwd, db=db, charset=charset
+        )
         self._cursor = self._conn.cursor()
 
     def __del__(self):
@@ -56,7 +68,13 @@ class MySQLConnector(BaseConnector, ABC):
 
     def get_table_metadata(self, db, table, args=None):
         """查询指定表的元数据信息"""
-        sql = 'SELECT TABLE_NAME ,TABLE_COMMENT  FROM information_schema.TABLES WHERE TABLE_NAME="' + table + '" AND TABLE_SCHEMA="' + db + '"'
+        sql = (
+            'SELECT TABLE_NAME ,TABLE_COMMENT  FROM information_schema.TABLES WHERE TABLE_NAME="'
+            + table
+            + '" AND TABLE_SCHEMA="'
+            + db
+            + '"'
+        )
         self._cursor.execute(sql, args)
         return self._cursor.fetchall()
 
@@ -71,6 +89,9 @@ class MySQLConnector(BaseConnector, ABC):
             information_schema.COLUMNS 
         WHERE 
             table_schema = %s AND table_name = %s;
-        """ % (db, table)
+        """ % (
+            db,
+            table,
+        )
         self._cursor.execute(sql, args)
         return self._cursor.fetchall()

@@ -13,8 +13,6 @@ if TYPE_CHECKING:
     from transformers import TrainingArguments, TrainerState, TrainerControl
 
 
-
-
 def reset_logging():
     r"""
     Removes basic config of root logger
@@ -37,6 +35,7 @@ def get_logger(name: str) -> logging.Logger:
     logger.addHandler(handler)
 
     return logger
+
 
 logger = get_logger(__name__)
 

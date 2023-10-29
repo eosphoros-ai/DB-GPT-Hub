@@ -1,13 +1,13 @@
 import os
 import torch
 import math
-from typing import Optional, Tuple,Dict,TYPE_CHECKING, Literal,List
+from typing import Optional, Tuple, Dict, TYPE_CHECKING, Literal, List
 from types import MethodType
 from trl import AutoModelForCausalLMWithValueHead
 from dbgpt_hub.llm_base.loggings import reset_logging, get_logger
 from dbgpt_hub.configs.model_args import FinetuningArguments
 from dbgpt_hub.llm_base.adapter import init_adapter
-from dbgpt_hub.configs.config import LAYERNORM_NAMES,VALUE_HEAD_FILE_NAME
+from dbgpt_hub.configs.config import LAYERNORM_NAMES, VALUE_HEAD_FILE_NAME
 
 from transformers import PreTrainedModel, PreTrainedTokenizer
 from transformers.utils import check_min_version
@@ -38,7 +38,6 @@ require_version("peft>=0.4.0", "To fix: pip install peft>=0.4.0")
 require_version("trl>=0.5.0", "To fix: pip install trl>=0.5.0")
 
 
-
 def count_parameters(model: torch.nn.Module) -> Tuple[int, int]:
     r"""
     Returns the number of trainable parameters and number of all parameters in the model.
@@ -59,7 +58,6 @@ def count_parameters(model: torch.nn.Module) -> Tuple[int, int]:
             trainable_params += num_params
 
     return trainable_params, all_param
-
 
 
 # Includes: (1) cast the layernorm in fp32 (2) make output embedding layer require grads (3) upcast the lm_head to fp32
@@ -103,7 +101,6 @@ def prepare_model_for_training(
         setattr(model, output_layer_name, CastOutputToFloat(output_layer))
 
     return model
-
 
 
 def load_valuehead_params(model: torch.nn.Module, checkpoint_dir: os.PathLike) -> bool:
@@ -348,7 +345,9 @@ def dispatch_model(model: "PreTrainedModel") -> "PreTrainedModel":
     Dispatches a pre-trained model to GPUs with balanced memory.
     Borrowed from: https://github.com/huggingface/transformers/blob/v4.31.0/src/transformers/modeling_utils.py#L2803
     """
-    if getattr(model, "is_loaded_in_8bit", False) or getattr(model, "is_loaded_in_4bit", False): # do nothing
+    if getattr(model, "is_loaded_in_8bit", False) or getattr(
+        model, "is_loaded_in_4bit", False
+    ):  # do nothing
         return model
 
     if torch.cuda.device_count() > 1:
@@ -356,9 +355,14 @@ def dispatch_model(model: "PreTrainedModel") -> "PreTrainedModel":
         from accelerate.utils import infer_auto_device_map, get_balanced_memory
 
         if model._no_split_modules is None:
-            raise ValueError("The model class needs to implement the `_no_split_modules` attribute.")
+            raise ValueError(
+                "The model class needs to implement the `_no_split_modules` attribute."
+            )
 
-        kwargs = {"dtype": model.dtype, "no_split_module_classes": model._no_split_modules}
+        kwargs = {
+            "dtype": model.dtype,
+            "no_split_module_classes": model._no_split_modules,
+        }
         max_memory = get_balanced_memory(model, **kwargs)
         # Make sure tied weights are tied before creating the device map.
         model.tie_weights()

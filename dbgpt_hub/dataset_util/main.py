@@ -16,7 +16,7 @@ def get_config(path):
     return config
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     current_path = os.path.split(os.path.realpath(__file__))[0]
 
     config_data = get_config(current_path)
@@ -26,14 +26,18 @@ if __name__ == '__main__':
 
     # 暂时只实现mysql，其他版本数据库，后续扩展
     if config_data["database"]["dbtype"] == "mysql":
-        connect = MySQLConnector(host=config_data["database"]["host"], port=config_data["database"]["port"],
-                                 user=config_data["database"]["user"], passwd=config_data["database"]["passwd"],
-                                 db=config_data["database"]["db"])
+        connect = MySQLConnector(
+            host=config_data["database"]["host"],
+            port=config_data["database"]["port"],
+            user=config_data["database"]["user"],
+            passwd=config_data["database"]["passwd"],
+            db=config_data["database"]["db"],
+        )
     else:
         raise ()
 
     processor = TableMetaDataProcessor(connect, config_data)
-    meta = processor.generate_spider_table_metadata();
+    meta = processor.generate_spider_table_metadata()
 
     with open(os.path.join(current_path, "tables.json"), "w") as file:
         json.dump(meta, file, ensure_ascii=False, indent=1)

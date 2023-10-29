@@ -3,7 +3,7 @@ import sys
 import torch
 import transformers
 import datasets
-from transformers.trainer import  WEIGHTS_NAME
+from transformers.trainer import WEIGHTS_NAME
 from transformers.modeling_utils import load_sharded_checkpoint
 from transformers.trainer import WEIGHTS_NAME, WEIGHTS_INDEX_NAME
 from transformers import HfArgumentParser, Seq2SeqTrainingArguments
@@ -15,9 +15,7 @@ from dbgpt_hub.configs.model_args import (
     FinetuningArguments,
     GeneratingArguments,
 )
-from dbgpt_hub.configs.data_args import  DataArguments
-
-
+from dbgpt_hub.configs.data_args import DataArguments
 
 
 logger = get_logger(__name__)
@@ -84,6 +82,7 @@ def parse_train_args(
     )
     return _parse_args(parser, args)
 
+
 def parse_infer_args(
     args: Optional[Dict[str, Any]] = None
 ) -> Tuple[ModelArguments, DataArguments, FinetuningArguments, GeneratingArguments]:
@@ -91,7 +90,6 @@ def parse_infer_args(
         (ModelArguments, DataArguments, FinetuningArguments, GeneratingArguments)
     )
     return _parse_args(parser, args)
-
 
 
 def get_train_args(
@@ -257,5 +255,3 @@ def get_infer_args(
             raise ValueError("Quantized model only accepts a single checkpoint.")
 
     return model_args, data_args, finetuning_args, generating_args
-
-

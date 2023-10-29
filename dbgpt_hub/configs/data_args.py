@@ -3,6 +3,7 @@ import json
 import tiktoken
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Dict, List, Literal, Optional, Tuple, Union
+
 if TYPE_CHECKING:
     from transformers import PreTrainedTokenizer
 
@@ -42,7 +43,6 @@ SQL_PROMPT_DICT = {
 }
 
 
-
 @dataclass
 class DatasetAttr:
     load_from: str
@@ -78,7 +78,8 @@ class DataArguments:
         },
     )
     dataset_dir: Optional[str] = field(
-        default="dbgpt_hub/data/", metadata={"help": "The name of the folder containing datasets."}
+        default="dbgpt_hub/data/",
+        metadata={"help": "The name of the folder containing datasets."},
     )
     split: Optional[str] = field(
         default="train",
@@ -154,11 +155,8 @@ class DataArguments:
     )
     predicted_out_filename: Optional[str] = field(
         default="pred_sql.sql",
-        metadata={
-            "help": "Filename to save predicted outcomes"
-        },
+        metadata={"help": "Filename to save predicted outcomes"},
     )
-
 
     def init_for_training(self):  # support mixing multiple datasets
         dataset_names = [ds.strip() for ds in self.dataset.split(",")]
@@ -364,7 +362,6 @@ class Template:
                 raise NotImplementedError
 
         return token_ids
-
 
 
 @dataclass

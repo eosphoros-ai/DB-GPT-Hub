@@ -7,7 +7,17 @@ class BaseConnector(ABC):
     基础连接接口
     """
 
-    def __init__(self, host="127.0.0.1", port=3306, user=None, passwd=None, db=None, charset="utf8", *args, **kwargs):
+    def __init__(
+        self,
+        host="127.0.0.1",
+        port=3306,
+        user=None,
+        passwd=None,
+        db=None,
+        charset="utf8",
+        *args,
+        **kwargs
+    ):
         self._host = host
         self._port = port
         self._user = user

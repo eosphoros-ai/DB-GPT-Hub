@@ -4,23 +4,36 @@ import numpy as np
 import pandas as pd
 import tiktoken
 from itertools import chain
-from typing import Any, Dict, List, Optional, Tuple, Union,TYPE_CHECKING,Generator
-from datasets import Dataset, DatasetDict, concatenate_datasets, load_dataset, interleave_datasets
+from typing import Any, Dict, List, Optional, Tuple, Union, TYPE_CHECKING, Generator
+from datasets import (
+    Dataset,
+    DatasetDict,
+    concatenate_datasets,
+    load_dataset,
+    interleave_datasets,
+)
 from transformers.tokenization_utils import PreTrainedTokenizer
 
 from dbgpt_hub.configs.config import EXT2TYPE, IGNORE_INDEX
-from dbgpt_hub.configs.data_args import DEFAULT_PROMPT_DICT,ALPACA_PROMPT_DICT,SQL_PROMPT_DICT,Template,Llama2Template
+from dbgpt_hub.configs.data_args import (
+    DEFAULT_PROMPT_DICT,
+    ALPACA_PROMPT_DICT,
+    SQL_PROMPT_DICT,
+    Template,
+    Llama2Template,
+)
 
 if TYPE_CHECKING:
     from dbgpt_hub.configs.model_args import ModelArguments
     from dbgpt_hub.configs.data_args import DataArguments
-    from datasets import  IterableDataset
-    from transformers import TrainingArguments,Seq2SeqTrainingArguments
+    from datasets import IterableDataset
+    from transformers import TrainingArguments, Seq2SeqTrainingArguments
 
 from dbgpt_hub.llm_base.loggings import get_logger
 
 
 logger = get_logger(__name__)
+
 
 def extract_default_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:
     # Not random, use pre-defined templates
@@ -125,9 +138,8 @@ def load_data(
             raise ValueError(f"Error loading dataset from {dataset_path}")
 
 
-
-
 templates: Dict[str, Template] = {}
+
 
 def get_template_and_fix_tokenizer(
     name: str, tokenizer: "PreTrainedTokenizer"
@@ -182,8 +194,6 @@ def register_template(
         stop_words=stop_words,
         use_history=use_history,
     )
-
-
 
 
 r"""
@@ -487,7 +497,6 @@ register_template(
 )
 
 
-
 def split_dataset(
     dataset: Union["Dataset", "IterableDataset"],
     data_args: "DataArguments",
@@ -523,7 +532,6 @@ def split_dataset(
             return {"train_dataset": dataset}
     else:  # do_eval or do_predict
         return {"eval_dataset": dataset}
-
 
 
 def preprocess_dataset(
@@ -622,7 +630,6 @@ def preprocess_dataset(
 
         return model_inputs
 
-
     def print_supervised_dataset_example(example):
         print("input_ids:\n{}".format(example["input_ids"]))
         print(
@@ -663,7 +670,8 @@ def preprocess_dataset(
         print_function(next(iter(dataset)))
         return dataset
 
-## used in get_dataset 
+
+## used in get_dataset
 def checksum(data_files: List[str], file_sha1: Optional[str] = None) -> None:
     if file_sha1 is None:
         logger.warning(
@@ -683,7 +691,6 @@ def checksum(data_files: List[str], file_sha1: Optional[str] = None) -> None:
                     data_files[0]
                 )
             )
-
 
 
 def get_dataset(
@@ -861,5 +868,3 @@ def split_train_eval(
             train_dataset = train_dataset.select(np.arange(max_train_samples))
 
     return train_dataset, eval_dataset
-
-

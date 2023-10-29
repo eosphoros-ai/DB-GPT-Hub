@@ -39,15 +39,24 @@ class TableMetaDataProcessor:
                         table_index = table_names_original.index(k)
                         # 遍历 column_names_original
                         for cno in range(len(column_names_original)):
-                            if column_names_original[cno][0] == table_index and column_names_original[cno][1] == f:
+                            if (
+                                column_names_original[cno][0] == table_index
+                                and column_names_original[cno][1] == f
+                            ):
                                 fk_item.append(cno)
                                 break
                 foreign_keys.append(fk_item)
 
-        return {"column_names": column_names, "column_names_original": column_names_original,
-                "column_types": column_types,
-                "db_id": db, "foreign_keys": foreign_keys, "primary_keys": primary_keys, "table_names": table_names,
-                "table_names_original": table_names_original}
+        return {
+            "column_names": column_names,
+            "column_names_original": column_names_original,
+            "column_types": column_types,
+            "db_id": db,
+            "foreign_keys": foreign_keys,
+            "primary_keys": primary_keys,
+            "table_names": table_names,
+            "table_names_original": table_names_original,
+        }
 
     def generate_spider_table_metadata(self):
         table_configs = self.__config_data["table-configs"]
@@ -61,7 +70,9 @@ class TableMetaDataProcessor:
             foreign_keys = value["foreign_keys"]
 
             # 表元数据
-            table_meta_data = self._generate_table_meta_data(db_id, tables, primary_keys, foreign_keys)
+            table_meta_data = self._generate_table_meta_data(
+                db_id, tables, primary_keys, foreign_keys
+            )
             result.append(table_meta_data)
 
         return result

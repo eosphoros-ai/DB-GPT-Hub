@@ -1,13 +1,13 @@
 import os
 
-### path config 
+### path config
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # ROOT_PATH = "/root/autodl-tmp"
 # MODELS_PARENT_PATH = "/home/model_files/codellama/"
 # DEFAULT_FT_MODEL_NAME = "CodeLlama-7b-Instruct-hf"
-MODELS_PARENT_PATH="/home/model/"
-DEFAULT_FT_MODEL_NAME="Baichuan2-13B-Chat"
+MODELS_PARENT_PATH = "/home/model/"
+DEFAULT_FT_MODEL_NAME = "Baichuan2-13B-Chat"
 MODEL_PATH = os.path.join(MODELS_PARENT_PATH, DEFAULT_FT_MODEL_NAME)
 
 # MODEL_PATH = os.path.join(ROOT_PATH, "model")
@@ -23,7 +23,7 @@ PREDICTED_OUT_FILENAME = "pred_sql.sql"
 # OUT_DIR = os.path.join(DATA_PATH, "out_pred")
 OUT_DIR = os.path.join(ROOT_PATH, "dbgpt_hub/output/")
 
-## model constants 
+## model constants
 IGNORE_INDEX = -100
 DEFAULT_PAD_TOKEN = "[PAD]"
 DEFAULT_EOS_TOKEN = "</s>"
@@ -36,14 +36,14 @@ LOG_FILE_NAME = "trainer_log.jsonl"
 # head_state_dict,model save name
 VALUE_HEAD_FILE_NAME = "value_head.bin"
 
-# output ,finetuning_args save_to_json name 
+# output ,finetuning_args save_to_json name
 FINETUNING_ARGS_NAME = "finetuning_args.json"
 
 #  when prepare_model_for_training ,layer_norm_names
 LAYERNORM_NAMES = ["norm", "ln_f", "ln_attn", "ln_mlp"]
 EXT2TYPE = {"csv": "csv", "json": "json", "jsonl": "json", "txt": "text"}
 
-# text2sql dataset information for processing sql data 
+# text2sql dataset information for processing sql data
 SQL_DATA_INFO = [
     {
         "data_source": "spider",
@@ -51,7 +51,7 @@ SQL_DATA_INFO = [
         "dev_file": ["dev.json"],
         "tables_file": "tables.json",
         "db_id_name": "db_id",
-        "is_multiple_turn": False
+        "is_multiple_turn": False,
     }
 ]
 INSTRUCTION_PROMPT = """\

@@ -5,33 +5,39 @@ import numpy as np
 import torch.nn as nn
 import jieba
 import matplotlib.pyplot as plt
-import math 
+import math
 from rouge_chinese import Rouge
 from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 from dataclasses import dataclass
 from dbgpt_hub.configs.config import IGNORE_INDEX
 from dbgpt_hub.llm_base.loggings import get_logger
-from dbgpt_hub.llm_base.config_parser import get_train_args, get_state_dict,load_trainable_params
+from dbgpt_hub.llm_base.config_parser import (
+    get_train_args,
+    get_state_dict,
+    load_trainable_params,
+)
 from dbgpt_hub.llm_base.load_tokenizer import load_model_and_tokenizer
-from dbgpt_hub.configs.config import VALUE_HEAD_FILE_NAME,FINETUNING_ARGS_NAME
+from dbgpt_hub.configs.config import VALUE_HEAD_FILE_NAME, FINETUNING_ARGS_NAME
 from transformers import Seq2SeqTrainer
 from transformers.trainer import TRAINING_ARGS_NAME, WEIGHTS_NAME
-from transformers.modeling_utils import PreTrainedModel, unwrap_model,load_sharded_checkpoint
-from transformers.trainer import WEIGHTS_NAME, WEIGHTS_INDEX_NAME,TRAINER_STATE_NAME
+from transformers.modeling_utils import (
+    PreTrainedModel,
+    unwrap_model,
+    load_sharded_checkpoint,
+)
+from transformers.trainer import WEIGHTS_NAME, WEIGHTS_INDEX_NAME, TRAINER_STATE_NAME
 from transformers.generation.logits_process import LogitsProcessor
 from transformers.generation.utils import LogitsProcessorList
 
 from peft import PeftModel
 from trl import PreTrainedModelWrapper
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union,Sequence
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple, Union, Sequence
 
 
 if TYPE_CHECKING:
     from transformers import PreTrainedTokenizer, Seq2SeqTrainingArguments, TrainerState
     from transformers.trainer import PredictionOutput
-    from dbgpt_hub.configs.model_args  import FinetuningArguments
-
-
+    from dbgpt_hub.configs.model_args import FinetuningArguments
 
 
 logger = get_logger(__name__)
@@ -142,7 +148,6 @@ class PeftModelMixin:
             load_trainable_params(model, self.state.best_model_checkpoint)
 
 
-
 class PeftTrainer(PeftModelMixin, Seq2SeqTrainer):
     r"""
     Inherits Seq2SeqTrainer to support parameter-efficient checkpoints.
@@ -151,7 +156,6 @@ class PeftTrainer(PeftModelMixin, Seq2SeqTrainer):
     def __init__(self, finetuning_args: "FinetuningArguments", **kwargs):
         Seq2SeqTrainer.__init__(self, **kwargs)
         self.finetuning_args = finetuning_args
-
 
 
 class Seq2SeqPeftTrainer(PeftTrainer):
@@ -356,6 +360,7 @@ def smooth(scalars: List[float]) -> List[float]:
         last = smoothed_val
     return smoothed
 
+
 def plot_loss(
     save_dictionary: os.PathLike, keys: Optional[List[str]] = ["loss"]
 ) -> None:
@@ -392,6 +397,7 @@ def plot_loss(
             os.path.join(save_dictionary, "training_{}.png".format(key)),
         )
 
+
 def export_model(
     args: Optional[Dict[str, Any]] = None, max_shard_size: Optional[str] = "10GB"
 ):
@@ -402,5 +408,3 @@ def export_model(
         tokenizer.save_pretrained(training_args.output_dir)
     except:
         logger.warning("Cannot save tokenizer, please copy the files manually.")
-
-

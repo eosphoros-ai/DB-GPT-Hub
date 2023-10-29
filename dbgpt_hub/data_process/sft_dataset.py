@@ -14,8 +14,6 @@ from typing import Dict, List
 logger = logging.getLogger(__name__)
 
 
-
-
 @dataclass
 class SupervisedDataset(Dataset):
     """Dataset for supervised fine-tuning.
@@ -94,7 +92,6 @@ class SupervisedDataset(Dataset):
         data_dict = {"input_ids": input_ids, "labels": labels}
 
         return data_dict
-
 
 
 # ## TODO  增加 _pad_tensors_to_target_len 函数，并适配

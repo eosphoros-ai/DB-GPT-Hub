@@ -255,7 +255,11 @@ The whole process we will divide into three phases:
   * Optimize `prompts`
   * Release evaluation results, and optimized   models open to peers.
 * Stage 3:
-  * Optimized based on more papers, such as RESDSQL and others. Combined with our community's sibling project[Awesome-Text2SQL](https://github.com/eosphoros-ai/Awesome-Text2SQL)for further enhancements..
+  - [ ] Inference speed optimization and improvement   
+  - [ ] Targeted optimization and improvement of business scenarios and Chinese effects   
+  - [ ] Optimized based on more papers, such as RESDSQL and others. Combined with our community's sibling project[Awesome-Text2SQL](https://github.com/eosphoros-ai/Awesome-Text2SQL)for further enhancements..  
+
+**If our work is even a little help to you, please give us a star to let  us know ,which would be  more motivation for us to release more related work.**   
 
 ## 5. Contributions
 

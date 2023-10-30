@@ -219,8 +219,7 @@ sh ./dbgpt_hub/scripts/export_merge.sh
 python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_pred_file
 ```
 你可以在[这里](docs/eval_llm_result.md)找到我们最新的评估和实验结果。
-## 四、发展路线
-
+## 四、发展路线    
 整个过程我们会分为三个阶段：
 
 * 阶段一:
@@ -233,16 +232,19 @@ python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_pred_file
   - [x] Qwen
   - [x] XVERSE
   - [x] ChatGLM2
-  - [x] internlm
-
-
+  - [x] internlm    
   
 * 阶段二:
   - [x]  优化模型效果，支持更多不同模型进行不同方式的微调。截止`20231010`，我们已经完成对项目代码的重构，支持更多的模型。
   - [x] 对`prompt`优化
-  * 放出评估效果，和优化后的还不错的模型
+  - [x] 放出评估效果，和优化后的还不错的模型，并且给出复现教程(见我们微信公众号EosphorosAI)    
+      
 * 阶段三：
-  * 基于更多论文进行优化，如`RESDSQL`等，结合我们社区的兄弟项目[Awesome-Text2SQL](https://github.com/eosphoros-ai/Awesome-Text2SQL)进行更多的优化；
+  - [ ] 推理速度优化提升
+  - [ ] 业务场景和中文效果针对性优化提升
+  - [ ] 基于更多论文进行优化，如`RESDSQL`等，结合我们社区的兄弟项目[Awesome-Text2SQL](https://github.com/eosphoros-ai/Awesome-Text2SQL)进行更多的优化；  
+
+  **如果你觉得我们的工作对你有那么点帮助，还请给我们个star鼓励下，我们会有更多动力去放出更多相关工作。**
 
 ## 五、贡献
 

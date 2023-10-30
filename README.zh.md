@@ -1,6 +1,33 @@
 # DB-GPT-Hub:利用LLMs实现Text-to-SQL
 
-[**英文**](README.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)|[**Huggingface**](https://huggingface.co/eosphoros)
+<div align="center">
+  <p>
+    <a href="https://github.com/eosphoros-ai/DB-GPT">
+        <img alt="stars" src="https://img.shields.io/github/stars/eosphoros-ai/db-gpt-hub?style=social" />
+    </a>
+    <a href="https://github.com/eosphoros-ai/DB-GPT-Hub">
+        <img alt="forks" src="https://img.shields.io/github/forks/eosphoros-ai/db-gpt-hub?style=social" />
+    </a>
+    <a href="https://opensource.org/licenses/MIT">
+      <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+    </a>
+    <a href="https://opensource.org/licenses/MIT">
+      <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+    </a>
+     <a href="https://github.com/eosphoros-ai/DB-GPT-Hub/releases">
+      <img alt="Release Notes" src="https://img.shields.io/github/release/eosphoros-ai/DB-GPT-Hub" />
+    </a>
+    <a href="https://github.com/eosphoros-ai/DB-GPT-Hub/issues">
+      <img alt="Open Issues" src="https://img.shields.io/github/issues-raw/eosphoros-ai/DB-GPT-Hub" />
+    </a>
+    <a href="https://discord.gg/vqBrcV7Nd">
+      <img alt="Discord" src="https://dcbadge.vercel.app/api/server/vqBrcV7Nd?compact=true&style=flat" />
+    </a>
+  </p>
+
+
+[**英文**](README.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)|[**Huggingface**](https://huggingface.co/eosphoros)|[**Community**](https://github.com/eosphoros-ai/community)
+</div>
 
 ## Contents
 - [1. 简介](#一简介)
@@ -192,8 +219,7 @@ sh ./dbgpt_hub/scripts/export_merge.sh
 python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_pred_file
 ```
 你可以在[这里](docs/eval_llm_result.md)找到我们最新的评估和实验结果。
-## 四、发展路线
-
+## 四、发展路线    
 整个过程我们会分为三个阶段：
 
 * 阶段一:
@@ -206,16 +232,19 @@ python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_pred_file
   - [x] Qwen
   - [x] XVERSE
   - [x] ChatGLM2
-  - [x] internlm
-
-
+  - [x] internlm    
   
 * 阶段二:
   - [x]  优化模型效果，支持更多不同模型进行不同方式的微调。截止`20231010`，我们已经完成对项目代码的重构，支持更多的模型。
   - [x] 对`prompt`优化
-  * 放出评估效果，和优化后的还不错的模型
+  - [x] 放出评估效果，和优化后的还不错的模型，并且给出复现教程(见我们微信公众号EosphorosAI)    
+      
 * 阶段三：
-  * 基于更多论文进行优化，如`RESDSQL`等，结合我们社区的兄弟项目[Awesome-Text2SQL](https://github.com/eosphoros-ai/Awesome-Text2SQL)进行更多的优化；
+  - [ ] 推理速度优化提升
+  - [ ] 业务场景和中文效果针对性优化提升
+  - [ ] 基于更多论文进行优化，如`RESDSQL`等，结合我们社区的兄弟项目[Awesome-Text2SQL](https://github.com/eosphoros-ai/Awesome-Text2SQL)进行更多的优化；  
+
+  **如果你觉得我们的工作对你有那么点帮助，还请给我们个star鼓励下，我们会有更多动力去放出更多相关工作。**
 
 ## 五、贡献
 
@@ -238,3 +267,18 @@ python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_pred_file
 * [test-suite-sql-eval](https://github.com/taoyds/test-suite-sql-eval)
 * [LLaMa-Efficient-Tuning](https://github.com/hiyouga/LLaMA-Efficient-Tuning) 
 
+
+## 七、Licence
+
+The MIT License (MIT)
+
+## 八、Contact Information
+我们是一个社区一起合作，如果你对我们的社区工作有任何建议，随时可以联系我们。如果你对DB-GPT-Hub子项目的深入实验和优化感兴趣，可以联系微信群里的wangzai，我们欢迎大家共同努力，使它变得更好。
+[![](https://dcbadge.vercel.app/api/server/vqBrcV7Nd?compact=true&style=flat)](https://discord.gg/vqBrcV7Nd)
+
+<p align="center">
+  <img src="assets/wechat.JPG" width="300px" />
+</p>
+
+
+[![Star History Chart](https://api.star-history.com/svg?repos=eosphoros-ai/DB-GPT-Hub&type=Date)](https://star-history.com/#eosphoros-ai/DB-GPT-Hub)

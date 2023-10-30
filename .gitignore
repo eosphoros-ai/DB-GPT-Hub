@@ -21,8 +21,8 @@ dbgpt_hub/data/*
 
 # Ignore everything under dbgpt_hub/ouput/ except the adapter directory
 dbgpt_hub/output/*
-!dbgpt_hub/output/adapter/
-dbgpt_hub/output/adapter/*
+!dbgpt_hub/output/.gitkeep
+
 
 
 

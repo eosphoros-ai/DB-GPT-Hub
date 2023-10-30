@@ -1,6 +1,33 @@
 # DB-GPT-Hub:利用LLMs实现Text-to-SQL
 
-[**英文**](README.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)|[**Huggingface**](https://huggingface.co/eosphoros)
+<div align="center">
+  <p>
+    <a href="https://github.com/eosphoros-ai/DB-GPT">
+        <img alt="stars" src="https://img.shields.io/github/stars/eosphoros-ai/db-gpt-hub?style=social" />
+    </a>
+    <a href="https://github.com/eosphoros-ai/DB-GPT-Hub">
+        <img alt="forks" src="https://img.shields.io/github/forks/eosphoros-ai/db-gpt-hub?style=social" />
+    </a>
+    <a href="https://opensource.org/licenses/MIT">
+      <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+    </a>
+    <a href="https://opensource.org/licenses/MIT">
+      <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+    </a>
+     <a href="https://github.com/eosphoros-ai/DB-GPT-Hub/releases">
+      <img alt="Release Notes" src="https://img.shields.io/github/release/eosphoros-ai/DB-GPT-Hub" />
+    </a>
+    <a href="https://github.com/eosphoros-ai/DB-GPT-Hub/issues">
+      <img alt="Open Issues" src="https://img.shields.io/github/issues-raw/eosphoros-ai/DB-GPT-Hub" />
+    </a>
+    <a href="https://discord.gg/vqBrcV7Nd">
+      <img alt="Discord" src="https://dcbadge.vercel.app/api/server/vqBrcV7Nd?compact=true&style=flat" />
+    </a>
+  </p>
+
+
+[**英文**](README.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)|[**Huggingface**](https://huggingface.co/eosphoros)|[**Community**](https://github.com/eosphoros-ai/community)
+</div>
 
 ## Contents
 - [1. 简介](#一简介)
@@ -238,3 +265,18 @@ python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_pred_file
 * [test-suite-sql-eval](https://github.com/taoyds/test-suite-sql-eval)
 * [LLaMa-Efficient-Tuning](https://github.com/hiyouga/LLaMA-Efficient-Tuning) 
 
+
+## 七、Licence
+
+The MIT License (MIT)
+
+## 八、Contact Information
+我们是一个社区一起合作，如果你对我们的社区工作有任何建议，随时可以联系我们。如果你对DB-GPT-Hub子项目的深入实验和优化感兴趣，可以联系微信群里的wangzai，我们欢迎大家共同努力，使它变得更好。
+[![](https://dcbadge.vercel.app/api/server/vqBrcV7Nd?compact=true&style=flat)](https://discord.gg/vqBrcV7Nd)
+
+<p align="center">
+  <img src="assets/wechat.JPG" width="300px" />
+</p>
+
+
+[![Star History Chart](https://api.star-history.com/svg?repos=eosphoros-ai/DB-GPT-Hub&type=Date)](https://star-history.com/#eosphoros-ai/DB-GPT-Hub)

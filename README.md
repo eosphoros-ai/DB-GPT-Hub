@@ -1,6 +1,34 @@
 # DB-GPT-Hub: Text-to-SQL parsing with LLMs
 
-[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)|[**Huggingface**](https://huggingface.co/eosphoros)
+
+<div align="center">
+  <p>
+    <a href="https://github.com/eosphoros-ai/DB-GPT">
+        <img alt="stars" src="https://img.shields.io/github/stars/eosphoros-ai/db-gpt-hub?style=social" />
+    </a>
+    <a href="https://github.com/eosphoros-ai/DB-GPT-Hub">
+        <img alt="forks" src="https://img.shields.io/github/forks/eosphoros-ai/db-gpt-hub?style=social" />
+    </a>
+    <a href="https://opensource.org/licenses/MIT">
+      <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+    </a>
+    <a href="https://opensource.org/licenses/MIT">
+      <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+    </a>
+     <a href="https://github.com/eosphoros-ai/DB-GPT-Hub/releases">
+      <img alt="Release Notes" src="https://img.shields.io/github/release/eosphoros-ai/DB-GPT-Hub" />
+    </a>
+    <a href="https://github.com/eosphoros-ai/DB-GPT-Hub/issues">
+      <img alt="Open Issues" src="https://img.shields.io/github/issues-raw/eosphoros-ai/DB-GPT-Hub" />
+    </a>
+    <a href="https://discord.gg/vqBrcV7Nd">
+      <img alt="Discord" src="https://dcbadge.vercel.app/api/server/vqBrcV7Nd?compact=true&style=flat" />
+    </a>
+  </p>
+
+
+[**简体中文**](README.zh.md) |[**Discord**](https://discord.gg/FMGwbRQrM)|[**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC)|[**Huggingface**](https://huggingface.co/eosphoros)|[**Community**](https://github.com/eosphoros-ai/community)
+</div>
 
 ## Contents
 - [1. Introduction](#1-what-is-db-gpt-hub)
@@ -249,3 +277,18 @@ Our work is primarily based on the foundation of numerous open-source contributi
 * [text-to-sql-wizardcoder](https://github.com/cuplv/text-to-sql-wizardcoder)
 * [test-suite-sql-eval](https://github.com/taoyds/test-suite-sql-eval)
 * [LLaMa-Efficient-Tuning](https://github.com/hiyouga/LLaMA-Efficient-Tuning) 
+
+## 7、Licence
+
+The MIT License (MIT)
+
+## 8、Contact Information
+We are working together  as a community, if you have any ideas about our  community work , feel free to contact us. And  you're interested in an in-depth experiment and optimization of the DB-GPT-Hub subproject, you can reach out to 'wangzai' in the WeChat group, we are welcome to make it better togther.
+[![](https://dcbadge.vercel.app/api/server/vqBrcV7Nd?compact=true&style=flat)](https://discord.gg/vqBrcV7Nd)
+
+<p align="center">
+  <img src="assets/wechat.JPG" width="300px" />
+</p>
+
+
+[![Star History Chart](https://api.star-history.com/svg?repos=eosphoros-ai/DB-GPT-Hub&type=Date)](https://star-history.com/#eosphoros-ai/DB-GPT-Hub)

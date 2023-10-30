@@ -102,7 +102,6 @@ class ProcessSqlData:
 
     def create_sft_raw_data(self):
         for data_info in SQL_DATA_INFO:
-
             train_data_file_list = [
                 os.path.join(DATA_PATH, data_info["data_source"], file)
                 for file in data_info["train_file"]

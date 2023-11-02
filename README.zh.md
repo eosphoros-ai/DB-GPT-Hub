@@ -208,7 +208,7 @@ sh ./dbgpt_hub/scripts/predict_sft.sh
 ```bash
 sh ./dbgpt_hub/scripts/export_merge.sh
 ```
-注意将脚本中的相关参数路径值替换为你项目所对应的路径。   
+注意将脚本中的相关参数路径值替换为你项目所对应的路径。      
 
 
 ### 3.6、模型评估

@@ -214,7 +214,7 @@ The value of the parameter  `--predicted_out_filename` is the file name of the m
 
 ### 3.5 Model Weights
 You can find the second corresponding model weights  from Huggingface [hg-eosphoros-ai
-](https://huggingface.co/Wangzaistone123/CodeLlama-13b-sql-lora)  ,we uploaded the LoRA weights in October,which execution accuracy on the Spider evaluation set reached 0.789.  
+](https://huggingface.co/Wangzaistone123/CodeLlama-13b-sql-lora)  ,we uploaded the LoRA weights in October,which execution accuracy on the Spider evaluation set reached 0.789.    
 
 #### 3.5.1 Model and fine-tuned weight merging 
 
@@ -225,7 +225,7 @@ sh ./dbgpt_hub/scripts/export_merge.sh
 ```
 
 Be sure to replace the parameter path values in the script with the paths corresponding to your project.  
-
+                                                    
 ### 3.6 Model Evaluation
 To evaluate model performance on the dataset, default is spider dev dataset.
 Run the following command:

@@ -118,7 +118,7 @@ DB-GPT-Hub使用的是信息匹配生成法进行数据准备，即结合表信�
 ## 生成train数据 和dev(eval)数据,
 sh dbgpt_hub/scripts/gen_train_eval_data.sh
 ```
-在`dbgpt_hub/data/`目录你会得到新生成的训练文件example_text2sql_train.json 和测试文件example_text2sql_dev.json ，数据量分别为8659和1034条。 
+在`dbgpt_hub/data/`目录你会得到新生成的训练文件example_text2sql_train.json 和测试文件example_text2sql_dev.json ，数据量分别为8659和1034条。 对于后面微调时的数据使用在dbgpt_hub/data/dataset_info.json中将参数`file_name`值给为训练集的文件名，如example_text2sql_train.json。
 
 生成的json中的数据形如：  
 ```
@@ -156,7 +156,7 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
     --quantization_bit 4 \
     ...
 ```   
-其他省略(...)的部分均保持一致即可。 如果想要更改默认的deepseed配置，进入 `dbgpt_hub/configs` 目录，在ds_config.json 更改即可。
+其他省略(...)的部分均保持一致即可。 如果想要更改默认的deepseed配置，进入 `dbgpt_hub/configs` 目录，在ds_config.json 更改即可，默认为stage2的策略。
 
 脚本中微调时不同模型对应的关键参数lora_target 和 template，如下表：
 
@@ -208,7 +208,7 @@ sh ./dbgpt_hub/scripts/predict_sft.sh
 ```bash
 sh ./dbgpt_hub/scripts/export_merge.sh
 ```
-注意将脚本中的相关参数路径值替换为你项目所对应的路径。   
+注意将脚本中的相关参数路径值替换为你项目所对应的路径。      
 
 
 ### 3.6、模型评估

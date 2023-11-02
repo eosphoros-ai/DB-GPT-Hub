@@ -127,7 +127,7 @@ For the data preprocessing part, simply **run the following script** :
 sh dbgpt_hub/scripts/gen_train_eval_data.sh
 ```
 
-In the directory `dbgpt_hub/data/`, you will find the newly generated training file example_text2sql_train.json and testing file example_text2sql_dev.json, containing 8659 and 1034 entries respectively.
+In the directory `dbgpt_hub/data/`, you will find the newly generated training file example_text2sql_train.json and testing file example_text2sql_dev.json, containing 8659 and 1034 entries respectively. For the data used in subsequent fine-tuning, set the parameter `file_name` value to the file name of the training set in dbgpt_hub/data/dataset_info.json, such as example_text2sql_train.json
 
 
 The data in the generated JSON looks something like this:
@@ -168,7 +168,7 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
     ...
 ```    
 
-The other parts that are omitted (…) can be kept consistent. If you want to change the default deepseed configuration, go into the `dbgpt_hub/configs` directory and make changes to ds_config.json as needed.   
+The other parts that are omitted (…) can be kept consistent. If you want to change the default deepseed configuration, go into the `dbgpt_hub/configs` directory and make changes to ds_config.json as needed,the default is stage2.   
 
 In the script, during fine-tuning, different models correspond to key parameters lora_target and template, as shown in the following table:   
 
@@ -214,7 +214,7 @@ The value of the parameter  `--predicted_out_filename` is the file name of the m
 
 ### 3.5 Model Weights
 You can find the second corresponding model weights  from Huggingface [hg-eosphoros-ai
-](https://huggingface.co/Wangzaistone123/CodeLlama-13b-sql-lora)  ,we uploaded the LoRA weights in October,which execution accuracy on the Spider evaluation set reached 0.789.  
+](https://huggingface.co/Wangzaistone123/CodeLlama-13b-sql-lora)  ,we uploaded the LoRA weights in October,which execution accuracy on the Spider evaluation set reached 0.789.    
 
 #### 3.5.1 Model and fine-tuned weight merging 
 
@@ -225,7 +225,7 @@ sh ./dbgpt_hub/scripts/export_merge.sh
 ```
 
 Be sure to replace the parameter path values in the script with the paths corresponding to your project.  
-
+                                                    
 ### 3.6 Model Evaluation
 To evaluate model performance on the dataset, default is spider dev dataset.
 Run the following command:
@@ -251,9 +251,9 @@ The whole process we will divide into three phases:
   - [x] internlm
 
 * Stage 2:
-  * Optimize model performance, and support fine-tuning more different models in various ways before  `20231010`
-  * Optimize `prompts`
-  * Release evaluation results, and optimized   models open to peers.
+  - [x] Optidmize model performance, and support fine-tuning more different models in various ways before  `20231010`
+  - [x] Optimize `prompts`
+  - [x] Release evaluation results, and optimized   models open to peers.
 * Stage 3:
   - [ ] Inference speed optimization and improvement   
   - [ ] Targeted optimization and improvement of business scenarios and Chinese effects   

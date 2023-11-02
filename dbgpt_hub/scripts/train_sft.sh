@@ -1,7 +1,7 @@
 wandb offline # Close wandb
 # v100 ,单卡
 current_date=$(date +"%Y%m%d_%H%M%S")
-train_log="outputs/train_${current_date}.log"
+train_log="dbgpt_hub/output/train_${current_date}.log"
 CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
     --quantization_bit 4 \
     --model_name_or_path /home/model/Baichuan2-13B-Chat \
@@ -65,7 +65,7 @@ CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
 #     --max_source_length 2048 \
 #     --max_target_length 512 \
 #     --template llama2 \
-#     --output_dir dbgpt_hub/output/adapter/code_llama-7b-2048_epoch4_full \
+#     --output_dir dbgpt_hub/output/adapter/code-llama-7b-2048_epoch4_full \
 #     --overwrite_cache \
 #     --overwrite_output_dir \
 #     --per_device_train_batch_size 4 \

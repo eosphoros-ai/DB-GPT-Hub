@@ -1,8 +1,9 @@
 wandb offline # Close wandb
-# v100 ,单卡
+# a100 ,单卡
 current_date=$(date +"%Y%m%d_%H%M%S")
 train_log="dbgpt_hub/output/train_${current_date}.log"
 
+# the default param set could be run in a server with one a100(40G) gpu, if your server not support the set,you can set smaller param such as  lora_rank and use qlora with quant 4 eg...
 CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
     --model_name_or_path Your_download_CodeLlama-13b-Instruct-hf_path \
     --do_train \

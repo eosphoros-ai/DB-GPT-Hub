@@ -30,7 +30,7 @@ CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
 
 # 多卡，deepseed启动，A100
 # deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
-#     --deepspeed dbgpt_hub/configs/ds_config.json \
+#     --deepspeed dbgpt_hub/configs/stage2.json \
 #     --quantization_bit 4 \
 #     --model_name_or_path /home/model_files/Llama-2-13b-chat-hf \
 #     --do_train \

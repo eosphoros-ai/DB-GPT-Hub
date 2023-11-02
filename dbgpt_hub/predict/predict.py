@@ -1,6 +1,7 @@
 import os
 import json
 import sys
+from tqdm import tqdm
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(ROOT_PATH)
@@ -26,7 +27,7 @@ def inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
     res = []
     # test
     # for item in predict_data[:20]:
-    for item in predict_data:
+    for item in tqdm(predict_data, desc="Inference Progress", unit="item"):
         response, _ = model.chat(query=item["input"], history=[], **input_kwargs)
         res.append(response)
     return res

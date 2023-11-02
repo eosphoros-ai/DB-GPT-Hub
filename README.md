@@ -127,7 +127,7 @@ For the data preprocessing part, simply **run the following script** :
 sh dbgpt_hub/scripts/gen_train_eval_data.sh
 ```
 
-In the directory `dbgpt_hub/data/`, you will find the newly generated training file example_text2sql_train.json and testing file example_text2sql_dev.json, containing 8659 and 1034 entries respectively.
+In the directory `dbgpt_hub/data/`, you will find the newly generated training file example_text2sql_train.json and testing file example_text2sql_dev.json, containing 8659 and 1034 entries respectively. For the data used in subsequent fine-tuning, set the parameter `file_name` value to the file name of the training set in dbgpt_hub/data/dataset_info.json, such as example_text2sql_train.json
 
 
 The data in the generated JSON looks something like this:
@@ -168,7 +168,7 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
     ...
 ```    
 
-The other parts that are omitted (…) can be kept consistent. If you want to change the default deepseed configuration, go into the `dbgpt_hub/configs` directory and make changes to ds_config.json as needed.   
+The other parts that are omitted (…) can be kept consistent. If you want to change the default deepseed configuration, go into the `dbgpt_hub/configs` directory and make changes to ds_config.json as needed,the default is stage2.   
 
 In the script, during fine-tuning, different models correspond to key parameters lora_target and template, as shown in the following table:   
 
@@ -251,9 +251,9 @@ The whole process we will divide into three phases:
   - [x] internlm
 
 * Stage 2:
-  * Optimize model performance, and support fine-tuning more different models in various ways before  `20231010`
-  * Optimize `prompts`
-  * Release evaluation results, and optimized   models open to peers.
+  - [x] Optidmize model performance, and support fine-tuning more different models in various ways before  `20231010`
+  - [x] Optimize `prompts`
+  - [x] Release evaluation results, and optimized   models open to peers.
 * Stage 3:
   - [ ] Inference speed optimization and improvement   
   - [ ] Targeted optimization and improvement of business scenarios and Chinese effects   

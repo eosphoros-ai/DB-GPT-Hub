@@ -93,7 +93,8 @@ def parse_infer_args(
 
 
 def get_train_args(
-    args: Optional[Dict[str, Any]] = None
+    args: Optional[Dict[str, Any]] = None,
+    data_args_init: bool = True
 ) -> Tuple[
     ModelArguments,
     DataArguments,
@@ -121,7 +122,8 @@ def get_train_args(
     transformers.utils.logging.enable_explicit_format()
 
     # Check arguments (do not check finetuning_args since it may be loaded from checkpoints)
-    data_args.init_for_training()
+    if data_args_init:
+        data_args.init_for_training()
 
     if training_args.max_steps == -1 and data_args.streaming:
         raise ValueError("Please specify `max_steps` in streaming mode.")

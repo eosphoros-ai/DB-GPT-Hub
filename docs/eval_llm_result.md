@@ -2,7 +2,8 @@
 
 This doc aims to summarize the performance of publicly available big language models when evaluated on the spider dev dataset. We hope it will provide a point of reference for folks using these big models for Text-to-SQL tasks. We'll keep sharing eval results from models we've tested and seen others use, and very welcome any contributions to make this more comprehensive.
 
-## 1.LLMs Text-to-SQL capability evaluation
+## LLMs Text-to-SQL capability evaluation  before 20231104
+ the follow  our experiment execution accuracy of Spider is base on the database which  is download from the  Spider official [website](https://yale-lily.github.io/spider) ,size only 95M.
 | name                           | Execution Accuracy | reference                                                                          |
 | ------------------------------ | ------------------ | ---------------------------------------------------------------------------------- |
 | **GPT-4**                         | **0.762**              | [numbersstation-eval-res](https://www.numbersstation.ai/post/nsql-llama-2-7b)    |

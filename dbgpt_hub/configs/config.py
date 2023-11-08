@@ -44,6 +44,7 @@ LAYERNORM_NAMES = ["norm", "ln_f", "ln_attn", "ln_mlp"]
 EXT2TYPE = {"csv": "csv", "json": "json", "jsonl": "json", "txt": "text"}
 
 # text2sql dataset information for processing sql data
+# TODO: BIRD \ WiKiSQL \ ...
 SQL_DATA_INFO = [
     {
         "data_source": "spider",
@@ -52,6 +53,33 @@ SQL_DATA_INFO = [
         "tables_file": "tables.json",
         "db_id_name": "db_id",
         "is_multiple_turn": False,
+    }
+    ,
+    {
+        "data_source": "chase",
+        "train_file": ["Chase/chase_train.json"],
+        "dev_file": ["Chase/chase_dev.json"],
+        "tables_file": "Chase/chase_tables.json",
+        "db_id_name": "database_id",
+        "is_multiple_turn": True,
+    }
+    ,
+    {
+        "data_source": "cosql_dataset",
+        "train_file": ["sql_state_tracking/cosql_train.json"],
+        "dev_file": ["sql_state_tracking/cosql_dev.json"],
+        "tables_file": "tables.json",
+        "db_id_name": "database_id",
+        "is_multiple_turn": True,
+    }
+    ,
+    {
+        "data_source": "sparc",
+        "train_file": ["train.json"],
+        "dev_file": ["dev.json"],
+        "tables_file": "tables.json",
+        "db_id_name": "database_id",
+        "is_multiple_turn": True,
     }
 ]
 INSTRUCTION_PROMPT = """\

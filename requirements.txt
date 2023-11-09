@@ -27,6 +27,6 @@ scipy
 sqlparse
 nltk
 jsonlines
-pymysql
-pyyaml
-# json
+# pymysql==1.1.0
+# pyyaml==6.0.1
+# json==2.0.9

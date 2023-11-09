@@ -31,21 +31,25 @@
 </div>
 
 ## Contents
-- [1. Introduction](#1-what-is-db-gpt-hub)
-- [2. Text2SQL Finetune](#2-fine-tuning-text-to-sql)
-  - [2.1 Dataset](#21-dataset)
-  - [2.2 BaseModel](#22-model)
-  - [2.3 Finetune methods](#23-fine-tuning-methods)
-- [3. Usage](#3-usage)
-  - [3.1 Environment preparation](#31-environment-preparation)
-  - [3.2 Data preparation](#32-data-preparation)
-  - [3.3 Model fine-tuning](#33-model-fine-tuning)
-  - [3.4 Model Predict](#34-model-predict)
-  - [3.5 Model Weights](#35-model-weights)
-  - [3.6 Model Evaluation](#36-model-evaluation)
-- [4. roadmap](#4-roadmap)
-- [5. contributions](#5-contributions)
-- [6. acknowledgements](#6-acknowledgements)
+- [DB-GPT-Hub: Text-to-SQL parsing with LLMs](#db-gpt-hub-text-to-sql-parsing-with-llms)
+  - [Contents](#contents)
+  - [1. What is DB-GPT-Hub](#1-what-is-db-gpt-hub)
+  - [2. Fine-tuning Text-to-SQL](#2-fine-tuning-text-to-sql)
+    - [2.1. Dataset](#21-dataset)
+    - [2.2. Model](#22-model)
+  - [3. Usage](#3-usage)
+    - [3.1. Environment preparation](#31-environment-preparation)
+    - [3.2. Data preparation](#32-data-preparation)
+    - [3.3. Model fine-tuning](#33-model-fine-tuning)
+    - [3.4. Model Predict](#34-model-predict)
+    - [3.5 Model Weights](#35-model-weights)
+      - [3.5.1 Model and fine-tuned weight merging](#351-model-and-fine-tuned-weight-merging)
+    - [3.6 Model Evaluation](#36-model-evaluation)
+  - [4. RoadMap](#4-roadmap)
+  - [5. Contributions](#5-contributions)
+  - [6. Acknowledgements](#6-acknowledgements)
+  - [7、Licence](#7licence)
+  - [8、Contact Information](#8contact-information)
 
 ## 1. What is DB-GPT-Hub
 
@@ -94,10 +98,10 @@ DB-GPT-Hub currently supports the following base models:
 
 The model is fine-tuned based on a quantization bit of 4 using Quantized Learning over Redundant Architecture (QLoRA). The minimum hardware requirements for this can be referred to as follows:   
 
-| Model Parameters | GPU RAM         | CPU RAM | DISK   |
-| -------- | --------------- | ------- | ------ |
-| 7b       | 6GB | 3.6GB   | 36.4GB |
-| 13b      | 13.4GB | 5.9GB   | 60.2GB | 
+| Model Parameters | GPU RAM | CPU RAM | DISK   |
+| ---------------- | ------- | ------- | ------ |
+| 7b               | 6GB     | 3.6GB   | 36.4GB |
+| 13b              | 13.4GB  | 5.9GB   | 60.2GB |
   
 All the related parameters are set to the minimum, with a batch size of 1 and max length of 512. Based on experience, for better performance, it is recommended to set the related length values to 1024 or 2048.
 
@@ -139,8 +143,8 @@ The data in the generated JSON looks something like this:
         "output": "SELECT count(*) FROM head WHERE age  >  56",
         "history": []
     }, 
-```  
-
+```     
+The data processing code of `chase`, `cosql` and `sparc` has been embedded in the data processing code of the project. After downloading the data set according to the above link, you only need to add ` in `dbgpt_hub/configs/config.py` Just loosen the corresponding code comment in SQL_DATA_INFO`.   
 
 ### 3.3. Model fine-tuning
 
@@ -172,20 +176,20 @@ The other parts that are omitted (…) can be kept consistent. If you want to ch
 
 In the script, during fine-tuning, different models correspond to key parameters lora_target and template, as shown in the following table:   
 
-| model name                                                   |  lora_target           | template |
-| -------------------------------------------------------- |  ----------------- |----------|
-| [LLaMA-2](https://huggingface.co/meta-llama)             |  q_proj,v_proj     | llama2   |
-| [CodeLlama-2](https://huggingface.co/codellama/)             |  q_proj,v_proj     | llama2   |
-| [Baichuan2](https://github.com/baichuan-inc/Baichuan2)   |  W_pack            | baichuan2 |
-| [InternLM](https://github.com/InternLM/InternLM)         | q_proj,v_proj     | intern   |
-| [Qwen](https://github.com/QwenLM/Qwen-7B)                | c_attn            | chatml   |
-| [XVERSE](https://github.com/xverse-ai/XVERSE-13B)        | q_proj,v_proj     | xverse   |
-| [ChatGLM2](https://github.com/THUDM/ChatGLM2-6B)         | query_key_value   | chatglm2 |
-| [LLaMA](https://github.com/facebookresearch/llama)       |  q_proj,v_proj     | -        |
-| [BLOOM](https://huggingface.co/bigscience/bloom)         |  query_key_value   | -        |
-| [BLOOMZ](https://huggingface.co/bigscience/bloomz)       |  query_key_value   | -        |
-| [Baichuan](https://github.com/baichuan-inc/baichuan-13B) | W_pack            | baichuan |
-| [Falcon](https://huggingface.co/tiiuae/falcon-7b)        | query_key_value   | -        |
+| model name                                               | lora_target     | template  |
+| -------------------------------------------------------- | --------------- | --------- |
+| [LLaMA-2](https://huggingface.co/meta-llama)             | q_proj,v_proj   | llama2    |
+| [CodeLlama-2](https://huggingface.co/codellama/)         | q_proj,v_proj   | llama2    |
+| [Baichuan2](https://github.com/baichuan-inc/Baichuan2)   | W_pack          | baichuan2 |
+| [InternLM](https://github.com/InternLM/InternLM)         | q_proj,v_proj   | intern    |
+| [Qwen](https://github.com/QwenLM/Qwen-7B)                | c_attn          | chatml    |
+| [XVERSE](https://github.com/xverse-ai/XVERSE-13B)        | q_proj,v_proj   | xverse    |
+| [ChatGLM2](https://github.com/THUDM/ChatGLM2-6B)         | query_key_value | chatglm2  |
+| [LLaMA](https://github.com/facebookresearch/llama)       | q_proj,v_proj   | -         |
+| [BLOOM](https://huggingface.co/bigscience/bloom)         | query_key_value | -         |
+| [BLOOMZ](https://huggingface.co/bigscience/bloomz)       | query_key_value | -         |
+| [Baichuan](https://github.com/baichuan-inc/baichuan-13B) | W_pack          | baichuan  |
+| [Falcon](https://huggingface.co/tiiuae/falcon-7b)        | query_key_value | -         |
 
  In `train_sft.sh` , other key parameters are as follows:
 

@@ -30,21 +30,25 @@
 </div>
 
 ## Contents
-- [1. 简介](#一简介)
-- [2. Text2SQL微调](#二text-to-sql微调)
-  - [2.1 数据集](#21数据集)
-  - [2.2 基座模型](#22基座模型)
-  - [2.3 微调方法](#23微调方法)
-- [3. 使用](#三使用方法)
-  - [3.1 环境准备](#31环境准备)
-  - [3.2 数据准备](#32数据准备)
-  - [3.3 模型微调](#33模型微调)
-  - [3.4 模型预测](#34模型预测)
-  - [3.5 模型权重](#35模型权重)
-  - [3.6 模型评估](#36模型评估)
-- [4. 发展路线](#四发展路线)
-- [5. 贡献](#五贡献)
-- [6. 感谢](#六感谢)
+- [DB-GPT-Hub:利用LLMs实现Text-to-SQL](#db-gpt-hub利用llms实现text-to-sql)
+  - [Contents](#contents)
+  - [一、简介](#一简介)
+  - [二、Text-to-SQL微调](#二text-to-sql微调)
+    - [2.1、数据集](#21数据集)
+    - [2.2、基座模型](#22基座模型)
+  - [三、使用方法](#三使用方法)
+    - [3.1、环境准备](#31环境准备)
+    - [3.2、数据准备](#32数据准备)
+    - [3.3、模型微调](#33模型微调)
+    - [3.4、模型预测](#34模型预测)
+    - [3.5、模型权重](#35模型权重)
+      - [3.5.1 模型和微调权重合并](#351-模型和微调权重合并)
+    - [3.6、模型评估](#36模型评估)
+  - [四、发展路线](#四发展路线)
+  - [五、贡献](#五贡献)
+  - [六、感谢](#六感谢)
+  - [七、Licence](#七licence)
+  - [八、Contact Information](#八contact-information)
 
 ## 一、简介
 
@@ -89,10 +93,10 @@ DB-GPT-HUB目前已经支持的base模型有：
 
 模型可以基于quantization_bit为4的量化微调(QLoRA)所需的最低硬件资源,可以参考如下：
 
-| 模型参数 | GPU RAM         | CPU RAM | DISK   |
-| -------- | --------------- | ------- | ------ |
-| 7b       | 6GB | 3.6GB   | 36.4GB |
-| 13b      | 13.4GB | 5.9GB   | 60.2GB | 
+| 模型参数 | GPU RAM | CPU RAM | DISK   |
+| -------- | ------- | ------- | ------ |
+| 7b       | 6GB     | 3.6GB   | 36.4GB |
+| 13b      | 13.4GB  | 5.9GB   | 60.2GB |
 
 其中相关参数均设置的为最小，batch_size为1，max_length为512。根据经验，如果计算资源足够，为了效果更好，建议相关长度值设置为1024或者2048。  
 
@@ -129,7 +133,8 @@ sh dbgpt_hub/scripts/gen_train_eval_data.sh
         "output": "SELECT count(*) FROM head WHERE age  >  56",
         "history": []
     }, 
-```  
+```     
+项目的数据处理代码中已经嵌套了`chase` 、`cosql`、`sparc`的数据处理，可以根据上面链接将数据集下载到data路径后，在`dbgpt_hub/configs/config.py`中将 `SQL_DATA_INFO`中对应的代码注释松开即可。  
 
 
 ### 3.3、模型微调
@@ -160,20 +165,20 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
 
 脚本中微调时不同模型对应的关键参数lora_target 和 template，如下表：
 
-| 模型名                                                   |  lora_target           | template |
-| -------------------------------------------------------- |  ----------------- |----------|
-| [LLaMA-2](https://huggingface.co/meta-llama)             |  q_proj,v_proj     | llama2   |
-| [CodeLlama-2](https://huggingface.co/codellama/)             |  q_proj,v_proj     | llama2   |
-| [Baichuan2](https://github.com/baichuan-inc/Baichuan2)   |  W_pack            | baichuan2 |
-| [InternLM](https://github.com/InternLM/InternLM)         | q_proj,v_proj     | intern   |
-| [Qwen](https://github.com/QwenLM/Qwen-7B)                | c_attn            | chatml   |
-| [XVERSE](https://github.com/xverse-ai/XVERSE-13B)        | q_proj,v_proj     | xverse   |
-| [ChatGLM2](https://github.com/THUDM/ChatGLM2-6B)         | query_key_value   | chatglm2 |
-| [LLaMA](https://github.com/facebookresearch/llama)       |  q_proj,v_proj     | -        |
-| [BLOOM](https://huggingface.co/bigscience/bloom)         |  query_key_value   | -        |
-| [BLOOMZ](https://huggingface.co/bigscience/bloomz)       |  query_key_value   | -        |
-| [Baichuan](https://github.com/baichuan-inc/baichuan-13B) | W_pack            | baichuan |
-| [Falcon](https://huggingface.co/tiiuae/falcon-7b)        | query_key_value   | -        |
+| 模型名                                                   | lora_target     | template  |
+| -------------------------------------------------------- | --------------- | --------- |
+| [LLaMA-2](https://huggingface.co/meta-llama)             | q_proj,v_proj   | llama2    |
+| [CodeLlama-2](https://huggingface.co/codellama/)         | q_proj,v_proj   | llama2    |
+| [Baichuan2](https://github.com/baichuan-inc/Baichuan2)   | W_pack          | baichuan2 |
+| [InternLM](https://github.com/InternLM/InternLM)         | q_proj,v_proj   | intern    |
+| [Qwen](https://github.com/QwenLM/Qwen-7B)                | c_attn          | chatml    |
+| [XVERSE](https://github.com/xverse-ai/XVERSE-13B)        | q_proj,v_proj   | xverse    |
+| [ChatGLM2](https://github.com/THUDM/ChatGLM2-6B)         | query_key_value | chatglm2  |
+| [LLaMA](https://github.com/facebookresearch/llama)       | q_proj,v_proj   | -         |
+| [BLOOM](https://huggingface.co/bigscience/bloom)         | query_key_value | -         |
+| [BLOOMZ](https://huggingface.co/bigscience/bloomz)       | query_key_value | -         |
+| [Baichuan](https://github.com/baichuan-inc/baichuan-13B) | W_pack          | baichuan  |
+| [Falcon](https://huggingface.co/tiiuae/falcon-7b)        | query_key_value | -         |
 
 `train_sft.sh`中其他关键参数含义：
 > quantization_bit：是否量化，取值为[4或者8]   

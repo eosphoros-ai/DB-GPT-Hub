@@ -1,10 +1,25 @@
 ## shijian llama2 test
+
+current_date=$(date +"%Y%m%d_%H%M")
+pred_log="dbgpt_hub/output/logs/pred_test_${current_date}.log"
+start_time=$(date +%s)
+echo " Pred Start time: $(date -d @$start_time +'%Y-%m-%d %H:%M:%S')" >>${pred_log}
+
 CUDA_VISIBLE_DEVICES=0,1  python dbgpt_hub/predict/predict.py \
-    --model_name_or_path Llama-2-13b-chat-hf \
+    --model_name_or_path Your_download_CodeLlama-13b-Instruct-hf_path \
     --template llama2 \
     --finetuning_type lora \
-    --checkpoint_dir dbgpt_hub/output/adapter/llama2-13b-qlora \
-    --predicted_out_filename pred_sql.sql
+    --checkpoint_dir dbgpt_hub/output/adapter/CodeLlama-13b-sql-lora \
+    --predicted_out_filename pred_sql.sql >> ${pred_log}
+
+echo "############pred end###############" >>${pred_log}
+echo "pred End time: $(date)" >>${pred_log}
+end_time=$(date +%s)
+duration=$((end_time - start_time))
+hours=$((duration / 3600))
+min=$(( (duration % 3600) / 60))
+echo "Time elapsed: ${hour}  hour $min min " >>${pred_log}
+
 
 # # wangzai baichua2_eval test
 # CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/predict/predict.py \

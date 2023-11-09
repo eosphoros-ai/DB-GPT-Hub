@@ -1,7 +1,9 @@
 wandb offline # Close wandb
 # a100 ,单卡
-current_date=$(date +"%Y%m%d_%H%M%S")
-train_log="dbgpt_hub/output/train_${current_date}.log"
+current_date=$(date +"%Y%m%d_%H%M")
+train_log="dbgpt_hub/output/logs/train_sft_test_${current_date}.log"
+start_time=$(date +%s)
+echo " Train Start time: $(date -d @$start_time +'%Y-%m-%d %H:%M:%S')" >>${train_log}
 
 # the default param set could be run in a server with one a100(40G) gpu, if your server not support the set,you can set smaller param such as  lora_rank and use qlora with quant 4 eg...
 CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
@@ -26,9 +28,17 @@ CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
     --learning_rate 2e-4 \
     --num_train_epochs 8 \
     --plot_loss \
-    --bf16 2>&1 | tee ${train_log}
+    --bf16  >> ${train_log}
     # --bf16#v100不支持bf16
-    # test  num_train_epochs could  set to 0.1
+    
+echo "############train end###############" >>${train_log}
+echo "Train End time: $(date)" >>${train_log}
+end_time=$(date +%s)
+duration=$((end_time - start_time))
+hours=$((duration / 3600))
+min=$(( (duration % 3600) / 60))
+echo "Time elapsed: ${hour}  hour $min min " >>${train_log}
+
 
 # 多卡，deepseed启动，A100
 # deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \

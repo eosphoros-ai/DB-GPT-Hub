@@ -54,33 +54,33 @@ SQL_DATA_INFO = [
         "db_id_name": "db_id",
         "is_multiple_turn": False,
     }
-    ,
-    {
-        "data_source": "chase",
-        "train_file": ["Chase/chase_train.json"],
-        "dev_file": ["Chase/chase_dev.json"],
-        "tables_file": "Chase/chase_tables.json",
-        "db_id_name": "database_id",
-        "is_multiple_turn": True,
-    }
-    ,
-    {
-        "data_source": "cosql_dataset",
-        "train_file": ["sql_state_tracking/cosql_train.json"],
-        "dev_file": ["sql_state_tracking/cosql_dev.json"],
-        "tables_file": "tables.json",
-        "db_id_name": "database_id",
-        "is_multiple_turn": True,
-    }
-    ,
-    {
-        "data_source": "sparc",
-        "train_file": ["train.json"],
-        "dev_file": ["dev.json"],
-        "tables_file": "tables.json",
-        "db_id_name": "database_id",
-        "is_multiple_turn": True,
-    }
+    # ,
+    # {
+    #     "data_source": "chase",
+    #     "train_file": ["Chase/chase_train.json"],
+    #     "dev_file": ["Chase/chase_dev.json"],
+    #     "tables_file": "Chase/chase_tables.json",
+    #     "db_id_name": "database_id",
+    #     "is_multiple_turn": True,
+    # }
+    # ,
+    # {
+    #     "data_source": "cosql_dataset",
+    #     "train_file": ["sql_state_tracking/cosql_train.json"],
+    #     "dev_file": ["sql_state_tracking/cosql_dev.json"],
+    #     "tables_file": "tables.json",
+    #     "db_id_name": "database_id",
+    #     "is_multiple_turn": True,
+    # }
+    # ,
+    # {
+    #     "data_source": "sparc",
+    #     "train_file": ["train.json"],
+    #     "dev_file": ["dev.json"],
+    #     "tables_file": "tables.json",
+    #     "db_id_name": "database_id",
+    #     "is_multiple_turn": True,
+    # }
 ]
 INSTRUCTION_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database, \

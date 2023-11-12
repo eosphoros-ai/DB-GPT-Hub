@@ -21,7 +21,9 @@ class ProcessSqlData:
         self.train_file = train_file
         self.dev_file = dev_file
 
-    def decode_json_file(self, data_file_list, table_file, db_id_name, is_multiple_turn=False):
+    def decode_json_file(
+        self, data_file_list, table_file, db_id_name, is_multiple_turn=False
+    ):
         """
         TO DO:
             1.将相关prompt放入config中
@@ -87,22 +89,31 @@ class ProcessSqlData:
         res = []
         for data in tqdm(datas):
             if data[db_id_name] in db_dict.keys():
-                if is_multiple_turn: #多轮
+                if is_multiple_turn:  # 多轮
                     history = []
                     for interaction in data["interaction"]:
                         input = {
                             "db_id": data[db_id_name],
-                            "instruction": INSTRUCTION_PROMPT.format(db_dict[data[db_id_name]]),
+                            "instruction": INSTRUCTION_PROMPT.format(
+                                db_dict[data[db_id_name]]
+                            ),
                             "input": INPUT_PROMPT.format(interaction["utterance"]),
                             "output": interaction["query"],
                             "history": history,
                         }
                         res.append(input)
-                        history.append((INPUT_PROMPT.format(interaction["utterance"]), interaction["query"]))
-                else: # 单轮
+                        history.append(
+                            (
+                                INPUT_PROMPT.format(interaction["utterance"]),
+                                interaction["query"],
+                            )
+                        )
+                else:  # 单轮
                     input = {
                         "db_id": data[db_id_name],
-                        "instruction": INSTRUCTION_PROMPT.format(db_dict[data[db_id_name]]),
+                        "instruction": INSTRUCTION_PROMPT.format(
+                            db_dict[data[db_id_name]]
+                        ),
                         "input": INPUT_PROMPT.format(data["question"]),
                         "output": data["query"],
                         "history": [],
@@ -125,7 +136,7 @@ class ProcessSqlData:
                         DATA_PATH, data_info["data_source"], data_info["tables_file"]
                     ),
                     db_id_name=data_info["db_id_name"],
-                    is_multiple_turn=data_info['is_multiple_turn']
+                    is_multiple_turn=data_info["is_multiple_turn"],
                 )
             )
 
@@ -140,7 +151,7 @@ class ProcessSqlData:
                         DATA_PATH, data_info["data_source"], data_info["tables_file"]
                     ),
                     db_id_name=data_info["db_id_name"],
-                    is_multiple_turn=data_info['is_multiple_turn']
+                    is_multiple_turn=data_info["is_multiple_turn"],
                 )
             )
         with open(self.train_file, "w", encoding="utf-8") as s:
@@ -152,5 +163,7 @@ class ProcessSqlData:
 if __name__ == "__main__":
     all_in_one_train_file = os.path.join(DATA_PATH, "example_text2sql_train.json")
     all_in_one_dev_file = os.path.join(DATA_PATH, "example_text2sql_dev.json")
-    precess = ProcessSqlData(train_file=all_in_one_train_file, dev_file=all_in_one_dev_file)
+    precess = ProcessSqlData(
+        train_file=all_in_one_train_file, dev_file=all_in_one_dev_file
+    )
     precess.create_sft_raw_data()

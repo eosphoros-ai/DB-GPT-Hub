@@ -12,9 +12,6 @@
     <a href="https://opensource.org/licenses/MIT">
       <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
     </a>
-    <a href="https://opensource.org/licenses/MIT">
-      <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-    </a>
      <a href="https://github.com/eosphoros-ai/DB-GPT-Hub/releases">
       <img alt="Release Notes" src="https://img.shields.io/github/release/eosphoros-ai/DB-GPT-Hub" />
     </a>
@@ -53,12 +50,11 @@
 
 ## 1. What is DB-GPT-Hub
 
-DB-GPT-Hub is an experimental project utilizing LLMs (Large Language Models) to achieve Text-to-SQL parsing. The project primarily encompasses data collection, data preprocessing, model selection and building, and fine-tuning of weights. Through this series of processes, we aim to enhance Text-to-SQL capabilities while reducing the model training costs, allowing more developers to contribute to the improvement of Text-to-SQL accuracy. Our ultimate goal is to realize automated question-answering capabilities based on databases, enabling users to execute complex database queries through natural language descriptions.    
+DB-GPT-Hub is an experimental project that leverages Large Language Models (LLMs) to achieve Text-to-SQL parsing. The project encompasses various stages, including data collection, data preprocessing, model selection and construction, and fine-tuning of model weights. Through these processes, our aim is to enhance Text-to-SQL capabilities while reducing model training costs, thus enabling more developers to contribute to improving Text-to-SQL accuracy. Our ultimate goal is to realize automated question-answering capabilities based on databases, allowing users to execute complex database queries using natural language descriptions.
 
-So far, we have successfully integrated multiple large models and established a complete workflow, including data processing, model SFT (Supervised Fine-Tuning) training, prediction output, and evaluation. The code is readily reusable within this project.   
+To date, we have successfully integrated multiple large models and established a comprehensive workflow that includes data processing, Supervised Fine-Tuning (SFT) model training, prediction output, and evaluation. The code developed for this project is easily reusable within the project itself.
 
-
-As of 20231010, we used this project to fine-tune the open source 13B size model, combined with more relevant data, and under the zero-shot prompt, Spider-based [test-suite](https://github.com/taoyds/test-suite -sql-eval), the execution accuracy of the database (size-1.27G) can reach **0.764**, and the execution accuracy of the database (size-95M) pointed to by the Spider official [website](https://yale-lily.github.io/spider) is 0.825.
+As of October 10, 2023, we have used this project to fine-tune the open-source 13B-sized model, incorporating more relevant data. Under zero-shot prompts and utilizing [the Spider-based test-suite](https://github.com/taoyds/test-suite -sql-eval), we have achieved an execution accuracy rate of 0.764 for a database with a size of 1.27G. Additionally, the execution accuracy for the database pointed to by [the Spider official website](https://yale-lily.github.io/spider), with a size of 95M, stands at 0.825.
 
 
 ## 2. Fine-tuning Text-to-SQL
@@ -78,7 +74,7 @@ Other text2sql datasets available:
 - [BIRD-SQL:](https://bird-bench.github.io/) A large-scale cross-domain text-to-SQL benchmark in English, with a particular focus on large database content. The dataset contains 12,751 text-to-SQL data pairs and 95 databases with a total size of 33.4 GB across 37 occupational domains. The BIRD-SQL dataset bridges the gap between text-to-SQL research and real-world applications by exploring three additional challenges, namely dealing with large and messy database values, external knowledge inference and optimising SQL execution efficiency.
 - [CoSQL:](https://yale-lily.github.io/cosql) A corpus for building cross-domain conversational text-to-SQL systems. It is a conversational version of the Spider and SParC tasks. CoSQL consists of 30k+ rounds and 10k+ annotated SQL queries from Wizard-of-Oz's collection of 3k conversations querying 200 complex databases across 138 domains. Each conversation simulates a realistic DB query scenario in which a staff member explores the database as a user and a SQL expert uses SQL to retrieve answers, clarify ambiguous questions, or otherwise inform.
 
-- Following the processing template of [NSQL](https://github.com/NumbersStationAI/NSQL), the dataset underwent basic processing, yielding approximately [20K dataset](https://huggingface.co/datasets/Healthy13/Text2SQL/tree/main)
+- Following the processing template of [NSQL](https://github.com/NumbersStationAI/NSQL), the dataset underwent basic processing, yielding approximately [20W dataset](https://huggingface.co/datasets/Healthy13/Text2SQL/tree/main)
 
 
 
@@ -115,8 +111,7 @@ git clone https://github.com/eosphoros-ai/DB-GPT-Hub.git
 cd DB-GPT-Hub
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub
-pip install -r requirements.txt 
-mkdir model 
+poetry install
 ```
 
 ### 3.2. Data preparation
@@ -128,7 +123,7 @@ Download the [Spider dataset]((https://drive.google.com/uc?export=download&id=1T
 For the data preprocessing part, simply **run the following script** :
 ```bash
 ## generate train and dev(eval) data
-sh dbgpt_hub/scripts/gen_train_eval_data.sh
+poetry run sh dbgpt_hub/scripts/gen_train_eval_data.sh
 ```
 
 In the directory `dbgpt_hub/data/`, you will find the newly generated training file example_text2sql_train.json and testing file example_text2sql_dev.json, containing 8659 and 1034 entries respectively. For the data used in subsequent fine-tuning, set the parameter `file_name` value to the file name of the training set in dbgpt_hub/data/dataset_info.json, such as example_text2sql_train.json
@@ -152,7 +147,7 @@ The model fine-tuning supports both LoRA and QLoRA methods. We can run the follo
 Run the command:
 
 ```bash
-sh dbgpt_hub/scripts/train_sft.sh
+poetry run sh dbgpt_hub/scripts/train_sft.sh
 ```
 
 After fine-tuning, the model weights will be saved by default in the adapter folder, specifically in the dbgpt_hub/output/adapter directory.   
@@ -210,7 +205,7 @@ In the script, during fine-tuning, different models correspond to key parameters
 Under the project directory ./dbgpt_hub/output/pred/, this folder is the default output location for model predictions(if not exist, just mkdir).
 
 ```bash
-sh ./dbgpt_hub/scripts/predict_sft.sh
+poetry run sh ./dbgpt_hub/scripts/predict_sft.sh
 ```
 
 In the script, by default with the parameter `--quantization_bit`, it predicts using QLoRA. Removing it switches to the LoRA prediction method.
@@ -225,7 +220,7 @@ You can find the second corresponding model weights  from Huggingface [hg-eospho
 If you need to merge the weights of the trained base model and the fine-tuned Peft module to export a complete model, execute the following model export script:   
 
 ```bash
-sh ./dbgpt_hub/scripts/export_merge.sh
+poetry run sh ./dbgpt_hub/scripts/export_merge.sh
 ```
 
 Be sure to replace the parameter path values in the script with the paths corresponding to your project.  
@@ -234,7 +229,7 @@ Be sure to replace the parameter path values in the script with the paths corres
 To evaluate model performance on the dataset, default is spider dev dataset.
 Run the following command:
 ```bash
-python dbgpt_hub/eval/evaluation.py --plug_value --input Your_model_pred_file
+poetry run python dbgpt_hub/eval/evaluation.py --plug_value --input Your_model_pred_file
 ```
 You can find the results of our latest review and part of experiment results [here](docs/eval_llm_result.md)  
 **Note**: The database pointed to by the default code is a 95M database downloaded from [Spider official website] (https://yale-lily.github.io/spider). If you need to use Spider database (size 1.27G) in [test-suite](https://github.com/taoyds/test-suite-sql-eval), please download the database in the link to the custom directory first, and run the above evaluation command which add parameters and values ​​like `--db Your_download_db_path`.
@@ -244,8 +239,9 @@ You can find the results of our latest review and part of experiment results [he
 The whole process we will divide into three phases:
 
 * Stage 1:
-  * Set up the basic framework, enabling end-to-end workflow from data processing, model SFT training, prediction output to evaluation based on multiple large models. As of 20230804, the entire pipeline has been established.
-  now,we has supported as follows:
+  * Set up the foundational framework, enabling an end-to-end workflow that encompasses data processing, model SFT (Single Fine-Tuning) training, prediction output, and evaluation using multiple large language models (LLMs). As of August 4th, 2023, the entire pipeline has been successfully established.
+
+  Currently, we offer support for the following features:
   - [x] CodeLlama
   - [x] Baichuan2 
   - [x] LLaMa/LLaMa2
@@ -264,11 +260,24 @@ The whole process we will divide into three phases:
   - [ ] Targeted optimization and improvement of business scenarios and Chinese effects   
   - [ ] Optimized based on more papers, such as RESDSQL and others. Combined with our community's sibling project[Awesome-Text2SQL](https://github.com/eosphoros-ai/Awesome-Text2SQL)for further enhancements..  
 
-**If our work is even a little help to you, please give us a star to let  us know ,which would be  more motivation for us to release more related work.**   
+**If our work has provided even a small measure of assistance to you, please consider giving us a star. Your feedback and support serve as motivation for us to continue releasing more related work and improving our efforts. Thank you!**   
 
 ## 5. Contributions
 
-We welcome more folks to participate and provide feedback in areas like datasets, model fine-tuning, performance evaluation, paper recommendations, code reproduction, etc. Feel free to open issues or PRs and we'll actively respond.Before submitting the code, please format it using the black style in command `black .`.
+We warmly invite more individuals to join us and actively engage in various aspects of our project, such as datasets, model fine-tuning, performance evaluation, paper recommendations, and code reproduction. Please don't hesitate to open issues or pull requests (PRs), and we will be proactive in responding to your contributions.
+
+Before submitting your code, please ensure that it is formatted according to the black style by using the following command: 
+```
+poetry run black dbgpt_hub
+```
+
+If you have more time to execute more detailed type checking and style checking of your code, please use the following commond:
+```
+poetry run pyright dbgpt_hub
+poetry run pylint dbgpt_hub
+```
+
+If you have any questions or need further assistance, don't hesitate to reach out. We appreciate your involvement!
 
 ## 6. Acknowledgements
 
@@ -296,7 +305,7 @@ Thanks for all contributors !
 The MIT License (MIT)
 
 ## 8、Contact Information
-We are working together  as a community, if you have any ideas about our  community work , feel free to contact us. And  you're interested in an in-depth experiment and optimization of the DB-GPT-Hub subproject, you can reach out to 'wangzai' in the WeChat group, we are welcome to make it better togther.
+We are collaborating as a community, and if you have any ideas regarding our community work, please don't hesitate to get in touch with us. If you're interested in delving into an in-depth experiment and optimizing the DB-GPT-Hub subproject, you can reach out to 'wangzai' within the WeChat group. We wholeheartedly welcome your contributions to making it even better together! 
 [![](https://dcbadge.vercel.app/api/server/nASQyBjvY?compact=true&style=flat)](https://discord.gg/nASQyBjvY)
 
 <p align="center">

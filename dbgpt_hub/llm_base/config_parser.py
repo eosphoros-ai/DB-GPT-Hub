@@ -93,8 +93,7 @@ def parse_infer_args(
 
 
 def get_train_args(
-    args: Optional[Dict[str, Any]] = None,
-    data_args_init: bool = True
+    args: Optional[Dict[str, Any]] = None, data_args_init: bool = True
 ) -> Tuple[
     ModelArguments,
     DataArguments,

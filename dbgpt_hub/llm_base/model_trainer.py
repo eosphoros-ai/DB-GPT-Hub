@@ -401,7 +401,9 @@ def plot_loss(
 def export_model(
     args: Optional[Dict[str, Any]] = None, max_shard_size: Optional[str] = "10GB"
 ):
-    model_args, _, training_args, finetuning_args, _ = get_train_args(args, data_args_init=False)
+    model_args, _, training_args, finetuning_args, _ = get_train_args(
+        args, data_args_init=False
+    )
     model, tokenizer = load_model_and_tokenizer(model_args, finetuning_args)
     model.save_pretrained(training_args.output_dir, max_shard_size=max_shard_size)
     try:

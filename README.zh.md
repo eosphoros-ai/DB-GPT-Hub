@@ -109,7 +109,8 @@ git clone https://github.com/eosphoros-ai/DB-GPT-Hub.git
 cd DB-GPT-Hub
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub
-pip install -r requirements.txt 
+conda install -c conda-forge poetry>=1.4.0
+poetry install
 ```
 
 ### 3.2、数据准备

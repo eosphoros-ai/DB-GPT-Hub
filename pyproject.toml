@@ -9,7 +9,6 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
 transformers = "4.33.2"
-torch = ">=1.13.1"
 peft = "0.4.0"
 accelerate = "0.21.0"
 bitsandbytes = "0.39.0"
@@ -43,6 +42,7 @@ pyyaml = "6.0.1"
 black = "^23.11.0"
 pyright = "^1.1.335"
 pylint = "^3.0.2"
+torch = "^2.0.0"
 
 [build-system]
 requires = ["poetry-core"]

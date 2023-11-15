@@ -1,11 +1,23 @@
+from typing import Any, Optional, Dict
+from connectors.anydb_connector import AnyDBConnector
 # -*- encoding: utf-8 -*-
-class TableMetaDataProcessor:
-    def __init__(self, conn, config_data):
+class TableMetaDataProcessor(object):
+    def __init__(
+        self, 
+        conn: Optional[AnyDBConnector] = None, 
+        config_data: Optional[Dict] = None
+    ) -> Any:
         self.__conn = conn
         self.__config_data = config_data
 
     # 生成表元数据信息
-    def _generate_table_meta_data(self, db, tables, pks, fks):
+    def _generate_table_meta_data(
+        self, 
+        db: str = "", 
+        tables: Optional[List] = [], 
+        pks: Optional[Dict] = None, 
+        fks: Optional[Dict] = None
+    ) -> Optional[Dict]:
         table_names_original = tables
         column_names = [[-1, "*"]]
         column_names_original = [[-1, "*"]]
@@ -58,7 +70,9 @@ class TableMetaDataProcessor:
             "table_names_original": table_names_original,
         }
 
-    def generate_spider_table_metadata(self):
+    def generate_spider_table_metadata(
+        self
+    ) -> Optional[List]:
         table_configs = self.__config_data["table-configs"]
 
         # 结果列表

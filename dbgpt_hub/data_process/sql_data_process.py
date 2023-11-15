@@ -15,7 +15,6 @@ from dbgpt_hub.configs.config import (
     INSTRUCTION_PROMPT,
 )
 
-
 class ProcessSqlData:
     def __init__(self, train_file=None, dev_file=None) -> None:
         self.train_file = train_file

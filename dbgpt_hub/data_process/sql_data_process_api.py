@@ -7,28 +7,38 @@ ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fi
 sys.path.append(ROOT_PATH)
 
 from tqdm import tqdm
+from typing import List, Dict, Any, Optional
 
 from dbgpt_hub.configs.config import (
-    SQL_DATA_INFO,
-    DATA_PATH,
     INPUT_PROMPT,
     INSTRUCTION_PROMPT,
 )
 
-class ProcessSqlData:
-    def __init__(self, train_file=None, dev_file=None) -> None:
-        self.train_file = train_file
-        self.dev_file = dev_file
+class SqlDataProcessor(object):
+    def __init__(
+        self, 
+        data_folder: Optional[str] = None,
+        data_info: Optional[List[Dict]] = None
+    ) -> Any:
+        if data_folder is None:
+            self.data_folder = os.path.join(ROOT_PATH, "dbgpt_hub/data")
+            print("The user do not provide exact data folder, we take 'dbgpt_hub/data' as the default folder")
+        else:
+            self.data_folder = data_folder
 
-    def decode_json_file(
-        self, data_file_list, table_file, db_id_name, is_multiple_turn=False
-    ):
-        """
-        TO DO:
-            1.将相关prompt放入config中
-            2.将不同数据来源的字段信息放入config中
-        """
+        if data_info is None:
+            print("Please provide at least one dataset information!")
+            raise
+        else:
+            self.data_info = data_info
 
+    def _decode_json_file(
+        self, 
+        data_file_list: Optional[List] = [], 
+        table_file: Optional[str] = "", 
+        db_id_name: Optional[str] = "", 
+        is_multiple_turn=False
+    ) -> List:
         if table_file.endswith(".jsonl"):
             tables = jsonlines.open(table_file)
             datas = []
@@ -41,7 +51,7 @@ class ProcessSqlData:
             for data_file in data_file_list:
                 datas.extend(json.load(open(data_file)))
         else:
-            print("Unsupported file types")
+            print("Unsupported file types, please provide .json or .jsonl files!")
             raise
 
         # 先将db_id 的table和coloumns处理好
@@ -88,7 +98,8 @@ class ProcessSqlData:
         res = []
         for data in tqdm(datas):
             if data[db_id_name] in db_dict.keys():
-                if is_multiple_turn:  # 多轮
+                # Manage multiple turn dataset
+                if is_multiple_turn:  
                     history = []
                     for interaction in data["interaction"]:
                         input = {
@@ -107,7 +118,8 @@ class ProcessSqlData:
                                 interaction["query"],
                             )
                         )
-                else:  # 单轮
+                else:  
+                    # Manage single turn dataset
                     input = {
                         "db_id": data[db_id_name],
                         "instruction": INSTRUCTION_PROMPT.format(
@@ -120,19 +132,22 @@ class ProcessSqlData:
                     res.append(input)
         return res
 
-    def create_sft_raw_data(self):
-        train_data = []
-        dev_data = []
-        for data_info in SQL_DATA_INFO:
+    def _create_sft_raw_data(
+        self,
+    ) -> None:
+        for data_info in self.data_info:
+            train_data = []
+            dev_data = []
+
             train_data_file_list = [
-                os.path.join(DATA_PATH, data_info["data_source"], file)
+                os.path.join(self.data_folder, data_info["data_source"], file)
                 for file in data_info["train_file"]
             ]
             train_data.extend(
-                self.decode_json_file(
+                self._decode_json_file(
                     data_file_list=train_data_file_list,
                     table_file=os.path.join(
-                        DATA_PATH, data_info["data_source"], data_info["tables_file"]
+                        self.data_folder, data_info["data_source"], data_info["tables_file"]
                     ),
                     db_id_name=data_info["db_id_name"],
                     is_multiple_turn=data_info["is_multiple_turn"],
@@ -140,29 +155,59 @@ class ProcessSqlData:
             )
 
             dev_data_file_list = [
-                os.path.join(DATA_PATH, data_info["data_source"], file)
+                os.path.join(self.data_folder, data_info["data_source"], file)
                 for file in data_info["dev_file"]
             ]
             dev_data.extend(
-                self.decode_json_file(
+                self._decode_json_file(
                     data_file_list=dev_data_file_list,
                     table_file=os.path.join(
-                        DATA_PATH, data_info["data_source"], data_info["tables_file"]
+                        self.data_folder, data_info["data_source"], data_info["tables_file"]
                     ),
                     db_id_name=data_info["db_id_name"],
                     is_multiple_turn=data_info["is_multiple_turn"],
                 )
             )
-        with open(self.train_file, "w", encoding="utf-8") as s:
-            json.dump(train_data, s, indent=4, ensure_ascii=False)
-        with open(self.dev_file, "w", encoding="utf-8") as s:
-            json.dump(dev_data, s, indent=4, ensure_ascii=False)
 
+            train_output_path = os.path.join(self.data_folder, data_info["train_output"])
+            dev_output_path = os.path.join(self.data_folder, data_info["dev_output"])
+            with open(train_output_path, "w", encoding="utf-8") as s:
+                json.dump(train_data, s, indent=4, ensure_ascii=False)
+            with open(dev_output_path, "w", encoding="utf-8") as s:
+                json.dump(dev_data, s, indent=4, ensure_ascii=False)
+
+    def process_sft_data(
+        self,
+    ) -> None:
+        self._create_sft_raw_data()
+
+def preprocess_sft_data(
+    data_folder: Optional[str] = "",
+    data_info: Optional[List[Dict]] =  None
+) -> None:
+    processor = SqlDataProcessor(
+        data_folder = data_folder,
+        data_info = data_info
+    )
+    processor.process_sft_data()
 
 if __name__ == "__main__":
-    all_in_one_train_file = os.path.join(DATA_PATH, "example_text2sql_train.json")
-    all_in_one_dev_file = os.path.join(DATA_PATH, "example_text2sql_dev.json")
-    precess = ProcessSqlData(
-        train_file=all_in_one_train_file, dev_file=all_in_one_dev_file
+    data_folder = os.path.join(ROOT_PATH, "dbgpt_hub/data")
+    data_info = [
+        {
+            "data_source": "spider",
+            "train_file": ["train_spider.json", "train_others.json"],
+            "dev_file": ["dev.json"],
+            "tables_file": "tables.json",
+            "db_id_name": "db_id",
+            "is_multiple_turn": False,
+            "train_output": "example_train.json",
+            "dev_output": "example_dev.json",
+        }
+    ]
+    preprocess_sft_data(
+        data_folder = data_folder,
+        data_info = data_info
     )
-    precess.create_sft_raw_data()
+
+    

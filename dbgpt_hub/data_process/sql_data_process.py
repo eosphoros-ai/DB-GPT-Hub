@@ -159,7 +159,7 @@ class SqlDataProcessor(object):
                 for file in data_info["dev_file"]
             ]
             dev_data.extend(
-                self.decode_json_file(
+                self._decode_json_file(
                     data_file_list=dev_data_file_list,
                     table_file=os.path.join(
                         self.data_folder, data_info["data_source"], data_info["tables_file"]
@@ -201,6 +201,8 @@ if __name__ == "__main__":
             "tables_file": "tables.json",
             "db_id_name": "db_id",
             "is_multiple_turn": False,
+            "train_output": "example_train.json",
+            "dev_output": "example_dev.json",
         }
     ]
     preprocess_sft_data(

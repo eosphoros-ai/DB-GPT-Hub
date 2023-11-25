@@ -2389,6 +2389,16 @@ files = [
 plugins = ["importlib-metadata"]
 
 [[package]]
+name = "pygraphviz"
+version = "1.11"
+description = "Python interface to Graphviz"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "pygraphviz-1.11.zip", hash = "sha256:a97eb5ced266f45053ebb1f2c6c6d29091690503e3a5c14be7f908b37b06f2d4"},
+]
+
+[[package]]
 name = "pylint"
 version = "3.0.2"
 description = "python code static checker"
@@ -4247,4 +4257,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.13"
-content-hash = "c604a299b6b9fcb011c963bc8470c4a758baba2bb8e04c17918928d5c7c70043"
+content-hash = "a8ce8b51e3b3b20018b2a4e52eac65479bb04e7b6eb39138832b1c66a9cb22b5"

@@ -17,6 +17,15 @@ jobs:
       matrix:
         python: ["3.10", "3.11"]
         os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            install_graphviz:
+              sudo apt install graphviz graphviz-dev
+          - os: windows-latest
+            install_graphviz:
+              choco install graphviz --version=2.48.0;
+              poetry run pip install --global-option=build_ext --global-option="-IC:\Program Files\Graphviz\include" --global-option="-LC:\Program Files\Graphviz\lib" pygraphviz;
+ 
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2

@@ -1,0 +1,56 @@
+name: release
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: "0"
+
+      - uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Cache venv
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-build-${{ matrix.python }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles('poetry.lock') }}
+
+      - name: Install dependencies
+        run: |
+          echo "Cache Version ${{ secrets.CACHE_VERSION }}"
+          pip install poetry toml-cli
+          poetry install
+          poetry config --list
+
+      - name: Print tool versions
+        run: |
+          poetry run black --version
+
+      - name: Build wheels
+        run: poetry build
+
+      - name: Parse version from pyproject.toml
+        run: echo "DBGPT_HUB_VERSION=`toml get --toml-path pyproject.toml tool.poetry.version`" >> $GITHUB_ENV
+
+      - name: Create release note
+        run: poetry run python scripts/release-note.py $(git rev-parse --short HEAD) > RELEASE.md
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*.whl,dist/*.tar.gz"
+          bodyFile: "RELEASE.md"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: true
+          tag: v${{ env.DBGPT_HUB_VERSION }}
+          commit: ${{ env.GITHUB_SHA }}
+
+      - name: Upload wheels
+        run: poetry publish --username __token__ --password ${{ secrets.PYPI_TOKEN }}

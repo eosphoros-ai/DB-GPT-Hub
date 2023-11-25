@@ -14,15 +14,16 @@ from dbgpt_hub.configs.config import (
     INSTRUCTION_PROMPT,
 )
 
+
 class SqlDataProcessor(object):
     def __init__(
-        self, 
-        data_folder: Optional[str] = None,
-        data_info: Optional[List[Dict]] = None
+        self, data_folder: Optional[str] = None, data_info: Optional[List[Dict]] = None
     ) -> Any:
         if data_folder is None:
             self.data_folder = os.path.join(ROOT_PATH, "dbgpt_hub/data")
-            print("The user do not provide exact data folder, we take 'dbgpt_hub/data' as the default folder")
+            print(
+                "The user do not provide exact data folder, we take 'dbgpt_hub/data' as the default folder"
+            )
         else:
             self.data_folder = data_folder
 
@@ -33,11 +34,11 @@ class SqlDataProcessor(object):
             self.data_info = data_info
 
     def _decode_json_file(
-        self, 
-        data_file_list: Optional[List] = [], 
-        table_file: Optional[str] = "", 
-        db_id_name: Optional[str] = "", 
-        is_multiple_turn=False
+        self,
+        data_file_list: Optional[List] = [],
+        table_file: Optional[str] = "",
+        db_id_name: Optional[str] = "",
+        is_multiple_turn=False,
     ) -> List:
         if table_file.endswith(".jsonl"):
             tables = jsonlines.open(table_file)
@@ -99,7 +100,7 @@ class SqlDataProcessor(object):
         for data in tqdm(datas):
             if data[db_id_name] in db_dict.keys():
                 # Manage multiple turn dataset
-                if is_multiple_turn:  
+                if is_multiple_turn:
                     history = []
                     for interaction in data["interaction"]:
                         input = {
@@ -118,7 +119,7 @@ class SqlDataProcessor(object):
                                 interaction["query"],
                             )
                         )
-                else:  
+                else:
                     # Manage single turn dataset
                     input = {
                         "db_id": data[db_id_name],
@@ -147,7 +148,9 @@ class SqlDataProcessor(object):
                 self._decode_json_file(
                     data_file_list=train_data_file_list,
                     table_file=os.path.join(
-                        self.data_folder, data_info["data_source"], data_info["tables_file"]
+                        self.data_folder,
+                        data_info["data_source"],
+                        data_info["tables_file"],
                     ),
                     db_id_name=data_info["db_id_name"],
                     is_multiple_turn=data_info["is_multiple_turn"],
@@ -162,14 +165,18 @@ class SqlDataProcessor(object):
                 self._decode_json_file(
                     data_file_list=dev_data_file_list,
                     table_file=os.path.join(
-                        self.data_folder, data_info["data_source"], data_info["tables_file"]
+                        self.data_folder,
+                        data_info["data_source"],
+                        data_info["tables_file"],
                     ),
                     db_id_name=data_info["db_id_name"],
                     is_multiple_turn=data_info["is_multiple_turn"],
                 )
             )
 
-            train_output_path = os.path.join(self.data_folder, data_info["train_output"])
+            train_output_path = os.path.join(
+                self.data_folder, data_info["train_output"]
+            )
             dev_output_path = os.path.join(self.data_folder, data_info["dev_output"])
             with open(train_output_path, "w", encoding="utf-8") as s:
                 json.dump(train_data, s, indent=4, ensure_ascii=False)
@@ -181,15 +188,13 @@ class SqlDataProcessor(object):
     ) -> None:
         self._create_sft_raw_data()
 
+
 def preprocess_sft_data(
-    data_folder: Optional[str] = "",
-    data_info: Optional[List[Dict]] =  None
+    data_folder: Optional[str] = "", data_info: Optional[List[Dict]] = None
 ) -> None:
-    processor = SqlDataProcessor(
-        data_folder = data_folder,
-        data_info = data_info
-    )
+    processor = SqlDataProcessor(data_folder=data_folder, data_info=data_info)
     processor.process_sft_data()
+
 
 if __name__ == "__main__":
     data_folder = os.path.join(ROOT_PATH, "dbgpt_hub/data")
@@ -205,9 +210,4 @@ if __name__ == "__main__":
             "dev_output": "example_dev.json",
         }
     ]
-    preprocess_sft_data(
-        data_folder = data_folder,
-        data_info = data_info
-    )
-
-    
+    preprocess_sft_data(data_folder=data_folder, data_info=data_info)

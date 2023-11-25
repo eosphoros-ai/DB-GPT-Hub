@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - release
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: ${{ matrix.os }} x py${{ matrix.python }}
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11"]
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Cache venv
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-build-${{ matrix.python }}-${{ secrets.CACHE_VERSION }}-${{ hashFiles('poetry.lock') }}
+
+      - name: Install dependencies
+        run: |
+          echo "Cache Version ${{ secrets.CACHE_VERSION }}"
+          pip install poetry
+          poetry install
+          poetry run pip install ERAlchemy
+          poetry config --list
+
+      - name: Print tool versions
+        run: |
+          poetry run black --version
+
+      - name: Check if the code is formatted
+        run: poetry run black --check dataprep
+
+      # - name: Type check the project
+      #   run: poetry run pyright dataprep || true
+
+      # - name: Style check the project
+      #   run: poetry run pylint dataprep || true
+
+      - name: Build binary dependencies
+        run: poetry build

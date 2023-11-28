@@ -1,4 +1,5 @@
 import hashlib
+import logging
 import os
 import numpy as np
 import pandas as pd
@@ -30,7 +31,6 @@ if TYPE_CHECKING:
     from transformers import TrainingArguments, Seq2SeqTrainingArguments
 
 from dbgpt_hub.llm_base.loggings import get_logger
-
 
 logger = get_logger(__name__)
 
@@ -65,7 +65,7 @@ def extract_sql_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:
 
 
 def local_dataset(
-    dataset_path: str, eval_dataset_size: float = 0.1
+        dataset_path: str, eval_dataset_size: float = 0.1
 ) -> Tuple[Dataset, Dataset]:
     """
     Reads in a dataset from a file and returns it as a split train-test dataset.
@@ -100,7 +100,7 @@ def local_dataset(
 
 
 def load_data(
-    dataset_path: str, eval_dataset_size: float = 0.1
+        dataset_path: str, eval_dataset_size: float = 0.1
 ) -> Union[Dict[str, Dataset], None]:
     """
     Load a dataset based on its name.
@@ -142,7 +142,7 @@ templates: Dict[str, Template] = {}
 
 
 def get_template_and_fix_tokenizer(
-    name: str, tokenizer: "PreTrainedTokenizer"
+        name: str, tokenizer: "PreTrainedTokenizer"
 ) -> Template:
     template = templates.get(name, None)
     assert template is not None, "Template {} does not exist.".format(name)
@@ -177,13 +177,13 @@ def get_template_and_fix_tokenizer(
 
 
 def register_template(
-    name: str,
-    prefix: List[Union[str, Dict[str, str]]],
-    prompt: List[Union[str, Dict[str, str]]],
-    system: str,
-    sep: List[Union[str, Dict[str, str]]],
-    stop_words: Optional[List[str]] = [],
-    use_history: Optional[bool] = True,
+        name: str,
+        prefix: List[Union[str, Dict[str, str]]],
+        prompt: List[Union[str, Dict[str, str]]],
+        system: str,
+        sep: List[Union[str, Dict[str, str]]],
+        stop_words: Optional[List[str]] = [],
+        use_history: Optional[bool] = True,
 ) -> None:
     template_class = Llama2Template if "llama2" in name else Template
     templates[name] = template_class(
@@ -208,7 +208,6 @@ register_template(
     use_history=False,
 )
 
-
 r"""
 Default template.
 """
@@ -222,7 +221,6 @@ register_template(
     ),
     sep=["\n"],
 )
-
 
 r"""
 Supports: https://huggingface.co/meta-llama/Llama-2-7b-chat-hf
@@ -246,7 +244,6 @@ register_template(
     sep=[],
 )
 
-
 r"""
 Supports: https://github.com/ymcui/Chinese-LLaMA-Alpaca-2
           https://huggingface.co/ziqingyang/chinese-alpaca-2-7b
@@ -258,7 +255,6 @@ register_template(
     system="You are a helpful assistant. 你是一个乐于助人的助手。",
     sep=[],
 )
-
 
 r"""
 Supports: https://huggingface.co/tatsu-lab/alpaca-7b-wdiff
@@ -275,7 +271,6 @@ register_template(
     sep=["\n\n"],
 )
 
-
 r"""
 Supports: https://huggingface.co/lmsys/vicuna-7b-delta-v1.1
           https://huggingface.co/lmsys/vicuna-13b-delta-v1.1
@@ -291,7 +286,6 @@ register_template(
     sep=[],
 )
 
-
 r"""
 Supports: https://huggingface.co/BelleGroup/BELLE-LLaMA-EXT-13B
 """
@@ -302,7 +296,6 @@ register_template(
     system="",
     sep=["\n\n"],
 )
-
 
 r"""
 Supports: https://github.com/CVI-SZU/Linly
@@ -315,7 +308,6 @@ register_template(
     sep=["\n"],
 )
 
-
 r"""
 Supports: https://github.com/Neutralzz/BiLLa
 """
@@ -327,7 +319,6 @@ register_template(
     sep=["\n"],
 )
 
-
 r"""
 Supports: https://huggingface.co/IDEA-CCNL/Ziya-LLaMA-13B-v1
 """
@@ -338,7 +329,6 @@ register_template(
     system="",
     sep=["\n"],
 )
-
 
 r"""
 Supports: https://huggingface.co/qhduan/aquilachat-7b
@@ -354,7 +344,6 @@ register_template(
     sep=["###"],
 )
 
-
 r"""
 Supports: https://huggingface.co/internlm/internlm-chat-7b
 """
@@ -366,7 +355,6 @@ register_template(
     sep=["\n"],
     stop_words=["</s>", "<eoa>"],  # internlm cannot replace eos token
 )
-
 
 r"""
 Supports: https://huggingface.co/baichuan-inc/Baichuan-13B-Chat
@@ -384,7 +372,6 @@ register_template(
     sep=[],
     stop_words=[],
 )
-
 
 r"""
 Supports: https://huggingface.co/baichuan-inc/Baichuan-13B-Chat
@@ -416,7 +403,6 @@ register_template(
     sep=[],
 )
 
-
 r"""
 Supports: https://huggingface.co/baichuan-inc/Baichuan2-7B-Chat
           https://huggingface.co/baichuan-inc/Baichuan2-13B-Chat
@@ -431,6 +417,43 @@ register_template(
     stop_words=["<reserved_106>"],  # user token
 )
 
+# # 自定义模板
+# register_template(
+#     name="baichuan2",
+#     prefix=["{{system}}"],
+#     prompt=[
+#         # "I want you to act as a SQL terminal in front of an example database, you need only to return the SQL command to me. Below is an instruction that describes a task,Write a response that appropriately completes the request.",
+#         {"token": "<reserved_106>"},  # user token
+#         "User Query: {{query}}",
+#         #你的身份 你的任务目标
+#         "{{identity}}",
+#         "{{task_goal}}",
+#         "###Input:\nUser Query: {{query}}\n\n###Response:",
+#         {"token": "<reserved_107>"},  # assistant token
+#         "Assistant Response: {{output}}",
+#         "Interpretation: {template: '{{interpretation.template}}', mappings: {{interpretation.mappings}}}"
+#     ],
+#
+#     system="",
+#     sep=[],
+# )
+register_template(
+    name="baichuan2_sql",
+    prefix=[
+        "作为一个 SQL 查询生成器，您的任务是根据用户的描述生成准确的 SQL 语句。请确保您理解用户的查询需求，并且生成的 SQL 语句语法正确，符合数据库查询的标准。"],
+    prompt=[
+        {"token": "<reserved_106>"},  # user token
+        "用户的查询需求：{{query}}",
+        "###输入：\n用户的查询需求：{{query}}\n\n###回应：",
+        {"token": "<reserved_107>"},  # assistant token
+        "根据用户需求生成的 SQL 语句：{{sql_statement}}",
+        "###解释：\n根据用户的查询需求「{{query}}」，生成的 SQL 语句是「{{sql_statement}}」。这个语句是基于以下解释模板和映射构建的：",
+        "解释模板：{template: '{{interpretation.template}}'}",
+        "映射：{{interpretation.mappings}}"
+    ],
+    system="",
+    sep=[],
+)
 
 r"""
 Supports: https://huggingface.co/HuggingFaceH4/starchat-alpha
@@ -452,7 +475,6 @@ register_template(
     stop_words=["<|end|>"],
 )
 
-
 r"""
 Supports: https://huggingface.co/Qwen/Qwen-7B-Chat
 """
@@ -472,7 +494,6 @@ register_template(
     stop_words=["<|im_end|>"],
 )
 
-
 r"""
 Supports: https://huggingface.co/THUDM/chatglm2-6b
 """
@@ -483,7 +504,6 @@ register_template(
     system="",
     sep=["\n\n"],
 )
-
 
 r"""
 Supports: https://huggingface.co/xverse/XVERSE-13B-Chat
@@ -498,9 +518,9 @@ register_template(
 
 
 def split_dataset(
-    dataset: Union["Dataset", "IterableDataset"],
-    data_args: "DataArguments",
-    training_args: "TrainingArguments",
+        dataset: Union["Dataset", "IterableDataset"],
+        data_args: "DataArguments",
+        training_args: "TrainingArguments",
 ) -> Dict[str, "Dataset"]:
     if training_args.do_train:
         if data_args.val_size > 1e-6:  # Split the dataset
@@ -535,15 +555,29 @@ def split_dataset(
 
 
 def preprocess_dataset(
-    dataset: Union["Dataset", "IterableDataset"],
-    tokenizer: "PreTrainedTokenizer",
-    data_args: "DataArguments",
-    training_args: "Seq2SeqTrainingArguments",
+        dataset: Union["Dataset", "IterableDataset"],
+        tokenizer: "PreTrainedTokenizer",
+        data_args: "DataArguments",
+        training_args: "Seq2SeqTrainingArguments",
 ) -> Union["Dataset", "IterableDataset"]:
+    """
+             对指定的数据集进行预处理，以适配模型训练。
+
+            Args:
+                dataset (Union[Dataset, IterableDataset]): 待处理的数据集，可以是 Dataset 类型或 IterableDataset 类型。
+                tokenizer (PreTrainedTokenizer): 用于分词的预训练分词器。
+                data_args (DataArguments): 包含数据处理相关参数的对象。
+                training_args (Seq2SeqTrainingArguments): 包含序列到序列模型训练参数的对象。
+
+            Returns:
+                Union[Dataset, IterableDataset]: 预处理后的数据集，类型取决于输入的 dataset 类型。
+        """
+
     column_names = list(next(iter(dataset)).keys())
     template = get_template_and_fix_tokenizer(data_args.template, tokenizer)
 
-    def construct_example(examples: Dict[str, List[Any]]) -> Generator[Any, None, None]:
+    def construct_example1(examples: Dict[str, List[Any]]) -> Generator[Any, None, None]:
+        # 循环每个batch的数据
         for i in range(len(examples["prompt"])):
             query, response = examples["prompt"][i], examples["response"][i]
             query = (
@@ -555,10 +589,44 @@ def preprocess_dataset(
             system = examples["system"][i] if "system" in examples else None
             yield query, response, history, system
 
+    def construct_example(examples: Dict[str, List[Any]]) -> Generator[Any, None, None]:
+        """
+           构造每个样本的生成器，用于数据预处理。
+
+           遍历给定的例子集，确保 'query' 字段为字符串，并进行安全拼接。
+
+           Args:
+               examples (Dict[str, List[Any]]): 包含样本数据的字典。
+
+           Yields:
+               Generator[Tuple[str, str, Optional[str], Optional[str]], None, None]:
+               生成处理后的(query, response, history, system)元组。
+           """
+        for i in range(len(examples["prompt"])):
+            # 检查 'query' 是否为字符串，如果不是，则进行转换
+            query = examples["prompt"][i]
+            if not isinstance(query, str):
+                logging.warning(f"索引为 {i} 的条目中的 'prompt' 不是字符串: {query}")
+                query = str(query)
+
+            # 对 'additional_query' 进行同样的检查和转换
+            additional_query = examples["query"][i] if "query" in examples and examples["query"][i] else ""
+            if not isinstance(additional_query, str):
+                logging.warning(f"索引为 {i} 的条目中的 'query' 不是字符串: {additional_query}")
+                additional_query = str(additional_query)
+
+            # 安全地拼接 'query' 和 'additional_query'
+            full_query = query + "\n" + additional_query if additional_query else query
+
+            history = examples["history"][i] if "history" in examples else None
+            system = examples["system"][i] if "system" in examples else None
+            response = examples["response"][i]
+            yield full_query, response, history, system
+
     def preprocess_pretrain_dataset(examples: Dict[str, List[Any]]) -> Dict[str, Any]:
         # build grouped texts with format `X1 X2 X3 ...` (without <eos>)
         if isinstance(
-            getattr(tokenizer, "tokenizer", None), tiktoken.Encoding
+                getattr(tokenizer, "tokenizer", None), tiktoken.Encoding
         ):  # for tiktoken tokenizer (Qwen)
             kwargs = dict(allowed_special="all")
         else:
@@ -574,7 +642,7 @@ def preprocess_dataset(
         total_length = (total_length // block_size) * block_size
         # split by chunks of max_source_length
         result = {
-            k: [t[i : i + block_size] for i in range(0, total_length, block_size)]
+            k: [t[i: i + block_size] for i in range(0, total_length, block_size)]
             for k, t in concatenated_examples.items()
         }
         return result
@@ -589,7 +657,7 @@ def preprocess_dataset(
             input_ids, labels = [], []
 
             for source_ids, target_ids in template.encode_multiturn(
-                tokenizer, query, response, history, system
+                    tokenizer, query, response, history, system
             ):
                 if len(source_ids) > data_args.max_source_length:
                     source_ids = source_ids[: data_args.max_source_length]
@@ -609,7 +677,7 @@ def preprocess_dataset(
         return model_inputs
 
     def preprocess_unsupervised_dataset(
-        examples: Dict[str, List[Any]]
+            examples: Dict[str, List[Any]]
     ) -> Dict[str, Any]:
         # build inputs with format `<bos> X` and labels with format `Y <eos>`
         model_inputs = {"input_ids": [], "attention_mask": [], "labels": []}
@@ -694,7 +762,7 @@ def checksum(data_files: List[str], file_sha1: Optional[str] = None) -> None:
 
 
 def get_dataset(
-    model_args: "ModelArguments", data_args: "DataArguments"
+        model_args: "ModelArguments", data_args: "DataArguments"
 ) -> Union["Dataset", "IterableDataset"]:
     max_samples = data_args.max_samples
     all_datasets: List[
@@ -715,10 +783,10 @@ def get_dataset(
             data_files: List[str] = []
 
             if os.path.isdir(
-                os.path.join(data_args.dataset_dir, dataset_attr.dataset_name)
+                    os.path.join(data_args.dataset_dir, dataset_attr.dataset_name)
             ):  # directory
                 for file_name in os.listdir(
-                    os.path.join(data_args.dataset_dir, dataset_attr.dataset_name)
+                        os.path.join(data_args.dataset_dir, dataset_attr.dataset_name)
                 ):
                     data_files.append(
                         os.path.join(
@@ -732,7 +800,7 @@ def get_dataset(
                             file_name.split(".")[-1], None
                         ), "file type does not match."
             elif os.path.isfile(
-                os.path.join(data_args.dataset_dir, dataset_attr.dataset_name)
+                    os.path.join(data_args.dataset_dir, dataset_attr.dataset_name)
             ):  # single file
                 data_files.append(
                     os.path.join(data_args.dataset_dir, dataset_attr.dataset_name)
@@ -761,8 +829,8 @@ def get_dataset(
 
         for column_name in ["prompt", "query", "response", "history"]:  # align datasets
             if (
-                getattr(dataset_attr, column_name)
-                and getattr(dataset_attr, column_name) != column_name
+                    getattr(dataset_attr, column_name)
+                    and getattr(dataset_attr, column_name) != column_name
             ):
                 dataset = dataset.rename_column(
                     getattr(dataset_attr, column_name), column_name
@@ -806,12 +874,12 @@ def get_dataset(
 
 
 def split_train_eval(
-    dataset: Dataset,
-    do_eval: bool = False,
-    eval_dataset_size: float = 0.1,
-    max_eval_samples: int = None,
-    do_train: bool = True,
-    max_train_samples: int = None,
+        dataset: Dataset,
+        do_eval: bool = False,
+        eval_dataset_size: float = 0.1,
+        max_eval_samples: int = None,
+        do_train: bool = True,
+        max_train_samples: int = None,
 ) -> Dict[str, Dataset]:
     """
     Prepare the training and evaluation datasets for a machine learning model.

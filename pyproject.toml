@@ -57,7 +57,6 @@ nvidia-nccl-cu12 = "2.18.1"
 nvidia-nvtx-cu12 = "12.1.105"
 triton = "2.1.0"
 nvidia-nvjitlink-cu12 = "^12.3.52"
-pygraphviz = "^1.11"
 
 [build-system]
 requires = ["poetry-core"]

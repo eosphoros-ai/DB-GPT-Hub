@@ -18,13 +18,13 @@
     <a href="https://github.com/eosphoros-ai/DB-GPT-Hub/issues">
       <img alt="Open Issues" src="https://img.shields.io/github/issues-raw/eosphoros-ai/DB-GPT-Hub" />
     </a>
-    <a href="https://discord.gg/nASQyBjvY">
-      <img alt="Discord" src="https://dcbadge.vercel.app/api/server/nASQyBjvY?compact=true&style=flat" />
+    <a href="https://discord.gg/7uQnPuveTY">
+      <img alt="Discord" src="https://dcbadge.vercel.app/api/server/7uQnPuveTY?compact=true&style=flat" />
     </a>
   </p>
 
 
-[**简体中文**](README.zh.md) | [**Discord**](https://discord.gg/nASQyBjvY) | [**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC) | [**Huggingface**](https://huggingface.co/eosphoros) | [**Community**](https://github.com/eosphoros-ai/community)
+[**简体中文**](README.zh.md) | [**Discord**](https://discord.gg/7uQnPuveTY) | [**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC) | [**Huggingface**](https://huggingface.co/eosphoros) | [**Community**](https://github.com/eosphoros-ai/community)
 </div>
 
 ## Contents
@@ -317,7 +317,7 @@ The MIT License (MIT)
 
 ## 9. Contact Information
 We are collaborating as a community, and if you have any ideas regarding our community work, please don't hesitate to get in touch with us. If you're interested in delving into an in-depth experiment and optimizing the DB-GPT-Hub subproject, you can reach out to 'wangzai' within the WeChat group. We wholeheartedly welcome your contributions to making it even better together! 
-[![](https://dcbadge.vercel.app/api/server/nASQyBjvY?compact=true&style=flat)](https://discord.gg/nASQyBjvY)
+[![](https://dcbadge.vercel.app/api/server/7uQnPuveTY?compact=true&style=flat)](https://discord.gg/7uQnPuveTY)
 
 <p align="center">
   <img src="assets/wechat.JPG" width="300px" />

@@ -262,13 +262,13 @@ tests-no-zope = ["cloudpickle", "hypothesis", "mypy (>=1.1.1)", "pympler", "pyte
 
 [[package]]
 name = "bitsandbytes"
-version = "0.39.0"
+version = "0.41.2"
 description = "k-bit optimizers and matrix multiplication routines."
 optional = false
 python-versions = "*"
 files = [
-    {file = "bitsandbytes-0.39.0-py3-none-any.whl", hash = "sha256:69e79cfce501cad5e34e9d785f5caf1768ead64f3e9f93b6bac1753e04dfa39a"},
-    {file = "bitsandbytes-0.39.0.tar.gz", hash = "sha256:b453dacf854e3624fe72b1306b1a6916de4a5edfd88fa01bf98ba73b2e3030d4"},
+    {file = "bitsandbytes-0.41.2-py3-none-any.whl", hash = "sha256:5a2280761dc11c7a23a1be948cfd6a849c2e718012ee34316b979eb6c5634de2"},
+    {file = "bitsandbytes-0.41.2.tar.gz", hash = "sha256:787c14b63cc559e1b344f683497a9353ac2e256a3fe89972f960e7c428d5cce7"},
 ]
 
 [[package]]
@@ -4247,4 +4247,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.13"
-content-hash = "c604a299b6b9fcb011c963bc8470c4a758baba2bb8e04c17918928d5c7c70043"
+content-hash = "fd8272ceaaac7b87bea6c6c49f11a7a3a791dece4cfb7eac34578a6a561dba6f"

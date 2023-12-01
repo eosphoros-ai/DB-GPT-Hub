@@ -11,7 +11,6 @@ python = ">=3.10,<3.13"
 transformers = "4.33.2"
 peft = "0.4.0"
 accelerate = "0.21.0"
-bitsandbytes = "0.39.0"
 einops = "0.6.1"
 evaluate = "0.4.0"
 scikit-learn = "1.2.2"
@@ -57,6 +56,7 @@ nvidia-nccl-cu12 = "2.18.1"
 nvidia-nvtx-cu12 = "12.1.105"
 triton = "2.1.0"
 nvidia-nvjitlink-cu12 = "^12.3.52"
+bitsandbytes = "0.41.2"
 
 [build-system]
 requires = ["poetry-core"]

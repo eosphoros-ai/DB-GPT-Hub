@@ -49,7 +49,10 @@ def main():
 
     with open(predict_output_dir_name, "w") as f:
         for p in result:
-            f.write(p.replace("\n", " ") + "\n")
+            try:
+                f.write(p.replace("\n", " ") + "\n")
+            except:
+                f.write("Invalid Output!\n")
 
 
 if __name__ == "__main__":

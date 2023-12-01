@@ -1,12 +1,13 @@
 from typing import Any
 from .mysql_connector import MySQLConnector
 
+
 class AnyDBConnector(BaseConnector):
     def __init__(
         self,
         db_type: str = "mysql",
-        host: str ="127.0.0.1",
-        port: str =3306,
+        host: str = "127.0.0.1",
+        port: str = 3306,
         user: Optional[str] = None,
         passwd: Optional[str] = None,
         db: Optional[str] = None,
@@ -15,15 +16,12 @@ class AnyDBConnector(BaseConnector):
         **kwargs
     ) -> Any:
         super().__init__(db_type, host, port, user, passwd, db, charset, args, kwargs)
-        if self.db_type == 'mysql':
+        if self.db_type == "mysql":
             self.connector = MySQLConnector(
-                host=self.host,
-                port=self.port,
-                user=self.user,
-                passwd=self.passwd
+                host=self.host, port=self.port, user=self.user, passwd=self.passwd
             )
         """TO DO: postgres, bigquery, etc."""
-    
+
     def __del__(self) -> Any:
         super().__del__()
 
@@ -51,7 +49,7 @@ class AnyDBConnector(BaseConnector):
 
     def get_all_table_metadata(self, args=None):
         """查询所有表的元数据信息"""
-        return self.connector.get_all_table_metadata(args)     
+        return self.connector.get_all_table_metadata(args)
 
     def get_table_metadata(self, db, table, args=None):
         """查询指定表的元数据信息"""

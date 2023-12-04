@@ -1,0 +1,74 @@
+{
+    "spider": {
+      "llama2-7b-hf": {
+        "base": {
+          "alpaca":{
+            "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+            "acc": {
+              "ex":{
+                "easy": 0.1,
+                "medium": 0.1,
+                "hard": 0.1,
+                "extra": 0.1,
+                "all": 0.1
+              },
+              "em":{
+                "easy": 0.1,
+                "medium": 0.1,
+                "hard": 0.1,
+                "extra": 0.1,
+                "all": 0.1
+              }
+            }
+          },
+          "openai":{
+            "instruction": "openai-instruction",
+            "acc": {
+              "ex":{
+                "easy": 0.887,
+                "medium": 0.711,
+                "hard": 0.575,
+                "extra": 0.380,
+                "all": 0.677
+              },
+              "em":{
+                "easy": 0.887,
+                "medium": 0.711,
+                "hard": 0.575,
+                "extra": 0.380,
+                "all": 0.677
+              }
+            }
+          }
+        },
+        "lora": {
+          "alpaca":{
+            "instruction": "test",
+            "acc": {
+              "ex":{
+                "easy": 0.887,
+                "medium": 0.711,
+                "hard": 0.575,
+                "extra": 0.380,
+                "all": 0.677
+              },
+              "em":{
+                "easy": 0.887,
+                "medium": 0.711,
+                "hard": 0.575,
+                "extra": 0.380,
+                "all": 0.677
+              }
+            }
+          }
+        },
+        "qlora": {
+         
+        }
+        ,
+        "ppo":{}
+      },
+      "llama2-7b-chat-hf": {
+      }
+    }
+  }

@@ -12,6 +12,7 @@ import argparse
 import subprocess
 import json
 
+from typing import Optional, Dict, Any
 from process_sql import get_schema, Schema, get_sql
 from exec_eval import eval_exec_match
 from func_timeout import func_timeout, FunctionTimedOut
@@ -1150,6 +1151,42 @@ def build_foreign_key_map_from_json(table):
     for entry in data:
         tables[entry["db_id"]] = build_foreign_key_map(entry)
     return tables
+
+
+def evaluate_api(args: Optional[Dict[str, Any]] = None):
+    # Prepare output file path by appending "2sql" before ".txt" if --natsql is true
+    if args["natsql"]:
+        pred_file_path = (
+            args["input"].rsplit(".", 1)[0] + "2sql." + args["input"].rsplit(".", 1)[1]
+        )
+        gold_file_path = args["gold_natsql"]
+        table_info_path = args["table_natsql"]
+    else:
+        pred_file_path = args["input"]
+        gold_file_path = args["gold"]
+        table_info_path = args["table"]
+
+    # only evaluating exact match needs this argument
+    kmaps = None
+    if args["etype"] in ["all", "match"]:
+        assert (
+            args.table is not None
+        ), "table argument must be non-None if exact set match is evaluated"
+        kmaps = build_foreign_key_map_from_json(args["table"])
+
+    # Print args
+    print(f"params as fllows \n {args}")
+
+    evaluate(
+        gold_file_path,
+        pred_file_path,
+        args["db"],
+        args["etype"],
+        kmaps,
+        args["plug_value"],
+        args["keep_distinct"],
+        args["progress_bar_for_each_datapoint"],
+    )
 
 
 if __name__ == "__main__":

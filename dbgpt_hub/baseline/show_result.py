@@ -2,65 +2,108 @@ import os
 import sys
 import json
 from typing import Optional, Dict, Any
-from prettytable import PrettyTable
-
+from prettytable.colortable import ColorTable, Theme
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(ROOT_PATH)
 
+
+MYTHEME = Theme(
+    default_color="96",  # blue
+    vertical_color="31",  # red
+    horizontal_color="33",  # yellow
+    junction_color="97",  # white
+)
+HEADER = [
+    "dataset",
+    "model",
+    "method",
+    "prompt",
+    "etype",
+    "easy",
+    "medium",
+    "hard",
+    "extra",
+    "all",
+]
 baseline_file = "./dbgpt_hub/baseline/baseline.json"
-# read json
+
 with open(baseline_file, "r") as file:
     baseline_json = json.load(file)
 
 
-def print_models_info(dataset, model, method, prompt):
-    print_table_models = PrettyTable()
-    models_header = ["dataset", "model", "method", "prompt"]
-    models_info = [dataset, model, method, prompt]
-    print_table_models.field_names = models_header
-    print_table_models.add_rows([models_info])
-    return print_table_models
+def print_color_table_score(acc_data, dataset, model, method, prompt):
+    model_data = [dataset, model, method, prompt]
+    print_table_scores = ColorTable(theme=MYTHEME)
+    print_table_scores.field_names = HEADER
+    model_ex = get_model_score(acc_data, "ex", model_data)
+    model_em = get_model_score(acc_data, "em", model_data)
+    print_table_scores.add_rows([model_em, model_ex])
+    print(print_table_scores, "\n")
 
 
-def print_scores_info(acc_data):
-    print_table_scores = PrettyTable()
-    scores_header = ["etype", "easy", "medium", "hard", "extra", "all"]
-    print_table_scores.field_names = scores_header
-    eytpe = "ex"
-    ex_score = [acc_data[eytpe][key] for key in acc_data[eytpe].keys()]
-    ex_score.insert(0, eytpe)
-    eytpe = "em"
-    em_score = [acc_data[eytpe][key] for key in acc_data[eytpe].keys()]
-    em_score.insert(0, eytpe)
-    print_table_scores.add_rows([ex_score, em_score])
-    return print_table_scores
+def table_add_row(table_scores, acc_data, dataset, model, method, prompt):
+    model_data = [dataset, model, method, prompt]
+    model_ex = get_model_score(acc_data, "ex", model_data)
+    model_em = get_model_score(acc_data, "em", model_data)
+    table_scores.add_rows([model_em, model_ex])
+    return table_scores
 
 
-def show_model(dataset, model, method, prompt):
-    # 1.get res
-    acc_data = baseline_json[dataset][model][method][prompt]["acc"]
+def add_scores_to_table(
+    table, json_data, dataset, model=None, method=None, prompt=None
+):
+    if model is None:
+        for model_key in json_data.keys():
+            add_scores_to_table(
+                table, json_data[model_key], dataset, model_key, method, prompt
+            )
+    elif method is None:
+        for method_key in json_data.keys():
+            add_scores_to_table(
+                table, json_data[method_key], dataset, model, method_key, prompt
+            )
+    elif prompt is None:
+        for prompt_key in json_data.keys():
+            add_scores_to_table(
+                table, json_data[prompt_key], dataset, model, method, prompt_key
+            )
+    else:
+        acc_data = json_data["acc"]
+        table_add_row(table, acc_data, dataset, model, method, prompt)
 
-    # 2.print models info
-    print_table_models = print_models_info(dataset, model, method, prompt)
-    print(print_table_models)
 
-    # 3.print scores info
-    print_table_scores = print_scores_info(acc_data)
-    print(print_table_scores)
+def show_score(dataset=None, model=None, method=None, prompt=None):
+    if dataset is None:
+        raise ValueError("dataset cannot be None!")
+    elif model is None:
+        json_data = baseline_json[dataset]
+    elif method is None:
+        json_data = baseline_json[dataset][model]
+    elif prompt is None:
+        json_data = baseline_json[dataset][model][method]
+    else:
+        json_data = baseline_json[dataset][model][method][prompt]
+    table_scores = ColorTable(theme=MYTHEME)
+    table_scores.field_names = HEADER
+    add_scores_to_table(table_scores, json_data, dataset, model, method, prompt)
+    print(table_scores)
 
 
-def show_model_api(args: Optional[Dict[str, Any]] = None):
-    dataset = args["dataset"]
-    model = args["model"]
-    method = args["method"]
-    prompt = args["prompt"]
-
-    show_model(dataset, model, method, prompt)
+def show_score_api(dataset=None, model=None, method=None, prompt=None):
+    show_score(dataset, model, method, prompt)
 
 
-def show_all():
+def get_model_score(acc_data, etype, model_data):
+    etype_score = [etype] + [acc_data[etype][key] for key in acc_data[etype].keys()]
+    model_score = model_data + etype_score
+    return model_score
+
+
+def show_scores():
     datasets = baseline_json.keys()
+    table_scores = ColorTable(theme=MYTHEME)
+    table_scores.field_names = HEADER
     for dataset in datasets:
         models = baseline_json[dataset].keys()
         for model in models:
@@ -68,37 +111,26 @@ def show_all():
             for method in methods:
                 prompts = baseline_json[dataset][model][method].keys()
                 for prompt in prompts:
-                    # 1.get scores info
                     acc_data = baseline_json[dataset][model][method][prompt]["acc"]
-
-                    # 2.print models info
-                    print_table_models = print_models_info(
-                        dataset, model, method, prompt
+                    table_scores = table_add_row(
+                        table_scores, acc_data, dataset, model, method, prompt
                     )
-                    print(print_table_models)
-
-                    # 3.print scores info
-                    print_table_scores = print_scores_info(acc_data)
-                    print(print_table_scores)
+    print(table_scores, "\n")
 
 
-def show_all_api():
-    show_all()
+def show_scores_api():
+    show_scores()
 
 
 # def update():
-#     # todo : 更新baseline.json
+#     # todo : update baseline.json
 #     #
 
 
 if __name__ == "__main__":
-    # args
-    show_args = {
-        "dataset": "spider",
-        "model": "llama2-7b-hf",
-        "method": "lora",
-        "prompt": "alpaca",
-    }
-    show_model(show_args)
-
-    show_all()
+    # show_scores()
+    # show_score() # ValueError: dataset cannot be None!
+    # show_score(dataset="spider")
+    # show_score(dataset="spider", model="llama2-7b-hf")
+    # show_score(dataset="spider", model="llama2-7b-hf", method="base")
+    show_score(dataset="spider", model="llama2-7b-hf", method="base", prompt="alpaca")

@@ -267,7 +267,7 @@ def load_model_and_tokenizer(
     if "GenerationMixin" not in str(model.generate.__func__):
         model.generate = MethodType(PreTrainedModel.generate, model)
 
-    # Fix LM head (for ChatGLM2)
+    # Fix LM head (for ChatGLM2,ChatGLM3)
     if not hasattr(model, "lm_head") and hasattr(model, "transformer"):
         setattr(model, "lm_head", model.transformer.output_layer)
 

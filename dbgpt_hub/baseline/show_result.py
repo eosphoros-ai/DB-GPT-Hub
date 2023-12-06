@@ -170,8 +170,6 @@ def show_scores():
                     acc_data = baseline_json[dataset][model][method][prompt]["acc"]
                     table_scores = table_add_row(
                         table_scores, acc_data, dataset, model, method, prompt
-                    table_scores = table_add_row(
-                        table_scores, acc_data, dataset, model, method, prompt
                     )
     print(table_scores, "\n")
     print(table_scores, "\n")

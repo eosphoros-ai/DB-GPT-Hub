@@ -74,6 +74,24 @@ def add_scores_to_table(
 
 
 def show_score(dataset=None, model=None, method=None, prompt=None):
+    """
+    Displays the model baseline score information for a given dataset, model, method and prompt.
+
+    Args:
+        dataset (str, optional): The dataset to be used for scoring.
+        model (str, optional): The model to be scored on the dataset.
+        method (str, optional): The training method to us.
+        prompt (str, optional): Additional information or context prompt.
+
+    Returns:
+        model baseline score.
+
+
+    Examples
+    >>> from dbgpt_hub.baseline import show_score
+    >>> show_score(dataset="spider", model="llama2-7b-hf", method="base", prompt="alpaca")
+
+    """
     if dataset is None:
         raise ValueError("dataset cannot be None!")
     elif model is None:
@@ -101,6 +119,21 @@ def get_model_score(acc_data, etype, model_data):
 
 
 def show_scores():
+    """
+    Displays baseline score information for all models.
+
+    Args:
+        None
+
+    Returns:
+        model baseline score.
+
+
+    Examples
+    >>> from dbgpt_hub.baseline import show_scores
+    >>> show_scores()
+
+    """
     datasets = baseline_json.keys()
     table_scores = ColorTable(theme=MYTHEME)
     table_scores.field_names = HEADER
@@ -122,15 +155,5 @@ def show_scores_api():
     show_scores()
 
 
-# def update():
-#     # todo : update baseline.json
-#     #
-
-
 if __name__ == "__main__":
-    # show_scores()
-    # show_score() # ValueError: dataset cannot be None!
-    # show_score(dataset="spider")
-    # show_score(dataset="spider", model="llama2-7b-hf")
-    # show_score(dataset="spider", model="llama2-7b-hf", method="base")
     show_score(dataset="spider", model="llama2-7b-hf", method="base", prompt="alpaca")

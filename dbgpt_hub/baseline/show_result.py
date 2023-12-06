@@ -3,6 +3,7 @@ import sys
 import json
 from typing import Optional, Dict, Any
 from prettytable.colortable import ColorTable, Theme
+from prettytable.colortable import ColorTable, Theme
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(ROOT_PATH)
@@ -26,7 +27,27 @@ HEADER = [
     "extra",
     "all",
 ]
+
+MYTHEME = Theme(
+    default_color="96",  # blue
+    vertical_color="31",  # red
+    horizontal_color="33",  # yellow
+    junction_color="97",  # white
+)
+HEADER = [
+    "dataset",
+    "model",
+    "method",
+    "prompt",
+    "etype",
+    "easy",
+    "medium",
+    "hard",
+    "extra",
+    "all",
+]
 baseline_file = "./dbgpt_hub/baseline/baseline.json"
+
 
 with open(baseline_file, "r") as file:
     baseline_json = json.load(file)
@@ -137,6 +158,8 @@ def show_scores():
     datasets = baseline_json.keys()
     table_scores = ColorTable(theme=MYTHEME)
     table_scores.field_names = HEADER
+    table_scores = ColorTable(theme=MYTHEME)
+    table_scores.field_names = HEADER
     for dataset in datasets:
         models = baseline_json[dataset].keys()
         for model in models:
@@ -147,7 +170,10 @@ def show_scores():
                     acc_data = baseline_json[dataset][model][method][prompt]["acc"]
                     table_scores = table_add_row(
                         table_scores, acc_data, dataset, model, method, prompt
+                    table_scores = table_add_row(
+                        table_scores, acc_data, dataset, model, method, prompt
                     )
+    print(table_scores, "\n")
     print(table_scores, "\n")
 
 

@@ -5,8 +5,12 @@ from dbgpt_hub.baseline import show_result
 
 def show_scores():
     show_result.show_scores_api()
+def show_scores():
+    show_result.show_scores_api()
 
 
+def show_score(dataset=None, model=None, method=None, prompt=None):
+    show_result.show_score_api(dataset, model, method, prompt)
 def show_score(dataset=None, model=None, method=None, prompt=None):
     show_result.show_score_api(dataset, model, method, prompt)
 

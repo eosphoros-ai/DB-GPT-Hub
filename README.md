@@ -45,8 +45,9 @@
   - [4. RoadMap](#4-roadmap)
   - [5. Contributions](#5-contributions)
   - [6. Acknowledgements](#6-acknowledgements)
-  - [7、Licence](#7licence)
-  - [8、Contact Information](#8contact-information)
+  - [7. Citation](#7-citation)
+  - [8. Licence](#8-licence)
+  - [9. Contact Information](#9-contact-information)
 
 ## 1. What is DB-GPT-Hub
 
@@ -89,7 +90,10 @@ DB-GPT-Hub currently supports the following base models:
   - [x] Qwen
   - [x] XVERSE
   - [x] ChatGLM2
+  - [x] ChatGLM3
   - [x] internlm
+
+
 
 
 The model is fine-tuned based on a quantization bit of 4 using Quantized Learning over Redundant Architecture (QLoRA). The minimum hardware requirements for this can be referred to as follows:   
@@ -181,6 +185,7 @@ In the script, during fine-tuning, different models correspond to key parameters
 | [Qwen](https://github.com/QwenLM/Qwen-7B)                | c_attn          | chatml    |
 | [XVERSE](https://github.com/xverse-ai/XVERSE-13B)        | q_proj,v_proj   | xverse    |
 | [ChatGLM2](https://github.com/THUDM/ChatGLM2-6B)         | query_key_value | chatglm2  |
+| [ChatGLM3](https://github.com/THUDM/ChatGLM3-6B)         | query_key_value | chatglm3  |
 | [LLaMA](https://github.com/facebookresearch/llama)       | q_proj,v_proj   | -         |
 | [BLOOM](https://huggingface.co/bigscience/bloom)         | query_key_value | -         |
 | [BLOOMZ](https://huggingface.co/bigscience/bloomz)       | query_key_value | -         |
@@ -210,7 +215,7 @@ poetry run sh ./dbgpt_hub/scripts/predict_sft.sh
 ```
 
 In the script, by default with the parameter `--quantization_bit`, it predicts using QLoRA. Removing it switches to the LoRA prediction method.
-The value of the parameter  `--predicted_out_filename` is the file name of the model's predicted results, which can be found in the   `dbgpt_hub/output/pred` directory.
+The value of the parameter `predicted_input_filename`  is your predict test dataset file.  `--predicted_out_filename` is the file name of the model's predicted results.
 
 ### 3.5 Model Weights
 You can find the second corresponding model weights  from Huggingface [hg-eosphoros-ai
@@ -250,6 +255,7 @@ The whole process we will divide into three phases:
   - [x] Qwen
   - [x] XVERSE
   - [x] ChatGLM2
+  - [x] ChatGLM3
   - [x] internlm
 
 * Stage 2:

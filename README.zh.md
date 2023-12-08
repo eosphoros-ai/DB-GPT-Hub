@@ -44,8 +44,9 @@
   - [四、发展路线](#四发展路线)
   - [五、贡献](#五贡献)
   - [六、感谢](#六感谢)
-  - [七、Licence](#七licence)
-  - [八、Contact Information](#八contact-information)
+  - [七、引用](#七引用)
+  - [八、Licence](#八licence)
+  - [九、我们的联系方式](#九我们的联系方式)
 
 ## 一、简介
 
@@ -84,6 +85,7 @@ DB-GPT-HUB目前已经支持的base模型有：
   - [x] Qwen
   - [x] XVERSE
   - [x] ChatGLM2
+  - [x] ChatGLM3
   - [x] internlm
   - [x] Falcon
 
@@ -200,7 +202,7 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
 poetry run sh ./dbgpt_hub/scripts/predict_sft.sh
 ```   
 脚本中默认带着参数`--quantization_bit `为QLoRA的预测，去掉即为LoRA的预测方式。  
-其中参数 `--predicted_out_filename` 的值为模型预测的结果文件名，结果在`dbgpt_hub/output/pred`目录下可以找到。
+其中参数`predicted_input_filename`  为要预测的数据集文件， `--predicted_out_filename` 的值为模型预测的结果文件名。默认结果保存在`dbgpt_hub/output/pred`目录。
 
 
 ### 3.5、模型权重
@@ -237,6 +239,7 @@ poetry run python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_
   - [x] Qwen
   - [x] XVERSE
   - [x] ChatGLM2
+  - [x] ChatGLM3
   - [x] internlm    
   
 * 阶段二:

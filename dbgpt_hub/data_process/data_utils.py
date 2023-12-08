@@ -148,15 +148,6 @@ def get_template_and_fix_tokenizer(
     assert template is not None, "Template {} does not exist.".format(name)
 
     additional_special_tokens = template.stop_words
-    if len(template.stop_words):  # inplace method
-        if tokenizer.eos_token_id is not None:
-            additional_special_tokens.append(tokenizer.eos_token)
-
-        tokenizer.eos_token = additional_special_tokens[
-            0
-        ]  # use the first stop word as eos token
-        additional_special_tokens.pop(0)
-        logger.info("Replace eos token: {}".format(tokenizer.eos_token))
 
     if tokenizer.eos_token_id is None:
         tokenizer.eos_token = "<|endoftext|>"
@@ -168,6 +159,9 @@ def get_template_and_fix_tokenizer(
         else:
             tokenizer.pad_token = tokenizer.eos_token
         logger.info("Add pad token: {}".format(tokenizer.pad_token))
+
+    if name is None:
+        return None
 
     tokenizer.add_special_tokens(
         dict(additional_special_tokens=additional_special_tokens),
@@ -482,6 +476,52 @@ register_template(
     prompt=["[Round {{idx}}]\n\n问：{{query}}\n\n答："],
     system="",
     sep=["\n\n"],
+)
+
+
+r"""
+Supports: https://huggingface.co/THUDM/chatglm3-6b
+"""
+register_template(
+    name="chatglm3",
+    prefix=[
+        {"token": "[gMASK]"},
+        {"token": "sop"},
+        {"token": "<|system|>"},
+        "\n",
+        "{{system}}",
+    ],
+    prompt=[
+        {"token": "<|user|>"},
+        "\n",
+        "{{query}}",
+        {"token": "<|assistant|>"},
+        "\n",  # add an extra newline to avoid error in ChatGLM's process_response method
+    ],
+    system=(
+        "You are ChatGLM3, a large language model trained by Zhipu.AI. "
+        "Follow the user's instructions carefully. Respond using markdown."
+    ),
+    sep=[],
+    stop_words=["<|user|>", "<|observation|>"],
+)
+
+register_template(
+    name="chatglm3_raw",  # the raw template for tool tuning
+    prefix=[
+        {"token": "[gMASK]"},
+        {"token": "sop"},
+        {"token": "<|system|>"},
+        "\n",
+        "{{system}}",
+    ],
+    prompt=[{"token": "<|user|>"}, "\n", "{{query}}", {"token": "<|assistant|>"}],
+    system=(
+        "You are ChatGLM3, a large language model trained by Zhipu.AI. "
+        "Follow the user's instructions carefully. Respond using markdown."
+    ),
+    sep=[],
+    stop_words=["<|user|>", "<|observation|>"],
 )
 
 

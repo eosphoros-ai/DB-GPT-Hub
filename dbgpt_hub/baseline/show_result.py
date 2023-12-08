@@ -3,7 +3,6 @@ import sys
 import json
 from typing import Optional, Dict, Any
 from prettytable.colortable import ColorTable, Theme
-from prettytable.colortable import ColorTable, Theme
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(ROOT_PATH)
@@ -158,8 +157,6 @@ def show_scores():
     datasets = baseline_json.keys()
     table_scores = ColorTable(theme=MYTHEME)
     table_scores.field_names = HEADER
-    table_scores = ColorTable(theme=MYTHEME)
-    table_scores.field_names = HEADER
     for dataset in datasets:
         models = baseline_json[dataset].keys()
         for model in models:
@@ -172,7 +169,6 @@ def show_scores():
                         table_scores, acc_data, dataset, model, method, prompt
                     )
     print(table_scores, "\n")
-    print(table_scores, "\n")
 
 
 def show_scores_api():
@@ -180,4 +176,5 @@ def show_scores_api():
 
 
 if __name__ == "__main__":
+    show_scores()
     show_score(dataset="spider", model="llama2-7b-hf", method="base", prompt="alpaca")

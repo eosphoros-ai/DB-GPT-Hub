@@ -36,7 +36,7 @@
     - [2.2. Model](#22-model)
   - [3. Usage](#3-usage)
     - [3.1. Environment preparation](#31-environment-preparation)
-    - [3.2. Quick Start](#33-quick-start)
+    - [3.2. Quick Start](#32-quick-start)
     - [3.3. Data preparation](#33-data-preparation)
     - [3.4. Model fine-tuning](#34-model-fine-tuning)
     - [3.5. Model Predict](#35-model-predict)

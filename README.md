@@ -121,9 +121,9 @@ poetry install
 ```
 ### 3.2 Quick Start
 
-Firstly, install `dbgpt_hub` with the following command
+Firstly, install `dbgpt-hub` with the following command
 
-`pip install dbgpt_hub`
+`pip install dbgpt-hub`
 
 Then, set up the arguments and run the whole process.
 ```python

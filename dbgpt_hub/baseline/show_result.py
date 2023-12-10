@@ -3,7 +3,6 @@ import sys
 import json
 from typing import Optional, Dict, Any
 from prettytable.colortable import ColorTable, Theme
-from prettytable.colortable import ColorTable, Theme
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(ROOT_PATH)
@@ -46,6 +45,7 @@ HEADER = [
     "extra",
     "all",
 ]
+
 baseline_file = "./dbgpt_hub/baseline/baseline.json"
 
 
@@ -113,6 +113,24 @@ def show_score(dataset=None, model=None, method=None, prompt=None):
     >>> show_score(dataset="spider", model="llama2-7b-hf", method="base", prompt="alpaca")
 
     """
+    """
+    Displays the model baseline score information for a given dataset, model, method and prompt.
+
+    Args:
+        dataset (str, optional): The dataset to be used for scoring.
+        model (str, optional): The model to be scored on the dataset.
+        method (str, optional): The training method to us.
+        prompt (str, optional): Additional information or context prompt.
+
+    Returns:
+        model baseline score.
+
+
+    Examples
+    >>> from dbgpt_hub.baseline import show_score
+    >>> show_score(dataset="spider", model="llama2-7b-hf", method="base", prompt="alpaca")
+
+    """
     if dataset is None:
         raise ValueError("dataset cannot be None!")
     elif model is None:
@@ -155,9 +173,22 @@ def show_scores():
     >>> show_scores()
 
     """
+    """
+    Displays baseline score information for all models.
+
+    Args:
+        None
+
+    Returns:
+        model baseline score.
+
+
+    Examples
+    >>> from dbgpt_hub.baseline import show_scores
+    >>> show_scores()
+
+    """
     datasets = baseline_json.keys()
-    table_scores = ColorTable(theme=MYTHEME)
-    table_scores.field_names = HEADER
     table_scores = ColorTable(theme=MYTHEME)
     table_scores.field_names = HEADER
     for dataset in datasets:
@@ -172,7 +203,6 @@ def show_scores():
                         table_scores, acc_data, dataset, model, method, prompt
                     )
     print(table_scores, "\n")
-    print(table_scores, "\n")
 
 
 def show_scores_api():
@@ -180,4 +210,5 @@ def show_scores_api():
 
 
 if __name__ == "__main__":
+    show_scores()
     show_score(dataset="spider", model="llama2-7b-hf", method="base", prompt="alpaca")

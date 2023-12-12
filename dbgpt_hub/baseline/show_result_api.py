@@ -12,4 +12,4 @@ def show_score(dataset=None, model=None, method=None, prompt=None):
 
 
 if __name__ == "__main__":
-    show_score(dataset="spider", model="llama2-7b-hf", method="base", prompt="alpaca")
+    show_score(dataset="spider", model="llama2-7b-chat", method="lora", prompt="alpaca")

@@ -81,6 +81,14 @@ class DataArguments:
         default="dbgpt_hub/data/",
         metadata={"help": "The name of the folder containing datasets."},
     )
+    cutoff_len: Optional[int] = field(
+        default=1024,
+        metadata={"help": "The maximum length of the model inputs after tokenization."}
+    )
+    reserved_label_len: Optional[int] = field(
+        default=1,
+        metadata={"help": "The maximum length reserved for label after tokenization."}
+    )
     split: Optional[str] = field(
         default="train",
         metadata={"help": "Which dataset split to use for training and evaluation."},
@@ -152,6 +160,10 @@ class DataArguments:
         metadata={
             "help": "Size of the development set, should be an integer or a float in range `[0,1)`."
         },
+    )
+    predicted_input_filename: Optional[str] = field(
+        default="dbgpt_hub/data/example_text2sql_dev.json",
+        metadata={"help": "Predict input filename to do pred "},
     )
     predicted_out_filename: Optional[str] = field(
         default="pred_sql.sql",

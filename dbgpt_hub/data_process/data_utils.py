@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import tiktoken
 from itertools import chain
-from typing import Any, Dict, List, Optional, Tuple, Union, TYPE_CHECKING, Generator
+from typing import Any, Dict, List, Optional, Tuple, Union, TYPE_CHECKING, Generator, Literal
 from datasets import (
     Dataset,
     DatasetDict,
@@ -62,6 +62,12 @@ def extract_sql_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:
     else:
         prompt_format = SQL_PROMPT_DICT["prompt_no_input"]
     return {"input": prompt_format.format(**example)}
+
+def infer_max_len(source_len: int, target_len: int, data_args: "DataArguments") -> Tuple[int, int]:
+    max_target_len = int(data_args.cutoff_len * (target_len / (source_len + target_len)))
+    max_target_len = max(max_target_len, data_args.reserved_label_len)
+    max_source_len = data_args.cutoff_len - max_target_len
+    return max_source_len, max_target_len
 
 
 def local_dataset(
@@ -539,6 +545,7 @@ def preprocess_dataset(
     tokenizer: "PreTrainedTokenizer",
     data_args: "DataArguments",
     training_args: "Seq2SeqTrainingArguments",
+    stage: Literal["pt", "sft", "rm", "ppo"]
 ) -> Union["Dataset", "IterableDataset"]:
     column_names = list(next(iter(dataset)).keys())
     template = get_template_and_fix_tokenizer(data_args.template, tokenizer)
@@ -630,6 +637,42 @@ def preprocess_dataset(
 
         return model_inputs
 
+    def preprocess_pairwise_dataset(examples: Dict[str, List[Any]]) -> Dict[str, List[List[int]]]:
+        # build input pairs with format `<bos> X`, `Y1 <eos>` and `Y2 <eos>` for rm stage
+        model_inputs = {"prompt_ids": [], "chosen_ids": [], "rejected_ids": []}
+        for query, response, history, system in construct_example(examples):
+            if not (isinstance(query, str) and isinstance(response, list) and query != "" and len(response) > 1):
+                continue
+
+            prompt_ids, chosen_ids = template.encode_oneturn(tokenizer, query, response[0], history, system)
+            _, rejected_ids = template.encode_oneturn(tokenizer, query, response[1], history, system)
+
+            # if template.efficient_eos:
+            chosen_ids += [tokenizer.eos_token_id]
+            rejected_ids += [tokenizer.eos_token_id]
+
+            source_len, target_len = len(prompt_ids), max(len(chosen_ids), len(rejected_ids))
+            max_source_len, max_target_len = infer_max_len(source_len, target_len, data_args)
+            if source_len > max_source_len:
+                prompt_ids = prompt_ids[:max_source_len]
+            if target_len > max_target_len:
+                chosen_ids = chosen_ids[:max_target_len]
+                rejected_ids = rejected_ids[:max_target_len]
+
+            model_inputs["prompt_ids"].append(prompt_ids)
+            model_inputs["chosen_ids"].append(chosen_ids)
+            model_inputs["rejected_ids"].append(rejected_ids)
+
+        return model_inputs
+    
+    def print_pairwise_dataset_example(example: Dict[str, List[int]]) -> None:
+        print("prompt_ids:\n{}".format(example["prompt_ids"]))
+        print("prompt:\n{}".format(tokenizer.decode(example["prompt_ids"], skip_special_tokens=False)))
+        print("chosen_ids:\n{}".format(example["chosen_ids"]))
+        print("chosen:\n{}".format(tokenizer.decode(example["chosen_ids"], skip_special_tokens=False)))
+        print("rejected_ids:\n{}".format(example["rejected_ids"]))
+        print("rejected:\n{}".format(tokenizer.decode(example["rejected_ids"], skip_special_tokens=False)))
+
     def print_supervised_dataset_example(example):
         print("input_ids:\n{}".format(example["input_ids"]))
         print(
@@ -650,9 +693,18 @@ def preprocess_dataset(
             )
         )
 
-    dataset = dataset.filter(lambda example: example["prompt"] and example["response"])
-    preprocess_function = preprocess_supervised_dataset
-    print_function = print_supervised_dataset_example
+
+    if stage == "pt":
+        pass
+    elif stage == "sft" and not training_args.predict_with_generate:
+        preprocess_function = preprocess_supervised_dataset
+        print_function = print_supervised_dataset_example
+    elif stage == "rm":
+        print(111111111111111111)
+        preprocess_function = preprocess_pairwise_dataset
+        print_function = print_pairwise_dataset_example
+    else:
+       pass
 
     with training_args.main_process_first(desc="dataset map pre-processing"):
         kwargs = {}

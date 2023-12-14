@@ -77,16 +77,6 @@ with open(baseline_file, "r") as file:
     baseline_json = json.load(file)
 
 
-def print_color_table_score(acc_data, dataset, model, method, prompt):
-    model_data = [dataset, model, method, prompt]
-    print_table_scores = ColorTable(theme=MYTHEME)
-    print_table_scores.field_names = HEADER
-    model_ex = get_model_score(acc_data, "ex", model_data)
-    model_em = get_model_score(acc_data, "em", model_data)
-    print_table_scores.add_rows([model_em, model_ex])
-    print(print_table_scores, "\n")
-
-
 def table_add_row(table_scores, acc_data, dataset, model, method, prompt):
     model_data = [dataset, model, method, prompt]
     model_ex = get_model_score(acc_data, "ex", model_data)
@@ -150,6 +140,8 @@ def show_score(dataset=None, model=None, method=None, prompt=None):
     table_scores = ColorTable(theme=MYTHEME)
     table_scores.field_names = HEADER
     add_scores_to_table(table_scores, json_data, dataset, model, method, prompt)
+    table_scores.sortby = "all"
+    table_scores.reversesort = True
     print(table_scores)
 
 
@@ -193,6 +185,8 @@ def show_scores():
                     table_scores = table_add_row(
                         table_scores, acc_data, dataset, model, method, prompt
                     )
+    table_scores.sortby = "all"
+    table_scores.reversesort = True
     print(table_scores, "\n")
 
 

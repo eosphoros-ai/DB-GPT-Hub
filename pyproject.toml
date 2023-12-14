@@ -58,6 +58,7 @@ triton = "2.1.0"
 nvidia-nvjitlink-cu12 = "^12.3.52"
 bitsandbytes = "0.41.2"
 prettytable = "^3.9.0"
+docopt = "^0.6.2"
 
 [build-system]
 requires = ["poetry-core"]

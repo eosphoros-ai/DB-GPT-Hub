@@ -631,6 +631,16 @@ files = [
 six = ">=1.4.0"
 
 [[package]]
+name = "docopt"
+version = "0.6.2"
+description = "Pythonic argument parser, that will make you smile"
+optional = false
+python-versions = "*"
+files = [
+    {file = "docopt-0.6.2.tar.gz", hash = "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"},
+]
+
+[[package]]
 name = "docstring-parser"
 version = "0.15"
 description = "Parse Python docstrings in reST, Google and Numpydoc format"
@@ -4275,4 +4285,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.13"
-content-hash = "1a72696f6fe92c6aaefb88b490db19cef695ebed932ed0b88b4c26b20150abaf"
+content-hash = "31cd031e60d15eb9bdca0afc4ce0fb8261ee48990035089d4f29d69bc23b702a"

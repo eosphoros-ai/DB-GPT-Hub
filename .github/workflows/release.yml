@@ -41,7 +41,7 @@ jobs:
         run: echo "DBGPT_HUB_VERSION=`toml get --toml-path pyproject.toml tool.poetry.version`" >> $GITHUB_ENV
 
       - name: Create release note
-        run: poetry run python scripts/release-note.py $(git rev-parse --short HEAD) > RELEASE.md
+        run: poetry run python release_scripts/release-note.py $(git rev-parse --short HEAD) > RELEASE.md
 
       - uses: ncipollo/release-action@v1
         with:

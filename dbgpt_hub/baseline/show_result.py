@@ -27,26 +27,50 @@ HEADER = [
     "all",
 ]
 
-MYTHEME = Theme(
-    default_color="96",  # blue
-    vertical_color="31",  # red
-    horizontal_color="33",  # yellow
-    junction_color="97",  # white
-)
-HEADER = [
-    "dataset",
-    "model",
-    "method",
-    "prompt",
-    "etype",
-    "easy",
-    "medium",
-    "hard",
-    "extra",
-    "all",
-]
-
 baseline_file = "./dbgpt_hub/baseline/baseline.json"
+ALPACA = 'I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n'
+OPENAI = "openai"
+
+
+def init_baseline_json():
+    datasets = ["spider"]
+    models = [
+        "llama2-7b-chat",
+        "llama2-13b-chat",
+        "codellama-7b-instruct",
+        "codellama-13b-instruct",
+        "baichuan2-7b-chat",
+        "baichuan2-13b-chat",
+        "qwen-7b-chat",
+        "qwen-14b-chat",
+        "chatglm3-6b",
+    ]
+    methods = ["base", "lora", "qlora"]
+    prompts = ["alpaca"]
+    metrics = ["ex", "em"]
+    levels = ["easy", "medium", "hard", "extra", "all"]
+    # init json
+    json_data = {
+        dataset: {
+            model: {
+                method: {
+                    prompt: {
+                        "instruction": ALPACA if prompt == "alpaca" else OPENAI,
+                        "acc": {
+                            metric: {level: "" for level in levels}
+                            for metric in metrics
+                        },
+                    }
+                    for prompt in prompts
+                }
+                for method in methods
+            }
+            for model in models
+        }
+        for dataset in datasets
+    }
+    with open(baseline_file, "w") as file:
+        json.dump(json_data, file, indent=4)
 
 
 with open(baseline_file, "r") as file:
@@ -110,25 +134,7 @@ def show_score(dataset=None, model=None, method=None, prompt=None):
 
     Examples
     >>> from dbgpt_hub.baseline import show_score
-    >>> show_score(dataset="spider", model="llama2-7b-hf", method="base", prompt="alpaca")
-
-    """
-    """
-    Displays the model baseline score information for a given dataset, model, method and prompt.
-
-    Args:
-        dataset (str, optional): The dataset to be used for scoring.
-        model (str, optional): The model to be scored on the dataset.
-        method (str, optional): The training method to us.
-        prompt (str, optional): Additional information or context prompt.
-
-    Returns:
-        model baseline score.
-
-
-    Examples
-    >>> from dbgpt_hub.baseline import show_score
-    >>> show_score(dataset="spider", model="llama2-7b-hf", method="base", prompt="alpaca")
+    >>> show_score(dataset="spider", model="llama2-7b-chat", method="lora", prompt="alpaca")
 
     """
     if dataset is None:
@@ -173,21 +179,6 @@ def show_scores():
     >>> show_scores()
 
     """
-    """
-    Displays baseline score information for all models.
-
-    Args:
-        None
-
-    Returns:
-        model baseline score.
-
-
-    Examples
-    >>> from dbgpt_hub.baseline import show_scores
-    >>> show_scores()
-
-    """
     datasets = baseline_json.keys()
     table_scores = ColorTable(theme=MYTHEME)
     table_scores.field_names = HEADER
@@ -211,4 +202,4 @@ def show_scores_api():
 
 if __name__ == "__main__":
     show_scores()
-    show_score(dataset="spider", model="llama2-7b-hf", method="base", prompt="alpaca")
+    show_score(dataset="spider", model="llama2-7b-chat", method="lora", prompt="alpaca")

@@ -16,11 +16,13 @@ jobs:
       fail-fast: false
       matrix:
         python: ["3.10", "3.11"]
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
         include:
           - os: ubuntu-latest
             install_graphviz:
               sudo apt-get install graphviz libgraphviz-dev
+          - os: macos-latest
+            install_graphviz: brew install graphviz
           - os: windows-latest
             install_graphviz:
               choco install graphviz --version=2.48.0;

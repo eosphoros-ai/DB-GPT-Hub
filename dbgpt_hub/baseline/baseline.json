@@ -1,175 +1,589 @@
 {
-  "spider": {
-    "llama2-7b-hf": {
-      "base": {
-        "alpaca":{
-          "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
-          "acc": {
-            "ex":{
-              "easy": 0.1,
-              "medium": 0.1,
-              "hard": 0.1,
-              "extra": 0.1,
-              "all": 0.1
+    "spider": {
+        "llama2-7b-chat": {
+            "base": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0",
+                            "medium": "0",
+                            "hard": "0",
+                            "extra": "0",
+                            "all": "0"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
             },
-            "em":{
-              "easy": 0.1,
-              "medium": 0.1,
-              "hard": 0.1,
-              "extra": 0.1,
-              "all": 0.1
+            "lora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.887",
+                            "medium": "0.641",
+                            "hard": "0.489",
+                            "extra": "0.331",
+                            "all": "0.626"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "qlora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.847",
+                            "medium": "0.623",
+                            "hard": "0.466",
+                            "extra": "0.361",
+                            "all": "0.608"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
             }
-          }
         },
-        "openai":{
-          "instruction": "openai-instruction",
-          "acc": {
-            "ex":{
-              "easy": 0.887,
-              "medium": 0.711,
-              "hard": 0.575,
-              "extra": 0.380,
-              "all": 0.677
+        "llama2-13b-chat": {
+            "base": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0",
+                            "medium": "0",
+                            "hard": "0",
+                            "extra": "0",
+                            "all": "0"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
             },
-            "em":{
-              "easy": 0.887,
-              "medium": 0.711,
-              "hard": 0.575,
-              "extra": 0.380,
-              "all": 0.677
-            }
-          }
-        }
-      },
-      "lora":{
-        "alpaca":{
-          "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
-          "acc": {
-            "ex":{
-              "easy": 0.1,
-              "medium": 0.1,
-              "hard": 0.1,
-              "extra": 0.1,
-              "all": 0.1
+            "lora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.907",
+                            "medium": "0.729",
+                            "hard": "0.552",
+                            "extra": "0.343",
+                            "all": "0.680"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
             },
-            "em":{
-              "easy": 0.1,
-              "medium": 0.1,
-              "hard": 0.1,
-              "extra": 0.1,
-              "all": 0.1
+            "qlora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.911",
+                            "medium": "0.700",
+                            "hard": "0.552",
+                            "extra": "0.319",
+                            "all": "0.664"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
             }
-          }
-        }
-      },
-      "qlora": {
-        "openai":{
-          "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
-          "acc": {
-            "ex":{
-              "easy": 0.1,
-              "medium": 0.1,
-              "hard": 0.1,
-              "extra": 0.1,
-              "all": 0.1
-            },
-            "em":{
-              "easy": 0.1,
-              "medium": 0.1,
-              "hard": 0.1,
-              "extra": 0.1,
-              "all": 0.1
-            }
-          }
-        }
-      },
-      "ppo":{}
-    },
-    "llama2-7b-chat-hf": {
-      "ppo": {
-        "alpaca":{
-          "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
-          "acc": {
-            "ex":{
-              "easy": 0.1,
-              "medium": 0.1,
-              "hard": 0.1,
-              "extra": 0.1,
-              "all": 0.1
-            },
-            "em":{
-              "easy": 0.1,
-              "medium": 0.1,
-              "hard": 0.1,
-              "extra": 0.1,
-              "all": 0.1
-            }
-          }
         },
-        "openai":{
-          "instruction": "openai-instruction",
-          "acc": {
-            "ex":{
-              "easy": 0.887,
-              "medium": 0.711,
-              "hard": 0.575,
-              "extra": 0.380,
-              "all": 0.677
+        "codellama-7b-instruct": {
+            "base": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.214",
+                            "medium": "0.177",
+                            "hard": "0.092",
+                            "extra": "0.036",
+                            "all": "0.149"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
             },
-            "em":{
-              "easy": 0.887,
-              "medium": 0.711,
-              "hard": 0.575,
-              "extra": 0.380,
-              "all": 0.677
+            "lora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.923",
+                            "medium": "0.756",
+                            "hard": "0.586",
+                            "extra": "0.349",
+                            "all": "0.702"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "qlora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.911",
+                            "medium": "0.751",
+                            "hard": "0.598",
+                            "extra": "0.331",
+                            "all": "0.696"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
             }
-          }
+        },
+        "codellama-13b-instruct": {
+            "base": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.698",
+                            "medium": "0.601",
+                            "hard": "0.408",
+                            "extra": "0.271",
+                            "all": "0.539"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "lora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.940",
+                            "medium": "0.789",
+                            "hard": "0.684",
+                            "extra": "0.404",
+                            "all": "0.746"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "qlora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.940",
+                            "medium": "0.774",
+                            "hard": "0.626",
+                            "extra": "0.392",
+                            "all": "0.727"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            }
+        },
+        "baichuan2-7b-chat": {
+            "base": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.577",
+                            "medium": "0.352",
+                            "hard": "0.201",
+                            "extra": "0.066",
+                            "all": "0.335"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "lora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.871",
+                            "medium": "0.630",
+                            "hard": "0.448",
+                            "extra": "0.295",
+                            "all": "0.603"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "qlora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.891",
+                            "medium": "0.637",
+                            "hard": "0.489",
+                            "extra": "0.331",
+                            "all": "0.624"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            }
+        },
+        "baichuan2-13b-chat": {
+            "base": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.581",
+                            "medium": "0.413",
+                            "hard": "0.264",
+                            "extra": "0.187",
+                            "all": "0.392"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "lora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.903",
+                            "medium": "0.702",
+                            "hard": "0.569",
+                            "extra": "0.392",
+                            "all": "0.678"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "qlora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.895",
+                            "medium": "0.675",
+                            "hard": "0.580",
+                            "extra": "0.343",
+                            "all": "0.659"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            }
+        },
+        "qwen-7b-chat": {
+            "base": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.395",
+                            "medium": "0.256",
+                            "hard": "0.138",
+                            "extra": "0.042",
+                            "all": "0.235"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "lora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.855",
+                            "medium": "0.688",
+                            "hard": "0.575",
+                            "extra": "0.331",
+                            "all": "0.652"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "qlora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.911",
+                            "medium": "0.675",
+                            "hard": "0.575",
+                            "extra": "0.343",
+                            "all": "0.662"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            }
+        },
+        "qwen-14b-chat": {
+            "base": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.871",
+                            "medium": "0.632",
+                            "hard": "0.368",
+                            "extra": "0.181",
+                            "all": "0.573"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "lora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.895",
+                            "medium": "0.702",
+                            "hard": "0.552",
+                            "extra": "0.331",
+                            "all": "0.663"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "qlora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.919",
+                            "medium": "0.744",
+                            "hard": "0.598",
+                            "extra": "0.367",
+                            "all": "0.701"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            }
+        },
+        "chatglm3-6b": {
+            "base": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0",
+                            "medium": "0",
+                            "hard": "0",
+                            "extra": "0",
+                            "all": "0"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "lora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.855",
+                            "medium": "0.605",
+                            "hard": "0.477",
+                            "extra": "0.271",
+                            "all": "0.59"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            },
+            "qlora": {
+                "alpaca": {
+                    "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
+                    "acc": {
+                        "ex": {
+                            "easy": "0.843",
+                            "medium": "0.603",
+                            "hard": "0.506",
+                            "extra": "0.211",
+                            "all": "0.581"
+                        },
+                        "em": {
+                            "easy": "",
+                            "medium": "",
+                            "hard": "",
+                            "extra": "",
+                            "all": ""
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  },
-  "bird":{
-    "llama2-7b-chat-hf": {
-      "ppo": {
-        "alpaca":{
-          "instruction": "I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n",
-          "acc": {
-            "ex":{
-              "easy": 0.1,
-              "medium": 0.1,
-              "hard": 0.1,
-              "extra": 0.1,
-              "all": 0.1
-            },
-            "em":{
-              "easy": 0.1,
-              "medium": 0.1,
-              "hard": 0.1,
-              "extra": 0.1,
-              "all": 0.1
-            }
-          }
-        },
-        "openai":{
-          "instruction": "openai-instruction",
-          "acc": {
-            "ex":{
-              "easy": 0.887,
-              "medium": 0.711,
-              "hard": 0.575,
-              "extra": 0.380,
-              "all": 0.677
-            },
-            "em":{
-              "easy": 0.887,
-              "medium": 0.711,
-              "hard": 0.575,
-              "extra": 0.380,
-              "all": 0.677
-            }
-          }
-        }
-      }
-    }
-  }
 }

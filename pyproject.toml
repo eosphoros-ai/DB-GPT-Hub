@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dbgpt_hub"
-version = "0.2.1"
+version = "0.3.0"
 description = "DB-GPT-Hub: Text-to-SQL parsing with LLMs"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"

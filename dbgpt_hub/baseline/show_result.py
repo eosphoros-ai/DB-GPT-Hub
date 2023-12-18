@@ -74,9 +74,11 @@ def init_baseline_json():
         json.dump(json_data, file, indent=4)
 
 
-with open(baseline_file, "r") as file:
-    baseline_json = json.load(file)
-
+data = pkgutil.get_data("dbgpt_hub", baseline_file)
+if data is not None:
+    baseline_json = json.loads(data.decode("utf-8"))
+else:
+    raise FileNotFoundError("The JSON file was not found in the package.")
 
 def table_add_row(table_scores, acc_data, dataset, model, method, prompt):
     model_data = [dataset, model, method, prompt]

@@ -80,6 +80,7 @@ if data is not None:
 else:
     raise FileNotFoundError("The JSON file was not found in the package.")
 
+
 def table_add_row(table_scores, acc_data, dataset, model, method, prompt):
     model_data = [dataset, model, method, prompt]
     model_ex = get_model_score(acc_data, "ex", model_data)

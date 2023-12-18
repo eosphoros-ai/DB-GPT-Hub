@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import pkgutil
 from typing import Optional, Dict, Any
 from prettytable.colortable import ColorTable, Theme
 from prettytable.colortable import ColorTable, Theme
@@ -46,12 +47,15 @@ HEADER = [
     "extra",
     "all",
 ]
-baseline_file = "./dbgpt_hub/baseline/baseline.json"
+baseline_file = "baseline/baseline.json"
 
-
-with open(baseline_file, "r") as file:
-    baseline_json = json.load(file)
-
+data = pkgutil.get_data("dbgpt_hub", baseline_file)
+if data is not None:
+    baseline_json = json.loads(data.decode("utf-8"))
+else:
+    raise FileNotFoundError("The JSON file was not found in the package.")
+# with open(baseline_file, "r") as file:
+#     baseline_json = json.load(file)
 
 def print_color_table_score(acc_data, dataset, model, method, prompt):
     model_data = [dataset, model, method, prompt]

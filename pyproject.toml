@@ -5,6 +5,7 @@ description = "DB-GPT-Hub: Text-to-SQL parsing with LLMs"
 authors = ["Your Name <you@example.com>"]
 license = "MIT"
 readme = "README.md"
+include = ["dbgpt_hub/baseline/baseline.json"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"

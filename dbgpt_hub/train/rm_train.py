@@ -5,7 +5,12 @@ import numpy as np
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Dict, List, Optional, Tuple, Union, Sequence, Any
 from transformers import Trainer, DataCollatorWithPadding, Seq2SeqTrainingArguments
-from transformers import TrainingArguments, TrainerState, TrainerControl, TrainerCallback
+from transformers import (
+    TrainingArguments,
+    TrainerState,
+    TrainerControl,
+    TrainerCallback,
+)
 from transformers.modeling_utils import custom_object_save, unwrap_model
 from transformers.trainer_utils import has_length, PREFIX_CHECKPOINT_DIR
 
@@ -26,7 +31,7 @@ if TYPE_CHECKING:
     from dbgpt_hub.configs.model_args import (
         ModelArguments,
         FinetuningArguments,
-        GeneratingArguments
+        GeneratingArguments,
     )
     from dbgpt_hub.configs.data_args import DataArguments
 
@@ -49,12 +54,14 @@ class PairwiseDataCollatorWithPadding(DataCollatorWithPadding):
         features = [
             {
                 "input_ids": feature["prompt_ids"] + feature[key],
-                "attention_mask": [1] * (len(feature["prompt_ids"]) + len(feature[key]))
+                "attention_mask": [1]
+                * (len(feature["prompt_ids"]) + len(feature[key])),
             }
-            for key in ("chosen_ids", "rejected_ids") for feature in features
+            for key in ("chosen_ids", "rejected_ids")
+            for feature in features
         ]
         return super().__call__(features)
-    
+
 
 class PairwiseTrainer(Trainer):
     r"""
@@ -63,13 +70,13 @@ class PairwiseTrainer(Trainer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.can_return_loss = True # override property to return eval_loss
+        self.can_return_loss = True  # override property to return eval_loss
 
     def compute_loss(
         self,
         model: "PreTrainedModel",
         inputs: Dict[str, torch.Tensor],
-        return_outputs: Optional[bool] = False
+        return_outputs: Optional[bool] = False,
     ) -> Union[torch.Tensor, Tuple[torch.Tensor, List[torch.Tensor]]]:
         r"""
         Computes pairwise loss. The first n examples are chosen and the last n examples are rejected.
@@ -88,7 +95,10 @@ class PairwiseTrainer(Trainer):
 
         # Split the inputs and rewards into two parts, chosen and rejected
         batch_size = inputs["input_ids"].size(0) // 2
-        chosen_input_ids, rejected_input_ids = inputs["input_ids"][:batch_size], inputs["input_ids"][batch_size:]
+        chosen_input_ids, rejected_input_ids = (
+            inputs["input_ids"][:batch_size],
+            inputs["input_ids"][batch_size:],
+        )
         chosen_rewards, rejected_rewards = values[:batch_size], values[batch_size:]
         chosen_scores, rejected_scores = [], []
 
@@ -96,8 +106,12 @@ class PairwiseTrainer(Trainer):
         # Inspired by: https://github.com/CarperAI/trlx/blob/main/examples/summarize_rlhf/reward_model/reward_model.py
         loss = 0
         for i in range(batch_size):
-            chosen_length = (chosen_input_ids[i] != self.tokenizer.pad_token_id).nonzero()[-1] + 1
-            rejected_length = (rejected_input_ids[i] != self.tokenizer.pad_token_id).nonzero()[-1] + 1
+            chosen_length = (
+                chosen_input_ids[i] != self.tokenizer.pad_token_id
+            ).nonzero()[-1] + 1
+            rejected_length = (
+                rejected_input_ids[i] != self.tokenizer.pad_token_id
+            ).nonzero()[-1] + 1
             check_divergence = (chosen_input_ids[i] != rejected_input_ids[i]).nonzero()
 
             if len(check_divergence) == 0:
@@ -110,22 +124,25 @@ class PairwiseTrainer(Trainer):
             assert div_index > 0
             chosen_trunc_rewards = chosen_rewards[i, div_index:end_index]
             rejected_trunc_rewards = rejected_rewards[i, div_index:end_index]
-            if return_outputs: # use the score on the last token except pad token for inference
-                chosen_scores.append(chosen_rewards[i, chosen_length-1])
-                rejected_scores.append(rejected_rewards[i, rejected_length-1])
-            loss += -torch.nn.functional.logsigmoid(chosen_trunc_rewards - rejected_trunc_rewards).mean()
+            if (
+                return_outputs
+            ):  # use the score on the last token except pad token for inference
+                chosen_scores.append(chosen_rewards[i, chosen_length - 1])
+                rejected_scores.append(rejected_rewards[i, rejected_length - 1])
+            loss += -torch.nn.functional.logsigmoid(
+                chosen_trunc_rewards - rejected_trunc_rewards
+            ).mean()
 
         loss = loss / batch_size
         if return_outputs:
-            chosen_scores, rejected_scores = torch.stack(chosen_scores), torch.stack(rejected_scores)
+            chosen_scores, rejected_scores = torch.stack(chosen_scores), torch.stack(
+                rejected_scores
+            )
             return loss, [loss, chosen_scores, rejected_scores]
 
         return loss
 
-    def save_predictions(
-        self,
-        predict_results: "PredictionOutput"
-    ) -> None:
+    def save_predictions(self, predict_results: "PredictionOutput") -> None:
         r"""
         Saves model predictions to `output_dir`.
 
@@ -134,51 +151,83 @@ class PairwiseTrainer(Trainer):
         if not self.is_world_process_zero():
             return
 
-        output_prediction_file = os.path.join(self.args.output_dir, "generated_predictions.jsonl")
+        output_prediction_file = os.path.join(
+            self.args.output_dir, "generated_predictions.jsonl"
+        )
         logger.info(f"Saving prediction results to {output_prediction_file}")
         chosen_scores, rejected_scores = predict_results.predictions
 
         with open(output_prediction_file, "w", encoding="utf-8") as writer:
             res: List[str] = []
             for c_score, r_score in zip(chosen_scores, rejected_scores):
-                res.append(json.dumps({"chosen": round(float(c_score), 2), "rejected": round(float(r_score), 2)}))
+                res.append(
+                    json.dumps(
+                        {
+                            "chosen": round(float(c_score), 2),
+                            "rejected": round(float(r_score), 2),
+                        }
+                    )
+                )
             writer.write("\n".join(res))
 
-class SavePeftModelCallback(TrainerCallback):
 
-    def _save_model_with_valuehead(self, model: "AutoModelForCausalLMWithValueHead", output_dir: str) -> None:
+class SavePeftModelCallback(TrainerCallback):
+    def _save_model_with_valuehead(
+        self, model: "AutoModelForCausalLMWithValueHead", output_dir: str
+    ) -> None:
         model.pretrained_model.config.save_pretrained(output_dir)
         if model.pretrained_model.can_generate():
             model.pretrained_model.generation_config.save_pretrained(output_dir)
         if getattr(model, "is_peft_model", False):
             model.pretrained_model.save_pretrained(output_dir)
-        elif getattr(model.pretrained_model, "_auto_class", None): # must not a peft model
-            custom_object_save(model.pretrained_model, output_dir, config=model.pretrained_model.config)
+        elif getattr(
+            model.pretrained_model, "_auto_class", None
+        ):  # must not a peft model
+            custom_object_save(
+                model.pretrained_model, output_dir, config=model.pretrained_model.config
+            )
 
-    def on_save(self, args: "TrainingArguments", state: "TrainerState", control: "TrainerControl", **kwargs):
+    def on_save(
+        self,
+        args: "TrainingArguments",
+        state: "TrainerState",
+        control: "TrainerControl",
+        **kwargs,
+    ):
         r"""
         Event called after a checkpoint save.
         """
         if args.should_save:
             self._save_model_with_valuehead(
                 model=unwrap_model(kwargs.pop("model")),
-                output_dir=os.path.join(args.output_dir, "{}-{}".format(PREFIX_CHECKPOINT_DIR, state.global_step))
+                output_dir=os.path.join(
+                    args.output_dir,
+                    "{}-{}".format(PREFIX_CHECKPOINT_DIR, state.global_step),
+                ),
             )
 
-    def on_train_end(self, args: "TrainingArguments", state: "TrainerState", control: "TrainerControl", **kwargs):
+    def on_train_end(
+        self,
+        args: "TrainingArguments",
+        state: "TrainerState",
+        control: "TrainerControl",
+        **kwargs,
+    ):
         r"""
         Event called at the end of training.
         """
 
-        
         if args.should_save:
-            self._save_model_with_valuehead(model=unwrap_model(kwargs.pop("model")), output_dir=args.output_dir)
+            self._save_model_with_valuehead(
+                model=unwrap_model(kwargs.pop("model")), output_dir=args.output_dir
+            )
 
 
-def compute_accuracy(eval_preds: Sequence[Union[np.ndarray, Tuple[np.ndarray]]]) -> Dict[str, float]:
+def compute_accuracy(
+    eval_preds: Sequence[Union[np.ndarray, Tuple[np.ndarray]]]
+) -> Dict[str, float]:
     preds, _ = eval_preds
     return {"accuracy": (preds[0] > preds[1]).sum() / len(preds[0])}
-
 
 
 def run_rm(
@@ -186,16 +235,22 @@ def run_rm(
     data_args: "DataArguments",
     training_args: "Seq2SeqTrainingArguments",
     finetuning_args: "FinetuningArguments",
-    callbacks: Optional[List["TrainerCallback"]] = None
+    callbacks: Optional[List["TrainerCallback"]] = None,
 ):
     dataset = get_dataset(model_args, data_args)
-    model, tokenizer = load_model_and_tokenizer(model_args, finetuning_args, training_args.do_train,add_valuehead=True)
-    dataset = preprocess_dataset(dataset, tokenizer, data_args, training_args, stage="rm")
+    model, tokenizer = load_model_and_tokenizer(
+        model_args, finetuning_args, training_args.do_train, add_valuehead=True
+    )
+    dataset = preprocess_dataset(
+        dataset, tokenizer, data_args, training_args, stage="rm"
+    )
     data_collator = PairwiseDataCollatorWithPadding(tokenizer, pad_to_multiple_of=8)
 
     # Update arguments
     training_args_dict = training_args.to_dict()
-    training_args_dict.update(dict(remove_unused_columns=False)) # important for pairwise dataset
+    training_args_dict.update(
+        dict(remove_unused_columns=False)
+    )  # important for pairwise dataset
     training_args = Seq2SeqTrainingArguments(**training_args_dict)
 
     # Initialize our Trainer
@@ -206,12 +261,14 @@ def run_rm(
         data_collator=data_collator,
         callbacks=callbacks + [SavePeftModelCallback()],
         compute_metrics=compute_accuracy,
-        **split_dataset(dataset, data_args, training_args)
+        **split_dataset(dataset, data_args, training_args),
     )
 
     # Training
     if training_args.do_train:
-        train_result = trainer.train(resume_from_checkpoint=training_args.resume_from_checkpoint)
+        train_result = trainer.train(
+            resume_from_checkpoint=training_args.resume_from_checkpoint
+        )
         trainer.save_model()
         trainer.log_metrics("train", train_result.metrics)
         trainer.save_metrics("train", train_result.metrics)
@@ -253,6 +310,7 @@ def train(
         finetuning_args,
         callbacks,
     )
+
 
 if __name__ == "__main__":
     train()

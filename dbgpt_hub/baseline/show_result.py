@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import pkgutil
 from typing import Optional, Dict, Any
 from prettytable.colortable import ColorTable, Theme
 
@@ -27,7 +28,7 @@ HEADER = [
     "all",
 ]
 
-baseline_file = "./dbgpt_hub/baseline/baseline.json"
+baseline_file = "baseline/baseline.json"
 ALPACA = 'I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n'
 OPENAI = "openai"
 
@@ -73,18 +74,11 @@ def init_baseline_json():
         json.dump(json_data, file, indent=4)
 
 
-with open(baseline_file, "r") as file:
-    baseline_json = json.load(file)
-
-
-def print_color_table_score(acc_data, dataset, model, method, prompt):
-    model_data = [dataset, model, method, prompt]
-    print_table_scores = ColorTable(theme=MYTHEME)
-    print_table_scores.field_names = HEADER
-    model_ex = get_model_score(acc_data, "ex", model_data)
-    model_em = get_model_score(acc_data, "em", model_data)
-    print_table_scores.add_rows([model_em, model_ex])
-    print(print_table_scores, "\n")
+data = pkgutil.get_data("dbgpt_hub", baseline_file)
+if data is not None:
+    baseline_json = json.loads(data.decode("utf-8"))
+else:
+    raise FileNotFoundError("The JSON file was not found in the package.")
 
 
 def table_add_row(table_scores, acc_data, dataset, model, method, prompt):
@@ -150,6 +144,8 @@ def show_score(dataset=None, model=None, method=None, prompt=None):
     table_scores = ColorTable(theme=MYTHEME)
     table_scores.field_names = HEADER
     add_scores_to_table(table_scores, json_data, dataset, model, method, prompt)
+    table_scores.sortby = "all"
+    table_scores.reversesort = True
     print(table_scores)
 
 
@@ -193,6 +189,8 @@ def show_scores():
                     table_scores = table_add_row(
                         table_scores, acc_data, dataset, model, method, prompt
                     )
+    table_scores.sortby = "all"
+    table_scores.reversesort = True
     print(table_scores, "\n")
 
 

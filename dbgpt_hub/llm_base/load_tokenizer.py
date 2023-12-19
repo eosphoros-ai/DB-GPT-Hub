@@ -106,22 +106,20 @@ def prepare_model_for_training(
 
 
 def load_valuehead_params(
-    path_or_repo_id: str,
-    model_args: "ModelArguments"
+    path_or_repo_id: str, model_args: "ModelArguments"
 ) -> Dict[str, torch.Tensor]:
     r"""
     Loads value head parameters from Hugging Face Hub or local disk.
 
     Returns: dict with keys `v_head.summary.weight` and `v_head.summary.bias`.
     """
-    kwargs = {
-        "path_or_repo_id": path_or_repo_id,
-        "cache_dir": model_args.cache_dir
-    }
+    kwargs = {"path_or_repo_id": path_or_repo_id, "cache_dir": model_args.cache_dir}
 
     if "token" in inspect.signature(cached_file).parameters:
         kwargs["token"] = model_args.hf_hub_token
-    elif "use_auth_token" in inspect.signature(cached_file).parameters: # for transformers==4.31.0
+    elif (
+        "use_auth_token" in inspect.signature(cached_file).parameters
+    ):  # for transformers==4.31.0
         kwargs["use_auth_token"] = model_args.hf_hub_token
     else:
         logger.warning("Ignore `hf_hub_token` since matched parameter is not found.")
@@ -134,16 +132,19 @@ def load_valuehead_params(
 
     try:
         from safetensors import safe_open
+
         vhead_file = cached_file(filename=SAFE_WEIGHTS_NAME, **kwargs)
         with safe_open(vhead_file, framework="pt", device="cpu") as f:
             return {
                 "v_head.summary.weight": f.get_tensor("v_head.summary.weight"),
-                "v_head.summary.bias": f.get_tensor("v_head.summary.bias")
+                "v_head.summary.bias": f.get_tensor("v_head.summary.bias"),
             }
     except Exception as err:
         logger.info("Failed to load {}: {}".format(SAFE_WEIGHTS_NAME, str(err)))
 
-    logger.warning("Provided path ({}) does not contain valuehead weights.".format(path_or_repo_id))
+    logger.warning(
+        "Provided path ({}) does not contain valuehead weights.".format(path_or_repo_id)
+    )
     return None
 
 
@@ -151,7 +152,7 @@ def load_model_and_tokenizer(
     model_args: "ModelArguments",
     finetuning_args: "FinetuningArguments",
     is_trainable: Optional[bool] = False,
-    add_valuehead: Optional[bool] = False
+    add_valuehead: Optional[bool] = False,
 ) -> Tuple[PreTrainedModel, "PreTrainedTokenizer"]:
     r"""
     Loads pretrained model and tokenizer.
@@ -175,7 +176,7 @@ def load_model_and_tokenizer(
         model_args.model_name_or_path,
         use_fast=model_args.use_fast_tokenizer,
         split_special_tokens=model_args.split_special_tokens,
-        padding_side="right", # training with left-padded tensors in fp16 precision may cause overflow
+        padding_side="right",  # training with left-padded tensors in fp16 precision may cause overflow
         **config_kwargs
     )
 
@@ -195,11 +196,15 @@ def load_model_and_tokenizer(
         else:
             setattr(config, "fp16", True)
 
-       # Fix config (for Qwen)
+    # Fix config (for Qwen)
     if getattr(config, "model_type", None) == "qwen":
-        for dtype_name, dtype in [("fp16", torch.float16), ("bf16", torch.bfloat16), ("fp32", torch.float32)]:
+        for dtype_name, dtype in [
+            ("fp16", torch.float16),
+            ("bf16", torch.bfloat16),
+            ("fp32", torch.float32),
+        ]:
             setattr(config, dtype_name, getattr(config, "torch_dtype", None) == dtype)
-            
+
     # Set RoPE scaling
     if model_args.rope_scaling is not None:
         if hasattr(config, "use_dynamic_ntk"):  # for Qwen models
@@ -324,12 +329,20 @@ def load_model_and_tokenizer(
 
     # Prepare model with valuehead for RLHF
     if add_valuehead:
-        model: "AutoModelForCausalLMWithValueHead" = AutoModelForCausalLMWithValueHead.from_pretrained(model)
-        ignore_modules = [name for name, _ in model.named_parameters() if "pretrained_model" in name]
+        model: "AutoModelForCausalLMWithValueHead" = (
+            AutoModelForCausalLMWithValueHead.from_pretrained(model)
+        )
+        ignore_modules = [
+            name for name, _ in model.named_parameters() if "pretrained_model" in name
+        ]
         setattr(model, "_keys_to_ignore_on_save", ignore_modules)
-        setattr(model, "tie_weights", MethodType(lambda _: None, model)) # use empty method
+        setattr(
+            model, "tie_weights", MethodType(lambda _: None, model)
+        )  # use empty method
         vhead_path = (
-            model_args.checkpoint_dir[-1] if model_args.checkpoint_dir is not None else model_args.model_name_or_path
+            model_args.checkpoint_dir[-1]
+            if model_args.checkpoint_dir is not None
+            else model_args.model_name_or_path
         )
         vhead_params = load_valuehead_params(vhead_path, model_args)
         if vhead_params is not None:

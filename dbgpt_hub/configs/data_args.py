@@ -83,11 +83,11 @@ class DataArguments:
     )
     cutoff_len: Optional[int] = field(
         default=1024,
-        metadata={"help": "The maximum length of the model inputs after tokenization."}
+        metadata={"help": "The maximum length of the model inputs after tokenization."},
     )
     reserved_label_len: Optional[int] = field(
         default=1,
-        metadata={"help": "The maximum length reserved for label after tokenization."}
+        metadata={"help": "The maximum length reserved for label after tokenization."},
     )
     split: Optional[str] = field(
         default="train",

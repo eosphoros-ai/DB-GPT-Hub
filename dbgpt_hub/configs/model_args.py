@@ -95,12 +95,13 @@ class ModelArguments:
         },
     )
     hf_hub_token: Optional[str] = field(
-        default=None,
-        metadata={"help": "Auth token to log in with Hugging Face Hub."}
+        default=None, metadata={"help": "Auth token to log in with Hugging Face Hub."}
     )
     split_special_tokens: Optional[bool] = field(
         default=False,
-        metadata={"help": "Whether or not the special tokens should be split during the tokenization process."}
+        metadata={
+            "help": "Whether or not the special tokens should be split during the tokenization process."
+        },
     )
 
     def __post_init__(self):
@@ -191,8 +192,7 @@ class FinetuningArguments:
     Arguments pertaining to which techniques we are going to fine-tuning with.
     """
     stage: Optional[Literal["sft", "rm"]] = field(
-        default="sft",
-        metadata={"help": "Which stage will be performed in training."}
+        default="sft", metadata={"help": "Which stage will be performed in training."}
     )
     finetuning_type: Optional[Literal["lora", "freeze", "full", "none"]] = field(
         default="lora", metadata={"help": "Which fine-tuning method to use."}

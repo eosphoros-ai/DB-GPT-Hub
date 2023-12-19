@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import pkgutil
 from typing import Optional, Dict, Any
 from prettytable.colortable import ColorTable, Theme
 
@@ -27,7 +28,7 @@ HEADER = [
     "all",
 ]
 
-baseline_file = "./dbgpt_hub/baseline/baseline.json"
+baseline_file = "baseline/baseline.json"
 ALPACA = 'I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me.Below is an instruction that describes a task, Write a response that appropriately completes the request.\\n\\"\\n##Instruction:\\ndepartment_management contains tables such as department, head, management. Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. Department_ID is the primary key.\\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key.\\nTable management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key.\\nThe head_ID of management is the foreign key of head_ID of head.\\nThe department_ID of management is the foreign key of Department_ID of department.\\n\\n'
 OPENAI = "openai"
 
@@ -73,8 +74,11 @@ def init_baseline_json():
         json.dump(json_data, file, indent=4)
 
 
-with open(baseline_file, "r") as file:
-    baseline_json = json.load(file)
+data = pkgutil.get_data("dbgpt_hub", baseline_file)
+if data is not None:
+    baseline_json = json.loads(data.decode("utf-8"))
+else:
+    raise FileNotFoundError("The JSON file was not found in the package.")
 
 
 def table_add_row(table_scores, acc_data, dataset, model, method, prompt):

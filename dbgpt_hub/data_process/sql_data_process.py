@@ -22,7 +22,7 @@ class ProcessSqlData:
         self.dev_file = dev_file
 
     def decode_json_file(
-        self, data_file_list, table_file, db_id_name, is_multiple_turn=False
+        self, data_file_list, table_file, db_id_name, output_name, is_multiple_turn=False
     ):
         """
         TO DO:
@@ -63,12 +63,28 @@ class ProcessSqlData:
 
                 # get primary key info
                 for j in range(len(primary_key)):
-                    if coloumns[primary_key[j] - 1][0] == i:
+                    if type(primary_key[j]) == int:
+                        if coloumns[primary_key[j] - 1][0] == i:
+                            source += (
+                                    coloumns[primary_key[j] - 1][1]
+                                    + " is the primary key."
+                                    + "\n"
+                            )
+                    elif type(primary_key[j]) == list:
+                        combine_p = "The combination of ("
+                        keys = []
+                        for k in range(len(primary_key[j])):
+                            if coloumns[primary_key[j][k] - 1][0] == i:
+                                keys.append(coloumns[primary_key[j][k] - 1][1])
                         source += (
-                            coloumns[primary_key[j] - 1][1]
-                            + " is the primary key."
-                            + "\n"
+                                combine_p +
+                                ", ".join(keys)
+                                + ") are the primary key."
+                                + "\n"
                         )
+                    else:
+                        print("not support type", type(primary_key[j]))
+                        continue
 
             # get foreign key info
             for key in foreign_keys:
@@ -98,7 +114,7 @@ class ProcessSqlData:
                                 db_dict[data[db_id_name]]
                             ),
                             "input": INPUT_PROMPT.format(interaction["utterance"]),
-                            "output": interaction["query"],
+                            "output": interaction[output_name],
                             "history": history,
                         }
                         res.append(input)
@@ -115,7 +131,7 @@ class ProcessSqlData:
                             db_dict[data[db_id_name]]
                         ),
                         "input": INPUT_PROMPT.format(data["question"]),
-                        "output": data["query"],
+                        "output": data[output_name],
                         "history": [],
                     }
                     res.append(input)
@@ -133,9 +149,10 @@ class ProcessSqlData:
                 self.decode_json_file(
                     data_file_list=train_data_file_list,
                     table_file=os.path.join(
-                        DATA_PATH, data_info["data_source"], data_info["tables_file"]
+                        DATA_PATH, data_info["data_source"], data_info["train_tables_file"]
                     ),
                     db_id_name=data_info["db_id_name"],
+                    output_name=data_info["output_name"],
                     is_multiple_turn=data_info["is_multiple_turn"],
                 )
             )
@@ -148,9 +165,10 @@ class ProcessSqlData:
                 self.decode_json_file(
                     data_file_list=dev_data_file_list,
                     table_file=os.path.join(
-                        DATA_PATH, data_info["data_source"], data_info["tables_file"]
+                        DATA_PATH, data_info["data_source"], data_info["dev_tables_file"]
                     ),
                     db_id_name=data_info["db_id_name"],
+                    output_name=data_info["output_name"],
                     is_multiple_turn=data_info["is_multiple_turn"],
                 )
             )

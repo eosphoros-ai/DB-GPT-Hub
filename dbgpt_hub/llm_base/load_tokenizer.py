@@ -1,5 +1,6 @@
 import os
 import torch
+import inspect
 import math
 from typing import Optional, Tuple, Dict, TYPE_CHECKING, Literal, List
 from types import MethodType
@@ -10,8 +11,9 @@ from dbgpt_hub.llm_base.adapter import init_adapter
 from dbgpt_hub.configs.config import LAYERNORM_NAMES, VALUE_HEAD_FILE_NAME
 
 from transformers import PreTrainedModel, PreTrainedTokenizer
-from transformers.utils import check_min_version
+from transformers.utils import check_min_version, cached_file
 from transformers.utils.versions import require_version
+from transformers.trainer import WEIGHTS_NAME, SAFE_WEIGHTS_NAME
 from transformers.deepspeed import is_deepspeed_zero3_enabled
 from transformers import (
     AutoConfig,
@@ -103,32 +105,54 @@ def prepare_model_for_training(
     return model
 
 
-def load_valuehead_params(model: torch.nn.Module, checkpoint_dir: os.PathLike) -> bool:
-    valuehead_file = os.path.join(checkpoint_dir, VALUE_HEAD_FILE_NAME)
-    if not os.path.exists(valuehead_file):
-        logger.warning(
-            "Provided path ({}) does not contain valuehead weights.".format(
-                checkpoint_dir
-            )
-        )
-        return False
-    valuehead_state_dict = torch.load(valuehead_file, map_location="cpu")
-    model.register_buffer("reward_head_weight", valuehead_state_dict["summary.weight"])
-    model.register_buffer("reward_head_bias", valuehead_state_dict["summary.bias"])
-    model.register_buffer(
-        "default_head_weight", torch.zeros_like(valuehead_state_dict["summary.weight"])
+def load_valuehead_params(
+    path_or_repo_id: str, model_args: "ModelArguments"
+) -> Dict[str, torch.Tensor]:
+    r"""
+    Loads value head parameters from Hugging Face Hub or local disk.
+
+    Returns: dict with keys `v_head.summary.weight` and `v_head.summary.bias`.
+    """
+    kwargs = {"path_or_repo_id": path_or_repo_id, "cache_dir": model_args.cache_dir}
+
+    if "token" in inspect.signature(cached_file).parameters:
+        kwargs["token"] = model_args.hf_hub_token
+    elif (
+        "use_auth_token" in inspect.signature(cached_file).parameters
+    ):  # for transformers==4.31.0
+        kwargs["use_auth_token"] = model_args.hf_hub_token
+    else:
+        logger.warning("Ignore `hf_hub_token` since matched parameter is not found.")
+
+    try:
+        vhead_file = cached_file(filename=WEIGHTS_NAME, **kwargs)
+        return torch.load(vhead_file, map_location="cpu")
+    except Exception as err:
+        logger.info("Failed to load {}: {}".format(WEIGHTS_NAME, str(err)))
+
+    try:
+        from safetensors import safe_open
+
+        vhead_file = cached_file(filename=SAFE_WEIGHTS_NAME, **kwargs)
+        with safe_open(vhead_file, framework="pt", device="cpu") as f:
+            return {
+                "v_head.summary.weight": f.get_tensor("v_head.summary.weight"),
+                "v_head.summary.bias": f.get_tensor("v_head.summary.bias"),
+            }
+    except Exception as err:
+        logger.info("Failed to load {}: {}".format(SAFE_WEIGHTS_NAME, str(err)))
+
+    logger.warning(
+        "Provided path ({}) does not contain valuehead weights.".format(path_or_repo_id)
     )
-    model.register_buffer(
-        "default_head_bias", torch.zeros_like(valuehead_state_dict["summary.bias"])
-    )
-    return True
+    return None
 
 
 def load_model_and_tokenizer(
     model_args: "ModelArguments",
     finetuning_args: "FinetuningArguments",
     is_trainable: Optional[bool] = False,
-    stage: Optional[Literal["pt", "sft", "rm", "ppo"]] = "sft",
+    add_valuehead: Optional[bool] = False,
 ) -> Tuple[PreTrainedModel, "PreTrainedTokenizer"]:
     r"""
     Loads pretrained model and tokenizer.
@@ -151,7 +175,8 @@ def load_model_and_tokenizer(
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.model_name_or_path,
         use_fast=model_args.use_fast_tokenizer,
-        padding_side=model_args.padding_side,
+        split_special_tokens=model_args.split_special_tokens,
+        padding_side="right",  # training with left-padded tensors in fp16 precision may cause overflow
         **config_kwargs
     )
 
@@ -170,6 +195,15 @@ def load_model_and_tokenizer(
             setattr(config, "bf16", True)
         else:
             setattr(config, "fp16", True)
+
+    # Fix config (for Qwen)
+    if getattr(config, "model_type", None) == "qwen":
+        for dtype_name, dtype in [
+            ("fp16", torch.float16),
+            ("bf16", torch.bfloat16),
+            ("fp32", torch.float32),
+        ]:
+            setattr(config, dtype_name, getattr(config, "torch_dtype", None) == dtype)
 
     # Set RoPE scaling
     if model_args.rope_scaling is not None:
@@ -294,33 +328,26 @@ def load_model_and_tokenizer(
     model = init_adapter(model, model_args, finetuning_args, is_trainable, is_mergeable)
 
     # Prepare model with valuehead for RLHF
-    if stage == "rm" or stage == "ppo":
-        model: AutoModelForCausalLMWithValueHead = (
+    if add_valuehead:
+        model: "AutoModelForCausalLMWithValueHead" = (
             AutoModelForCausalLMWithValueHead.from_pretrained(model)
         )
-        reset_logging()
-        if (
-            stage == "rm" and model_args.checkpoint_dir is not None
-        ):  # load valuehead weights to evaluate reward model
-            logger.warning(
-                "Only the last checkpoint containing valuehead will be loaded as the valuehead."
-            )
-            if load_valuehead_params(model, model_args.checkpoint_dir[-1]):
-                model.v_head.load_state_dict(
-                    {
-                        "summary.weight": getattr(model, "reward_head_weight"),
-                        "summary.bias": getattr(model, "reward_head_bias"),
-                    }
-                )
-
-        if stage == "ppo":  # load reward model
-            logger.info("Load reward model from {}".format(model_args.reward_model))
-            model.pretrained_model.load_adapter(
-                model_args.reward_model, "reward", is_trainable=False
-            )
-            assert load_valuehead_params(
-                model, model_args.reward_model
-            ), "Reward model is not correctly loaded."
+        ignore_modules = [
+            name for name, _ in model.named_parameters() if "pretrained_model" in name
+        ]
+        setattr(model, "_keys_to_ignore_on_save", ignore_modules)
+        setattr(
+            model, "tie_weights", MethodType(lambda _: None, model)
+        )  # use empty method
+        vhead_path = (
+            model_args.checkpoint_dir[-1]
+            if model_args.checkpoint_dir is not None
+            else model_args.model_name_or_path
+        )
+        vhead_params = load_valuehead_params(vhead_path, model_args)
+        if vhead_params is not None:
+            model.load_state_dict(vhead_params, strict=False)
+            logger.info("Loaded valuehead from checkpoint: {}".format(vhead_path))
 
     # Prepare model for inference
     if not is_trainable:

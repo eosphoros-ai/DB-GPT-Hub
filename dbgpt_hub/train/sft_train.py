@@ -48,7 +48,7 @@ def run_sft(
     model, tokenizer = load_model_and_tokenizer(
         model_args, finetuning_args, training_args.do_train
     )
-    dataset = preprocess_dataset(dataset, tokenizer, data_args, training_args)
+    dataset = preprocess_dataset(dataset, tokenizer, data_args, training_args, "sft")
     data_collator = DataCollatorForSeq2Seq(
         tokenizer=tokenizer,
         label_pad_token_id=IGNORE_INDEX

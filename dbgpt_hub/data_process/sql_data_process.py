@@ -13,13 +13,15 @@ from dbgpt_hub.configs.config import (
     DATA_PATH,
     INPUT_PROMPT,
     INSTRUCTION_PROMPT,
+    INSTRUCTION_ONE_SHOT_PROMPT,
 )
 
 
 class ProcessSqlData:
-    def __init__(self, train_file=None, dev_file=None) -> None:
+    def __init__(self, train_file=None, dev_file=None, num_shot=0) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
+        self.num_shot = num_shot
 
     def decode_json_file(
         self, data_file_list, table_file, db_id_name, is_multiple_turn=False
@@ -87,6 +89,10 @@ class ProcessSqlData:
             db_dict[item["db_id"]] = source
 
         res = []
+        base_instruction = INSTRUCTION_PROMPT
+        if self.num_shot == 1:
+            base_instruction = INSTRUCTION_ONE_SHOT_PROMPT
+
         for data in tqdm(datas):
             if data[db_id_name] in db_dict.keys():
                 if is_multiple_turn:  # 多轮
@@ -94,7 +100,7 @@ class ProcessSqlData:
                     for interaction in data["interaction"]:
                         input = {
                             "db_id": data[db_id_name],
-                            "instruction": INSTRUCTION_PROMPT.format(
+                            "instruction": base_instruction.format(
                                 db_dict[data[db_id_name]]
                             ),
                             "input": INPUT_PROMPT.format(interaction["utterance"]),
@@ -111,7 +117,7 @@ class ProcessSqlData:
                 else:  # 单轮
                     input = {
                         "db_id": data[db_id_name],
-                        "instruction": INSTRUCTION_PROMPT.format(
+                        "instruction": base_instruction.format(
                             db_dict[data[db_id_name]]
                         ),
                         "input": INPUT_PROMPT.format(data["question"]),
@@ -167,3 +173,17 @@ if __name__ == "__main__":
         train_file=all_in_one_train_file, dev_file=all_in_one_dev_file
     )
     precess.create_sft_raw_data()
+
+    # one-shot
+    one_shot_all_in_one_train_file = os.path.join(
+        DATA_PATH, "example_text2sql_train_one_shot.json"
+    )
+    one_shot_all_in_one_dev_file = os.path.join(
+        DATA_PATH, "example_text2sql_dev_one_shot.json"
+    )
+    one_shot_precess = ProcessSqlData(
+        train_file=one_shot_all_in_one_train_file,
+        dev_file=one_shot_all_in_one_dev_file,
+        num_shot=1,
+    )
+    one_shot_precess.create_sft_raw_data()

@@ -16,11 +16,13 @@ from dbgpt_hub.configs.config import (
     INSTRUCTION_ONE_SHOT_PROMPT,
 )
 
+
 class ProcessSqlData:
     def __init__(self, train_file=None, dev_file=None, num_shot=0) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
         self.num_shot = num_shot
+
     def decode_json_file(
         self, data_file_list, table_file, db_id_name, is_multiple_turn=False
     ):

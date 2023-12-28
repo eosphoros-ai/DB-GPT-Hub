@@ -59,8 +59,8 @@ jobs:
       # - name: Type check the project
       #   run: poetry run pyright dbgpt_hub || true
 
-      # - name: Style check the project
-      #   run: poetry run pylint dbgpt_hub || true
+      - name: Style check the project
+        run: poetry run pylint dbgpt_hub || true
 
       - name: Build binary dependencies
         run: poetry build

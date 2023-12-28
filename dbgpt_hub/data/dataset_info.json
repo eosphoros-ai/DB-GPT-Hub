@@ -7,5 +7,14 @@
       "response": "output",
       "history": "history"
     }
+  },
+  "example_rm_train": {
+    "file_name": "oaast_rm_zh.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "history": "history"
+    }
   }
 }

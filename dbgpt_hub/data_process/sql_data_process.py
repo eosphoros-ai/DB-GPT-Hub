@@ -24,7 +24,12 @@ class ProcessSqlData:
         self.num_shot = num_shot
 
     def decode_json_file(
-        self, data_file_list, table_file, db_id_name, output_name, is_multiple_turn=False
+        self,
+        data_file_list,
+        table_file,
+        db_id_name,
+        output_name,
+        is_multiple_turn=False,
     ):
         """
         TO DO:
@@ -68,9 +73,9 @@ class ProcessSqlData:
                     if type(primary_key[j]) == int:
                         if coloumns[primary_key[j] - 1][0] == i:
                             source += (
-                                    coloumns[primary_key[j] - 1][1]
-                                    + " is the primary key."
-                                    + "\n"
+                                coloumns[primary_key[j] - 1][1]
+                                + " is the primary key."
+                                + "\n"
                             )
                     # combination primary key
                     elif type(primary_key[j]) == list:
@@ -80,10 +85,10 @@ class ProcessSqlData:
                             if coloumns[primary_key[j][k] - 1][0] == i:
                                 keys.append(coloumns[primary_key[j][k] - 1][1])
                         source += (
-                                combine_p +
-                                ", ".join(keys)
-                                + ") are the primary key."
-                                + "\n"
+                            combine_p
+                            + ", ".join(keys)
+                            + ") are the primary key."
+                            + "\n"
                         )
                     else:
                         print("not support type", type(primary_key[j]))
@@ -156,7 +161,9 @@ class ProcessSqlData:
                 self.decode_json_file(
                     data_file_list=train_data_file_list,
                     table_file=os.path.join(
-                        DATA_PATH, data_info["data_source"], data_info["train_tables_file"]
+                        DATA_PATH,
+                        data_info["data_source"],
+                        data_info["train_tables_file"],
                     ),
                     db_id_name=data_info["db_id_name"],
                     output_name=data_info["output_name"],
@@ -172,7 +179,9 @@ class ProcessSqlData:
                 self.decode_json_file(
                     data_file_list=dev_data_file_list,
                     table_file=os.path.join(
-                        DATA_PATH, data_info["data_source"], data_info["dev_tables_file"]
+                        DATA_PATH,
+                        data_info["data_source"],
+                        data_info["dev_tables_file"],
                     ),
                     db_id_name=data_info["db_id_name"],
                     output_name=data_info["output_name"],

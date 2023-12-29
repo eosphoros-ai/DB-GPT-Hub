@@ -70,6 +70,7 @@ class ProcessSqlData:
                                     + " is the primary key."
                                     + "\n"
                             )
+                    # combination primary key
                     elif type(primary_key[j]) == list:
                         combine_p = "The combination of ("
                         keys = []

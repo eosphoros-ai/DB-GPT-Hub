@@ -133,7 +133,7 @@ class ProcessSqlData:
                         history.append(
                             (
                                 INPUT_PROMPT.format(interaction["utterance"]),
-                                interaction["query"],
+                                interaction[output_name],
                             )
                         )
                 else:  # 单轮

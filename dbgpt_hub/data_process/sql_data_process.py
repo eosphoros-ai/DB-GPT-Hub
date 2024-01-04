@@ -2,6 +2,8 @@ import os
 import json
 import jsonlines
 import sys
+import re
+import argparse
 
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(ROOT_PATH)
@@ -18,15 +20,19 @@ from dbgpt_hub.configs.config import (
 
 
 class ProcessSqlData:
-    def __init__(self, train_file=None, dev_file=None, num_shot=0) -> None:
+    def __init__(
+        self, train_file=None, dev_file=None, num_shot=0, code_representation=False
+    ) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
         self.num_shot = num_shot
+        self.code_representation = code_representation
 
     def decode_json_file(
         self,
         data_file_list,
         table_file,
+        db_folder_path,
         db_id_name,
         output_name,
         is_multiple_turn=False,
@@ -137,16 +143,43 @@ class ProcessSqlData:
                             )
                         )
                 else:  # 单轮
-                    input = {
-                        "db_id": data[db_id_name],
-                        "instruction": base_instruction.format(
-                            db_dict[data[db_id_name]]
-                        ),
-                        "input": INPUT_PROMPT.format(data["question"]),
-                        "output": data[output_name],
-                        "history": [],
-                    }
-                    res.append(input)
+                    if self.code_representation: # cr模式
+                        db_path = os.path.join(db_folder_path, data[db_id_name])
+                        sql_file_path = next(
+                            (
+                                file
+                                for file in os.listdir(db_path)
+                                if file.endswith(".sql")
+                            ),
+                            None,
+                        )
+                        if sql_file_path is None:
+                            continue  # 提前结束迭代
+                        schema_file_path = os.path.join(db_path, sql_file_path)
+                        with open(schema_file_path, "r") as file:
+                            schema_content = file.read()
+                        create_statements = re.findall(
+                            r"CREATE\s.*?;", schema_content, re.DOTALL
+                        )
+                        input = {
+                            "db_id": data[db_id_name],
+                            "instruction": INSTRUCTION_PROMPT.format(create_statements),
+                            "input": INPUT_PROMPT.format(data["question"]),
+                            "output": data[output_name],
+                            "history": [],
+                        }
+                        res.append(input)
+                    else:
+                        input = {
+                            "db_id": data[db_id_name],
+                            "instruction": base_instruction.format(
+                                db_dict[data[db_id_name]]
+                            ),
+                            "input": INPUT_PROMPT.format(data["question"]),
+                            "output": data[output_name],
+                            "history": [],
+                        }
+                        res.append(input)
         return res
 
     def create_sft_raw_data(self):
@@ -164,6 +197,11 @@ class ProcessSqlData:
                         DATA_PATH,
                         data_info["data_source"],
                         data_info["train_tables_file"],
+                    ),
+                    db_folder_path=os.path.join(
+                        DATA_PATH,
+                        data_info["data_source"],
+                        "database",
                     ),
                     db_id_name=data_info["db_id_name"],
                     output_name=data_info["output_name"],
@@ -183,6 +221,11 @@ class ProcessSqlData:
                         data_info["data_source"],
                         data_info["dev_tables_file"],
                     ),
+                    db_folder_path=os.path.join(
+                        DATA_PATH,
+                        data_info["data_source"],
+                        "database",
+                    ),
                     db_id_name=data_info["db_id_name"],
                     output_name=data_info["output_name"],
                     is_multiple_turn=data_info["is_multiple_turn"],
@@ -195,10 +238,18 @@ class ProcessSqlData:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--code_representation", help="Enable code representation", default=False
+    )
+    args = parser.parse_args()
+
     all_in_one_train_file = os.path.join(DATA_PATH, "example_text2sql_train.json")
     all_in_one_dev_file = os.path.join(DATA_PATH, "example_text2sql_dev.json")
     precess = ProcessSqlData(
-        train_file=all_in_one_train_file, dev_file=all_in_one_dev_file
+        train_file=all_in_one_train_file,
+        dev_file=all_in_one_dev_file,
+        code_representation=args.code_representation,
     )
     precess.create_sft_raw_data()
 
@@ -213,5 +264,6 @@ if __name__ == "__main__":
         train_file=one_shot_all_in_one_train_file,
         dev_file=one_shot_all_in_one_dev_file,
         num_shot=1,
+        code_representation=args.code_representation,
     )
     one_shot_precess.create_sft_raw_data()

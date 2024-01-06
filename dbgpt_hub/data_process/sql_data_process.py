@@ -143,7 +143,7 @@ class ProcessSqlData:
                             )
                         )
                 else:  # 单轮
-                    if self.code_representation: # cr模式
+                    if self.code_representation:
                         db_path = os.path.join(db_folder_path, data[db_id_name])
                         sql_file_path = next(
                             (

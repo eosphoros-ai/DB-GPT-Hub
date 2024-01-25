@@ -9,7 +9,7 @@ include = ["dbgpt_hub/baseline/baseline.json"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
-transformers = "4.33.2"
+transformers = "4.34.1"
 peft = "0.4.0"
 accelerate = "0.21.0"
 einops = "0.6.1"
@@ -18,7 +18,7 @@ scikit-learn = "1.2.2"
 sentencepiece = "0.1.99"
 wandb = "0.15.3"
 func-timeout = "4.3.5"
-datasets = ">=2.12.0"
+datasets = ">=2.14.6"
 trl = ">=0.5.0"
 pydantic = "1.10.11"
 deepspeed = "0.10.2"

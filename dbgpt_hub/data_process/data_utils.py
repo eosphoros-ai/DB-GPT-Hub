@@ -228,16 +228,11 @@ Supports language model for  mistral sqlcoder-7b
 """
 register_template(
     name="mistral",
-    prefix=[
-        "{{system}}"
-    ],
-    prompt=[
-        "[INST] {{query}} [/INST]"
-    ],
+    prefix=["{{system}}"],
+    prompt=["[INST] {{query}} [/INST]"],
     system="",
-    sep=[]
+    sep=[],
 )
-
 
 
 r"""

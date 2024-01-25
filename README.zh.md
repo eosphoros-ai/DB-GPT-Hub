@@ -289,6 +289,7 @@
  
 ## Contents
 - [DB-GPT-Hub:利用LLMs实现Text-to-SQL](#db-gpt-hub利用llms实现text-to-sql)
+  - [Baseline](#baseline)
   - [Contents](#contents)
   - [一、简介](#一简介)
   - [二、Text-to-SQL微调](#二text-to-sql微调)
@@ -296,13 +297,13 @@
     - [2.2、基座模型](#22基座模型)
   - [三、使用方法](#三使用方法)
     - [3.1、环境准备](#31环境准备)
-    - [3.2、快速开始](#32快速开始)
-    - [3.3、数据准备](#33数据准备)
-    - [3.4、模型微调](#34模型微调)
-    - [3.5、模型预测](#35模型预测)
-    - [3.6、模型权重](#36模型权重)
-      - [3.6.1 模型和微调权重合并](#361-模型和微调权重合并)
-    - [3.7、模型评估](#37模型评估)
+    - [3.2、数据准备](#32数据准备)
+    - [3.2 快速开始](#32-快速开始)
+    - [3.3、模型微调](#33模型微调)
+    - [3.4、模型预测](#34模型预测)
+    - [3.5、模型权重](#35模型权重)
+      - [3.5.1 模型和微调权重合并](#351-模型和微调权重合并)
+    - [3.6、模型评估](#36模型评估)
   - [四、发展路线](#四发展路线)
   - [五、贡献](#五贡献)
   - [六、感谢](#六感谢)
@@ -350,6 +351,9 @@ DB-GPT-HUB目前已经支持的base模型有：
   - [x] ChatGLM3
   - [x] internlm
   - [x] Falcon
+  - [x] sqlcoder-7b(mistral)
+  - [x] sqlcoder2-15b(starcoder)
+
 
 
 模型可以基于quantization_bit为4的量化微调(QLoRA)所需的最低硬件资源,可以参考如下：
@@ -513,6 +517,14 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
     --quantization_bit 4 \
     ...
 ```   
+如果需要指定对应的显卡id而不是默认的前两个如3,4，可以如下
+```
+deepspeed --include localhost:3,4  dbgpt_hub/train/sft_train.py \
+    --deepspeed dbgpt_hub/configs/ds_config.json \
+    --quantization_bit 4 \
+    ...
+```    
+
 其他省略(...)的部分均保持一致即可。 如果想要更改默认的deepseed配置，进入 `dbgpt_hub/configs` 目录，在ds_config.json 更改即可，默认为stage2的策略。
 
 脚本中微调时不同模型对应的关键参数lora_target 和 template，如下表：
@@ -522,8 +534,10 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
 | [LLaMA-2](https://huggingface.co/meta-llama)             | q_proj,v_proj   | llama2    |
 | [CodeLlama-2](https://huggingface.co/codellama/)         | q_proj,v_proj   | llama2    |
 | [Baichuan2](https://github.com/baichuan-inc/Baichuan2)   | W_pack          | baichuan2 |
-| [InternLM](https://github.com/InternLM/InternLM)         | q_proj,v_proj   | intern    |
 | [Qwen](https://github.com/QwenLM/Qwen-7B)                | c_attn          | chatml    |
+| [sqlcoder-7b](https://huggingface.co/defog/sqlcoder-7b)  | q_proj,v_proj   | mistral   |
+| [sqlcoder2-15b](https://huggingface.co/defog/sqlcoder2)  | c_attn          | default   |
+| [InternLM](https://github.com/InternLM/InternLM)         | q_proj,v_proj   | intern    |
 | [XVERSE](https://github.com/xverse-ai/XVERSE-13B)        | q_proj,v_proj   | xverse    |
 | [ChatGLM2](https://github.com/THUDM/ChatGLM2-6B)         | query_key_value | chatglm2  |
 | [LLaMA](https://github.com/facebookresearch/llama)       | q_proj,v_proj   | -         |
@@ -531,6 +545,7 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
 | [BLOOMZ](https://huggingface.co/bigscience/bloomz)       | query_key_value | -         |
 | [Baichuan](https://github.com/baichuan-inc/baichuan-13B) | W_pack          | baichuan  |
 | [Falcon](https://huggingface.co/tiiuae/falcon-7b)        | query_key_value | -         |
+
 
 `train_sft.sh`中其他关键参数含义：
 > quantization_bit：是否量化，取值为[4或者8]   
@@ -593,6 +608,8 @@ poetry run python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_
   - [x] ChatGLM2
   - [x] ChatGLM3
   - [x] internlm    
+  - [x] sqlcoder-7b(mistral)
+  - [x] sqlcoder2-15b(starcoder)
   
 * 阶段二:
   - [x]  优化模型效果，支持更多不同模型进行不同方式的微调。截止`20231010`，我们已经完成对项目代码的重构，支持更多的模型。

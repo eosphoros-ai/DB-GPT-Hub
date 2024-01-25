@@ -290,6 +290,7 @@
 
 ## Contents
 - [DB-GPT-Hub: Text-to-SQL parsing with LLMs](#db-gpt-hub-text-to-sql-parsing-with-llms)
+  - [Baseline](#baseline)
   - [Contents](#contents)
   - [1. What is DB-GPT-Hub](#1-what-is-db-gpt-hub)
   - [2. Fine-tuning Text-to-SQL](#2-fine-tuning-text-to-sql)
@@ -297,7 +298,7 @@
     - [2.2. Model](#22-model)
   - [3. Usage](#3-usage)
     - [3.1. Environment preparation](#31-environment-preparation)
-    - [3.2. Quick Start](#32-quick-start)
+    - [3.2 Quick Start](#32-quick-start)
     - [3.3. Data preparation](#33-data-preparation)
     - [3.4. Model fine-tuning](#34-model-fine-tuning)
     - [3.5. Model Predict](#35-model-predict)
@@ -354,6 +355,9 @@ DB-GPT-Hub currently supports the following base models:
   - [x] ChatGLM2
   - [x] ChatGLM3
   - [x] internlm
+  - [x] sqlcoder-7b(mistral)
+  - [x] sqlcoder2-15b(starcoder)
+
 
 
 
@@ -522,6 +526,14 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
     --deepspeed dbgpt_hub/configs/ds_config.json \
     --quantization_bit 4 \
     ...
+```     
+
+if you need  order card  id   
+```
+deepspeed --include localhost:0,1  dbgpt_hub/train/sft_train.py \
+    --deepspeed dbgpt_hub/configs/ds_config.json \
+    --quantization_bit 4 \
+    ...
 ```    
 
 The other parts that are omitted (…) can be kept consistent. If you want to change the default deepseed configuration, go into the `dbgpt_hub/configs` directory and make changes to ds_config.json as needed,the default is stage2.   
@@ -533,16 +545,19 @@ In the script, during fine-tuning, different models correspond to key parameters
 | [LLaMA-2](https://huggingface.co/meta-llama)             | q_proj,v_proj   | llama2    |
 | [CodeLlama-2](https://huggingface.co/codellama/)         | q_proj,v_proj   | llama2    |
 | [Baichuan2](https://github.com/baichuan-inc/Baichuan2)   | W_pack          | baichuan2 |
-| [InternLM](https://github.com/InternLM/InternLM)         | q_proj,v_proj   | intern    |
 | [Qwen](https://github.com/QwenLM/Qwen-7B)                | c_attn          | chatml    |
+| [sqlcoder-7b](https://huggingface.co/defog/sqlcoder-7b)  | q_proj,v_proj   | mistral   |
+| [sqlcoder2-15b](https://huggingface.co/defog/sqlcoder2)  | c_attn          | default   |
+| [InternLM](https://github.com/InternLM/InternLM)         | q_proj,v_proj   | intern    |
 | [XVERSE](https://github.com/xverse-ai/XVERSE-13B)        | q_proj,v_proj   | xverse    |
 | [ChatGLM2](https://github.com/THUDM/ChatGLM2-6B)         | query_key_value | chatglm2  |
-| [ChatGLM3](https://github.com/THUDM/ChatGLM3-6B)         | query_key_value | chatglm3  |
 | [LLaMA](https://github.com/facebookresearch/llama)       | q_proj,v_proj   | -         |
 | [BLOOM](https://huggingface.co/bigscience/bloom)         | query_key_value | -         |
 | [BLOOMZ](https://huggingface.co/bigscience/bloomz)       | query_key_value | -         |
 | [Baichuan](https://github.com/baichuan-inc/baichuan-13B) | W_pack          | baichuan  |
 | [Falcon](https://huggingface.co/tiiuae/falcon-7b)        | query_key_value | -         |
+
+
 
  In `train_sft.sh` , other key parameters are as follows:
 
@@ -609,6 +624,8 @@ The whole process we will divide into three phases:
   - [x] ChatGLM2
   - [x] ChatGLM3
   - [x] internlm
+  - [x] sqlcoder-7b(mistral)
+  - [x] sqlcoder2-15b(starcoder)
 
 * Stage 2:
   - [x] Optidmize model performance, and support fine-tuning more different models in various ways before  `20231010`

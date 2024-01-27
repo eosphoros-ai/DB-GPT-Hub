@@ -86,12 +86,15 @@ SQL_DATA_INFO = [
     # }
     # ,
     # {
+    # {
     #     "data_source": "sparc",
     #     "train_file": ["train.json"],
+    #     "train_tables_file": "tables.json",
+    #     "dev_tables_file": "tables.json",
     #     "dev_file": ["dev.json"],
-    #     "tables_file": "tables.json",
     #     "db_id_name": "database_id",
     #     "is_multiple_turn": True,
+    #     "output_name": "query",
     # }
 ]
 INSTRUCTION_PROMPT = """\

@@ -223,6 +223,17 @@ register_template(
     use_history=False,
 )
 
+r"""
+Supports language model for  mistral sqlcoder-7b
+"""
+register_template(
+    name="mistral",
+    prefix=["{{system}}"],
+    prompt=["[INST] {{query}} [/INST]"],
+    system="",
+    sep=[],
+)
+
 
 r"""
 Default template.

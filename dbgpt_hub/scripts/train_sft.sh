@@ -5,11 +5,11 @@ train_log="dbgpt_hub/output/logs/train_sft_test_${current_date}.log"
 start_time=$(date +%s)
 echo " Train Start time: $(date -d @$start_time +'%Y-%m-%d %H:%M:%S')" >>${train_log}
 
-# # zero-shot
-# num_shot=0
+# default train , zero-shot, 
+num_shot=0
 
 # one-shot train
-num_shot=1
+# num_shot=1
 
 dataset="example_text2sql_train"
 if [ "$num_shot" -eq 1 ]; then

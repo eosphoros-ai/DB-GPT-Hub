@@ -157,7 +157,7 @@
     <td>0.352</td>
     <td>0.201</td>
     <td>0.066</td>
-    <td>335</td>
+    <td>0.335</td>
   </tr>
   <tr>
     <td>Baichuan2-7B-Chat</td>

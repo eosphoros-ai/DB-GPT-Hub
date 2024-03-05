@@ -38,14 +38,15 @@ def execute_sql(predicted_sql, ground_truth, db_path):
     time_ratio = 0
     if set(predicted_res) == set(ground_truth_res):
         res = 1
-        time_ratio = true_exec_time/pred_exec_time if pred_exec_time > 0 else 0
+        time_ratio = true_exec_time / pred_exec_time if pred_exec_time > 0 else 0
     return res, time_ratio
 
 
 def execute_model(predicted_sql, ground_truth, db_place, idx, meta_time_out):
     try:
-        res, time_ratio = func_timeout(meta_time_out, execute_sql,
-                           args=(predicted_sql, ground_truth, db_place))
+        res, time_ratio = func_timeout(
+            meta_time_out, execute_sql, args=(predicted_sql, ground_truth, db_place)
+        )
     except KeyboardInterrupt:
         sys.exit(0)
     except FunctionTimedOut:
@@ -58,7 +59,12 @@ def execute_model(predicted_sql, ground_truth, db_place, idx, meta_time_out):
         time_ratio = 0
     # print(result)
     # result = str(set([ret[0] for ret in result]))
-    result = {"sql_idx": idx, "res": res, "match": int(predicted_sql == ground_truth), "time_ratio": time_ratio}
+    result = {
+        "sql_idx": idx,
+        "res": res,
+        "match": int(predicted_sql == ground_truth),
+        "time_ratio": time_ratio,
+    }
     # print(result)
     return result
 
@@ -121,9 +127,8 @@ def compute_ves(exec_results):
         if result["time_ratio"] != 0:
             count += 1
         total_ratio += math.sqrt(result["time_ratio"]) * 100
-    ves = (total_ratio/num_queries)
+    ves = total_ratio / num_queries
     return ves
-
 
 
 def compute_acc_by_diff(exec_results, diff_json_path, metric):
@@ -143,8 +148,12 @@ def compute_acc_by_diff(exec_results, diff_json_path, metric):
             challenging_results.append(exec_results[i])
     if metric in ["res", "match"]:
         simple_acc = sum([res[metric] for res in simple_results]) / len(simple_results)
-        moderate_acc = sum([res[metric] for res in moderate_results]) / len(moderate_results)
-        challenging_acc = sum([res[metric] for res in challenging_results]) / len(challenging_results)
+        moderate_acc = sum([res[metric] for res in moderate_results]) / len(
+            moderate_results
+        )
+        challenging_acc = sum([res[metric] for res in challenging_results]) / len(
+            challenging_results
+        )
         all_acc = sum(results) / num_queries
     elif metric in ["time_ratio"]:
         simple_acc = compute_ves(simple_results)
@@ -153,9 +162,20 @@ def compute_acc_by_diff(exec_results, diff_json_path, metric):
         all_acc = compute_ves(exec_results)
     else:
         raise NotImplementedError(f"metric: {metric} is not supported")
-    count_lists = [len(simple_results), len(moderate_results), len(challenging_results), num_queries]
+    count_lists = [
+        len(simple_results),
+        len(moderate_results),
+        len(challenging_results),
+        num_queries,
+    ]
     if metric in ["res", "match"]:
-        return simple_acc * 100, moderate_acc * 100, challenging_acc * 100, all_acc * 100, count_lists
+        return (
+            simple_acc * 100,
+            moderate_acc * 100,
+            challenging_acc * 100,
+            all_acc * 100,
+            count_lists,
+        )
     else:
         return simple_acc, moderate_acc, challenging_acc, all_acc, count_lists
 
@@ -163,61 +183,108 @@ def compute_acc_by_diff(exec_results, diff_json_path, metric):
 def print_data(score_lists, count_lists, metric="Exec ACCURACY"):
     levels = ["simple", "moderate", "challenging", "total"]
     print("{:20} {:20} {:20} {:20} {:20}".format("", *levels))
-    print("{:20} {:<20} {:<20} {:<20} {:<20}".format('count', *count_lists))
+    print("{:20} {:<20} {:<20} {:<20} {:<20}".format("count", *count_lists))
 
-    print(f'====================================== {metric} =====================================')
-    print("{:20} {:<20.2f} {:<20.2f} {:<20.2f} {:<20.2f}".format("accuracy", *score_lists))
+    print(
+        f"====================================== {metric} ====================================="
+    )
+    print(
+        "{:20} {:<20.2f} {:<20.2f} {:<20.2f} {:<20.2f}".format("accuracy", *score_lists)
+    )
 
 
 if __name__ == "__main__":
     args_parser = argparse.ArgumentParser()
-    args_parser.add_argument("--predicted_sql_path", type=str, default="../../pred_sql/pred_sql_bird_qwen14b_1212.sql")
-    args_parser.add_argument("--ground_truth_path", type=str, default="../../dbgpt_hub/data/bird/dev/dev.sql")
+    args_parser.add_argument(
+        "--predicted_sql_path",
+        type=str,
+        default="../../pred_sql/pred_sql_bird_qwen14b_1212.sql",
+    )
+    args_parser.add_argument(
+        "--ground_truth_path", type=str, default="../../dbgpt_hub/data/bird/dev/dev.sql"
+    )
     args_parser.add_argument("--data_mode", type=str, default="dev")
-    args_parser.add_argument("--db_root_path", type=str, default="../../dbgpt_hub/data/bird/dev/dev_databases/")
+    args_parser.add_argument(
+        "--db_root_path",
+        type=str,
+        default="../../dbgpt_hub/data/bird/dev/dev_databases/",
+    )
     args_parser.add_argument("--num_cpus", type=int, default=1)
     args_parser.add_argument("--meta_time_out", type=float, default=30.0)
     args_parser.add_argument("--mode_gt", type=str, default="gt")
     args_parser.add_argument("--mode_predict", type=str, default="gpt")
     args_parser.add_argument("--difficulty", type=str, default="simple")
     args_parser.add_argument("--diff_json_path", type=str, default="")
-    args_parser.add_argument("--etype", dest="etype", type=str, default="match", choices=("all", "exec", "match", "ves"),)
+    args_parser.add_argument(
+        "--etype",
+        dest="etype",
+        type=str,
+        default="match",
+        choices=("all", "exec", "match", "ves"),
+    )
 
     args = args_parser.parse_args()
     exec_result = []
 
-    pred_queries, db_paths = package_sqls(args.predicted_sql_path, args.db_root_path, mode=args.mode_predict,
-                                          data_mode=args.data_mode)
+    pred_queries, db_paths = package_sqls(
+        args.predicted_sql_path,
+        args.db_root_path,
+        mode=args.mode_predict,
+        data_mode=args.data_mode,
+    )
     # generate gt sqls:
-    gt_queries, db_paths_gt = package_sqls(args.ground_truth_path, args.db_root_path, mode="gt",
-                                           data_mode=args.data_mode)
+    gt_queries, db_paths_gt = package_sqls(
+        args.ground_truth_path, args.db_root_path, mode="gt", data_mode=args.data_mode
+    )
 
     if len(db_paths) == 0:
         db_paths = db_paths_gt
 
     query_pairs = list(zip(pred_queries, gt_queries))
     if args.etype in ["all", "exec", "ves"]:
-        run_sqls_parallel(query_pairs, db_places=db_paths, num_cpus=args.num_cpus, meta_time_out=args.meta_time_out)
+        run_sqls_parallel(
+            query_pairs,
+            db_places=db_paths,
+            num_cpus=args.num_cpus,
+            meta_time_out=args.meta_time_out,
+        )
     else:
         for i, sql_pair in enumerate(query_pairs):
             predicted_sql, ground_truth = sql_pair
-            exec_result.append({"sql_idx": i, "match": int(predicted_sql == ground_truth)})
+            exec_result.append(
+                {"sql_idx": i, "match": int(predicted_sql == ground_truth)}
+            )
     exec_result = sort_results(exec_result)
 
     print("start calculate")
     if args.etype in ["all", "exec"]:
-        simple_acc, moderate_acc, challenging_acc, acc, count_lists = \
-            compute_acc_by_diff(exec_result, args.diff_json_path, "res")
+        (
+            simple_acc,
+            moderate_acc,
+            challenging_acc,
+            acc,
+            count_lists,
+        ) = compute_acc_by_diff(exec_result, args.diff_json_path, "res")
         score_lists = [simple_acc, moderate_acc, challenging_acc, acc]
         print_data(score_lists, count_lists, metric="Exec Accuracy")
     if args.etype in ["all", "match"]:
-        simple_acc, moderate_acc, challenging_acc, acc, count_lists = \
-            compute_acc_by_diff(exec_result, args.diff_json_path, "match")
+        (
+            simple_acc,
+            moderate_acc,
+            challenging_acc,
+            acc,
+            count_lists,
+        ) = compute_acc_by_diff(exec_result, args.diff_json_path, "match")
         score_lists = [simple_acc, moderate_acc, challenging_acc, acc]
         print_data(score_lists, count_lists, metric="Match Accuracy")
     if args.etype in ["all", "ves"]:
-        simple_acc, moderate_acc, challenging_acc, acc, count_lists = \
-            compute_acc_by_diff(exec_result, args.diff_json_path, "time_ratio")
+        (
+            simple_acc,
+            moderate_acc,
+            challenging_acc,
+            acc,
+            count_lists,
+        ) = compute_acc_by_diff(exec_result, args.diff_json_path, "time_ratio")
         score_lists = [simple_acc, moderate_acc, challenging_acc, acc]
         print_data(score_lists, count_lists, metric="Ves")
     print(

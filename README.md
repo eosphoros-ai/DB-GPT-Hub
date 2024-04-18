@@ -647,7 +647,7 @@ Before submitting your code, please ensure that it is formatted according to the
 poetry run black dbgpt_hub
 ```
 
-If you have more time to execute more detailed type checking and style checking of your code, please use the following commond:
+If you have more time to execute more detailed type checking and style checking of your code, please use the following command:
 ```
 poetry run pyright dbgpt_hub
 poetry run pylint dbgpt_hub

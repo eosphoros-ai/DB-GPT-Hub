@@ -5,7 +5,7 @@ train_log="dbgpt_hub/output/logs/train_sft_test_${current_date}.log"
 start_time=$(date +%s)
 echo " Train Start time: $(date -d @$start_time +'%Y-%m-%d %H:%M:%S')" >>${train_log}
 
-# default train , zero-shot, 
+# default train , zero-shot,
 num_shot=0
 
 # one-shot train
@@ -15,7 +15,8 @@ dataset="example_text2sql_train"
 if [ "$num_shot" -eq 1 ]; then
     dataset="example_text2sql_train_one_shot"
 fi
-model_name_or_path="Your_download_CodeLlama-13b-Instruct-hf_path"
+# TODO(yeounoh) restore after enabling gemma-7b
+model_name_or_path="google/gemma-7b" #"Your_download_CodeLlama-13b-Instruct-hf_path"
 output_dir="dbgpt_hub/output/adapter/CodeLlama-13b-sql-lora"
 
 # the default param set could be run in a server with one a100(40G) gpu, if your server not support the set,you can set smaller param such as  lora_rank and use qlora with quant 4 eg...
@@ -43,7 +44,7 @@ CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
     --plot_loss \
     --bf16  >> ${train_log}
     # --bf16#v100不支持bf16
-    
+
 echo "############train end###############" >>${train_log}
 echo "Train End time: $(date)" >>${train_log}
 end_time=$(date +%s)

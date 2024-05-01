@@ -286,7 +286,7 @@
     <td>0.581</td>
   </tr>
 </table>
- 
+
 
 ## Contents
 - [DB-GPT-Hub: Text-to-SQL parsing with LLMs](#db-gpt-hub-text-to-sql-parsing-with-llms)
@@ -323,15 +323,15 @@ As of October 10, 2023, we have used this project to fine-tune the open-source 1
 
 ## 2. Fine-tuning Text-to-SQL
 
-We enhance the Text-to-SQL performance by applying Supervised Fine-Tuning (SFT) on large language models.   
+We enhance the Text-to-SQL performance by applying Supervised Fine-Tuning (SFT) on large language models.
 
 ### 2.1. Dataset
 
 The primary dataset for this project's examples is the **Spider** dataset:
 
-- [SPIDER](https://yale-lily.github.io/spider): A complex text2sql dataset across domains, containing 10,181 natural language queries, 5,693 SQL distributed across 200 separate databases, covering 138 different domains.[download link](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ)  
+- [SPIDER](https://yale-lily.github.io/spider): A complex text2sql dataset across domains, containing 10,181 natural language queries, 5,693 SQL distributed across 200 separate databases, covering 138 different domains.[download link](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ)
 
-Other text2sql datasets available:   
+Other text2sql datasets available:
 
 - [WikiSQL:](https://github.com/salesforce/WikiSQL) A large semantic parsing dataset consisting of 80,654 natural statement expressions and sql annotations of 24,241 tables. Each query in WikiSQL is limited to the same table and does not contain complex operations such as sorting, grouping The queries in WikiSQL are limited to the same table and do not include complex operations such as sorting, grouping, subqueries, etc.
 - [CHASE](https://xjtu-intsoft.github.io/chase/): A cross-domain multi-round interactive text2sql Chinese dataset containing a list of 5,459 multi-round questions consisting of 17,940 <query, SQL> binary groups across 280 different domain databases.
@@ -347,7 +347,7 @@ Other text2sql datasets available:
 DB-GPT-Hub currently supports the following base models:
 
   - [x] CodeLlama
-  - [x] Baichuan2 
+  - [x] Baichuan2
   - [x] LLaMa/LLaMa2
   - [x] Falcon
   - [x] Qwen
@@ -362,13 +362,13 @@ DB-GPT-Hub currently supports the following base models:
 
 
 
-The model is fine-tuned based on a quantization bit of 4 using Quantized Learning over Redundant Architecture (QLoRA). The minimum hardware requirements for this can be referred to as follows:   
+The model is fine-tuned based on a quantization bit of 4 using Quantized Learning over Redundant Architecture (QLoRA). The minimum hardware requirements for this can be referred to as follows:
 
 | Model Parameters | GPU RAM | CPU RAM | DISK   |
 | ---------------- | ------- | ------- | ------ |
 | 7b               | 6GB     | 3.6GB   | 36.4GB |
 | 13b              | 13.4GB  | 5.9GB   | 60.2GB |
-  
+
 All the related parameters are set to the minimum, with a batch size of 1 and max length of 512. Based on experience, for better performance, it is recommended to set the related length values to 1024 or 2048.
 
 
@@ -379,7 +379,7 @@ All the related parameters are set to the minimum, with a batch size of 1 and ma
 ```
 git clone https://github.com/eosphoros-ai/DB-GPT-Hub.git
 cd DB-GPT-Hub
-conda create -n dbgpt_hub python=3.10 
+conda create -n dbgpt_hub python=3.10
 conda activate dbgpt_hub
 pip install poetry
 poetry install
@@ -477,9 +477,9 @@ start_evaluate(evaluate_args)
 
 ### 3.3. Data preparation
 
-DB-GPT-Hub uses the information matching generation method for data preparation, i.e. the SQL + Repository generation method that combines table information. This method combines data table information to better understand the structure and relationships of the data table, and is suitable for generating SQL statements that meet the requirements.  
+DB-GPT-Hub uses the information matching generation method for data preparation, i.e. the SQL + Repository generation method that combines table information. This method combines data table information to better understand the structure and relationships of the data table, and is suitable for generating SQL statements that meet the requirements.
 
-Download the [Spider dataset]((https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ)) from the Spider dataset link. By default, after downloading and extracting the data, place it in the dbgpt_hub/data directory, i.e., the path should be `dbgpt_hub/data/spider`.  
+Download the [Spider dataset]((https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ)) from the Spider dataset link. By default, after downloading and extracting the data, place it in the dbgpt_hub/data directory, i.e., the path should be `dbgpt_hub/data/spider`.
 
 For the data preprocessing part, simply **run the following script** :
 ```bash
@@ -498,9 +498,9 @@ The data in the generated JSON looks something like this:
         "input": "###Input:\nHow many heads of the departments are older than 56 ?\n\n###Response:",
         "output": "SELECT count(*) FROM head WHERE age  >  56",
         "history": []
-    }, 
-```     
-The data processing code of `chase`, `cosql` and `sparc` has been embedded in the data processing code of the project. After downloading the data set according to the above link, you only need to add ` in `dbgpt_hub/configs/config.py` Just loosen the corresponding code comment in SQL_DATA_INFO`.   
+    },
+```
+The data processing code of `chase`, `cosql` and `sparc` has been embedded in the data processing code of the project. After downloading the data set according to the above link, you only need to add ` in `dbgpt_hub/configs/config.py` Just loosen the corresponding code comment in SQL_DATA_INFO`.
 
 ### 3.4. Model fine-tuning
 
@@ -511,7 +511,7 @@ Run the command:
 poetry run sh dbgpt_hub/scripts/train_sft.sh
 ```
 
-After fine-tuning, the model weights will be saved by default in the adapter folder, specifically in the dbgpt_hub/output/adapter directory.   
+After fine-tuning, the model weights will be saved by default in the adapter folder, specifically in the dbgpt_hub/output/adapter directory.
 
 If you're using **multi-GPU training and want to utilize deepseed**, you should modify the default content in train_sft.sh. The change  is:
 
@@ -519,26 +519,26 @@ If you're using **multi-GPU training and want to utilize deepseed**, you should 
 CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
     --quantization_bit 4 \
     ...
-```    
-change to ： 
+```
+change to ：
 ```
 deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
     --deepspeed dbgpt_hub/configs/ds_config.json \
     --quantization_bit 4 \
     ...
-```     
+```
 
-if you need  order card  id   
+if you need  order card  id
 ```
 deepspeed --include localhost:0,1  dbgpt_hub/train/sft_train.py \
     --deepspeed dbgpt_hub/configs/ds_config.json \
     --quantization_bit 4 \
     ...
-```    
+```
 
-The other parts that are omitted (…) can be kept consistent. If you want to change the default deepseed configuration, go into the `dbgpt_hub/configs` directory and make changes to ds_config.json as needed,the default is stage2.   
+The other parts that are omitted (…) can be kept consistent. If you want to change the default deepseed configuration, go into the `dbgpt_hub/configs` directory and make changes to ds_config.json as needed,the default is stage2.
 
-In the script, during fine-tuning, different models correspond to key parameters lora_target and template, as shown in the following table:   
+In the script, during fine-tuning, different models correspond to key parameters lora_target and template, as shown in the following table:
 
 | model name                                               | lora_target     | template  |
 | -------------------------------------------------------- | --------------- | --------- |
@@ -561,16 +561,16 @@ In the script, during fine-tuning, different models correspond to key parameters
 
  In `train_sft.sh` , other key parameters are as follows:
 
- > quantization_bit: Indicates whether quantization is applied, with valid values being [4 or 8].   
-> model_name_or_path: The path of the LLM (Large Language Model).   
-> dataset: Specifies the name of the training dataset configuration, corresponding to the outer key value in dbgpt_hub/data/dataset_info.json, such as example_text2sql.  
-> max_source_length: The length of the text input into the model. If computing resources allow, it can be set as large as possible, like 1024 or 2048.      
-> max_target_length: The length of the SQL content output by the model; 512 is generally sufficient.   
-> output_dir: The output path of the Peft module during SFT (Supervised Fine-Tuning), set by default to `dbgpt_hub/output/adapter/` .     
-> per_device_train_batch_size: The size of the batch. If computing resources allow, it can be set larger; the default is 1.   
-> gradient_accumulation_steps: The number of steps for accumulating gradients before an update.   
-> save_steps: The number of steps at which model checkpoints are saved; it can be set to 100 by default.  
-> num_train_epochs: The number of epochs for training the dataset.   
+ > quantization_bit: Indicates whether quantization is applied, with valid values being [4 or 8].
+> model_name_or_path: The path of the LLM (Large Language Model).
+> dataset: Specifies the name of the training dataset configuration, corresponding to the outer key value in dbgpt_hub/data/dataset_info.json, such as example_text2sql.
+> max_source_length: The length of the text input into the model. If computing resources allow, it can be set as large as possible, like 1024 or 2048.
+> max_target_length: The length of the SQL content output by the model; 512 is generally sufficient.
+> output_dir: The output path of the Peft module during SFT (Supervised Fine-Tuning), set by default to `dbgpt_hub/output/adapter/` .
+> per_device_train_batch_size: The size of the batch. If computing resources allow, it can be set larger; the default is 1.
+> gradient_accumulation_steps: The number of steps for accumulating gradients before an update.
+> save_steps: The number of steps at which model checkpoints are saved; it can be set to 100 by default.
+> num_train_epochs: The number of epochs for training the dataset.
 
 
 ### 3.5. Model Predict
@@ -586,28 +586,28 @@ The value of the parameter `predicted_input_filename`  is your predict test data
 
 ### 3.6 Model Weights
 You can find the second corresponding model weights  from Huggingface [hg-eosphoros-ai
-](https://huggingface.co/Wangzaistone123/CodeLlama-13b-sql-lora)  ,we uploaded the LoRA weights in October,which execution accuracy on the Spider evaluation set reached 0.789.    
+](https://huggingface.co/Wangzaistone123/CodeLlama-13b-sql-lora)  ,we uploaded the LoRA weights in October,which execution accuracy on the Spider evaluation set reached 0.789.
 
-#### 3.6.1 Model and fine-tuned weight merging 
+#### 3.6.1 Model and fine-tuned weight merging
 
-If you need to merge the weights of the trained base model and the fine-tuned Peft module to export a complete model, execute the following model export script:   
+If you need to merge the weights of the trained base model and the fine-tuned Peft module to export a complete model, execute the following model export script:
 
 ```bash
 poetry run sh ./dbgpt_hub/scripts/export_merge.sh
 ```
 
-Be sure to replace the parameter path values in the script with the paths corresponding to your project.  
-                                                    
+Be sure to replace the parameter path values in the script with the paths corresponding to your project.
+
 ### 3.7 Model Evaluation
 To evaluate model performance on the dataset, default is spider dev dataset.
 Run the following command:
 ```bash
 poetry run python dbgpt_hub/eval/evaluation.py --plug_value --input Your_model_pred_file
 ```
-You can find the results of our latest review and part of experiment results [here](docs/eval_llm_result.md)  
+You can find the results of our latest review and part of experiment results [here](docs/eval_llm_result.md)
 **Note**: The database pointed to by the default code is a 95M database downloaded from [Spider official website] (https://yale-lily.github.io/spider). If you need to use Spider database (size 1.27G) in [test-suite](https://github.com/taoyds/test-suite-sql-eval), please download the database in the link to the custom directory first, and run the above evaluation command which add parameters and values ​​like `--db Your_download_db_path`.
 
-## 4. RoadMap 
+## 4. RoadMap
 
 The whole process we will divide into three phases:
 
@@ -616,7 +616,7 @@ The whole process we will divide into three phases:
 
   Currently, we offer support for the following features:
   - [x] CodeLlama
-  - [x] Baichuan2 
+  - [x] Baichuan2
   - [x] LLaMa/LLaMa2
   - [x] Falcon
   - [x] Qwen
@@ -632,17 +632,17 @@ The whole process we will divide into three phases:
   - [x] Optimize `prompts`
   - [x] Release evaluation results, and optimized   models open to peers.
 * Stage 3:
-  - [ ] Inference speed optimization and improvement   
-  - [ ] Targeted optimization and improvement of business scenarios and Chinese effects   
-  - [ ] Optimized based on more papers, such as RESDSQL and others. Combined with our community's sibling project[Awesome-Text2SQL](https://github.com/eosphoros-ai/Awesome-Text2SQL)for further enhancements..  
+  - [ ] Inference speed optimization and improvement
+  - [ ] Targeted optimization and improvement of business scenarios and Chinese effects
+  - [ ] Optimized based on more papers, such as RESDSQL and others. Combined with our community's sibling project[Awesome-Text2SQL](https://github.com/eosphoros-ai/Awesome-Text2SQL)for further enhancements..
 
-**If our work has provided even a small measure of assistance to you, please consider giving us a star. Your feedback and support serve as motivation for us to continue releasing more related work and improving our efforts. Thank you!**   
+**If our work has provided even a small measure of assistance to you, please consider giving us a star. Your feedback and support serve as motivation for us to continue releasing more related work and improving our efforts. Thank you!**
 
 ## 5. Contributions
 
 We warmly invite more individuals to join us and actively engage in various aspects of our project, such as datasets, model fine-tuning, performance evaluation, paper recommendations, and code reproduction. Please don't hesitate to open issues or pull requests (PRs), and we will be proactive in responding to your contributions.
 
-Before submitting your code, please ensure that it is formatted according to the black style by using the following command: 
+Before submitting your code, please ensure that it is formatted according to the black style by using the following command:
 ```
 poetry run black dbgpt_hub
 ```
@@ -670,7 +670,7 @@ Our work is primarily based on the foundation of numerous open-source contributi
 * [WizardLM](https://github.com/nlpxucan/WizardLM)
 * [text-to-sql-wizardcoder](https://github.com/cuplv/text-to-sql-wizardcoder)
 * [test-suite-sql-eval](https://github.com/taoyds/test-suite-sql-eval)
-* [LLaMa-Efficient-Tuning](https://github.com/hiyouga/LLaMA-Efficient-Tuning) 
+* [LLaMa-Efficient-Tuning](https://github.com/hiyouga/LLaMA-Efficient-Tuning)
 
 Thanks to all the contributors, especially @[JBoRu](https://github.com/JBoRu) who raised the [issue](https://github.com/eosphoros-ai/DB-GPT-Hub/issues/119) which reminded us to add a new promising evaluation way, i.e. Test Suite. As the paper 《SQL-PALM: IMPROVED LARGE LANGUAGE MODEL ADAPTATION FOR TEXT-TO-SQL》 mentioned, "We consider two commonly-used evaluation metrics: execution accuracy (EX) and test-suite accuracy (TS). EX measures whether the SQL execution outcome matches ground truth (GT), whereas TS measures whether the SQL passes all EX evaluations for multiple tests, generated by database augmentation. Since EX contains false positives, we consider TS as a more reliable evaluation metric".
 
@@ -691,7 +691,7 @@ Please consider citing our project if you find it useful:
 The MIT License (MIT)
 
 ## 9. Contact Information
-We are collaborating as a community, and if you have any ideas regarding our community work, please don't hesitate to get in touch with us. If you're interested in delving into an in-depth experiment and optimizing the DB-GPT-Hub subproject, you can reach out to 'wangzai' within the WeChat group. We wholeheartedly welcome your contributions to making it even better together! 
+We are collaborating as a community, and if you have any ideas regarding our community work, please don't hesitate to get in touch with us. If you're interested in delving into an in-depth experiment and optimizing the DB-GPT-Hub subproject, you can reach out to 'wangzai' within the WeChat group. We wholeheartedly welcome your contributions to making it even better together!
 [![](https://dcbadge.vercel.app/api/server/7uQnPuveTY?compact=true&style=flat)](https://discord.gg/7uQnPuveTY)
 
 [![Star History Chart](https://api.star-history.com/svg?repos=eosphoros-ai/DB-GPT-Hub&type=Date)](https://star-history.com/#eosphoros-ai/DB-GPT-Hub)

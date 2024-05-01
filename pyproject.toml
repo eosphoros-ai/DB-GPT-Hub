@@ -9,7 +9,7 @@ include = ["dbgpt_hub/baseline/baseline.json"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
-transformers = "4.34.1"
+transformers = "4.38.2"
 peft = "0.4.0"
 accelerate = "0.21.0"
 einops = "0.6.1"

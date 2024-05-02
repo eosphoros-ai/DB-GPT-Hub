@@ -96,7 +96,7 @@ class PeftModelMixin:
             model.save_pretrained(
                 output_dir,
                 state_dict=state_dict,
-                safe_serialization=self.args.save_safetensors,
+                safe_serialization=False,  #self.args.save_safetensors,
             )
             model.config.use_cache = False
         else:

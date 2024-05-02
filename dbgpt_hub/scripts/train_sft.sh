@@ -52,7 +52,7 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
     --model_name_or_path $model_name_or_path \
     --do_train \
     --dataset $dataset \
-    --max_source_length 1024 \
+    --max_source_length 1536 \
     --max_target_length 512 \
     --template llama2 \
     --finetuning_type lora \
@@ -65,10 +65,10 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 16 \
     --lr_scheduler_type cosine_with_restarts \
-    --logging_steps 25 \
-    --save_steps 20 \
+    --logging_steps 50 \
+    --save_steps 2000 \
     --learning_rate 2e-4 \
-    --num_train_epochs 0.1 \
+    --num_train_epochs 10 \
     --plot_loss \
     2>&1 | tee ${train_log}
 

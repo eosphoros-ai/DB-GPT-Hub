@@ -5,7 +5,8 @@ pred_log="dbgpt_hub/output/logs/pred_test_${current_date}.log"
 start_time=$(date +%s)
 echo " Pred Start time: $(date -d @$start_time +'%Y-%m-%d %H:%M:%S')" >>${pred_log}
 
-CUDA_VISIBLE_DEVICES=0,1  python dbgpt_hub/predict/predict.py \
+CUDA_VISIBLE_DEVICES=0  python dbgpt_hub/predict/predict.py \
+    --quantization_bit 4 \
     --model_name_or_path Your_download_CodeLlama-13b-Instruct-hf_path \
     --template llama2 \
     --finetuning_type lora \
@@ -28,7 +29,7 @@ echo "Time elapsed: ${hour}  hour $min min " >>${pred_log}
 #     --template baichuan2_eval \
 #     --quantization_bit 4 \
 #     --finetuning_type lora \
-#     --checkpoint_dir dbgpt_hub/output/adapter/baichuan2-13b-qlora 
+#     --checkpoint_dir dbgpt_hub/output/adapter/baichuan2-13b-qlora
 
 
 ## wangzai codellama2_pred test a100

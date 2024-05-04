@@ -11,6 +11,7 @@ sys.path.append(ROOT_PATH)
 from tqdm import tqdm
 
 from dbgpt_hub.configs.config import (
+    INSTRUCTION_ONE_SHOT_CODE_PROMPT,
     SQL_DATA_INFO,
     DATA_PATH,
     INPUT_PROMPT,
@@ -20,9 +21,12 @@ from dbgpt_hub.configs.config import (
 
 
 class ProcessSqlData:
-    def __init__(
-        self, train_file=None, dev_file=None, num_shot=0, code_representation=False
-    ) -> None:
+
+    def __init__(self,
+                 train_file=None,
+                 dev_file=None,
+                 num_shot=0,
+                 code_representation=False) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
         self.num_shot = num_shot
@@ -65,24 +69,19 @@ class ProcessSqlData:
             coloumns = item["column_names_original"][1:]
             primary_key = item["primary_keys"]
             foreign_keys = item["foreign_keys"]
-            source = (
-                item["db_id"] + " contains tables such as " + ", ".join(tables) + ". "
-            )
+            source = (item["db_id"] + " contains tables such as " +
+                      ", ".join(tables) + ". ")
             for i, name in enumerate(tables):
                 data = [coloumn[1] for coloumn in coloumns if coloumn[0] == i]
-                source += (
-                    "Table " + name + " has columns such as " + ", ".join(data) + ". "
-                )
+                source += ("Table " + name + " has columns such as " +
+                           ", ".join(data) + ". ")
 
                 # get primary key info
                 for j in range(len(primary_key)):
                     if type(primary_key[j]) == int:
                         if coloumns[primary_key[j] - 1][0] == i:
-                            source += (
-                                coloumns[primary_key[j] - 1][1]
-                                + " is the primary key."
-                                + "\n"
-                            )
+                            source += (coloumns[primary_key[j] - 1][1] +
+                                       " is the primary key." + "\n")
                     # combination primary key
                     elif type(primary_key[j]) == list:
                         combine_p = "The combination of ("
@@ -90,36 +89,29 @@ class ProcessSqlData:
                         for k in range(len(primary_key[j])):
                             if coloumns[primary_key[j][k] - 1][0] == i:
                                 keys.append(coloumns[primary_key[j][k] - 1][1])
-                        source += (
-                            combine_p
-                            + ", ".join(keys)
-                            + ") are the primary key."
-                            + "\n"
-                        )
+                        source += (combine_p + ", ".join(keys) +
+                                   ") are the primary key." + "\n")
                     else:
                         print("not support type", type(primary_key[j]))
                         continue
 
             # get foreign key info
             for key in foreign_keys:
-                source += (
-                    "The "
-                    + coloumns[key[0] - 1][1]
-                    + " of "
-                    + tables[coloumns[key[0] - 1][0]]
-                    + " is the foreign key of "
-                    + coloumns[key[1] - 1][1]
-                    + " of "
-                    + tables[coloumns[key[1] - 1][0]]
-                    + ".\n"
-                )
+                source += ("The " + coloumns[key[0] - 1][1] + " of " +
+                           tables[coloumns[key[0] - 1][0]] +
+                           " is the foreign key of " +
+                           coloumns[key[1] - 1][1] + " of " +
+                           tables[coloumns[key[1] - 1][0]] + ".\n")
 
             db_dict[item["db_id"]] = source
 
         res = []
         base_instruction = INSTRUCTION_PROMPT
         if self.num_shot == 1:
-            base_instruction = INSTRUCTION_ONE_SHOT_PROMPT
+            if self.code_representation:
+                base_instruction = INSTRUCTION_ONE_SHOT_CODE_PROMPT
+            else:
+                base_instruction = INSTRUCTION_ONE_SHOT_PROMPT
 
         for data in tqdm(datas):
             if data[db_id_name] in db_dict.keys():
@@ -127,30 +119,29 @@ class ProcessSqlData:
                     history = []
                     for interaction in data["interaction"]:
                         input = {
-                            "db_id": data[db_id_name],
-                            "instruction": base_instruction.format(
-                                db_dict[data[db_id_name]]
-                            ),
-                            "input": INPUT_PROMPT.format(interaction["utterance"]),
-                            "output": interaction[output_name],
-                            "history": history,
+                            "db_id":
+                            data[db_id_name],
+                            "instruction":
+                            base_instruction.format(db_dict[data[db_id_name]]),
+                            "input":
+                            INPUT_PROMPT.format(interaction["utterance"]),
+                            "output":
+                            interaction[output_name],
+                            "history":
+                            history,
                         }
                         res.append(input)
-                        history.append(
-                            (
-                                INPUT_PROMPT.format(interaction["utterance"]),
-                                interaction[output_name],
-                            )
-                        )
+                        history.append((
+                            INPUT_PROMPT.format(interaction["utterance"]),
+                            interaction[output_name],
+                        ))
                 else:  # 单轮
                     if self.code_representation:
-                        db_path = os.path.join(db_folder_path, data[db_id_name])
+                        db_path = os.path.join(db_folder_path,
+                                               data[db_id_name])
                         sql_file_path = next(
-                            (
-                                file
-                                for file in os.listdir(db_path)
-                                if file.endswith(".sql")
-                            ),
+                            (file for file in os.listdir(db_path)
+                             if file.endswith(".sql")),
                             None,
                         )
                         if sql_file_path is None:
@@ -158,25 +149,31 @@ class ProcessSqlData:
                         schema_file_path = os.path.join(db_path, sql_file_path)
                         with open(schema_file_path, "r") as file:
                             schema_content = file.read()
-                        create_statements = re.findall(
-                            r"CREATE\s.*?;", schema_content, re.DOTALL
-                        )
+                        create_statements = re.findall(r"CREATE\s.*?;",
+                                                       schema_content,
+                                                       re.DOTALL)
                         input = {
-                            "db_id": data[db_id_name],
-                            "instruction": INSTRUCTION_PROMPT.format(create_statements),
-                            "input": INPUT_PROMPT.format(data["question"]),
-                            "output": data[output_name],
+                            "db_id":
+                            data[db_id_name],
+                            "instruction":
+                            base_instruction.format(create_statements),
+                            "input":
+                            INPUT_PROMPT.format(data["question"]),
+                            "output":
+                            data[output_name],
                             "history": [],
                         }
                         res.append(input)
                     else:
                         input = {
-                            "db_id": data[db_id_name],
-                            "instruction": base_instruction.format(
-                                db_dict[data[db_id_name]]
-                            ),
-                            "input": INPUT_PROMPT.format(data["question"]),
-                            "output": data[output_name],
+                            "db_id":
+                            data[db_id_name],
+                            "instruction":
+                            base_instruction.format(db_dict[data[db_id_name]]),
+                            "input":
+                            INPUT_PROMPT.format(data["question"]),
+                            "output":
+                            data[output_name],
                             "history": [],
                         }
                         res.append(input)
@@ -206,8 +203,7 @@ class ProcessSqlData:
                     db_id_name=data_info["db_id_name"],
                     output_name=data_info["output_name"],
                     is_multiple_turn=data_info["is_multiple_turn"],
-                )
-            )
+                ))
 
             dev_data_file_list = [
                 os.path.join(DATA_PATH, data_info["data_source"], file)
@@ -229,8 +225,7 @@ class ProcessSqlData:
                     db_id_name=data_info["db_id_name"],
                     output_name=data_info["output_name"],
                     is_multiple_turn=data_info["is_multiple_turn"],
-                )
-            )
+                ))
         with open(self.train_file, "w", encoding="utf-8") as s:
             json.dump(train_data, s, indent=4, ensure_ascii=False)
         with open(self.dev_file, "w", encoding="utf-8") as s:

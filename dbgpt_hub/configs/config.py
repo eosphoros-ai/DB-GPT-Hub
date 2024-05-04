@@ -120,6 +120,65 @@ The position_id of employee is the foreign key of position_id of position.\
 \n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering';\
 \n###New Instruction:\n{}\n"""
 
+INSTRUCTION_THREE_SHOT_PROMPT = """\
+I want you to act as a SQL terminal in front of an example database. \
+You need only to return the sql command to me. \
+First, I will show you few examples of an instruction followed by the correct SQL response. \
+Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request.\
+\n### Example1 Instruction:
+The database contains tables such as employee, salary, and position. \
+Table employee has columns such as employee_id, name, age, and position_id. employee_id is the primary key. \
+Table salary has columns such as employee_id, amount, and date. employee_id is the primary key. \
+Table position has columns such as position_id, title, and department. position_id is the primary key. \
+The employee_id of salary is the foreign key of employee_id of employee. \
+The position_id of employee is the foreign key of position_id of position.\
+\n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department.\n\
+\n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering'\
+\n### Example2 Instruction:
+department_management contains tables such as department, head, management. \
+Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. \
+Department_ID is the primary key.\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key. \
+Table management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key. \
+The head_ID of management is the foreign key of head_ID of head.\nThe department_ID of management is the foreign key of Department_ID of department.\
+\n### Example2 Input:\nHow many heads of the departments are older than 56 ?\n\
+\n### Example2 Response:\nSELECT count(*) FROM head WHERE age  >  56\
+\n### Example3 Instruction:
+department_management contains tables such as department, head, management. \
+Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. \
+Department_ID is the primary key.\nTable head has columns such as head_ID, name, born_state, age. \
+head_ID is the primary key.\nTable management has columns such as department_ID, head_ID, temporary_acting. \
+department_ID is the primary key.\nThe head_ID of management is the foreign key of head_ID of head. \
+The department_ID of management is the foreign key of Department_ID of department.
+\n### Example3 Input:\nList the name, born state and age of the heads of departments ordered by age.\n\
+\n### Example3 Response:\nSELECT name ,  born_state ,  age FROM head ORDER BY age\
+\n###New Instruction:\n{}\n"""
+
+INSTRUCTION_ONE_SHOT_CODE_PROMPT = """\
+I want you to act as a SQL terminal in front of an example database. \
+You need only to return the sql command to me. \
+First, I will show you few examples of an instruction followed by the correct SQL response. \
+Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request.\
+\n### Example1 Instruction:\n[\'CREATE TABLE IF NOT EXISTS "department" (\\n"Department_ID" int,\\n"Name" text,\\n"Creation" text,\\n"Ranking" int,\\n"Budget_in_Billions" real,\\n"Num_Employees" real,\\nPRIMARY KEY ("Department_ID")\\n);\', \'CREATE TABLE IF NOT EXISTS "head" (\\n"head_ID" int,\\n"name" text,\\n"born_state" text,\\n"age" real,\\nPRIMARY KEY ("head_ID")\\n);\', \'CREATE TABLE IF NOT EXISTS "management" (\\n"department_ID" int,\\n"head_ID" int,\\n"temporary_acting" text,\\nPRIMARY KEY ("Department_ID","head_ID"),\\nFOREIGN KEY ("Department_ID") REFERENCES `department`("Department_ID"),\\nFOREIGN KEY ("head_ID") REFERENCES `head`("head_ID")\\n);\']
+\n### Example1 Input:\nWhat are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?\n\
+\n### Example1 Response:\nSELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama'\
+\n###New Instruction:\n{}\n"""
+
+INSTRUCTION_THREE_SHOT_CODE_PROMPT = """\
+I want you to act as a SQL terminal in front of an example database. \
+You need only to return the sql command to me. \
+First, I will show you few examples of an instruction followed by the correct SQL response. \
+Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request.\
+\n### Example1 Instruction:\n[\'CREATE TABLE IF NOT EXISTS "department" (\\n"Department_ID" int,\\n"Name" text,\\n"Creation" text,\\n"Ranking" int,\\n"Budget_in_Billions" real,\\n"Num_Employees" real,\\nPRIMARY KEY ("Department_ID")\\n);\', \'CREATE TABLE IF NOT EXISTS "head" (\\n"head_ID" int,\\n"name" text,\\n"born_state" text,\\n"age" real,\\nPRIMARY KEY ("head_ID")\\n);\', \'CREATE TABLE IF NOT EXISTS "management" (\\n"department_ID" int,\\n"head_ID" int,\\n"temporary_acting" text,\\nPRIMARY KEY ("Department_ID","head_ID"),\\nFOREIGN KEY ("Department_ID") REFERENCES `department`("Department_ID"),\\nFOREIGN KEY ("head_ID") REFERENCES `head`("head_ID")\\n);\']
+\n### Example1 Input:\nWhat are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?\n\
+\n### Example1 Response:\nSELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama'\
+\n### Example2 Instruction:\n[\'CREATE TABLE "city" (\\n"City_ID" int,\\n"Official_Name" text,\\n"Status" text,\\n"Area_km_2" real,\\n"Population" real,\\n"Census_Ranking" text,\\nPRIMARY KEY ("City_ID")\\n);\', \'CREATE TABLE "farm" (\\n"Farm_ID" int,\\n"Year" int,\\n"Total_Horses" real,\\n"Working_Horses" real,\\n"Total_Cattle" real,\\n"Oxen" real,\\n"Bulls" real,\\n"Cows" real,\\n"Pigs" real,\\n"Sheep_and_Goats" real,\\nPRIMARY KEY ("Farm_ID")\\n);\', \'CREATE TABLE "farm_competition" (\\n"Competition_ID" int,\\n"Year" int,\\n"Theme" text,\\n"Host_city_ID" int,\\n"Hosts" text,\\nPRIMARY KEY ("Competition_ID"),\\nFOREIGN KEY (`Host_city_ID`) REFERENCES `city`(`City_ID`)\\n);\', \'CREATE TABLE "competition_record" (\\n"Competition_ID" int,\\n"Farm_ID" int,\\n"Rank" int,\\nPRIMARY KEY ("Competition_ID","Farm_ID"),\\nFOREIGN KEY (`Competition_ID`) REFERENCES `farm_competition`(`Competition_ID`),\\nFOREIGN KEY (`Farm_ID`) REFERENCES `farm`(`Farm_ID`)\\n);\']
+\n### Example2 Input:\nHow many heads of the departments are older than 56 ?\
+\n### Example2 Response:\nSELECT Total_Horses FROM farm ORDER BY Total_Horses ASC\
+\n### Example3 Instruction:\n[\'CREATE TABLE "city" (\\n"City_ID" int,\\n"Official_Name" text,\\n"Status" text,\\n"Area_km_2" real,\\n"Population" real,\\n"Census_Ranking" text,\\nPRIMARY KEY ("City_ID")\\n);\', \'CREATE TABLE "farm" (\\n"Farm_ID" int,\\n"Year" int,\\n"Total_Horses" real,\\n"Working_Horses" real,\\n"Total_Cattle" real,\\n"Oxen" real,\\n"Bulls" real,\\n"Cows" real,\\n"Pigs" real,\\n"Sheep_and_Goats" real,\\nPRIMARY KEY ("Farm_ID")\\n);\', \'CREATE TABLE "farm_competition" (\\n"Competition_ID" int,\\n"Year" int,\\n"Theme" text,\\n"Host_city_ID" int,\\n"Hosts" text,\\nPRIMARY KEY ("Competition_ID"),\\nFOREIGN KEY (`Host_city_ID`) REFERENCES `city`(`City_ID`)\\n);\', \'CREATE TABLE "competition_record" (\\n"Competition_ID" int,\\n"Farm_ID" int,\\n"Rank" int,\\nPRIMARY KEY ("Competition_ID","Farm_ID"),\\nFOREIGN KEY (`Competition_ID`) REFERENCES `farm_competition`(`Competition_ID`),\\nFOREIGN KEY (`Farm_ID`) REFERENCES `farm`(`Farm_ID`)\\n);\']
+\n### Example3 Input:\nWhat is the total horses record for each farm, sorted ascending?\
+\n### Example3 Response:\nSELECT count(DISTINCT Status) FROM city\
+\n###New Instruction:\n{}\n"""
+
 # EXAMPLES =[EXAMPLE1, EXAMPLE1]
 
 # EXAMPLE1 = "\n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department.\n\

@@ -8,7 +8,7 @@ echo " Pred Start time: $(date -d @$start_time +'%Y-%m-%d %H:%M:%S')" >>${pred_l
 CUDA_VISIBLE_DEVICES=0  python dbgpt_hub/predict/predict.py \
     --quantization_bit 4 \
     --model_name_or_path Your_download_CodeLlama-13b-Instruct-hf_path \
-    --template llama2 \
+    --template mistral \
     --finetuning_type lora \
     --predicted_input_filename dbgpt_hub/data/example_text2sql_dev.json \
     --checkpoint_dir dbgpt_hub/output/adapter/CodeLlama-13b-sql-lora \

@@ -54,7 +54,7 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
     --dataset $dataset \
     --max_source_length 1536 \
     --max_target_length 512 \
-    --template llama2 \
+    --template mistral \
     --finetuning_type lora \
     --lora_rank 64 \
     --lora_alpha 32 \

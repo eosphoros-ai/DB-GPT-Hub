@@ -17,6 +17,7 @@ from dbgpt_hub.configs.config import (
     INPUT_PROMPT,
     INSTRUCTION_PROMPT,
     INSTRUCTION_ONE_SHOT_PROMPT,
+    INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT,
 )
 
 
@@ -26,11 +27,13 @@ class ProcessSqlData:
                  train_file=None,
                  dev_file=None,
                  num_shot=0,
-                 code_representation=False) -> None:
+                 code_representation=False,
+                 column_type=False) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
         self.num_shot = num_shot
         self.code_representation = code_representation
+        self.column_type = column_type
 
     def decode_json_file(
         self,
@@ -67,15 +70,18 @@ class ProcessSqlData:
         for item in tables:
             tables = item["table_names_original"]
             coloumns = item["column_names_original"][1:]
+            if self.column_type:
+                for i, ctype in enumerate(item["column_types"][1:]):
+                    coloumns[i][1] += ":" + ctype
             primary_key = item["primary_keys"]
             foreign_keys = item["foreign_keys"]
             source = (item["db_id"] + " contains tables such as " +
                       ", ".join(tables) + ". ")
+
             for i, name in enumerate(tables):
                 data = [coloumn[1] for coloumn in coloumns if coloumn[0] == i]
                 source += ("Table " + name + " has columns such as " +
                            ", ".join(data) + ". ")
-
                 # get primary key info
                 for j in range(len(primary_key)):
                     if type(primary_key[j]) == int:
@@ -110,6 +116,8 @@ class ProcessSqlData:
         if self.num_shot == 1:
             if self.code_representation:
                 base_instruction = INSTRUCTION_ONE_SHOT_CODE_PROMPT
+            elif self.column_type:
+                base_instruction = INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT
             else:
                 base_instruction = INSTRUCTION_ONE_SHOT_PROMPT
 
@@ -237,6 +245,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--code_representation", help="Enable code representation", default=False
     )
+    parser.add_argument(
+        "--column_type", help="Enable column type annotation", default=False
+    )
     args = parser.parse_args()
 
     all_in_one_train_file = os.path.join(DATA_PATH, "example_text2sql_train.json")
@@ -245,6 +256,7 @@ if __name__ == "__main__":
         train_file=all_in_one_train_file,
         dev_file=all_in_one_dev_file,
         code_representation=args.code_representation,
+        column_type=args.column_type,
     )
     precess.create_sft_raw_data()
 
@@ -260,5 +272,6 @@ if __name__ == "__main__":
         dev_file=one_shot_all_in_one_dev_file,
         num_shot=1,
         code_representation=args.code_representation,
+        column_type=args.column_type,
     )
     one_shot_precess.create_sft_raw_data()

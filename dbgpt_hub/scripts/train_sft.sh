@@ -6,7 +6,7 @@ start_time=$(date +%s)
 echo " Train Start time: $(date -d @$start_time +'%Y-%m-%d %H:%M:%S')" >>${train_log}
 
 # default train , zero-shot,
-num_shot=0
+num_shot=1
 
 # one-shot train
 # num_shot=1
@@ -17,7 +17,7 @@ if [ "$num_shot" -eq 1 ]; then
 fi
 # TODO(yeounoh) restore after enabling gemma-7b
 model_name_or_path="google/gemma-7b" #"Your_download_CodeLlama-13b-Instruct-hf_path"
-output_dir="dbgpt_hub/output/adapter/gemma-7b-sql-lora"
+output_dir="dbgpt_hub/output/adapter/gemma-7b-1shot-col_type-sql-lora"
 
 # the default param set could be run in a server with one a100(40G) gpu, if your server not support the set,you can set smaller param such as  lora_rank and use qlora with quant 4 eg...
 # CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
@@ -46,13 +46,13 @@ output_dir="dbgpt_hub/output/adapter/gemma-7b-sql-lora"
 #     # --bf16#v100不支持bf16
 
 # 多卡，deepseed启动，A100
-deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
+deepspeed --num_gpus 8  dbgpt_hub/train/sft_train.py \
     --deepspeed dbgpt_hub/configs/ds_config.json \
     --quantization_bit 4 \
     --model_name_or_path $model_name_or_path \
     --do_train \
     --dataset $dataset \
-    --max_source_length 1536 \
+    --max_source_length 2048 \
     --max_target_length 512 \
     --template mistral \
     --finetuning_type lora \
@@ -68,7 +68,7 @@ deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
     --logging_steps 50 \
     --save_steps 2000 \
     --learning_rate 2e-4 \
-    --num_train_epochs 10 \
+    --num_train_epochs 9 \
     --plot_loss \
     2>&1 | tee ${train_log}
 

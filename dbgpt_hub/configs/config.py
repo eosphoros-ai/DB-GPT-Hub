@@ -120,6 +120,22 @@ The position_id of employee is the foreign key of position_id of position.\
 \n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering';\
 \n###New Instruction:\n{}\n"""
 
+INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT = """\
+I want you to act as a SQL terminal in front of an example database. \
+You need only to return the sql command to me. \
+First, I will show you few examples of an instruction followed by the correct SQL response. \
+Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request.\
+\n### Example1 Instruction:
+The database contains tables such as employee, salary, and position. \
+Table employee has columns such as employee_id:number, name:text, age:number, and position_id:number. employee_id is the primary key. \
+Table salary has columns such as employee_id:number, amount:number, and date:text. employee_id is the primary key. \
+Table position has columns such as position_id:number, title:text, and department:text. position_id is the primary key. \
+The employee_id of salary is the foreign key of employee_id of employee. \
+The position_id of employee is the foreign key of position_id of position.\
+\n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department.\n\
+\n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering';\
+\n###New Instruction:\n{}\n"""
+
 INSTRUCTION_THREE_SHOT_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database. \
 You need only to return the sql command to me. \

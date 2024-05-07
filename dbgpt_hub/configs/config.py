@@ -141,6 +141,16 @@ The position_id of employee is the foreign key of position_id of position.\
 INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. \
 Below is an instruction that describes a task, Write a response that appropriately completes the request.\
+\n## Example 1 Instruction: product_catalog contains multiple tables with multiple columns, listed as follows in 'table_name.column_name' format: \
+department.Creation, department.Name, head.age, department.Ranking, department.Department_ID, head.born_state, head.name, department.Num_Employees, \
+department.Budget_in_Billions, management.department_ID, management.head_ID, head.head_ID, management.temporary_acting" \
+\n### Example1 Input:\nWhat are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?\n\
+\n### Example1 Response:\nSELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama'\n\
+\n###New Instruction:\n{}\n"""
+
+INSTRUCTION_ONE_SHOT_COL_RANKING_TYPE_PROMPT = """\
+I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. \
+Below is an instruction that describes a task, Write a response that appropriately completes the request.\
 \n## Example 1 Instruction: product_catalog contains multiple tables with multiple columns, listed as follows in 'table_name.column_name:column_type' format: \
 department.Creation:text, department.Name:text, head.age:number, department.Ranking:number, department.Department_ID:number, head.born_state:text, head.name:text, department.Num_Employees:number, \
 department.Budget_in_Billions:number, management.department_ID:number, management.head_ID:number, head.head_ID:number, management.temporary_acting:text" \

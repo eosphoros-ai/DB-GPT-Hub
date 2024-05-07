@@ -144,6 +144,16 @@ class ProcessSqlData:
             with open(table_col_emb_file, 'rb') as file:
                 db_emb_dict = pickle.load(file)
 
+        # pre-process the input
+        inputs = list()
+        for data in tqdm(datas):
+            if data[db_id_name] in db_dict.keys():
+                if self.column_ranking:
+                    inputs.append(data["question"])
+        model_id = "sentence-transformers/sentence-t5-base"
+        model = SentenceTransformer(model_id)
+        q_embs = model.encode([data["question"]])
+        emb_i = 0
         for data in tqdm(datas):
             if data[db_id_name] in db_dict.keys():
                 if is_multiple_turn:  # 多轮
@@ -199,7 +209,8 @@ class ProcessSqlData:
                         if self.column_ranking:
                             model_id = "sentence-transformers/sentence-t5-base"
                             model = SentenceTransformer(model_id)
-                            q_emb = model.encode([data["question"]])[0]
+                            q_emb = q_embs[emb_i]
+                            emb_i += 1
                             col_embs = [t[1] for t in db_emb_dict[data[db_id_name]]]
                             k_similar_idx = extract_most_similar_idx(q_emb, col_embs, top_k=self.top_k)
                             source = (item["db_id"] + " contains multiple tables with multiple columns, "

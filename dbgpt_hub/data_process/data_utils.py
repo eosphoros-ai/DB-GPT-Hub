@@ -15,6 +15,7 @@ from typing import (
     Generator,
     Literal,
 )
+from scipy.spatial.distance import cosine
 from datasets import (
     Dataset,
     DatasetDict,
@@ -1012,3 +1013,9 @@ def split_train_eval(
             train_dataset = train_dataset.select(np.arange(max_train_samples))
 
     return train_dataset, eval_dataset
+
+def extract_most_similar_idx(query:List, candidates:List[List], top_k: int) -> List:
+    query_arr = np.array(query)
+    candidates_arr = np.array(candidates)
+    similarities = [1 - cosine(query_arr, cand) for cand in candidates_arr]
+    return np.argsort(similarities)[-top_k:][::-1].tolist()

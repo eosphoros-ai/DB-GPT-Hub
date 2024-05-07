@@ -55,6 +55,8 @@ SQL_DATA_INFO = [
         "db_id_name": "db_id",
         "output_name": "query",
         "is_multiple_turn": False,
+        "train_tables_emb_file": "tables_emb.pickle",
+        "dev_tables_emb_file": "dev_tables_emb.pickle",
     }
     # {
     #     "data_source": "bird",

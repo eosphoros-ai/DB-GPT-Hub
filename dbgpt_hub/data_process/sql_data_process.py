@@ -22,6 +22,7 @@ from dbgpt_hub.configs.config import (
     INSTRUCTION_PROMPT,
     INSTRUCTION_ONE_SHOT_PROMPT,
     INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT,
+    INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT,
 )
 
 
@@ -126,7 +127,9 @@ class ProcessSqlData:
         res = []
         base_instruction = INSTRUCTION_PROMPT
         if self.num_shot == 1:
-            if self.code_representation:
+            if self.col_ranking:
+                base_instruction = INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT
+            elif self.code_representation:
                 base_instruction = INSTRUCTION_ONE_SHOT_CODE_PROMPT
             elif self.column_type:
                 base_instruction = INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT

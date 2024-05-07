@@ -54,6 +54,7 @@ class ProcessSqlData:
         output_name,
         is_multiple_turn=False,
         table_col_emb_file=None,
+        has_evidence=False,
     ):
         """
         TO DO:
@@ -85,15 +86,15 @@ class ProcessSqlData:
             if self.column_type:
                 for i, ctype in enumerate(item["column_types"][1:]):
                     column_types.append(
-                        [coloumns[i][0], coloumns[i][1] + ":" + ctype]
-                    )
+                        [coloumns[i][0], coloumns[i][1] + ":" + ctype])
             primary_key = item["primary_keys"]
             foreign_keys = item["foreign_keys"]
             source = (item["db_id"] + " contains tables such as " +
                       ", ".join(tables_names) + ". ")
 
             for i, name in enumerate(tables_names):
-                data = [col[1] for col in column_types if col[0] == i]
+                cols = column_types if self.column_type else coloumns
+                data = [col[1] for col in cols if col[0] == i]
                 source += ("Table " + name + " has columns such as " +
                            ", ".join(data) + ". ")
                 # get primary key info
@@ -109,6 +110,8 @@ class ProcessSqlData:
                         for k in range(len(primary_key[j])):
                             if coloumns[primary_key[j][k] - 1][0] == i:
                                 keys.append(coloumns[primary_key[j][k] - 1][1])
+                        if not keys:
+                            continue
                         source += (combine_p + ", ".join(keys) +
                                    ") are the primary key." + "\n")
                     else:
@@ -123,6 +126,9 @@ class ProcessSqlData:
                            coloumns[key[1] - 1][1] + " of " +
                            tables_names[coloumns[key[1] - 1][0]] + ".\n")
 
+            if has_evidence:
+                source += ("Here is some useful hints to generate the output: "
+                           + item["evidence"] + ".\n")
             db_dict[item["db_id"]] = source
 
         res = []
@@ -133,8 +139,6 @@ class ProcessSqlData:
                     base_instruction = INSTRUCTION_ONE_SHOT_COL_RANKING_TYPE_PROMPT
                 else:
                     base_instruction = INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT
-            elif self.code_representation:
-                base_instruction = INSTRUCTION_ONE_SHOT_CODE_PROMPT
             elif self.column_type:
                 base_instruction = INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT
             else:
@@ -204,25 +208,30 @@ class ProcessSqlData:
                     else:
                         if self.column_ranking:
                             q_emb = model.encode(data["question"])
-                            col_embs = [t[1] for t in db_emb_dict[data[db_id_name]]]
-                            k_similar_idx = extract_most_similar_idx(q_emb, col_embs, top_k=self.top_k)
-                            source = (item["db_id"] + " contains multiple tables with multiple columns, "
-                                      + "listed as follows in \'table_name.column_name\' format: "
-                                      + ", ".join([db_emb_dict[data[db_id_name]][idx][0] for idx in k_similar_idx])
-                                      +" \n")
+                            col_embs = [
+                                t[1] for t in db_emb_dict[data[db_id_name]]
+                            ]
+                            k_similar_idx = extract_most_similar_idx(
+                                q_emb, col_embs, top_k=self.top_k)
+                            source = (
+                                item["db_id"] +
+                                " contains multiple tables with multiple columns, "
+                                +
+                                "listed as follows in \'table_name.column_name\' format: "
+                                + ", ".join([
+                                    db_emb_dict[data[db_id_name]][idx][0]
+                                    for idx in k_similar_idx
+                                ]) + " \n")
                             input_instruction = base_instruction.format(source)
                         else:
-                            input_instruction = base_instruction.format(db_dict[data[db_id_name]])
+                            input_instruction = base_instruction.format(
+                                db_dict[data[db_id_name]])
 
                         input = {
-                            "db_id":
-                            data[db_id_name],
-                            "instruction":
-                            input_instruction,
-                            "input":
-                            INPUT_PROMPT.format(data["question"]),
-                            "output":
-                            data[output_name],
+                            "db_id": data[db_id_name],
+                            "instruction": input_instruction,
+                            "input": INPUT_PROMPT.format(data["question"]),
+                            "output": data[output_name],
                             "history": [],
                         }
                         res.append(input)
@@ -257,6 +266,7 @@ class ProcessSqlData:
                         data_info["data_source"],
                         data_info["train_tables_emb_file"],
                     ) if self.column_ranking else None,
+                    has_evidence=data_info["data_source"] == "bird",
                 ))
 
             dev_data_file_list = [
@@ -284,6 +294,7 @@ class ProcessSqlData:
                         data_info["data_source"],
                         data_info["dev_tables_emb_file"],
                     ) if self.column_ranking else None,
+                    has_evidence=data_info["data_source"] == "bird",
                 ))
         with open(self.train_file, "w", encoding="utf-8") as s:
             json.dump(train_data, s, indent=4, ensure_ascii=False)

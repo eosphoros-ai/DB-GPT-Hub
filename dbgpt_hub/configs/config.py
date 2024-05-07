@@ -46,28 +46,30 @@ EXT2TYPE = {"csv": "csv", "json": "json", "jsonl": "json", "txt": "text"}
 # text2sql dataset information for processing sql data
 # TODO: BIRD \ WiKiSQL \ ...
 SQL_DATA_INFO = [
+    # {
+    #     "data_source": "spider",
+    #     "train_file": ["train_spider.json", "train_others.json"],
+    #     "dev_file": ["dev.json"],
+    #     "train_tables_file": "tables.json",
+    #     "dev_tables_file": "tables.json",
+    #     "db_id_name": "db_id",
+    #     "output_name": "query",
+    #     "is_multiple_turn": False,
+    #     "train_tables_emb_file": "tables_emb.pickle",
+    #     "dev_tables_emb_file": "dev_tables_emb.pickle",
+    # }
     {
-        "data_source": "spider",
-        "train_file": ["train_spider.json", "train_others.json"],
-        "dev_file": ["dev.json"],
-        "train_tables_file": "tables.json",
-        "dev_tables_file": "tables.json",
+        "data_source": "bird",
+        "train_file": ["train/train.json"],
+        "dev_file": ["dev/dev.json"],
+        "train_tables_file": "train/train_tables.json",
+        "dev_tables_file": "dev/dev_tables.json",
         "db_id_name": "db_id",
-        "output_name": "query",
+        "output_name": "SQL",
         "is_multiple_turn": False,
-        "train_tables_emb_file": "tables_emb.pickle",
+        "train_tables_emb_file": "train_tables_emb.pickle",
         "dev_tables_emb_file": "dev_tables_emb.pickle",
     }
-    # {
-    #     "data_source": "bird",
-    #     "train_file": ["train/train.json"],
-    #     "dev_file": ["dev/dev.json"],
-    #     "train_tables_file": "train/train_tables.json",
-    #     "dev_tables_file": "dev/dev_tables.json",
-    #     "db_id_name": "db_id",
-    #     "output_name": "SQL",
-    #     "is_multiple_turn": False,
-    # }
     # ,
     # {
     #     "data_source": "chase",
@@ -99,6 +101,8 @@ SQL_DATA_INFO = [
     #     "output_name": "query",
     # }
 ]
+
+#### SPIDER ####
 INSTRUCTION_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database, \
 you need only to return the sql command to me.Below is an instruction that describes a task, \
@@ -118,9 +122,9 @@ Table salary has columns such as employee_id, amount, and date. employee_id is t
 Table position has columns such as position_id, title, and department. position_id is the primary key. \
 The employee_id of salary is the foreign key of employee_id of employee. \
 The position_id of employee is the foreign key of position_id of position.\
-\n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department.\n\
-\n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering';\
-\n###New Instruction:\n{}\n"""
+\n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department. \
+\n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering' \
+\n\n### New Instruction:\n{}\n"""
 
 INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database. \
@@ -133,73 +137,31 @@ Table employee has columns such as employee_id:number, name:text, age:number, an
 Table salary has columns such as employee_id:number, amount:number, and date:text. employee_id is the primary key. \
 Table position has columns such as position_id:number, title:text, and department:text. position_id is the primary key. \
 The employee_id of salary is the foreign key of employee_id of employee. \
-The position_id of employee is the foreign key of position_id of position.\
-\n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department.\n\
-\n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering';\
-\n###New Instruction:\n{}\n"""
+The position_id of employee is the foreign key of position_id of position. \
+\n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department. \
+\n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering' \
+\n\n### New Instruction:\n{}\n"""
 
 INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. \
 Below is an instruction that describes a task, Write a response that appropriately completes the request.\
-\n## Example 1 Instruction: product_catalog contains multiple tables with multiple columns, listed as follows in 'table_name.column_name' format: \
+\n## Example 1 Instruction:\nproduct_catalog contains multiple tables with multiple columns, listed as follows in 'table_name.column_name' format: \
 department.Creation, department.Name, head.age, department.Ranking, department.Department_ID, head.born_state, head.name, department.Num_Employees, \
 department.Budget_in_Billions, management.department_ID, management.head_ID, head.head_ID, management.temporary_acting" \
-\n### Example1 Input:\nWhat are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?\n\
-\n### Example1 Response:\nSELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama'\n\
-\n###New Instruction:\n{}\n"""
+\n### Example1 Input:\nWhat are the distinct creation years of the departments managed by a secretary born in state 'Alabama'? \
+\n### Example1 Response:\nSELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama' \
+\n\n###New Instruction:\n{}\n"""
 
 INSTRUCTION_ONE_SHOT_COL_RANKING_TYPE_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. \
 Below is an instruction that describes a task, Write a response that appropriately completes the request.\
-\n## Example 1 Instruction: product_catalog contains multiple tables with multiple columns, listed as follows in 'table_name.column_name:column_type' format: \
+\n## Example 1 Instruction:\nproduct_catalog contains multiple tables with multiple columns, listed as follows in 'table_name.column_name:column_type' format: \
 department.Creation:text, department.Name:text, head.age:number, department.Ranking:number, department.Department_ID:number, head.born_state:text, head.name:text, department.Num_Employees:number, \
 department.Budget_in_Billions:number, management.department_ID:number, management.head_ID:number, head.head_ID:number, management.temporary_acting:text" \
-\n### Example1 Input:\nWhat are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?\n\
-\n### Example1 Response:\nSELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama'\n\
-\n###New Instruction:\n{}\n"""
+\n### Example1 Input:\nWhat are the distinct creation years of the departments managed by a secretary born in state 'Alabama'? \
+\n### Example1 Response:\nSELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama' \
+\n\n###New Instruction:\n{}\n"""
 
-INSTRUCTION_THREE_SHOT_PROMPT = """\
-I want you to act as a SQL terminal in front of an example database. \
-You need only to return the sql command to me. \
-First, I will show you few examples of an instruction followed by the correct SQL response. \
-Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request.\
-\n### Example1 Instruction:
-The database contains tables such as employee, salary, and position. \
-Table employee has columns such as employee_id, name, age, and position_id. employee_id is the primary key. \
-Table salary has columns such as employee_id, amount, and date. employee_id is the primary key. \
-Table position has columns such as position_id, title, and department. position_id is the primary key. \
-The employee_id of salary is the foreign key of employee_id of employee. \
-The position_id of employee is the foreign key of position_id of position.\
-\n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department.\n\
-\n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering'\
-\n### Example2 Instruction:
-department_management contains tables such as department, head, management. \
-Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. \
-Department_ID is the primary key.\nTable head has columns such as head_ID, name, born_state, age. head_ID is the primary key. \
-Table management has columns such as department_ID, head_ID, temporary_acting. department_ID is the primary key. \
-The head_ID of management is the foreign key of head_ID of head.\nThe department_ID of management is the foreign key of Department_ID of department.\
-\n### Example2 Input:\nHow many heads of the departments are older than 56 ?\n\
-\n### Example2 Response:\nSELECT count(*) FROM head WHERE age  >  56\
-\n### Example3 Instruction:
-department_management contains tables such as department, head, management. \
-Table department has columns such as Department_ID, Name, Creation, Ranking, Budget_in_Billions, Num_Employees. \
-Department_ID is the primary key.\nTable head has columns such as head_ID, name, born_state, age. \
-head_ID is the primary key.\nTable management has columns such as department_ID, head_ID, temporary_acting. \
-department_ID is the primary key.\nThe head_ID of management is the foreign key of head_ID of head. \
-The department_ID of management is the foreign key of Department_ID of department.
-\n### Example3 Input:\nList the name, born state and age of the heads of departments ordered by age.\n\
-\n### Example3 Response:\nSELECT name ,  born_state ,  age FROM head ORDER BY age\
-\n###New Instruction:\n{}\n"""
-
-INSTRUCTION_ONE_SHOT_CODE_PROMPT = """\
-I want you to act as a SQL terminal in front of an example database. \
-You need only to return the sql command to me. \
-First, I will show you few examples of an instruction followed by the correct SQL response. \
-Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request.\
-\n### Example1 Instruction:\n[\'CREATE TABLE IF NOT EXISTS "department" (\\n"Department_ID" int,\\n"Name" text,\\n"Creation" text,\\n"Ranking" int,\\n"Budget_in_Billions" real,\\n"Num_Employees" real,\\nPRIMARY KEY ("Department_ID")\\n);\', \'CREATE TABLE IF NOT EXISTS "head" (\\n"head_ID" int,\\n"name" text,\\n"born_state" text,\\n"age" real,\\nPRIMARY KEY ("head_ID")\\n);\', \'CREATE TABLE IF NOT EXISTS "management" (\\n"department_ID" int,\\n"head_ID" int,\\n"temporary_acting" text,\\nPRIMARY KEY ("Department_ID","head_ID"),\\nFOREIGN KEY ("Department_ID") REFERENCES `department`("Department_ID"),\\nFOREIGN KEY ("head_ID") REFERENCES `head`("head_ID")\\n);\']
-\n### Example1 Input:\nWhat are the distinct creation years of the departments managed by a secretary born in state 'Alabama'?\n\
-\n### Example1 Response:\nSELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama'\
-\n###New Instruction:\n{}\n"""
 
 # EXAMPLES =[EXAMPLE1, EXAMPLE1]
 

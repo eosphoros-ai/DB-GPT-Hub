@@ -11,6 +11,7 @@ include = ["dbgpt_hub/baseline/baseline.json"]
 python = ">=3.10,<3.13"
 transformers = "4.39.1"
 sentence-transformers = "2.7.0"
+faiss-cpu = "1.8.0"
 peft = "0.10.0"
 accelerate = "0.29.3"
 einops = "0.6.1"

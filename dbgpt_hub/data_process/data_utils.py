@@ -1,6 +1,7 @@
 import hashlib
 import os
 import numpy as np
+import faiss
 import pandas as pd
 import tiktoken
 from itertools import chain
@@ -1016,6 +1017,9 @@ def split_train_eval(
 
 def extract_most_similar_idx(query:List, candidates:List[List], top_k: int) -> List:
     query_arr = np.array(query)
+    d = len(query)
+    findex = faiss.IndexFlatL2(d)
     candidates_arr = np.array(candidates)
-    similarities = [1 - cosine(query_arr, cand) for cand in candidates_arr]
-    return np.argsort(similarities)[-top_k:][::-1].tolist()
+    findex.add(candidates_arr)
+    D, I = findex.search(np.array([query_arr]), top_k)
+    return I[0,:min(top_k, len(candidates))].tolist()

@@ -15,7 +15,6 @@ sys.path.append(ROOT_PATH)
 from tqdm import tqdm
 
 from dbgpt_hub.configs.config import (
-    INSTRUCTION_ONE_SHOT_CODE_PROMPT,
     SQL_DATA_INFO,
     DATA_PATH,
     INPUT_PROMPT,

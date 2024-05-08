@@ -9,21 +9,17 @@ import pickle
 
 from sentence_transformers import SentenceTransformer
 
-ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ROOT_PATH = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(ROOT_PATH)
 
 from tqdm import tqdm
 
 from dbgpt_hub.configs.config import (
-    SQL_DATA_INFO,
-    DATA_PATH,
-    INPUT_PROMPT,
-    INSTRUCTION_PROMPT,
-    INSTRUCTION_ONE_SHOT_PROMPT,
-    INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT,
+    SQL_DATA_INFO, DATA_PATH, INPUT_PROMPT, INSTRUCTION_PROMPT,
+    INSTRUCTION_ONE_SHOT_PROMPT, INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT,
     INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT,
-    INSTRUCTION_ONE_SHOT_COL_RANKING_TYPE_PROMPT
-)
+    INSTRUCTION_ONE_SHOT_COL_RANKING_TYPE_PROMPT)
 
 
 class ProcessSqlData:
@@ -125,9 +121,6 @@ class ProcessSqlData:
                            coloumns[key[1] - 1][1] + " of " +
                            tables_names[coloumns[key[1] - 1][0]] + ".\n")
 
-            if has_evidence:
-                source += ("Here is some useful hints to generate the output: "
-                           + item["evidence"] + ".\n")
             db_dict[item["db_id"]] = source
 
         res = []
@@ -223,8 +216,12 @@ class ProcessSqlData:
                                 ]) + " \n")
                             input_instruction = base_instruction.format(source)
                         else:
-                            input_instruction = base_instruction.format(
-                                db_dict[data[db_id_name]])
+                            instruction = db_dict[data[db_id_name]]
+                            if has_evidence:
+                                instruction += (
+                                    "Here is some useful hints to generate the output: "
+                                    + data["evidence"] + ".\n")
+                            input_instruction = base_instruction.format(instruction)
 
                         input = {
                             "db_id": data[db_id_name],
@@ -303,16 +300,18 @@ class ProcessSqlData:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--code_representation", help="Enable code representation", default=False
-    )
-    parser.add_argument(
-        "--column_type", help="Enable column type annotation", default=False
-    )
-    parser.add_argument("--column_ranking", help="Enable similarity-based column retrieval.")
+    parser.add_argument("--code_representation",
+                        help="Enable code representation",
+                        default=False)
+    parser.add_argument("--column_type",
+                        help="Enable column type annotation",
+                        default=False)
+    parser.add_argument("--column_ranking",
+                        help="Enable similarity-based column retrieval.")
     args = parser.parse_args()
 
-    all_in_one_train_file = os.path.join(DATA_PATH, "example_text2sql_train.json")
+    all_in_one_train_file = os.path.join(DATA_PATH,
+                                         "example_text2sql_train.json")
     all_in_one_dev_file = os.path.join(DATA_PATH, "example_text2sql_dev.json")
     precess = ProcessSqlData(
         train_file=all_in_one_train_file,
@@ -325,11 +324,9 @@ if __name__ == "__main__":
 
     # one-shot
     one_shot_all_in_one_train_file = os.path.join(
-        DATA_PATH, "example_text2sql_train_one_shot.json"
-    )
+        DATA_PATH, "example_text2sql_train_one_shot.json")
     one_shot_all_in_one_dev_file = os.path.join(
-        DATA_PATH, "example_text2sql_dev_one_shot.json"
-    )
+        DATA_PATH, "example_text2sql_dev_one_shot.json")
     one_shot_precess = ProcessSqlData(
         train_file=one_shot_all_in_one_train_file,
         dev_file=one_shot_all_in_one_dev_file,

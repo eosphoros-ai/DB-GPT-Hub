@@ -5,8 +5,7 @@ pred_log="dbgpt_hub/output/logs/pred_test_${current_date}.log"
 start_time=$(date +%s)
 echo " Pred Start time: $(date -d @$start_time +'%Y-%m-%d %H:%M:%S')" >>${pred_log}
 
-deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
-    --deepspeed dbgpt_hub/configs/ds_config.json \
+CUDA_VISIBLE_DEVICES=0  python dbgpt_hub/predict/predict.py \
     --model_name_or_path google/gemma-7b \
     --template mistral \
     --finetuning_type lora \

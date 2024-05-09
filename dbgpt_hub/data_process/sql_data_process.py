@@ -16,10 +16,13 @@ sys.path.append(ROOT_PATH)
 from tqdm import tqdm
 
 from dbgpt_hub.configs.config import (
-    SQL_DATA_INFO, DATA_PATH, INPUT_PROMPT, INSTRUCTION_PROMPT,
-    INSTRUCTION_ONE_SHOT_PROMPT, INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT,
+    SQL_DATA_INFO,
+    DATA_PATH,
+    INPUT_PROMPT,
+    INSTRUCTION_PROMPT,
+    INSTRUCTION_ONE_SHOT_PROMPT,
     INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT,
-    INSTRUCTION_ONE_SHOT_COL_RANKING_TYPE_PROMPT)
+)
 
 
 class ProcessSqlData:
@@ -29,14 +32,14 @@ class ProcessSqlData:
                  dev_file=None,
                  num_shot=0,
                  code_representation=False,
-                 column_type=False,
+                 table_ranking=False,
                  column_ranking=False,
                  top_k=25) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
         self.num_shot = num_shot
         self.code_representation = code_representation
-        self.column_type = column_type
+        self.table_ranking = table_ranking
         self.column_ranking = column_ranking
         self.top_k = top_k
 
@@ -48,7 +51,8 @@ class ProcessSqlData:
         db_id_name,
         output_name,
         is_multiple_turn=False,
-        table_col_emb_file=None,
+        tab_emb_file=None,
+        col_emb_file=None,
         has_evidence=False,
     ):
         """
@@ -74,21 +78,17 @@ class ProcessSqlData:
 
         # 先将db_id 的table和coloumns处理好
         db_dict = {}
+        db_foreign_key_dict = {}
         for item in tables:
             tables_names = item["table_names_original"]
             coloumns = item["column_names_original"][1:]
-            column_types = list()
-            if self.column_type:
-                for i, ctype in enumerate(item["column_types"][1:]):
-                    column_types.append(
-                        [coloumns[i][0], coloumns[i][1] + ":" + ctype])
             primary_key = item["primary_keys"]
             foreign_keys = item["foreign_keys"]
             source = (item["db_id"] + " contains tables such as " +
                       ", ".join(tables_names) + ". ")
 
             for i, name in enumerate(tables_names):
-                cols = column_types if self.column_type else coloumns
+                cols = coloumns
                 data = [col[1] for col in cols if col[0] == i]
                 source += ("Table " + name + " has columns such as " +
                            ", ".join(data) + ". ")
@@ -115,11 +115,12 @@ class ProcessSqlData:
 
             # get foreign key info
             for key in foreign_keys:
-                source += ("The " + coloumns[key[0] - 1][1] + " of " +
-                           tables_names[coloumns[key[0] - 1][0]] +
-                           " is the foreign key of " +
-                           coloumns[key[1] - 1][1] + " of " +
-                           tables_names[coloumns[key[1] - 1][0]] + ".\n")
+                db_foreign_key_dict[item["db_id"]] = (
+                    "The " + coloumns[key[0] - 1][1] + " of " +
+                    tables_names[coloumns[key[0] - 1][0]] +
+                    " is the foreign key of " + coloumns[key[1] - 1][1] +
+                    " of " + tables_names[coloumns[key[1] - 1][0]] + ".\n")
+                source += db_foreign_key_dict[item["db_id"]]
 
             db_dict[item["db_id"]] = source
 
@@ -127,12 +128,7 @@ class ProcessSqlData:
         base_instruction = INSTRUCTION_PROMPT
         if self.num_shot == 1:
             if self.column_ranking:
-                if self.column_type:
-                    base_instruction = INSTRUCTION_ONE_SHOT_COL_RANKING_TYPE_PROMPT
-                else:
-                    base_instruction = INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT
-            elif self.column_type:
-                base_instruction = INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT
+                base_instruction = INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT
             else:
                 base_instruction = INSTRUCTION_ONE_SHOT_PROMPT
 
@@ -140,11 +136,15 @@ class ProcessSqlData:
             # TODO(yeounoh) we can use hosted embeddings API, but have to pay
             # May consider that option for the submission, since the test data
             # is hidden.
-            assert table_col_emb_file is not None
-            with open(table_col_emb_file, 'rb') as file:
+            assert col_emb_file is not None
+            with open(col_emb_file, 'rb') as file:
                 db_emb_dict = pickle.load(file)
             model_id = "sentence-transformers/sentence-t5-base"
             model = SentenceTransformer(model_id)
+        elif self.table_ranking:
+            # column ranking takes a precedence
+            # TODO(yeounoh) implement
+            raise NotImplementedError('table_ranking is not supported, yet.')
 
         for data in tqdm(datas):
             if data[db_id_name] in db_dict.keys():
@@ -199,29 +199,29 @@ class ProcessSqlData:
                         res.append(input)
                     else:
                         if self.column_ranking:
+                            # top-k most relevant columns and foreign keys.
                             q_emb = model.encode(data["question"])
                             col_embs = [
                                 t[1] for t in db_emb_dict[data[db_id_name]]
                             ]
                             k_similar_idx = extract_most_similar_idx(
                                 q_emb, col_embs, top_k=self.top_k)
-                            source = (
-                                item["db_id"] +
-                                " contains multiple tables with multiple columns, "
-                                +
-                                "listed as follows in \'table_name.column_name\' format: "
-                                + ", ".join([
-                                    db_emb_dict[data[db_id_name]][idx][0]
-                                    for idx in k_similar_idx
-                                ]) + " \n")
-                            input_instruction = base_instruction.format(source)
+                            instruction = (" ".join([
+                                db_emb_dict[data[db_id_name]][idx][0]
+                                for idx in k_similar_idx
+                            ]) + " \n" + db_foreign_key_dict[data[db_id_name]]
+                                           if data[db_id_name]
+                                           in db_foreign_key_dict else "")
                         else:
+                            # all tables and columns with primary and foreign keys.
                             instruction = db_dict[data[db_id_name]]
-                            if has_evidence:
-                                instruction += (
-                                    "Here is some useful hints to generate the output: "
-                                    + data["evidence"] + ".\n")
-                            input_instruction = base_instruction.format(instruction)
+
+                        if has_evidence:
+                            instruction += (
+                                "Here is some useful hints to generate the output: "
+                                + data["evidence"] + ".\n")
+                        input_instruction = base_instruction.format(
+                            instruction)
 
                         input = {
                             "db_id": data[db_id_name],
@@ -257,10 +257,15 @@ class ProcessSqlData:
                     db_id_name=data_info["db_id_name"],
                     output_name=data_info["output_name"],
                     is_multiple_turn=data_info["is_multiple_turn"],
-                    table_col_emb_file=os.path.join(
+                    tab_emb_file=os.path.join(
                         DATA_PATH,
                         data_info["data_source"],
-                        data_info["train_tables_emb_file"],
+                        data_info["train_tab_emb_file"],
+                    ) if self.table_ranking else None,
+                    col_emb_file=os.path.join(
+                        DATA_PATH,
+                        data_info["data_source"],
+                        data_info["train_col_emb_file"],
                     ) if self.column_ranking else None,
                     has_evidence=data_info["data_source"] == "bird",
                 ))
@@ -285,10 +290,15 @@ class ProcessSqlData:
                     db_id_name=data_info["db_id_name"],
                     output_name=data_info["output_name"],
                     is_multiple_turn=data_info["is_multiple_turn"],
-                    table_col_emb_file=os.path.join(
+                    tab_emb_file=os.path.join(
                         DATA_PATH,
                         data_info["data_source"],
-                        data_info["dev_tables_emb_file"],
+                        data_info["dev_tab_emb_file"],
+                    ) if self.table_ranking else None,
+                    col_emb_file=os.path.join(
+                        DATA_PATH,
+                        data_info["data_source"],
+                        data_info["dev_col_emb_file"],
                     ) if self.column_ranking else None,
                     has_evidence=data_info["data_source"] == "bird",
                 ))
@@ -303,9 +313,8 @@ if __name__ == "__main__":
     parser.add_argument("--code_representation",
                         help="Enable code representation",
                         default=False)
-    parser.add_argument("--column_type",
-                        help="Enable column type annotation",
-                        default=False)
+    parser.add_argument("--table_ranking",
+                        help='Enable similarity-based table retrieval.')
     parser.add_argument("--column_ranking",
                         help="Enable similarity-based column retrieval.")
     args = parser.parse_args()
@@ -317,7 +326,7 @@ if __name__ == "__main__":
         train_file=all_in_one_train_file,
         dev_file=all_in_one_dev_file,
         code_representation=args.code_representation,
-        column_type=args.column_type,
+        table_ranking=args.table_ranking,
         column_ranking=args.column_ranking,
     )
     precess.create_sft_raw_data()
@@ -332,7 +341,7 @@ if __name__ == "__main__":
         dev_file=one_shot_all_in_one_dev_file,
         num_shot=1,
         code_representation=args.code_representation,
-        column_type=args.column_type,
+        table_ranking=args.table_ranking,
         column_ranking=args.column_ranking,
     )
     one_shot_precess.create_sft_raw_data()

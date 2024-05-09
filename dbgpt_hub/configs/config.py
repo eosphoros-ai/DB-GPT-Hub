@@ -1,7 +1,8 @@
 import os
 
 ### path config
-ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ROOT_PATH = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # ROOT_PATH = "/root/autodl-tmp"
 # MODELS_PARENT_PATH = "/home/model_files/codellama/"
@@ -18,7 +19,8 @@ MERGED_MODELS = os.path.join(ROOT_PATH, "dbgpt_hub/output/merged_models")
 # OUT_DIR= "/root/autodl-tmp/codellama"
 
 DATA_PATH = os.path.join(ROOT_PATH, "dbgpt_hub/data")
-PREDICTED_DATA_PATH = os.path.join(ROOT_PATH, "dbgpt_hub/data/eval_data/dev_sql.json")
+PREDICTED_DATA_PATH = os.path.join(ROOT_PATH,
+                                   "dbgpt_hub/data/eval_data/dev_sql.json")
 PREDICTED_OUT_FILENAME = "pred_sql.sql"
 # OUT_DIR = os.path.join(DATA_PATH, "out_pred")
 OUT_DIR = os.path.join(ROOT_PATH, "dbgpt_hub/output/")
@@ -29,7 +31,6 @@ DEFAULT_PAD_TOKEN = "[PAD]"
 DEFAULT_EOS_TOKEN = "</s>"
 DEFAULT_BOS_TOKEN = "<s>"
 DEFAULT_UNK_TOKEN = "<unk>"
-
 
 LOG_FILE_NAME = "trainer_log.jsonl"
 
@@ -55,8 +56,10 @@ SQL_DATA_INFO = [
     #     "db_id_name": "db_id",
     #     "output_name": "query",
     #     "is_multiple_turn": False,
-    #     "train_tables_emb_file": "tables_emb.pickle",
-    #     "dev_tables_emb_file": "dev_tables_emb.pickle",
+    #     "train_tab_emb_file": "train_tab_emb.pickle",
+    # "dev_tab_emb_file": "dev_tab_emb.pickle",
+    # "train_col_emb_file": "train_col_emb.pickle",
+    # "dev_col_emb_file": "dev_col_emb.pickle",
     # }
     {
         "data_source": "bird",
@@ -67,8 +70,10 @@ SQL_DATA_INFO = [
         "db_id_name": "db_id",
         "output_name": "SQL",
         "is_multiple_turn": False,
-        "train_tables_emb_file": "train_tables_emb.pickle",
-        "dev_tables_emb_file": "dev_tables_emb.pickle",
+        "train_tab_emb_file": "train_tab_emb.pickle",
+        "dev_tab_emb_file": "dev_tab_emb.pickle",
+        "train_col_emb_file": "train_col_emb.pickle",
+        "dev_col_emb_file": "dev_col_emb.pickle",
     }
     # ,
     # {
@@ -126,22 +131,6 @@ The position_id of employee is the foreign key of position_id of position.\
 \n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering' \
 \n\n### New Instruction:\n{}\n"""
 
-INSTRUCTION_ONE_SHOT_COL_TYPE_PROMPT = """\
-I want you to act as a SQL terminal in front of an example database. \
-You need only to return the sql command to me. \
-First, I will show you few examples of an instruction followed by the correct SQL response. \
-Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request.\
-\n### Example1 Instruction:
-The database contains tables such as employee, salary, and position. \
-Table employee has columns such as employee_id:number, name:text, age:number, and position_id:number. employee_id is the primary key. \
-Table salary has columns such as employee_id:number, amount:number, and date:text. employee_id is the primary key. \
-Table position has columns such as position_id:number, title:text, and department:text. position_id is the primary key. \
-The employee_id of salary is the foreign key of employee_id of employee. \
-The position_id of employee is the foreign key of position_id of position. \
-\n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department. \
-\n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering' \
-\n\n### New Instruction:\n{}\n"""
-
 INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. \
 Below is an instruction that describes a task, Write a response that appropriately completes the request.\
@@ -152,17 +141,6 @@ department.Budget_in_Billions, management.department_ID, management.head_ID, hea
 \n### Example1 Response:\nSELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama' \
 \n\n###New Instruction:\n{}\n"""
 
-INSTRUCTION_ONE_SHOT_COL_RANKING_TYPE_PROMPT = """\
-I want you to act as a SQL terminal in front of an example database, you need only to return the sql command to me. \
-Below is an instruction that describes a task, Write a response that appropriately completes the request.\
-\n## Example 1 Instruction:\nproduct_catalog contains multiple tables with multiple columns, listed as follows in 'table_name.column_name:column_type' format: \
-department.Creation:text, department.Name:text, head.age:number, department.Ranking:number, department.Department_ID:number, head.born_state:text, head.name:text, department.Num_Employees:number, \
-department.Budget_in_Billions:number, management.department_ID:number, management.head_ID:number, head.head_ID:number, management.temporary_acting:text" \
-\n### Example1 Input:\nWhat are the distinct creation years of the departments managed by a secretary born in state 'Alabama'? \
-\n### Example1 Response:\nSELECT DISTINCT T1.creation FROM department AS T1 JOIN management AS T2 ON T1.department_id  =  T2.department_id JOIN head AS T3 ON T2.head_id  =  T3.head_id WHERE T3.born_state  =  'Alabama' \
-\n\n###New Instruction:\n{}\n"""
-
-
 # EXAMPLES =[EXAMPLE1, EXAMPLE1]
 
 # EXAMPLE1 = "\n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department.\n\
@@ -170,7 +148,6 @@ department.Budget_in_Billions:number, management.department_ID:number, managemen
 # \n###New Instruction:\n{}\n"
 
 ### test--------------------
-
 
 # METHODS = ["full", "freeze", "lora"]
 

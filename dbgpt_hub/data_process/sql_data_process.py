@@ -206,12 +206,28 @@ class ProcessSqlData:
                             ]
                             k_similar_idx = extract_most_similar_idx(
                                 q_emb, col_embs, top_k=self.top_k)
-                            instruction = (" ".join([
+
+                            table_columns = [
                                 db_emb_dict[data[db_id_name]][idx][0]
                                 for idx in k_similar_idx
-                            ]) + " \n" + db_foreign_key_dict[data[db_id_name]]
-                                           if data[db_id_name]
-                                           in db_foreign_key_dict else "")
+                            ]
+                            table_to_column_dict = {}
+                            for p in table_columns:
+                                t_name = p.split(" ")[1]
+                                c_name = p.split("\"")[1]
+                                if t_name in table_to_column_dict:
+                                    table_to_column_dict[t_name].append(c_name)
+                                else:
+                                    table_to_column_dict[t_name] = [c_name]
+                            instruction = ""
+                            for t_name, col_list in table_to_column_dict.items(
+                            ):
+                                instruction += f"Table {t_name} has columns such as "
+                                instruction += ", ".join(col_list) + ". "
+                            instruction += (
+                                " \n" + db_foreign_key_dict[data[db_id_name]]
+                                if data[db_id_name] in db_foreign_key_dict else
+                                "")
                         else:
                             # all tables and columns with primary and foreign keys.
                             instruction = db_dict[data[db_id_name]]
@@ -317,6 +333,7 @@ if __name__ == "__main__":
                         help='Enable similarity-based table retrieval.')
     parser.add_argument("--column_ranking",
                         help="Enable similarity-based column retrieval.")
+    parser.add_argument("--top_k")
     args = parser.parse_args()
 
     all_in_one_train_file = os.path.join(DATA_PATH,
@@ -328,6 +345,7 @@ if __name__ == "__main__":
         code_representation=args.code_representation,
         table_ranking=args.table_ranking,
         column_ranking=args.column_ranking,
+        top_k=int(args.top_k)
     )
     precess.create_sft_raw_data()
 
@@ -343,5 +361,6 @@ if __name__ == "__main__":
         code_representation=args.code_representation,
         table_ranking=args.table_ranking,
         column_ranking=args.column_ranking,
+        top_k=int(args.top_k)
     )
     one_shot_precess.create_sft_raw_data()

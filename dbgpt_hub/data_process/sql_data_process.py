@@ -159,7 +159,7 @@ class ProcessSqlData:
                         with open(schema_file_path, "r") as file:
                             schema_content = file.read()
                         create_statements = re.findall(
-                            r"CREATE\s.*?;", schema_content, re.DOTALL
+                            r"CREATE\s.*?;", schema_content, re.DOTALL|re.IGNORECASE
                         )
                         input = {
                             "db_id": data[db_id_name],

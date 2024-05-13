@@ -78,6 +78,8 @@ class ProcessSqlData:
 
         # 先将db_id 的table和coloumns处理好
         db_dict = {}
+        db_tab_dict = {}
+        db_primary_key_dict = {}
         db_foreign_key_dict = {}
         for item in tables:
             tables_names = item["table_names_original"]
@@ -87,11 +89,14 @@ class ProcessSqlData:
             source = (item["db_id"] + " contains tables such as " +
                       ", ".join(tables_names) + ". ")
 
+            tab_dict = {}
             for i, name in enumerate(tables_names):
                 cols = coloumns
                 data = [col[1] for col in cols if col[0] == i]
-                source += ("Table " + name + " has columns such as " +
+                tab_cols = ("Table " + name + " has columns such as " +
                            ", ".join(data) + ". ")
+                tab_dict[name] = tab_cols
+                source += tab_cols
                 # get primary key info
                 for j in range(len(primary_key)):
                     if type(primary_key[j]) == int:
@@ -112,6 +117,7 @@ class ProcessSqlData:
                     else:
                         print("not support type", type(primary_key[j]))
                         continue
+            db_tab_dict[item["db_id"]] = tab_dict
 
             # get foreign key info
             for key in foreign_keys:
@@ -131,7 +137,8 @@ class ProcessSqlData:
                 base_instruction = INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT
             else:
                 base_instruction = INSTRUCTION_ONE_SHOT_PROMPT
-
+        if self.column_ranking or self.table_ranking:
+            assert (self.column_ranking != self.table_ranking), "Ranking by table or column, not both."
         if self.column_ranking:
             # TODO(yeounoh) we can use hosted embeddings API, but have to pay
             # May consider that option for the submission, since the test data
@@ -142,9 +149,11 @@ class ProcessSqlData:
             model_id = "sentence-transformers/sentence-t5-base"
             model = SentenceTransformer(model_id)
         elif self.table_ranking:
-            # column ranking takes a precedence
-            # TODO(yeounoh) implement
-            raise NotImplementedError('table_ranking is not supported, yet.')
+            assert tab_emb_file is not None
+            with open(tab_emb_file, 'rb') as file:
+                db_emb_dict = pickle.load(file)
+            model_id = "sentence-transformers/sentence-t5-base"
+            model = SentenceTransformer(model_id)
 
         for data in tqdm(datas):
             if data[db_id_name] in db_dict.keys():
@@ -224,6 +233,26 @@ class ProcessSqlData:
                             ):
                                 instruction += f"Table {t_name} has columns such as "
                                 instruction += ", ".join(col_list) + ". "
+                            instruction += (
+                                " \n" + db_foreign_key_dict[data[db_id_name]]
+                                if data[db_id_name] in db_foreign_key_dict else
+                                "")
+                        elif self.table_ranking:
+                            # top-k most relevant columns and foreign keys.
+                            q_emb = model.encode(data["question"])
+                            tab_embs = [
+                                t[1] for t in db_emb_dict[data[db_id_name]]
+                            ]
+                            k_similar_idx = extract_most_similar_idx(
+                                q_emb, tab_embs, top_k=self.top_k)
+
+                            tables = [
+                                db_emb_dict[data[db_id_name]][idx][0]
+                                for idx in k_similar_idx
+                            ]
+                            instruction = ""
+                            for t_name in tables:
+                                instruction += db_tab_dict[data[db_id_name]][t_name]
                             instruction += (
                                 " \n" + db_foreign_key_dict[data[db_id_name]]
                                 if data[db_id_name] in db_foreign_key_dict else
@@ -339,14 +368,12 @@ if __name__ == "__main__":
     all_in_one_train_file = os.path.join(DATA_PATH,
                                          "example_text2sql_train.json")
     all_in_one_dev_file = os.path.join(DATA_PATH, "example_text2sql_dev.json")
-    precess = ProcessSqlData(
-        train_file=all_in_one_train_file,
-        dev_file=all_in_one_dev_file,
-        code_representation=args.code_representation,
-        table_ranking=args.table_ranking,
-        column_ranking=args.column_ranking,
-        top_k=int(args.top_k)
-    )
+    precess = ProcessSqlData(train_file=all_in_one_train_file,
+                             dev_file=all_in_one_dev_file,
+                             code_representation=args.code_representation,
+                             table_ranking=args.table_ranking,
+                             column_ranking=args.column_ranking,
+                             top_k=int(args.top_k) if args.top_k else 25)
     precess.create_sft_raw_data()
 
     # one-shot
@@ -361,6 +388,5 @@ if __name__ == "__main__":
         code_representation=args.code_representation,
         table_ranking=args.table_ranking,
         column_ranking=args.column_ranking,
-        top_k=int(args.top_k)
-    )
+        top_k=int(args.top_k) if args.top_k else 25)
     one_shot_precess.create_sft_raw_data()

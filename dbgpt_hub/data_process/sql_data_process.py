@@ -34,6 +34,7 @@ class ProcessSqlData:
                  code_representation=False,
                  table_ranking=False,
                  column_ranking=False,
+                 primary_keys=False,
                  top_k=25) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
@@ -41,6 +42,7 @@ class ProcessSqlData:
         self.code_representation = code_representation
         self.table_ranking = table_ranking
         self.column_ranking = column_ranking
+        self.primary_keys = primary_keys
         self.top_k = top_k
 
     def decode_json_file(
@@ -79,7 +81,6 @@ class ProcessSqlData:
         # 先将db_id 的table和coloumns处理好
         db_dict = {}
         db_tab_dict = {}
-        db_primary_key_dict = {}
         db_foreign_key_dict = {}
         for item in tables:
             tables_names = item["table_names_original"]
@@ -95,13 +96,15 @@ class ProcessSqlData:
                 data = [col[1] for col in cols if col[0] == i]
                 tab_cols = ("Table " + name + " has columns such as " +
                            ", ".join(data) + ". ")
-                tab_dict[name] = tab_cols
+                tab_dict[name] = [tab_cols]
                 source += tab_cols
+
                 # get primary key info
+                primary_key_str = ""
                 for j in range(len(primary_key)):
                     if type(primary_key[j]) == int:
                         if coloumns[primary_key[j] - 1][0] == i:
-                            source += (coloumns[primary_key[j] - 1][1] +
+                            primary_key_str += (coloumns[primary_key[j] - 1][1] +
                                        " is the primary key." + "\n")
                     # combination primary key
                     elif type(primary_key[j]) == list:
@@ -112,23 +115,27 @@ class ProcessSqlData:
                                 keys.append(coloumns[primary_key[j][k] - 1][1])
                         if not keys:
                             continue
-                        source += (combine_p + ", ".join(keys) +
+                        primary_key_str += (combine_p + ", ".join(keys) +
                                    ") are the primary key." + "\n")
                     else:
                         print("not support type", type(primary_key[j]))
                         continue
-            db_tab_dict[item["db_id"]] = tab_dict
+                source += primary_key_str
+                tab_dict[name].append(primary_key_str)
 
             # get foreign key info
+            foreign_keys_str = ""
             for key in foreign_keys:
-                db_foreign_key_dict[item["db_id"]] = (
+                foreign_keys_str += (
                     "The " + coloumns[key[0] - 1][1] + " of " +
                     tables_names[coloumns[key[0] - 1][0]] +
                     " is the foreign key of " + coloumns[key[1] - 1][1] +
-                    " of " + tables_names[coloumns[key[1] - 1][0]] + ".\n")
-                source += db_foreign_key_dict[item["db_id"]]
+                    " of " + tables_names[coloumns[key[1] - 1][0]] + ". ")
+            db_foreign_key_dict[item["db_id"]] = foreign_keys_str + "\n"
+            source += db_foreign_key_dict[item["db_id"]]
 
             db_dict[item["db_id"]] = source
+            db_tab_dict[item["db_id"]] = tab_dict
 
         res = []
         base_instruction = INSTRUCTION_PROMPT
@@ -252,7 +259,9 @@ class ProcessSqlData:
                             ]
                             instruction = ""
                             for t_name in tables:
-                                instruction += db_tab_dict[data[db_id_name]][t_name]
+                                instruction += db_tab_dict[data[db_id_name]][t_name][0]
+                                if self.primary_keys:
+                                  instruction += db_tab_dict[data[db_id_name]][t_name][1]
                             instruction += (
                                 " \n" + db_foreign_key_dict[data[db_id_name]]
                                 if data[db_id_name] in db_foreign_key_dict else
@@ -362,7 +371,8 @@ if __name__ == "__main__":
                         help='Enable similarity-based table retrieval.')
     parser.add_argument("--column_ranking",
                         help="Enable similarity-based column retrieval.")
-    parser.add_argument("--top_k")
+    parser.add_argument("--top_k", help="Number of tables or columns to retrieve.")
+    parser.add_argument("--primary_keys", help="Include table primary keys.")
     args = parser.parse_args()
 
     all_in_one_train_file = os.path.join(DATA_PATH,
@@ -373,6 +383,7 @@ if __name__ == "__main__":
                              code_representation=args.code_representation,
                              table_ranking=args.table_ranking,
                              column_ranking=args.column_ranking,
+                             primary_keys=args.primary_keys,
                              top_k=int(args.top_k) if args.top_k else 25)
     precess.create_sft_raw_data()
 
@@ -388,5 +399,6 @@ if __name__ == "__main__":
         code_representation=args.code_representation,
         table_ranking=args.table_ranking,
         column_ranking=args.column_ranking,
+        primary_keys=args.primary_keys,
         top_k=int(args.top_k) if args.top_k else 25)
     one_shot_precess.create_sft_raw_data()

@@ -8,6 +8,7 @@ readme = "README.md"
 include = ["dbgpt_hub/baseline/baseline.json"]
 
 [tool.poetry.dependencies]
+google-cloud-aiplatform = ">= 1.38"
 python = ">=3.10,<3.13"
 transformers = "4.39.1"
 sentence-transformers = "2.7.0"

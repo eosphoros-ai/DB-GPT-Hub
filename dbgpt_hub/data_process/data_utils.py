@@ -163,6 +163,9 @@ def load_data(
 
 templates: Dict[str, Template] = {}
 
+def get_template(name: str) -> Template:
+    template = templates.get(name, None)
+    return template
 
 def get_template_and_fix_tokenizer(
     name: str, tokenizer: "PreTrainedTokenizer"

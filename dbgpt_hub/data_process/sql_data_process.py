@@ -21,7 +21,6 @@ from dbgpt_hub.configs.config import (
     INPUT_PROMPT,
     INSTRUCTION_PROMPT,
     INSTRUCTION_ONE_SHOT_PROMPT,
-    INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT,
 )
 
 
@@ -140,10 +139,7 @@ class ProcessSqlData:
         res = []
         base_instruction = INSTRUCTION_PROMPT
         if self.num_shot == 1:
-            if self.column_ranking:
-                base_instruction = INSTRUCTION_ONE_SHOT_COL_RANKING_PROMPT
-            else:
-                base_instruction = INSTRUCTION_ONE_SHOT_PROMPT
+            base_instruction = INSTRUCTION_ONE_SHOT_PROMPT
         if self.column_ranking or self.table_ranking:
             assert (self.column_ranking != self.table_ranking), "Ranking by table or column, not both."
         if self.column_ranking:
@@ -371,8 +367,9 @@ if __name__ == "__main__":
                         help='Enable similarity-based table retrieval.')
     parser.add_argument("--column_ranking",
                         help="Enable similarity-based column retrieval.")
-    parser.add_argument("--top_k", help="Number of tables or columns to retrieve.")
-    parser.add_argument("--primary_keys", help="Include table primary keys.")
+    parser.add_argument("--top_k", help="Number of tables or columns to retrieve.", default=15)
+    parser.add_argument("--primary_keys", help="Include table primary keys.", default=False)
+    parser.add_argument("--num_shot", default=0)
     args = parser.parse_args()
 
     all_in_one_train_file = os.path.join(DATA_PATH,

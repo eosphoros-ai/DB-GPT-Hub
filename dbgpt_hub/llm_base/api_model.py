@@ -39,7 +39,9 @@ class GeminiModel:
                     HarmCategory(2): HarmBlockThreshold.BLOCK_NONE,
                     HarmCategory(3): HarmBlockThreshold.BLOCK_NONE,
                     HarmCategory(4): HarmBlockThreshold.BLOCK_NONE,
-                }).text
+                }).text.replace("```sql","").replace("```","\n")
+            import re
+            resp = re.sub('\s+',' ', resp).strip()
         except:
             print(f'\n*** {query} resulted in API error...\n')
             resp = ""

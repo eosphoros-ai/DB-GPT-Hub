@@ -111,7 +111,7 @@ SQL_DATA_INFO = [
 INSTRUCTION_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database, \
 you need only to return the sql command to me.Below is an instruction that describes a task, \
-Write a response that appropriately completes the request.\n"
+Write a response that appropriately completes the request. \n"
 ##Instruction:\n{}\n"""
 INPUT_PROMPT = "###Input:\n{}\n\n###Response:"
 
@@ -119,7 +119,7 @@ INSTRUCTION_ONE_SHOT_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database. \
 You need only to return the sql command to me. \
 First, I will show you few examples of an instruction followed by the correct SQL response. \
-Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request.\
+Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request. \
 \n### Example1 Instruction:
 The database contains tables such as employee, salary, and position. \
 Table employee has columns such as employee_id, name, age, and position_id. employee_id is the primary key. \
@@ -135,7 +135,7 @@ INSTRUCTION_THREE_SHOT_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database. \
 You need only to return the sql command to me. \
 First, I will show you few examples of an instruction followed by the correct SQL response. \
-Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request.\
+Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request. \
 \n### Example1 Instruction: \
 retail_complains contains tables such as state, callcenterlogs, client, district, events, reviews. \
 Table state has columns such as StateCode, State, Region. StateCode is the primary key.\nTable callcenterlogs \

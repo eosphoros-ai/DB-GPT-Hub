@@ -21,6 +21,7 @@ from dbgpt_hub.configs.config import (
     INPUT_PROMPT,
     INSTRUCTION_PROMPT,
     INSTRUCTION_ONE_SHOT_PROMPT,
+    INSTRUCTION_THREE_SHOT_PROMPT
 )
 
 
@@ -140,6 +141,8 @@ class ProcessSqlData:
         base_instruction = INSTRUCTION_PROMPT
         if self.num_shot == 1:
             base_instruction = INSTRUCTION_ONE_SHOT_PROMPT
+        elif self.num_shot == 3:
+            base_instruction = INSTRUCTION_THREE_SHOT_PROMPT
         if self.column_ranking or self.table_ranking:
             assert (self.column_ranking != self.table_ranking), "Ranking by table or column, not both."
         if self.column_ranking:

@@ -131,6 +131,68 @@ The position_id of employee is the foreign key of position_id of position.\
 \n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering' \
 \n\n### New Instruction:\n{}\n"""
 
+INSTRUCTION_THREE_SHOT_PROMPT = """\
+I want you to act as a SQL terminal in front of an example database. \
+You need only to return the sql command to me. \
+First, I will show you few examples of an instruction followed by the correct SQL response. \
+Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request.\
+\n### Example1 Instruction: \
+retail_complains contains tables such as state, callcenterlogs, client, district, events, reviews. \
+Table state has columns such as StateCode, State, Region. StateCode is the primary key.\nTable callcenterlogs \
+has columns such as Date received, Complaint ID, rand client, phonefinal, vru+line, call_id, priority, type, outcome, server, ser_start, ser_exit, ser_time. \
+Complaint ID is the primary key.\nTable client has columns such as client_id, sex, day, month, year, age, social, first, middle, last, phone, email, address_1, address_2, city, state, zipcode, district_id. client_id is the primary key. \
+\nTable district has columns such as district_id, city, state_abbrev, division. district_id is the primary key.\nTable events has columns such as Date received, Product, Sub-product, Issue, Sub-issue, Consumer complaint narrative, \
+Tags, Consumer consent provided?, Submitted via, Date sent to company, Company response to consumer, Timely response?, Consumer disputed?, Complaint ID, Client_ID. The combination of (Complaint ID, Client_ID) are the primary key. \
+\nTable reviews has columns such as Date, Stars, Reviews, Product, district_id. Date is the primary key.\nThe rand client of callcenterlogs is the foreign key of client_id of client. The district_id of client is the foreign key of \
+district_id of district. The state_abbrev of district is the foreign key of StateCode of state. The Client_ID of events is the foreign key of client_id of client. The Complaint ID of events is the foreign key of Complaint ID of callcenterlogs. \
+The district_id of reviews is the foreign key of district_id of district. \nHere is some useful hints to generate the output: percentage = MULTIPLY(DIVIDE(SUM(\"Consumer disputed?\" = 'Yes' AND city = 'Houston'), COUNT(client_id)), 1.0); Houston refers to city = 'Houston';. \
+\n### Example1 Input:\nWhat percentage of consumers from Houston disputed complaints? \
+\n### Example1 Response:\nSELECT CAST(SUM(CASE WHEN T2.`Consumer disputed?` = 'Yes' AND T1.city = 'Houston' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.client_id) FROM client AS T1 INNER JOIN events AS T2 ON T1.client_id = T2.Client_ID \
+\n\n### Example2 Instruction: \
+movie_3 contains tables such as film_text, actor, address, category, city, country, customer, \
+film, film_actor, film_category, inventory, language, payment, rental, staff, store. Table film_text \
+has columns such as film_id, title, description. film_id is the primary key.\nTable actor has columns \
+such as actor_id, first_name, last_name, last_update. actor_id is the primary key.\nTable address has \
+columns such as address_id, address, address2, district, city_id, postal_code, phone, last_update. address_id \
+is the primary key.\nTable category has columns such as category_id, name, last_update. category_id is the primary key. \
+\nTable city has columns such as city_id, city, country_id, last_update. city_id is the primary key.\nTable country \
+has columns such as country_id, country, last_update. country_id is the primary key.\nTable customer has columns such as \
+customer_id, store_id, first_name, last_name, email, address_id, active, create_date, last_update. customer_id is the primary \
+key.\nTable film has columns such as film_id, title, description, release_year, language_id, original_language_id, rental_duration, \
+rental_rate, length, replacement_cost, rating, special_features, last_update. film_id is the primary key.\nTable film_actor has columns \
+such as actor_id, film_id, last_update. The combination of (actor_id, film_id) are the primary key.\nTable film_category has columns such as \
+film_id, category_id, last_update. The combination of (film_id, category_id) are the primary key.\nTable inventory has columns such as inventory_id, \
+film_id, store_id, last_update. inventory_id is the primary key.\nTable language has columns such as language_id, name, last_update. language_id is \
+the primary key.\nTable payment has columns such as payment_id, customer_id, staff_id, rental_id, amount, payment_date, last_update. payment_id is the \
+primary key.\nTable rental has columns such as rental_id, rental_date, inventory_id, customer_id, return_date, staff_id, last_update. rental_id is the \
+primary key.\nTable staff has columns such as staff_id, first_name, last_name, address_id, picture, email, store_id, active, username, password, \
+last_update. staff_id is the primary key.\nTable store has columns such as store_id, manager_staff_id, address_id, last_update. store_id is the primary \
+key.\n\nHere is some useful hints to generate the output: over 4.99 refers to amount > 4.99. \
+\n### Example2 Input:\nAmong the payments made by Mary Smith, how many of them are over 4.99? \
+\n### Example2 Response:\nSELECT COUNT(T1.amount) FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T2.first_name = 'MARY' AND T2.last_name = 'SMITH' AND T1.amount > 4.99 \
+\n\n### Example3 Instruction: \
+movie_3 contains tables such as film_text, actor, address, category, city, country, customer, film, film_actor, \
+film_category, inventory, language, payment, rental, staff, store. Table film_text has columns such as film_id, \
+title, description. film_id is the primary key.\nTable actor has columns such as actor_id, first_name, last_name, \
+last_update. actor_id is the primary key.\nTable address has columns such as address_id, address, address2, district, \
+city_id, postal_code, phone, last_update. address_id is the primary key.\nTable category has columns such as category_id, \
+name, last_update. category_id is the primary key.\nTable city has columns such as city_id, city, country_id, last_update. \
+city_id is the primary key.\nTable country has columns such as country_id, country, last_update. country_id is the primary key.\n \
+Table customer has columns such as customer_id, store_id, first_name, last_name, email, address_id, active, create_date, last_update. \
+customer_id is the primary key.\nTable film has columns such as film_id, title, description, release_year, language_id, original_language_id, \
+rental_duration, rental_rate, length, replacement_cost, rating, special_features, last_update. film_id is the primary key.\nTable film_actor has columns such as actor_id, \
+film_id, last_update. The combination of (actor_id, film_id) are the primary key.\nTable film_category has columns such as film_id, category_id, last_update. \
+The combination of (film_id, category_id) are the primary key.\nTable inventory has columns such as inventory_id, film_id, store_id, last_update. \
+inventory_id is the primary key.\nTable language has columns such as language_id, name, last_update. language_id is the primary key.\nTable payment \
+has columns such as payment_id, customer_id, staff_id, rental_id, amount, payment_date, last_update. payment_id is the primary key.\nTable rental has columns such \
+as rental_id, rental_date, inventory_id, customer_id, return_date, staff_id, last_update. rental_id is the primary key.\nTable staff has columns such as staff_id, \
+first_name, last_name, address_id, picture, email, store_id, active, username, password, last_update. staff_id is the primary key.\nTable store has columns such as store_id, \
+manager_staff_id, address_id, last_update. store_id is the primary key.\n\nHere is some useful hints to generate the output: Italy refers to country = 'Italy'; \
+average amount = divide(sum(amount), count(customer_id)) where country = 'Italy'. \
+\n### Example3 Input:\nWhat is the average amount of money spent by a customer in Italy on a single film rental? \
+\n### Example3 Response:\SELECT AVG(T5.amount) FROM address AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id INNER JOIN country AS T3 ON T2.country_id = T3.country_id INNER JOIN customer AS T4 ON T1.address_id = T4.address_id INNER JOIN payment AS T5 ON T4.customer_id = T5.customer_id WHERE T3.country = 'Italy' \
+\n\n### New Instruction:\n{}\n"""
+
 # EXAMPLES =[EXAMPLE1, EXAMPLE1]
 
 # EXAMPLE1 = "\n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department.\n\

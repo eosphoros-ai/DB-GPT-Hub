@@ -40,6 +40,7 @@ SQL_PROMPT_DICT = {
         Write a response that appropriately completes the request.\n"
         "####Instruction:\n{instruction}\n\###Response: "
     ),
+    "prompt_no_prefix": ("{instruction}{input}"),
 }
 
 

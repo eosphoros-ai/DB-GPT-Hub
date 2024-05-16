@@ -10,6 +10,10 @@ from typing import List, Dict, Optional, Any
 
 from dbgpt_hub.data_process.data_utils import extract_sql_prompt_dataset
 from dbgpt_hub.llm_base.chat_model import ChatModel
+from dbgpt_hub.llm_base.api_model import GeminiModel
+
+import torch.distributed as dist
+import torch.multiprocessing as mp
 
 
 def prepare_dataset(
@@ -47,5 +51,5 @@ def predict(model: ChatModel):
 
 
 if __name__ == "__main__":
-    model = ChatModel()
+    model = GeminiModel() #ChatModel()
     predict(model)

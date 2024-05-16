@@ -9,9 +9,9 @@ CUDA_VISIBLE_DEVICES=0  python dbgpt_hub/predict/predict.py \
     --model_name_or_path google/gemma-7b \
     --template mistral \
     --finetuning_type lora \
-    --predicted_input_filename dbgpt_hub/data/example_text2sql_dev.json \
+    --predicted_input_filename dbgpt_hub/data/example_text2sql_dev_three_shot.json \
     --checkpoint_dir dbgpt_hub/output/adapter/bird-gemma-7b-sql-lora \
-    --predicted_out_filename dbgpt_hub/output/pred/pred_bird-gemma-7b-base-column_ranking2-sql-lora.sql >> ${pred_log}
+    --predicted_out_filename dbgpt_hub/output/pred/pred_bird-gemini-pro-three_shot-sql-lora.sql >> ${pred_log}
 
 echo "############pred end###############" >>${pred_log}
 echo "pred End time: $(date)" >>${pred_log}

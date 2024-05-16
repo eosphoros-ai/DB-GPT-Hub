@@ -70,7 +70,8 @@ def extract_alpaca_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:
 
 def extract_sql_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:
     if example.get("input", "") != "":
-        prompt_format = SQL_PROMPT_DICT["prompt_input"]
+        #prompt_format = SQL_PROMPT_DICT["prompt_input"]
+        prompt_format = SQL_PROMPT_DICT["prompt_no_prefix"]
     else:
         prompt_format = SQL_PROMPT_DICT["prompt_no_input"]
     return {"input": prompt_format.format(**example)}

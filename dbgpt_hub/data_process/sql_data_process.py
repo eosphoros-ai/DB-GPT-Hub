@@ -386,13 +386,13 @@ if __name__ == "__main__":
 
     # one-shot
     one_shot_all_in_one_train_file = os.path.join(
-        DATA_PATH, "example_text2sql_train_one_shot.json")
+        DATA_PATH, "example_text2sql_train_three_shot.json")
     one_shot_all_in_one_dev_file = os.path.join(
-        DATA_PATH, "example_text2sql_dev_one_shot.json")
+        DATA_PATH, "example_text2sql_dev_three_shot.json")
     one_shot_precess = ProcessSqlData(
         train_file=one_shot_all_in_one_train_file,
         dev_file=one_shot_all_in_one_dev_file,
-        num_shot=1,
+        num_shot=3,
         code_representation=args.code_representation,
         table_ranking=args.table_ranking,
         column_ranking=args.column_ranking,

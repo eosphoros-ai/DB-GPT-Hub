@@ -9,6 +9,8 @@ include = ["dbgpt_hub/baseline/baseline.json"]
 
 [tool.poetry.dependencies]
 google-cloud-aiplatform = ">= 1.38"
+google-generativeai = ">=0.5.3"
+google-ai-generativelanguage = ">=0.6.3"
 python = ">=3.10,<3.13"
 transformers = "4.39.1"
 sentence-transformers = "2.7.0"

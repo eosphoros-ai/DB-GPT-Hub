@@ -11,8 +11,8 @@ import vertexai
 from vertexai.generative_models import GenerativeModel
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
-from dbgpt_hub.llm_base.loggings import get_logger
-logger = get_logger(__name__)
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 class GeminiModel:
 
@@ -51,8 +51,8 @@ class GeminiModel:
               return False
           return True
         db_name = query.split("### New Instruction:\n")[1].split(" contains tables ")[0]
-        db_path = os.path.join(db_folder_path, db_name)
-        logger.info(f"Connecting to database at {db_path}")
+        db_path = os.path.join(db_folder_path, db_name) + f"/{db_name}.sqlite"
+        logging.info(f"Connecting to database at {db_path}")
 
         _sql = sql
         retry_cnt = 0

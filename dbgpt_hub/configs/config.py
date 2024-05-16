@@ -112,7 +112,7 @@ INSTRUCTION_PROMPT = """\
 I want you to act as a SQL terminal in front of an example database, \
 you need only to return the sql command to me.Below is an instruction that describes a task, \
 Write a response that appropriately completes the request. \n"
-##Instruction:\n{}\n"""
+### New Instruction:\n{}\n"""
 INPUT_PROMPT = "###Input:\n{}\n\n###Response:"
 
 INSTRUCTION_ONE_SHOT_PROMPT = """\

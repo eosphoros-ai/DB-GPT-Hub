@@ -32,6 +32,7 @@ def inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
     for item in tqdm(predict_data, desc="Inference Progress", unit="item"):
         print(f"item[input] \n{item['input']}")
         response, _ = model.chat(query=item["input"], history=[], **input_kwargs)
+        response = model.verify_and_correct(item["input"], response, db_folder_path)
         res.append(response)
     return res
 
@@ -52,4 +53,5 @@ def predict(model: ChatModel):
 
 if __name__ == "__main__":
     model = GeminiModel() #ChatModel()
+    db_folder_path = '/root/DB-GPT-Hub/dbgpt_hub/data/bird/dev/dev_databases'
     predict(model)

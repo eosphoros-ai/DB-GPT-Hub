@@ -1,5 +1,7 @@
+import sqlite3
 import torch
 import json
+import os, re
 from typing import Any, Dict, Generator, List, Optional, Tuple
 from threading import Thread
 
@@ -9,6 +11,8 @@ import vertexai
 from vertexai.generative_models import GenerativeModel
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
+from dbgpt_hub.llm_base.loggings import get_logger
+logger = get_logger(__name__)
 
 class GeminiModel:
 
@@ -24,14 +28,8 @@ class GeminiModel:
         self.template = get_template(self.data_args.template)
         self.system_prompt = self.data_args.system_prompt
 
-    @torch.inference_mode()
-    def chat(self,
-             query: str,
-             history: Optional[List[Tuple[str, str]]] = None,
-             system: Optional[str] = None,
-             **input_kwargs) -> Tuple[str, Tuple[int, int]]:
-        try:
-            resp = self.model.generate_content(
+    def _generate_sql(self, query):
+        resp = self.model.generate_content(
                 query,
                 safety_settings={
                     HarmCategory(0): HarmBlockThreshold.BLOCK_NONE,
@@ -40,8 +38,46 @@ class GeminiModel:
                     HarmCategory(3): HarmBlockThreshold.BLOCK_NONE,
                     HarmCategory(4): HarmBlockThreshold.BLOCK_NONE,
                 }).text.replace("```sql","").replace("```","\n")
-            import re
-            resp = re.sub('\s+',' ', resp).strip()
+        resp = re.sub('\s+',' ', resp).strip()
+        return resp
+
+    def verify_and_correct(self, query, sql, db_folder_path):
+        def isValidSQL(sql, db):
+          conn = sqlite3.connect(db)
+          cursor = conn.cursor()
+          try:
+              cursor.execute(sql)
+          except:
+              return False
+          return True
+        db_name = query.split("### New Instruction:\n")[1].split(" contains tables ")[0]
+        db_path = os.path.join(db_folder_path, db_name)
+        logger.info(f"Connecting to database at {db_path}")
+
+        _sql = sql
+        retry_cnt = 0
+        while not isValidSQL(_sql, db_path) and retry_cnt < 3:
+            new_prompt = (f"Your previous answer, {sql}, was not a valid SQL query. "
+                          "Here are some useful tips: 1) -- is used to mark comment; "
+                          "2) use nested SQL query when needed; "
+                          "3) use the `date` function when comparing dates; "
+                          "4) when dealing with ratios, cast the calculated values as REAL;\n\n")
+            new_prompt += f"Now, try to generate a new SQL query. Here is the instruction again, {query}"
+            _sql = self._generate_sql(new_prompt)
+            retry_cnt += 1
+        if retry_cnt == 3:
+            _sql = "SELECT *"  # failed to generate an executable query
+        return _sql
+
+
+    @torch.inference_mode()
+    def chat(self,
+             query: str,
+             history: Optional[List[Tuple[str, str]]] = None,
+             system: Optional[str] = None,
+             **input_kwargs) -> Tuple[str, Tuple[int, int]]:
+        try:
+            resp = self._generate_sql(query)
         except:
             print(f'\n*** {query} resulted in API error...\n')
             resp = ""

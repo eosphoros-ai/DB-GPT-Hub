@@ -87,7 +87,7 @@ class ProcessSqlData:
             coloumns = item["column_names_original"][1:]
             primary_key = item["primary_keys"]
             foreign_keys = item["foreign_keys"]
-            source = (item["db_id"] + " contains tables such as " +
+            source = ("The database " + item["db_id"] + " contains tables such as " +
                       ", ".join(tables_names) + ". ")
 
             tab_dict = {}
@@ -269,7 +269,7 @@ class ProcessSqlData:
                             # all tables and columns with primary and foreign keys.
                             instruction = db_dict[data[db_id_name]]
 
-                        if has_evidence:
+                        if has_evidence and data["evidence"]:
                             instruction += (
                                 "Here is some useful hints to generate the output: "
                                 + data["evidence"] + ".\n")

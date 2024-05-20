@@ -109,24 +109,26 @@ SQL_DATA_INFO = [
 
 #### SPIDER ####
 INSTRUCTION_PROMPT = """\
-I want you to act as a SQL terminal in front of an example database, \
-you need only to return the sql command to me.Below is an instruction that describes a task, \
+I want you to act as a SQL expert, who writes a SQL query per user request. \
+You only need to return the sql command to me. Below is some helpful context information, \
+including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
 Write a response that appropriately completes the request. \n"
-### New Instruction:\n{}\n"""
+### Context:\n{}\n"""
 INPUT_PROMPT = "###Input:\n{}\n\n###Response:"
 
 INSTRUCTION_N_SHOT_PROMPT = """\
-I want you to act as a SQL terminal in front of an example database, \
-you need only to return the sql command to me.Below is an instruction that describes a task, \
+I want you to act as a SQL expert, who writes a SQL query per user request. \
+You only need to return the sql command to me. Below is some helpful context information, \
+including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
 Write a response that appropriately completes the request. \n"
-### New Instruction:\n{}\n"""
+### Context:\n{}\n"""
 
 INSTRUCTION_ONE_SHOT_PROMPT = """\
-I want you to act as a SQL terminal in front of an example database. \
-You need only to return the sql command to me. \
-First, I will show you few examples of an instruction followed by the correct SQL response. \
-Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request. \
-\n### Example1 Instruction:
+I want you to act as a SQL expert, who writes a SQL query per user request. \
+You only need to return the sql command to me. Below is some helpful context information, \
+including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
+Write a response that appropriately completes the request. \n"
+\n### Example1 Context:
 The database contains tables such as employee, salary, and position. \
 Table employee has columns such as employee_id, name, age, and position_id. employee_id is the primary key. \
 Table salary has columns such as employee_id, amount, and date. employee_id is the primary key. \
@@ -135,15 +137,15 @@ The employee_id of salary is the foreign key of employee_id of employee. \
 The position_id of employee is the foreign key of position_id of position.\
 \n### Example1 Input:\nList the names and ages of employees in the 'Engineering' department. \
 \n### Example1 Response:\nSELECT employee.name, employee.age FROM employee JOIN position ON employee.position_id = position.position_id WHERE position.department = 'Engineering' \
-\n\n### New Instruction:\n{}\n"""
+\n\n### Context:\n{}\n"""
 
 INSTRUCTION_THREE_SHOT_PROMPT = """\
-I want you to act as a SQL terminal in front of an example database. \
-You need only to return the sql command to me. \
-First, I will show you few examples of an instruction followed by the correct SQL response. \
-Then, I will give you a new instruction, and you should write the SQL response that appropriately completes the request. \
-\n### Example1 Instruction: \
-retail_complains contains tables such as state, callcenterlogs, client, district, events, reviews. \
+I want you to act as a SQL expert, who writes a SQL query per user request. \
+You only need to return the sql command to me. Below is some helpful context information, \
+including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
+Write a response that appropriately completes the request. \n"
+\n### Example1 Context: \
+The database contains tables such as state, callcenterlogs, client, district, events, reviews. \
 Table state has columns such as StateCode, State, Region. StateCode is the primary key.\nTable callcenterlogs \
 has columns such as Date received, Complaint ID, rand client, phonefinal, vru+line, call_id, priority, type, outcome, server, ser_start, ser_exit, ser_time. \
 Complaint ID is the primary key.\nTable client has columns such as client_id, sex, day, month, year, age, social, first, middle, last, phone, email, address_1, address_2, city, state, zipcode, district_id. client_id is the primary key. \
@@ -154,8 +156,8 @@ district_id of district. The state_abbrev of district is the foreign key of Stat
 The district_id of reviews is the foreign key of district_id of district. \nHere is some useful hints to generate the output: percentage = MULTIPLY(DIVIDE(SUM(\"Consumer disputed?\" = 'Yes' AND city = 'Houston'), COUNT(client_id)), 1.0); Houston refers to city = 'Houston';. \
 \n### Example1 Input:\nWhat percentage of consumers from Houston disputed complaints? \
 \n### Example1 Response:\nSELECT CAST(SUM(CASE WHEN T2.`Consumer disputed?` = 'Yes' AND T1.city = 'Houston' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.client_id) FROM client AS T1 INNER JOIN events AS T2 ON T1.client_id = T2.Client_ID \
-\n\n### Example2 Instruction: \
-movie_3 contains tables such as film_text, actor, address, category, city, country, customer, \
+\n\n### Example2 Context: \
+The database  contains tables such as film_text, actor, address, category, city, country, customer, \
 film, film_actor, film_category, inventory, language, payment, rental, staff, store. Table film_text \
 has columns such as film_id, title, description. film_id is the primary key.\nTable actor has columns \
 such as actor_id, first_name, last_name, last_update. actor_id is the primary key.\nTable address has \
@@ -176,8 +178,8 @@ last_update. staff_id is the primary key.\nTable store has columns such as store
 key.\n\nHere is some useful hints to generate the output: over 4.99 refers to amount > 4.99. \
 \n### Example2 Input:\nAmong the payments made by Mary Smith, how many of them are over 4.99? \
 \n### Example2 Response:\nSELECT COUNT(T1.amount) FROM payment AS T1 INNER JOIN customer AS T2 ON T1.customer_id = T2.customer_id WHERE T2.first_name = 'MARY' AND T2.last_name = 'SMITH' AND T1.amount > 4.99 \
-\n\n### Example3 Instruction: \
-movie_3 contains tables such as film_text, actor, address, category, city, country, customer, film, film_actor, \
+\n\n### Example3 Context: \
+The database contains tables such as film_text, actor, address, category, city, country, customer, film, film_actor, \
 film_category, inventory, language, payment, rental, staff, store. Table film_text has columns such as film_id, \
 title, description. film_id is the primary key.\nTable actor has columns such as actor_id, first_name, last_name, \
 last_update. actor_id is the primary key.\nTable address has columns such as address_id, address, address2, district, \
@@ -197,7 +199,7 @@ manager_staff_id, address_id, last_update. store_id is the primary key.\n\nHere 
 average amount = divide(sum(amount), count(customer_id)) where country = 'Italy'. \
 \n### Example3 Input:\nWhat is the average amount of money spent by a customer in Italy on a single film rental? \
 \n### Example3 Response:\SELECT AVG(T5.amount) FROM address AS T1 INNER JOIN city AS T2 ON T1.city_id = T2.city_id INNER JOIN country AS T3 ON T2.country_id = T3.country_id INNER JOIN customer AS T4 ON T1.address_id = T4.address_id INNER JOIN payment AS T5 ON T4.customer_id = T5.customer_id WHERE T3.country = 'Italy' \
-\n\n### New Instruction:\n{}\n"""
+\n\n### Context:\n{}\n"""
 
 # EXAMPLES =[EXAMPLE1, EXAMPLE1]
 

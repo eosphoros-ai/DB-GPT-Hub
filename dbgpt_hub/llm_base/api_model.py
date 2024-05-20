@@ -54,7 +54,7 @@ class GeminiModel:
           except:
               return False
           return True
-        db_name = query.split("### New Instruction:\n")[1].split(" contains tables ")[0]
+        db_name = query.split("### Context:\n")[1].split(" contains tables ")[0].split("database ")[1]
         db_path = os.path.join(db_folder_path, db_name) + f"/{db_name}.sqlite"
         logging.info(f"Connecting to database at {db_path}")
 

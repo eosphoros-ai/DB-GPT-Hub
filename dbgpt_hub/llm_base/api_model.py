@@ -8,6 +8,7 @@ from threading import Thread
 from dbgpt_hub.llm_base.config_parser import get_infer_args
 from dbgpt_hub.data_process.data_utils import get_template
 import vertexai
+from vertexai.preview.tuning import sft
 from vertexai.generative_models import GenerativeModel
 from google.generativeai.types import HarmCategory, HarmBlockThreshold
 
@@ -24,7 +25,10 @@ class GeminiModel:
             self.generating_args,
         ) = get_infer_args(args)
         vertexai.init(project="400355794761", location="us-central1")
-        self.model = GenerativeModel(model_name="gemini-1.0-pro-002")
+        sft_job = sft.SupervisedTuningJob("projects/400355794761/locations/us-central1/tuningJobs/6853268654671265792")
+        self.model = GenerativeModel(model_name=sft_job.tuned_model_endpoint_name)
+        #self.model = GenerativeModel(model_name="gemini-1.0-pro-002")
+        "projects/400355794761/locations/us-central1/tuningJobs/6853268654671265792"
         self.template = get_template(self.data_args.template)
         self.system_prompt = self.data_args.system_prompt
 

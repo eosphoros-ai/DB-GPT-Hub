@@ -15,14 +15,10 @@ sys.path.append(ROOT_PATH)
 
 from tqdm import tqdm
 
-from dbgpt_hub.configs.config import (
-    SQL_DATA_INFO,
-    DATA_PATH,
-    INPUT_PROMPT,
-    INSTRUCTION_PROMPT,
-    INSTRUCTION_ONE_SHOT_PROMPT,
-    INSTRUCTION_THREE_SHOT_PROMPT
-)
+from dbgpt_hub.configs.config import (SQL_DATA_INFO, DATA_PATH, INPUT_PROMPT,
+                                      INSTRUCTION_PROMPT,
+                                      INSTRUCTION_ONE_SHOT_PROMPT,
+                                      INSTRUCTION_THREE_SHOT_PROMPT)
 
 
 class ProcessSqlData:
@@ -35,6 +31,7 @@ class ProcessSqlData:
                  table_ranking=False,
                  column_ranking=False,
                  primary_keys=False,
+                 tips=False,
                  top_k=25) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
@@ -43,6 +40,7 @@ class ProcessSqlData:
         self.table_ranking = table_ranking
         self.column_ranking = column_ranking
         self.primary_keys = primary_keys
+        self.tips = tips
         self.top_k = top_k
 
     def decode_json_file(
@@ -87,15 +85,16 @@ class ProcessSqlData:
             coloumns = item["column_names_original"][1:]
             primary_key = item["primary_keys"]
             foreign_keys = item["foreign_keys"]
-            source = ("The database " + item["db_id"] + " contains tables such as " +
-                      ", ".join(tables_names) + ". ")
+            source = ("The database " + item["db_id"] +
+                      " contains tables such as " + ", ".join(tables_names) +
+                      ". ")
 
             tab_dict = {}
             for i, name in enumerate(tables_names):
                 cols = coloumns
                 data = [col[1] for col in cols if col[0] == i]
                 tab_cols = ("Table " + name + " has columns such as " +
-                           ", ".join(data) + ". ")
+                            ", ".join(data) + ". ")
                 tab_dict[name] = [tab_cols]
                 source += tab_cols
 
@@ -104,8 +103,9 @@ class ProcessSqlData:
                 for j in range(len(primary_key)):
                     if type(primary_key[j]) == int:
                         if coloumns[primary_key[j] - 1][0] == i:
-                            primary_key_str += (coloumns[primary_key[j] - 1][1] +
-                                       " is the primary key." + "\n")
+                            primary_key_str += (
+                                coloumns[primary_key[j] - 1][1] +
+                                " is the primary key." + "\n")
                     # combination primary key
                     elif type(primary_key[j]) == list:
                         combine_p = "The combination of ("
@@ -116,7 +116,7 @@ class ProcessSqlData:
                         if not keys:
                             continue
                         primary_key_str += (combine_p + ", ".join(keys) +
-                                   ") are the primary key." + "\n")
+                                            ") are the primary key." + "\n")
                     else:
                         print("not support type", type(primary_key[j]))
                         continue
@@ -126,11 +126,13 @@ class ProcessSqlData:
             # get foreign key info
             foreign_keys_str = ""
             for key in foreign_keys:
-                foreign_keys_str += (
-                    "The " + coloumns[key[0] - 1][1] + " of " +
-                    tables_names[coloumns[key[0] - 1][0]] +
-                    " is the foreign key of " + coloumns[key[1] - 1][1] +
-                    " of " + tables_names[coloumns[key[1] - 1][0]] + ". ")
+                foreign_keys_str += ("The " + coloumns[key[0] - 1][1] +
+                                     " of " +
+                                     tables_names[coloumns[key[0] - 1][0]] +
+                                     " is the foreign key of " +
+                                     coloumns[key[1] - 1][1] + " of " +
+                                     tables_names[coloumns[key[1] - 1][0]] +
+                                     ". ")
             db_foreign_key_dict[item["db_id"]] = foreign_keys_str + "\n"
             source += db_foreign_key_dict[item["db_id"]]
 
@@ -144,7 +146,9 @@ class ProcessSqlData:
         elif self.num_shot == 3:
             base_instruction = INSTRUCTION_THREE_SHOT_PROMPT
         if self.column_ranking or self.table_ranking:
-            assert (self.column_ranking != self.table_ranking), "Ranking by table or column, not both."
+            assert (
+                self.column_ranking
+                != self.table_ranking), "Ranking by table or column, not both."
         if self.column_ranking:
             # TODO(yeounoh) we can use hosted embeddings API, but have to pay
             # May consider that option for the submission, since the test data
@@ -258,9 +262,11 @@ class ProcessSqlData:
                             ]
                             instruction = ""
                             for t_name in tables:
-                                instruction += db_tab_dict[data[db_id_name]][t_name][0]
+                                instruction += db_tab_dict[
+                                    data[db_id_name]][t_name][0]
                                 if self.primary_keys:
-                                  instruction += db_tab_dict[data[db_id_name]][t_name][1]
+                                    instruction += db_tab_dict[
+                                        data[db_id_name]][t_name][1]
                             instruction += (
                                 " \n" + db_foreign_key_dict[data[db_id_name]]
                                 if data[db_id_name] in db_foreign_key_dict else
@@ -273,6 +279,14 @@ class ProcessSqlData:
                             instruction += (
                                 "Here is some useful hints to generate the output: "
                                 + data["evidence"] + ".\n")
+                        if self.tips:
+                            instruction += (
+                                "Here are additional instructions: "
+                                "1) -- is used to mark comment; "
+                                "2) use nested SQL query when needed; "
+                                "3) use the `date` function when comparing dates; "
+                                "4) when dealing with ratios, cast the calculated values as REAL.\n"
+                            )
                         input_instruction = base_instruction.format(
                             instruction)
 
@@ -370,9 +384,14 @@ if __name__ == "__main__":
                         help='Enable similarity-based table retrieval.')
     parser.add_argument("--column_ranking",
                         help="Enable similarity-based column retrieval.")
-    parser.add_argument("--top_k", help="Number of tables or columns to retrieve.", default=15)
-    parser.add_argument("--primary_keys", help="Include table primary keys.", default=False)
+    parser.add_argument("--top_k",
+                        help="Number of tables or columns to retrieve.",
+                        default=15)
+    parser.add_argument("--primary_keys",
+                        help="Include table primary keys.",
+                        default=False)
     parser.add_argument("--num_shot", default=0)
+    parser.add_argument("--tips", default=False)
     args = parser.parse_args()
 
     all_in_one_train_file = os.path.join(DATA_PATH,
@@ -384,6 +403,7 @@ if __name__ == "__main__":
                              table_ranking=args.table_ranking,
                              column_ranking=args.column_ranking,
                              primary_keys=args.primary_keys,
+                             tips=args.tips,
                              top_k=int(args.top_k) if args.top_k else 25)
     precess.create_sft_raw_data()
 
@@ -400,5 +420,6 @@ if __name__ == "__main__":
         table_ranking=args.table_ranking,
         column_ranking=args.column_ranking,
         primary_keys=args.primary_keys,
+        tips=args.tips,
         top_k=int(args.top_k) if args.top_k else 25)
     one_shot_precess.create_sft_raw_data()

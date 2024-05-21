@@ -45,7 +45,7 @@ class GeminiModel:
         resp = re.sub('\s+',' ', resp).strip()
         return resp
 
-    def verify_and_correct(self, query, sql, db_folder_path):
+    def verify_and_correct(self, sql, db_folder_path):
         def isValidSQL(sql, db):
           conn = sqlite3.connect(db)
           cursor = conn.cursor()
@@ -70,7 +70,8 @@ class GeminiModel:
             _sql = self._generate_sql(new_prompt)
             retry_cnt += 1
         if retry_cnt == 3:
-            _sql = "SELECT *"  # failed to generate an executable query
+            logging.info(f"Failed to generate a valid query, had {_sql}")
+            return "-- failed"  # failed to generate an executable query
         return _sql
 
 

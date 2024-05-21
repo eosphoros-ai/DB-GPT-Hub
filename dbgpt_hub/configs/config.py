@@ -111,7 +111,11 @@ SQL_DATA_INFO = [
 INSTRUCTION_PROMPT = """\
 I want you to act as a SQL expert, who writes a SQL query (in sqlite dialect) per user request. \
 You only need to return the sql command to me. Below is some helpful context information, \
-including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
+including a database's tables and their column names, some examples and hints. \
+Note that the table names and column names are case sensitive and put inside quotations including the spaces; \
+do not remove the spaces in the column names, \
+and make sure to associate the columns to the correct corresponding tables. The context should be clear \
+which table contains which columns. \
 Write a response that appropriately completes the request. \n"
 ### Context:\n{}\n"""
 INPUT_PROMPT = "###Input:\n{}\n\n###Response:"
@@ -119,14 +123,22 @@ INPUT_PROMPT = "###Input:\n{}\n\n###Response:"
 INSTRUCTION_N_SHOT_PROMPT = """\
 I want you to act as a SQL expert, who writes a SQL (in sqlite dialect) query per user request. \
 You only need to return the sql command to me. Below is some helpful context information, \
-including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
+including a database's tables and their column names, some examples and hints. \
+Note that the table names and column names are case sensitive and put inside quotations including the spaces; \
+do not remove the spaces in the column names, \
+and make sure to associate the columns to the correct corresponding tables. The context should be clear \
+which table contains which columns. \
 Write a response that appropriately completes the request. \n"
 ### Context:\n{}\n"""
 
 INSTRUCTION_ONE_SHOT_PROMPT = """\
 I want you to act as a SQL expert, who writes a SQL (in sqlite dialect) query per user request. \
 You only need to return the sql command to me. Below is some helpful context information, \
-including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
+including a database's tables and their column names, some examples and hints. \
+Note that the table names and column names are case sensitive and put inside quotations including the spaces; \
+do not remove the spaces in the column names, \
+and make sure to associate the columns to the correct corresponding tables. The context should be clear \
+which table contains which columns. \
 Write a response that appropriately completes the request. \n"
 \n### Example1 Context:
 The database contains tables such as employee, salary, and position. \
@@ -142,7 +154,11 @@ The position_id of employee is the foreign key of position_id of position.\
 INSTRUCTION_THREE_SHOT_PROMPT = """\
 I want you to act as a SQL expert, who writes a SQL (in sqlite dialect) query per user request. \
 You only need to return the sql command to me. Below is some helpful context information, \
-including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
+including a database's tables and their column names, some examples and hints. \
+Note that the table names and column names are case sensitive and put inside quotations including the spaces; \
+do not remove the spaces in the column names, \
+and make sure to associate the columns to the correct corresponding tables. The context should be clear \
+which table contains which columns. \
 Write a response that appropriately completes the request. \n"
 \n### Example1 Context: \
 The database contains tables such as state, callcenterlogs, client, district, events, reviews. \

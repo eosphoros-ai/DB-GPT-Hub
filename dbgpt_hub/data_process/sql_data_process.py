@@ -94,8 +94,8 @@ class ProcessSqlData:
             tab_dict = {}
             for i, name in enumerate(tables_names):
                 cols = coloumns
-                data = [col[1] for col in cols if col[0] == i]
-                tab_cols = ("Table " + name + " has columns such as " +
+                data = ["\"" + col[1] +"\"" for col in cols if col[0] == i]
+                tab_cols = ("Table \"" + name + "\" has columns such as " +
                             ", ".join(data) + ". ")
                 tab_dict[name] = [tab_cols]
                 source += tab_cols
@@ -106,7 +106,7 @@ class ProcessSqlData:
                     if type(primary_key[j]) == int:
                         if coloumns[primary_key[j] - 1][0] == i:
                             primary_key_str += (
-                                coloumns[primary_key[j] - 1][1] +
+                                "\"" + coloumns[primary_key[j] - 1][1] + "\"" +
                                 " is the primary key." + "\n")
                     # combination primary key
                     elif type(primary_key[j]) == list:
@@ -117,6 +117,7 @@ class ProcessSqlData:
                                 keys.append(coloumns[primary_key[j][k] - 1][1])
                         if not keys:
                             continue
+                        keys = ["\"" + k +"\"" for k in keys]
                         primary_key_str += (combine_p + ", ".join(keys) +
                                             ") are the primary key." + "\n")
                     else:
@@ -128,11 +129,11 @@ class ProcessSqlData:
             # get foreign key info
             foreign_keys_str = ""
             for key in foreign_keys:
-                foreign_keys_str += ("The " + coloumns[key[0] - 1][1] +
-                                     " of " +
+                foreign_keys_str += ("The \"" + coloumns[key[0] - 1][1] +
+                                     "\" of " +
                                      tables_names[coloumns[key[0] - 1][0]] +
-                                     " is the foreign key of " +
-                                     coloumns[key[1] - 1][1] + " of " +
+                                     " is the foreign key of \"" +
+                                     coloumns[key[1] - 1][1] + "\" of " +
                                      tables_names[coloumns[key[1] - 1][0]] +
                                      ". ")
             db_foreign_key_dict[item["db_id"]] = foreign_keys_str + "\n"

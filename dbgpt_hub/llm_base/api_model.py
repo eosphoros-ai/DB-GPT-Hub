@@ -50,31 +50,47 @@ class GeminiModel:
         def isValidSQL(sql, db):
           conn = sqlite3.connect(db)
           cursor = conn.cursor()
+          err = ""
           try:
               cursor.execute(sql)
           except sqlite3.Error as e:
               logging.error(e)
-              return False
+              err = str(e)
+              return False, err
           finally:
               if conn:
                 conn.close()
-          return True
+          return True, err
         db_name = query.split("### Context:\n")[1].split(" contains tables ")[0].split("database ")[1]
         db_path = os.path.join(db_folder_path, db_name) + f"/{db_name}.sqlite"
         logging.info("Connecting to " + db_path)
 
-        tried = []
         _sql = sql
         retry_cnt = 0
-        while not isValidSQL(_sql, db_path) and retry_cnt < 5:
-            tried.append(_sql)
-            new_prompt = (f"Your previously generated SQL queries are not valid: {'; '.join(tried)}. "
-                          "Here are some useful tips: 1) -- is used to mark comment; "
-                          "2) use nested SQL query when needed; "
-                          "3) use the `date` function when comparing dates; "
-                          "4) when dealing with ratios, cast the calculated values as REAL;\n\n")
-            new_prompt += f"Try again to generate a valid SQL query for this request, {query}"
+        valid, err = isValidSQL(_sql, db_path)
+
+
+        while not valid and retry_cnt < 5:
+            logging.info(f"{_sql} , failed due to {err}")
+            if "no such column" in err:
+                col_name = err.split(".")[-1]
+                wrong_table_name = err.split(".")[0].split(" ")[-1]
+                wrong_table_name = _sql.split(f" AS {wrong_table_name}")[0].split(" ")[-1]
+                new_prompt = (f"Your previously generated SQL query, {_sql}, is not valid for this reason: {err}. "
+                              f"\"{wrong_table_name}\" doesn't have column \"{col_name}\". Please make sure you associate \"{col_name}\" with the correct table. \n\n")
+                logging.info("*** trying with this prompt: " + new_prompt)
+                new_prompt += f"Now try again: {query}"
+            else:
+                new_prompt = (f"Your previously generated SQL query, {_sql}, is not valid for this reason: {err}. "
+                              "Here are some useful tips: "
+                              "1) Table Aliases: Use aliases to avoid duplicate table name conflicts; "
+                              "2) Column References: Verify column names and use table_name.column_name format; "
+                              "3) use the date function when comparing dates; "
+                              "4) when dealing with ratios, cast the calculated values as REAL; "
+                              "5) Table Joins: Ensure table names are correct and use appropriate joins.\n\n")
+                new_prompt += f"Try again, and remember that  request {query}"
             _sql = self._generate_sql(new_prompt, temperature=0.2)
+            valid, err = isValidSQL(_sql, db_path)
             retry_cnt += 1
         if retry_cnt == 5:
             logging.info(f"Failed to generate a valid query, had {_sql}")

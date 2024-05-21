@@ -80,14 +80,16 @@ class ProcessSqlData:
         db_dict = {}
         db_tab_dict = {}
         db_foreign_key_dict = {}
+        db_list_of_tables = {}
         for item in tables:
             tables_names = item["table_names_original"]
             coloumns = item["column_names_original"][1:]
             primary_key = item["primary_keys"]
             foreign_keys = item["foreign_keys"]
-            source = ("The database " + item["db_id"] +
+            list_of_tables_str = ("The database " + item["db_id"] +
                       " contains tables such as " + ", ".join(tables_names) +
                       ". ")
+            source = list_of_tables_str
 
             tab_dict = {}
             for i, name in enumerate(tables_names):
@@ -137,6 +139,7 @@ class ProcessSqlData:
             source += db_foreign_key_dict[item["db_id"]]
 
             db_dict[item["db_id"]] = source
+            db_list_of_tables[item["db_id"]] = list_of_tables_str
             db_tab_dict[item["db_id"]] = tab_dict
 
         res = []
@@ -260,7 +263,7 @@ class ProcessSqlData:
                                 db_emb_dict[data[db_id_name]][idx][0]
                                 for idx in k_similar_idx
                             ]
-                            instruction = ""
+                            instruction = db_list_of_tables[data[db_id_name]]
                             for t_name in tables:
                                 instruction += db_tab_dict[
                                     data[db_id_name]][t_name][0]

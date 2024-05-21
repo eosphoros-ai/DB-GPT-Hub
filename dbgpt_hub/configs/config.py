@@ -109,7 +109,7 @@ SQL_DATA_INFO = [
 
 #### SPIDER ####
 INSTRUCTION_PROMPT = """\
-I want you to act as a SQL expert, who writes a SQL query per user request. \
+I want you to act as a SQL expert, who writes a SQL query (in sqlite dialect) per user request. \
 You only need to return the sql command to me. Below is some helpful context information, \
 including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
 Write a response that appropriately completes the request. \n"
@@ -117,14 +117,14 @@ Write a response that appropriately completes the request. \n"
 INPUT_PROMPT = "###Input:\n{}\n\n###Response:"
 
 INSTRUCTION_N_SHOT_PROMPT = """\
-I want you to act as a SQL expert, who writes a SQL query per user request. \
+I want you to act as a SQL expert, who writes a SQL (in sqlite dialect) query per user request. \
 You only need to return the sql command to me. Below is some helpful context information, \
 including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
 Write a response that appropriately completes the request. \n"
 ### Context:\n{}\n"""
 
 INSTRUCTION_ONE_SHOT_PROMPT = """\
-I want you to act as a SQL expert, who writes a SQL query per user request. \
+I want you to act as a SQL expert, who writes a SQL (in sqlite dialect) query per user request. \
 You only need to return the sql command to me. Below is some helpful context information, \
 including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
 Write a response that appropriately completes the request. \n"
@@ -140,7 +140,7 @@ The position_id of employee is the foreign key of position_id of position.\
 \n\n### Context:\n{}\n"""
 
 INSTRUCTION_THREE_SHOT_PROMPT = """\
-I want you to act as a SQL expert, who writes a SQL query per user request. \
+I want you to act as a SQL expert, who writes a SQL (in sqlite dialect) query per user request. \
 You only need to return the sql command to me. Below is some helpful context information, \
 including a database's tables and their column names, some examples and hints. Note that the table names and column names are case sensitive. \
 Write a response that appropriately completes the request. \n"

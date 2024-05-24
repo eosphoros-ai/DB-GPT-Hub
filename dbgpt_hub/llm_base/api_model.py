@@ -90,10 +90,9 @@ class GeminiModel:
             if "no such column" in err:
                 col_name = err.split(": ")[-1]
                 col_name = col_name.split(".")[-1]
-                context_str = query[query.find("# Context:"):query.
-                                    find("#Input:")]
-                input_str = query[query.find("#Input:"):query.find("$Response:"
-                                                                   )]
+                context_str = query[query.find("###Table creation statements###"):query.
+                                    find("###Question###")]
+                input_str = query[query.find("###Question###"):]
                 if context_str.find(f"\"{col_name}\"") == -1:
                     new_prompt = (
                         f"Read this text carefully that describes the tables and their associated columns: {context_str}\n\n"
@@ -107,8 +106,8 @@ class GeminiModel:
                     f"You need to identify the correct table name for the column, \"{col_name}\". "
                     f"We can do this step-by-step. First, find all the tables that has \"{col_name}\" according to this instruction: {context_str}\n\n"
                     "Next, if there is only one candidate, just return that table. "
-                    "Otherwise, if there are multiple candidates identified in the previous step, then return the one that is most likely given the user question {input_str}. "
-                    "Note that the final table must have the column \"{col_name}\" according to according to the above instruction. "
+                    f"Otherwise, if there are multiple candidates identified in the previous step, then return the one that is most likely given the user question {input_str}. "
+                    f"Note that the final table must have the column \"{col_name}\" according to according to the above instruction. "
                     "Always return the table name and no other chracters or quotations. "
                 )
                 table_name = self._generate_sql(new_prompt)
@@ -118,7 +117,7 @@ class GeminiModel:
                     f"First, understand the foreign key relationship between the tables by reading this: {context_str}\n\n"
                     f"Second, address the error using the correct column reference, {table_name + '.`' + col_name + '`'}\n"
                     "Beware of the table aliases in the query. "
-                    "Rewrite and correct the query, so that the column \"{col_name}\" is correctly referenced from the table \"{table_name}\", "
+                    f"Rewrite and correct the query, so that the column \"{col_name}\" is correctly referenced from the table \"{table_name}\", "
                     "and just return the corrected query."
                 )
                 _sql = self._generate_sql(new_prompt)

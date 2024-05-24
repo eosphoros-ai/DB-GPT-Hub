@@ -115,9 +115,17 @@ The database ("{db_name}") structure is defined by the following table schemas (
 
 Given the "Table creation statements" and the "Question", you need understand the database and columns.
 
-Also consider some useful "Hints" if provided.
+Also consider the "Rules" and some useful "Hints" if provided.
 
 Output the SQLite query string ONLY.
+***************************
+###Rules###
+- Do not use "ite " in front of your answer.
+- Verify column names and use table_name.column_name format.
+- Functions: use correct SQLite SQL functions for the intended data types.
+- HAVING Clause: Employ boolean expressions (comparisons, AND, OR, NOT). Consider subqueries for top values.
+- Table Joins: Ensure table names are correct and use appropriate joins.
+- Arithmetic: Use basic operators (+, -, *, /) if dedicated functions are missing.
 ***************************
 ###Hints###
 {hints}

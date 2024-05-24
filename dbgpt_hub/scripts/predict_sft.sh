@@ -11,7 +11,7 @@ CUDA_VISIBLE_DEVICES=0  python dbgpt_hub/predict/predict.py \
     --finetuning_type lora \
     --predicted_input_filename dbgpt_hub/data/example_text2sql_dev.json \
     --checkpoint_dir dbgpt_hub/output/adapter/bird-gemma-7b-sql-lora \
-    --predicted_out_filename dbgpt_hub/output/pred/pred_bird-gemini-pro-tuned-sql-lora.sql >> ${pred_log}
+    --predicted_out_filename dbgpt_hub/output/pred/pred_bird-gemini-pro-1.5-sql-lora.sql >> ${pred_log}
 
 echo "############pred end###############" >>${pred_log}
 echo "pred End time: $(date)" >>${pred_log}

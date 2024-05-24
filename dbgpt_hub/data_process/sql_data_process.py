@@ -317,7 +317,7 @@ class ProcessSqlData:
     ):
 
         if table_file.endswith(".json"):
-            tables = json.load(open(table_file))
+            all_tables = json.load(open(table_file))
             datas = []
             for data_file in data_file_list:
                 datas.extend(json.load(open(data_file)))
@@ -333,7 +333,7 @@ class ProcessSqlData:
                 return s
 
         db_context = dict()
-        for item in tables:
+        for item in all_tables:
             db_path = os.path.join(db_folder_path,
                                    item['db_id']) + f"/{item['db_id']}.sqlite"
             conn = sqlite3.connect(db_path)
@@ -535,6 +535,7 @@ class ProcessSqlData:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    # Old flags
     parser.add_argument("--code_representation",
                         help="Enable code representation",
                         default=False)
@@ -550,6 +551,7 @@ if __name__ == "__main__":
                         default=False)
     parser.add_argument("--num_shot", default=0)
     parser.add_argument("--tips", default=False)
+    # New flags
     args = parser.parse_args()
 
     all_in_one_train_file = os.path.join(DATA_PATH,

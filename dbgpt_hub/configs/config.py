@@ -107,6 +107,28 @@ SQL_DATA_INFO = [
     # }
 ]
 
+#### ICL Experimentation ####
+BASIC_INSTRUCTION_PROMPT = """\
+You are a SQLite SQL expert.
+You need to generate SQLite SQL query given a question in natural language.
+The database ("{db_name}") structure is defined by the following table schemas (comments after '--' provide additional column descriptions).
+
+Given the "Table creation statements" and the "Question", you need understand the database and columns.
+
+Also consider some useful "Hints" if provided.
+
+Output the SQLite query string ONLY.
+***************************
+###Hints###
+{hints}
+***************************
+###Table creation statements###
+{schema}
+***************************
+###Question###
+{question}
+"""
+
 #### SPIDER ####
 INSTRUCTION_PROMPT = """\
 I want you to act as a SQL expert, who writes a SQL query (in sqlite dialect) per user request. \

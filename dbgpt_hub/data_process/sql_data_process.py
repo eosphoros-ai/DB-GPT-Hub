@@ -408,11 +408,32 @@ class ProcessSqlData:
                 table_creation_statements += "".join(ddl_statements)
             db_context[item['db_id']] = table_creation_statements
 
+        def extract_k_tables(db_context, target_db_id, k):
+            create_stmts = db_context[target_db_id].split(";")[:k]
+            extra_table_cnt = k - len(create_stmts)
+            while extra_table_cnt > 0:
+                for key, val in db_context.items():
+                    if extra_table_cnt <= 0:
+                        break
+                    if key == target_db_id:
+                        continue
+                    _stmts = val.split(";")
+                    for s in _stmts:
+                        if extra_table_cnt > 0:
+                            create_stmts.append(s)
+                            extra_table_cnt -= 1
+                        else:
+                            break
+            return ";".join(create_stmts)
+
         res = []
         for data in tqdm(datas):
             if data[db_id_name] in db_context.keys():
                 # all tables and columns with primary and foreign keys.
                 schema = db_context[data[db_id_name]]
+                if self.extra_top_k > 0:
+                    schema = extract_k_tables(db_context, data[db_id_name],
+                                              self.extra_top_k)
                 hints = data["evidence"] if data["evidence"] else ""
                 input_instruction = BASIC_INSTRUCTION_PROMPT.format(
                     db_name=data[db_id_name],
@@ -564,13 +585,14 @@ if __name__ == "__main__":
     all_in_one_train_file = os.path.join(DATA_PATH,
                                          "example_text2sql_train.json")
     all_in_one_dev_file = os.path.join(DATA_PATH, "example_text2sql_dev.json")
-    process = ProcessSqlData(train_file=all_in_one_train_file,
-                             dev_file=all_in_one_dev_file,
-                             code_representation=args.code_representation,
-                             table_ranking=args.table_ranking,
-                             column_ranking=args.column_ranking,
-                             primary_keys=args.primary_keys,
-                             tips=args.tips,
-                             top_k=int(args.top_k) if args.top_k else 15,
-                             extra_top_k=int(args.extra_top_k) if args.extra_top_k else 0)
+    process = ProcessSqlData(
+        train_file=all_in_one_train_file,
+        dev_file=all_in_one_dev_file,
+        code_representation=args.code_representation,
+        table_ranking=args.table_ranking,
+        column_ranking=args.column_ranking,
+        primary_keys=args.primary_keys,
+        tips=args.tips,
+        top_k=int(args.top_k) if args.top_k else 15,
+        extra_top_k=int(args.extra_top_k) if args.extra_top_k else 0)
     process.create_sft_raw_data()

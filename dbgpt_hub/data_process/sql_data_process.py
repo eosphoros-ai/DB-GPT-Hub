@@ -35,7 +35,8 @@ class ProcessSqlData:
                  column_ranking=False,
                  primary_keys=False,
                  tips=False,
-                 top_k=25) -> None:
+                 top_k=25,
+                 extra_top_k=0) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
         self.num_shot = num_shot
@@ -45,6 +46,7 @@ class ProcessSqlData:
         self.primary_keys = primary_keys
         self.tips = tips
         self.top_k = top_k
+        self.extra_top_k = extra_top_k
 
     def decode_json_file(
         self,
@@ -552,17 +554,23 @@ if __name__ == "__main__":
     parser.add_argument("--num_shot", default=0)
     parser.add_argument("--tips", default=False)
     # New flags
+    parser.add_argument(
+        "--extra_top_k",
+        help="Retrieve extra tables outside the DB to guarantee 'k' tables.",
+        default=0)
+
     args = parser.parse_args()
 
     all_in_one_train_file = os.path.join(DATA_PATH,
                                          "example_text2sql_train.json")
     all_in_one_dev_file = os.path.join(DATA_PATH, "example_text2sql_dev.json")
-    precess = ProcessSqlData(train_file=all_in_one_train_file,
+    process = ProcessSqlData(train_file=all_in_one_train_file,
                              dev_file=all_in_one_dev_file,
                              code_representation=args.code_representation,
                              table_ranking=args.table_ranking,
                              column_ranking=args.column_ranking,
                              primary_keys=args.primary_keys,
                              tips=args.tips,
-                             top_k=int(args.top_k) if args.top_k else 25)
-    precess.create_sft_raw_data()
+                             top_k=int(args.top_k) if args.top_k else 15,
+                             extra_top_k=int(args.extra_top_k) if args.extra_top_k else 0)
+    process.create_sft_raw_data()

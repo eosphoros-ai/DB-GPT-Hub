@@ -38,25 +38,26 @@ class GeminiModel:
         self.template = get_template(self.data_args.template)
         self.system_prompt = self.data_args.system_prompt
 
-    def _generate_sql(self, query, temperature=0.):
-        resp = self.model.generate_content(query,
-                                           generation_config={
-                                               "temperature": temperature
-                                           },
-                                           safety_settings={
-                                               HarmCategory(0):
-                                               HarmBlockThreshold.BLOCK_NONE,
-                                               HarmCategory(1):
-                                               HarmBlockThreshold.BLOCK_NONE,
-                                               HarmCategory(2):
-                                               HarmBlockThreshold.BLOCK_NONE,
-                                               HarmCategory(3):
-                                               HarmBlockThreshold.BLOCK_NONE,
-                                               HarmCategory(4):
-                                               HarmBlockThreshold.BLOCK_NONE,
-                                           }).text.replace("```sql",
-                                                           "").replace(
-                                                               "```", "\n")
+    def _generate_sql(self, query, temperature=0., retry=True):
+        try:
+            resp = self.model.generate_content(
+                query,
+                generation_config={
+                    "temperature": temperature
+                },
+                safety_settings={
+                    HarmCategory(0): HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory(1): HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory(2): HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory(3): HarmBlockThreshold.BLOCK_NONE,
+                    HarmCategory(4): HarmBlockThreshold.BLOCK_NONE,
+                }).text.replace("```sql", "").replace("```", "\n")
+        except:
+            logging.error(
+                f"\n===========\nSQL generation failed for: {query}\n")
+            if retry:
+                logging.info("Retrying...")
+                return self._generate_sql(query, retry=False)
         resp = re.sub('^ite\s+', '', resp)
         resp = re.sub('\s+', ' ', resp).strip()
         return resp

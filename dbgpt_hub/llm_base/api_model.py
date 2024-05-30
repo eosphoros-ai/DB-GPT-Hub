@@ -89,7 +89,8 @@ class GeminiModel:
         db_path = os.path.join(db_folder_path, db_name) + f"/{db_name}.sqlite"
         logging.info("Connecting to " + db_path)
 
-        _sql = verify_syntax(sql)
+        _sql = sql
+        #_sql = verify_syntax(sql)
         retry_cnt, max_retries = 0, 2
         valid, err = isValidSQL(_sql, db_path)
 
@@ -100,7 +101,7 @@ class GeminiModel:
             new_prompt = CHECKER_TEMPLATE.format(context_str, input_str, _sql,
                                                  err)
             _sql = self._generate_sql(new_prompt)
-            _sql = verify_syntax(_sql)
+            #_sql = verify_syntax(_sql)
             valid, err = isValidSQL(_sql, db_path)
             retry_cnt += 1
         if retry_cnt == max_retries:

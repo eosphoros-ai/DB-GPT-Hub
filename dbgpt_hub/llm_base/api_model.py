@@ -69,6 +69,7 @@ class GeminiModel:
 
             def replace_func(match):
                 return match.group().replace("'", '"')
+
             modified_sql = re.sub(pattern, replace_func, s)
             return modified_sql
 
@@ -76,7 +77,16 @@ class GeminiModel:
             context_str = query[query.find("###Table creation statements###"
                                            ):query.find("###Question###")]
             input_str = query[query.find("###Question###"):]
-            new_prompt = VERIFICATION_TEMPLATE.format(context_str, input_str, s)
+            new_prompt = VERIFICATION_TEMPLATE.format(context_str, input_str,
+                                                      s)
+            return self._generate_sql(new_prompt)
+
+        def fix_error(s, err):
+            context_str = query[query.find("###Table creation statements###"
+                                           ):query.find("###Question###")]
+            input_str = query[query.find("###Question###"):]
+            new_prompt = CHECKER_TEMPLATE.format(context_str, input_str, s,
+                                                 err)
             return self._generate_sql(new_prompt)
 
         def isValidSQL(sql, db):
@@ -105,13 +115,8 @@ class GeminiModel:
         valid, err = isValidSQL(_sql, db_path)
 
         while not valid and retry_cnt < max_retries:
-            context_str = query[query.find("###Table creation statements###"
-                                           ):query.find("###Question###")]
-            input_str = query[query.find("###Question###"):]
-            new_prompt = CHECKER_TEMPLATE.format(context_str, input_str, _sql,
-                                                 err)
-            _sql = self._generate_sql(new_prompt)
-            _sql = verify_answer(_sql)
+            _sql = fix_error(_sql, err)
+            #_sql = verify_answer(_sql) # this is too expensive to repeat
             _sql = syntax_fix(_sql)
             valid, err = isValidSQL(_sql, db_path)
             retry_cnt += 1

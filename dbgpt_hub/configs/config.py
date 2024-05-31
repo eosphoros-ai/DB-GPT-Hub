@@ -139,7 +139,8 @@ Output the SQLite query string ONLY.
 
 SYNTAX_FIXER_TEMPLATE = """You are a SQLite SQL expert.
 You need to check the syntax of a given SQL query. Check if the query follows the rules. If not, fix it.
-- Put quotations `` around column names and table names, especially when there is a space in between words.
+- Put double quotations around column names and table names, especially when there is a space in between words.
+- Use double quotations for string literals.
 - Use "IS NOT NULL" in WHERE clause unless the question is asking for NULL values.
 - SQLite is case-insensitive by default for identifiers.
 - Be mindful of implicit conversions and potential type mismatches.
@@ -162,16 +163,16 @@ In the query, the table name "frpm" is not quoted. It should be quoted.
 The WHERE clause should exclude NULL values.
 
 The fixed query should be:
-SELECT `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)`
-  FROM `frpm` WHERE `Educational Option Type` = 'Continuation School'
-  AND `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` IS NOT NULL
-  ORDER BY `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` ASC LIMIT 3;
+SELECT "Free Meal Count (Ages 5-17)" / "Enrollment (Ages 5-17)"
+  FROM "frpm" WHERE "Educational Option Type" = "Continuation School"
+  AND "Free Meal Count (Ages 5-17)" / "Enrollment (Ages 5-17)" IS NOT NULL
+  ORDER BY "Free Meal Count (Ages 5-17)" / "Enrollment (Ages 5-17)" ASC LIMIT 3;
 
 <FINAL_ANSWER>
-SELECT `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)`
-  FROM `frpm` WHERE `Educational Option Type` = 'Continuation School'
-  AND `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` IS NOT NULL
-  ORDER BY `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` ASC LIMIT 3;
+SELECT "Free Meal Count (Ages 5-17)" / "Enrollment (Ages 5-17)"
+  FROM "frpm" WHERE "Educational Option Type" = "Continuation School"
+  AND "Free Meal Count (Ages 5-17)" / "Enrollment (Ages 5-17)" IS NOT NULL
+  ORDER BY "Free Meal Count (Ages 5-17)" / "Enrollment (Ages 5-17)" ASC LIMIT 3;
 </FINAL_ANSWER>
 
 **************************
@@ -220,7 +221,8 @@ DONT FORGET Additional rules to generate correct SQLite SQL dialect:
 - Table Joins: Ensure table names are correct and use appropriate joins.
 - Arithmetic: Use basic operators (+, -, *, /) if dedicated functions are missing.
 - Respect the upper and lower case in the question, make sure they are the same in the query.
-- Put quotations `` around column names and table names, especially when there is a space in between words.
+- Put double quotations around column names and table names, especially when there is a space in between words.
+- Use double quotations for string literals.
 
 When you are OK with the fixed query, output the sqlite query string ONLY. It should be the query in plain text.
 """
@@ -255,7 +257,8 @@ DONT FORGET Additional rules to generate correct SQLite SQL dialect:
 - Table Joins: Ensure table names are correct and use appropriate joins.
 - Arithmetic: Use basic operators (+, -, *, /) if dedicated functions are missing.
 - Respect the upper and lower case in the question, make sure they are the same in the query.
-- Put quotations `` around column names and table names, especially when there is a space in between words.
+- Put double quotations around column names and table names, especially when there is a space in between words.
+- Use double quotations for string values.
 """
 
 #### SPIDER ####

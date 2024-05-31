@@ -64,6 +64,14 @@ class GeminiModel:
 
     def verify_and_correct(self, query, sql, db_folder_path):
 
+        def syntax_fix(s):
+            pattern = r"'(?:[^'\\]|\\.)*'"  # (?:...) is a non-capturing group
+
+            def replace_func(match):
+                return match.group().replace("'", '"')
+            modified_sql = re.sub(pattern, replace_func, s)
+            return modified_sql
+
         def verify_answer(s):
             context_str = query[query.find("###Table creation statements###"
                                            ):query.find("###Question###")]
@@ -92,6 +100,7 @@ class GeminiModel:
 
         _sql = sql
         _sql = verify_answer(sql)
+        _sql = syntax_fix(_sql)
         retry_cnt, max_retries = 0, 2
         valid, err = isValidSQL(_sql, db_path)
 
@@ -103,6 +112,7 @@ class GeminiModel:
                                                  err)
             _sql = self._generate_sql(new_prompt)
             _sql = verify_answer(_sql)
+            _sql = syntax_fix(_sql)
             valid, err = isValidSQL(_sql, db_path)
             retry_cnt += 1
         if retry_cnt == max_retries:

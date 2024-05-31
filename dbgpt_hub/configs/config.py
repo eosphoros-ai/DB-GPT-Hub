@@ -208,11 +208,11 @@ The execution failed with error:
 Based on the question, table schemas and the errored query, analyze what the query was trying to achieve and fix the error.
 
 If the error cannot be fixed by fixing the query, for example, connection error or permission error, just output the original query.
-Otherwise, think step by step about generating correct Postgres SQL result!
+Otherwise, think step by step about generating correct SQLite SQL result!
 
 Analyze the error and how to fix.
 
-DONT FORGOT Additional rules to generate correct SQLite SQL dialect:
+DONT FORGET Additional rules to generate correct SQLite SQL dialect:
 - Table Aliases: Use aliases to avoid duplicate table name conflicts.
 - Column References: Verify column names and use table_name.column_name format.
 - Functions: Use correct SQLite functions for the intended data types.
@@ -222,7 +222,40 @@ DONT FORGOT Additional rules to generate correct SQLite SQL dialect:
 - Respect the upper and lower case in the question, make sure they are the same in the query.
 - Put quotations `` around column names and table names, especially when there is a space in between words.
 
-When you are OK with the fixed query, output the postgres query string ONLY. It should be the query in plain text.
+When you are OK with the fixed query, output the sqlite query string ONLY. It should be the query in plain text.
+"""
+
+VERIFICATION_TEMPLATE = """You are a SQLite SQL expert.
+Someone had a question and they tried to run a SQL query to fetch the data for it.
+Now you need to verify if the query is correctly addressing the question.
+
+The database structure is defined by the following table schemas (comments after '--' provide additional column descriptions).
+**************************
+###Table creation statements###
+{}
+**************************
+The original question is:
+{}
+
+The SQL query executed was:
+{}
+
+**************************
+Based on the question, table schemas, analyze what the query was trying to achieve and verify against the question.
+You can do this step-by-step. First, describe the query in natural languagge. Next, compare your description to the original question.
+
+If it is correct, then just return the query as-is. If not, try to fix and return a correct SQLite SQL query.
+ONLY return the verified/corrected SQLite SQL query string.
+
+DONT FORGET Additional rules to generate correct SQLite SQL dialect:
+- Table Aliases: Use aliases to avoid duplicate table name conflicts.
+- Column References: Verify column names and use table_name.column_name format.
+- Functions: Use correct SQLite functions for the intended data types.
+- HAVING Clause: Employ boolean expressions (comparisons, AND, OR, NOT). Consider subqueries for top values.
+- Table Joins: Ensure table names are correct and use appropriate joins.
+- Arithmetic: Use basic operators (+, -, *, /) if dedicated functions are missing.
+- Respect the upper and lower case in the question, make sure they are the same in the query.
+- Put quotations `` around column names and table names, especially when there is a space in between words.
 """
 
 #### SPIDER ####

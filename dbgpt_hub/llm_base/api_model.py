@@ -1,5 +1,5 @@
 import sqlite3
-from dbgpt_hub.configs.config import CHECKER_TEMPLATE, SYNTAX_FIXER_TEMPLATE
+from dbgpt_hub.configs.config import CHECKER_TEMPLATE, SYNTAX_FIXER_TEMPLATE, VERIFICATION_TEMPLATE
 import torch
 import json
 import os, re
@@ -64,11 +64,12 @@ class GeminiModel:
 
     def verify_and_correct(self, query, sql, db_folder_path):
 
-        def verify_syntax(s):
+        def verify_answer(s):
+            context_str = query[query.find("###Table creation statements###"
+                                           ):query.find("###Question###")]
             input_str = query[query.find("###Question###"):]
-            new_prompt = SYNTAX_FIXER_TEMPLATE.format(input_str, s)
-            return self._generate_sql(new_prompt).split(
-                "<FINAL_ANSWER>")[1].split("</FINAL_ANSWER>")[0]
+            new_prompt = VERIFICATION_TEMPLATE.format(context_str, input_str, s)
+            return self._generate_sql(new_prompt)
 
         def isValidSQL(sql, db):
             conn = sqlite3.connect(db)
@@ -90,7 +91,7 @@ class GeminiModel:
         logging.info("Connecting to " + db_path)
 
         _sql = sql
-        #_sql = verify_syntax(sql)
+        _sql = verify_answer(sql)
         retry_cnt, max_retries = 0, 2
         valid, err = isValidSQL(_sql, db_path)
 
@@ -101,7 +102,7 @@ class GeminiModel:
             new_prompt = CHECKER_TEMPLATE.format(context_str, input_str, _sql,
                                                  err)
             _sql = self._generate_sql(new_prompt)
-            #_sql = verify_syntax(_sql)
+            _sql = verify_answer(_sql)
             valid, err = isValidSQL(_sql, db_path)
             retry_cnt += 1
         if retry_cnt == max_retries:

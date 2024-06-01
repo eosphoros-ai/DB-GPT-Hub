@@ -74,6 +74,7 @@ SQL_DATA_INFO = [
         "dev_tab_emb_file": "dev_tab_emb.pickle",
         "train_col_emb_file": "train_col_emb.pickle",
         "dev_col_emb_file": "dev_col_emb.pickle",
+        "example_store_file": "example_store.pickle",
     }
     # ,
     # {
@@ -115,6 +116,8 @@ The database ("{db_name}") structure is defined by the following table schemas (
 
 Given the "Table creation statements" and the "Question", you need understand the database and columns.
 
+Consider the natural language question to SQL query "Examples".
+
 Also consider the "Rules" and some useful "Hints" if provided.
 
 Output the SQLite query string ONLY.
@@ -132,6 +135,9 @@ Output the SQLite query string ONLY.
 ***************************
 ###Table creation statements###
 {schema}
+***************************
+###Examples###
+{examples}
 ***************************
 ###Question###
 {question}

@@ -58,7 +58,8 @@ class GeminiModel:
             if retry:
                 logging.info("Retrying...")
                 return self._generate_sql(query, retry=False)
-        resp = re.sub('^ite\s+', '', resp)
+            return ""
+        resp = re.sub(r"ite\s*\n?\s*SELECT", "SELECT", resp)
         resp = re.sub('\s+', ' ', resp).strip()
         return resp
 
@@ -95,6 +96,9 @@ class GeminiModel:
             err = ""
             try:
                 cursor.execute(sql)
+            except sqlite3.Warning as warning:
+                logging.error(f"SQLite Warning: {warning}")
+                return False, str(warning)
             except sqlite3.Error as e:
                 logging.error(e)
                 err = str(e)
@@ -109,7 +113,7 @@ class GeminiModel:
         logging.info("Connecting to " + db_path)
 
         _sql = sql
-        _sql = verify_answer(sql)
+        #_sql = verify_answer(sql)
         _sql = syntax_fix(_sql)
         retry_cnt, max_retries = 0, 2
         valid, err = isValidSQL(_sql, db_path)

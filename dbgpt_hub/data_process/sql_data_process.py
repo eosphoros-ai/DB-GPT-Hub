@@ -8,6 +8,8 @@ import sys
 import re
 import argparse
 import pickle
+import faiss
+import numpy as np
 
 from sentence_transformers import SentenceTransformer
 
@@ -36,7 +38,8 @@ class ProcessSqlData:
                  primary_keys=False,
                  tips=False,
                  top_k=25,
-                 extra_top_k=0) -> None:
+                 extra_top_k=0,
+                 num_examples=0) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
         self.num_shot = num_shot
@@ -47,6 +50,10 @@ class ProcessSqlData:
         self.tips = tips
         self.top_k = top_k
         self.extra_top_k = extra_top_k
+        self.num_examples = num_examples
+
+        model_id = "sentence-transformers/sentence-t5-base"
+        self.emb_model = SentenceTransformer(model_id)
 
     def decode_json_file(
         self,
@@ -316,6 +323,7 @@ class ProcessSqlData:
         db_folder_path,
         db_id_name,
         output_name,
+        example_store_index,
     ):
 
         if table_file.endswith(".json"):
@@ -426,6 +434,11 @@ class ProcessSqlData:
                             break
             return ";".join(create_stmts)
 
+        def extract_k_examples(question, k):
+            q_emb = self.emb_model.encode(question)
+            D, I = example_store_index.search(np.array([q_emb]), k)
+            return I[0, :min(k, len(I[0]))].tolist()
+
         res = []
         for data in tqdm(datas):
             if data[db_id_name] in db_context.keys():
@@ -434,11 +447,23 @@ class ProcessSqlData:
                 if self.extra_top_k > 0:
                     schema = extract_k_tables(db_context, data[db_id_name],
                                               self.extra_top_k)
+                examples = ""
+                if self.num_examples > 0:
+                    k_indices = extract_k_examples(data["question"],
+                                                   self.num_examples)
+                    for ii, k_idx in enumerate(k_indices):
+                        examples += f"""
+                        \nExample {ii + 1})
+                        - question: {self.example_store[1][k_idx]}
+                        - answer (SQL query): {self.example_store[2][k_idx]}
+                        """
+
                 hints = data["evidence"] if data["evidence"] else ""
                 input_instruction = BASIC_INSTRUCTION_PROMPT.format(
                     db_name=data[db_id_name],
                     hints=hints,
                     schema=schema,
+                    examples=examples,
                     question=data["question"])
 
                 input_idx = input_instruction.find("###Question###")
@@ -457,6 +482,25 @@ class ProcessSqlData:
         train_data = []
         dev_data = []
         for data_info in SQL_DATA_INFO:
+            d = 768
+            findex_train, findex_dev = faiss.IndexFlatL2(d), faiss.IndexFlatL2(
+                d)
+            if self.num_examples > 0:
+                example_store_file = os.path.join(
+                    DATA_PATH,
+                    data_info["data_source"],
+                    data_info["example_store_file"],
+                )
+                with open(example_store_file, 'rb') as file:
+                    # (question_ids, queries, gt_queries, q_embs)
+                    example_store = pickle.load(file)
+                    self.example_store = example_store['train']
+                findex_train.add(np.array(example_store['train'][3]))
+                findex_dev.add(np.array(example_store['dev'][3]))
+                # To extract most similar k
+                # D, I = findex.search(np.array([query_arr]), top_k)
+                # k_similar_idx = I[0,:min(top_k, len(candidates))].tolist()
+
             train_data_file_list = [
                 os.path.join(DATA_PATH, data_info["data_source"], file)
                 for file in data_info["train_file"]
@@ -474,7 +518,30 @@ class ProcessSqlData:
                                                 "train", "train_databases"),
                     db_id_name=data_info["db_id_name"],
                     output_name=data_info["output_name"],
+                    example_store_index=findex_train,
                 ))
+
+            dev_data_file_list = [
+                os.path.join(DATA_PATH, data_info["data_source"], file)
+                for file in data_info["dev_file"]
+            ]
+
+            dev_data.extend(
+                self.decode_json_file_with_ddl(
+                    data_file_list=dev_data_file_list,
+                    table_file=os.path.join(
+                        DATA_PATH,
+                        data_info["data_source"],
+                        data_info["dev_tables_file"],
+                    ),
+                    db_folder_path=os.path.join(DATA_PATH,
+                                                data_info["data_source"],
+                                                "dev", "dev_databases"),
+                    db_id_name=data_info["db_id_name"],
+                    output_name=data_info["output_name"],
+                    example_store_index=findex_train,  # use train example store
+                ))
+
             # train_data.extend(
             #     self.decode_json_file(
             #         data_file_list=train_data_file_list,
@@ -504,24 +571,6 @@ class ProcessSqlData:
             #         has_evidence=data_info["data_source"] == "bird",
             #     ))
 
-            dev_data_file_list = [
-                os.path.join(DATA_PATH, data_info["data_source"], file)
-                for file in data_info["dev_file"]
-            ]
-            dev_data.extend(
-                self.decode_json_file_with_ddl(
-                    data_file_list=dev_data_file_list,
-                    table_file=os.path.join(
-                        DATA_PATH,
-                        data_info["data_source"],
-                        data_info["dev_tables_file"],
-                    ),
-                    db_folder_path=os.path.join(DATA_PATH,
-                                                data_info["data_source"],
-                                                "dev", "dev_databases"),
-                    db_id_name=data_info["db_id_name"],
-                    output_name=data_info["output_name"],
-                ))
             # dev_data.extend(
             #     self.decode_json_file(
             #         data_file_list=dev_data_file_list,
@@ -575,6 +624,9 @@ if __name__ == "__main__":
     parser.add_argument("--num_shot", default=0)
     parser.add_argument("--tips", default=False)
     # New flags
+    parser.add_argument("--num_examples",
+                        help="Retrieve relevant examples.",
+                        default=0)
     parser.add_argument(
         "--extra_top_k",
         help="Retrieve extra tables outside the DB to guarantee 'k' tables.",
@@ -585,14 +637,14 @@ if __name__ == "__main__":
     all_in_one_train_file = os.path.join(DATA_PATH,
                                          "example_text2sql_train.json")
     all_in_one_dev_file = os.path.join(DATA_PATH, "example_text2sql_dev.json")
-    process = ProcessSqlData(
-        train_file=all_in_one_train_file,
-        dev_file=all_in_one_dev_file,
-        code_representation=args.code_representation,
-        table_ranking=args.table_ranking,
-        column_ranking=args.column_ranking,
-        primary_keys=args.primary_keys,
-        tips=args.tips,
-        top_k=int(args.top_k) if args.top_k else 15,
-        extra_top_k=int(args.extra_top_k) if args.extra_top_k else 0)
+    process = ProcessSqlData(train_file=all_in_one_train_file,
+                             dev_file=all_in_one_dev_file,
+                             code_representation=args.code_representation,
+                             table_ranking=args.table_ranking,
+                             column_ranking=args.column_ranking,
+                             primary_keys=args.primary_keys,
+                             tips=args.tips,
+                             top_k=int(args.top_k),
+                             extra_top_k=int(args.extra_top_k),
+                             num_examples=int(args.num_examples))
     process.create_sft_raw_data()

@@ -66,12 +66,10 @@ class GeminiModel:
     def verify_and_correct(self, query, sql, db_folder_path):
 
         def syntax_fix(s):
-            pattern = r"'(?:[^'\\]|\\.)*'"  # (?:...) is a non-capturing group
-
+            pattern = r"(?<!\\)'"
             def replace_func(match):
                 return match.group().replace("'", '"')
-
-            modified_sql = re.sub(pattern, replace_func, s)
+            modified_sql = re.sub(pattern, replace_func, r"{}".format(s))
             return modified_sql
 
         def verify_answer(s):

@@ -28,36 +28,51 @@ class GeminiModel:
             self.generating_args,
         ) = get_infer_args(args)
         vertexai.init(project="400355794761", location="us-central1")
+        # 1.0-pro finetuned model
         # sft_job = sft.SupervisedTuningJob(
         #     "projects/400355794761/locations/us-central1/tuningJobs/6853268654671265792"
         # )
         # self.model = GenerativeModel(
         #     model_name=sft_job.tuned_model_endpoint_name)
         self.model = GenerativeModel(model_name="gemini-1.5-pro-preview-0514")
+        self.model2 = GenerativeModel(model_name="gemini-1.5-flash-preview-0514")
 
         self.template = get_template(self.data_args.template)
         self.system_prompt = self.data_args.system_prompt
 
-    def _generate_sql(self, query, temperature=0., retry=True):
+    def _generate_sql(self,
+                      query,
+                      temperature=0.,
+                      retry=True,
+                      use_flash=False):
+        model = self.model2 if use_flash else self.model
         try:
-            resp = self.model.generate_content(
-                query,
-                generation_config={
-                    "temperature": temperature
-                },
-                safety_settings={
-                    HarmCategory(0): HarmBlockThreshold.BLOCK_NONE,
-                    HarmCategory(1): HarmBlockThreshold.BLOCK_NONE,
-                    HarmCategory(2): HarmBlockThreshold.BLOCK_NONE,
-                    HarmCategory(3): HarmBlockThreshold.BLOCK_NONE,
-                    HarmCategory(4): HarmBlockThreshold.BLOCK_NONE,
-                }).text.replace("```sql", "").replace("```", "\n")
+            resp = model.generate_content(query,
+                                          generation_config={
+                                              "temperature": temperature
+                                          },
+                                          safety_settings={
+                                              HarmCategory(0):
+                                              HarmBlockThreshold.BLOCK_NONE,
+                                              HarmCategory(1):
+                                              HarmBlockThreshold.BLOCK_NONE,
+                                              HarmCategory(2):
+                                              HarmBlockThreshold.BLOCK_NONE,
+                                              HarmCategory(3):
+                                              HarmBlockThreshold.BLOCK_NONE,
+                                              HarmCategory(4):
+                                              HarmBlockThreshold.BLOCK_NONE,
+                                          }).text.replace("```sql",
+                                                          "").replace(
+                                                              "```", "\n")
         except:
             logging.error(
                 f"\n===========\nSQL generation failed for: {query}\n")
             if retry:
                 logging.info("Retrying...")
-                return self._generate_sql(query, retry=False)
+                return self._generate_sql(query,
+                                          retry=False,
+                                          use_flash=use_flash)
             return ""
         resp = re.sub(r"ite\s*\n?\s*SELECT", "SELECT", resp)
         resp = re.sub('\s+', ' ', resp).strip()
@@ -67,8 +82,10 @@ class GeminiModel:
 
         def syntax_fix(s):
             pattern = r"(?<!\\)'"
+
             def replace_func(match):
                 return match.group().replace("'", '"')
+
             modified_sql = re.sub(pattern, replace_func, r"{}".format(s))
             return modified_sql
 
@@ -86,7 +103,7 @@ class GeminiModel:
             input_str = query[query.find("###Question###"):]
             new_prompt = CHECKER_TEMPLATE.format(context_str, input_str, s,
                                                  err)
-            return self._generate_sql(new_prompt)
+            return self._generate_sql(new_prompt, use_flash=True)
 
         def isValidSQL(sql, db):
             conn = sqlite3.connect(db)
@@ -135,7 +152,7 @@ class GeminiModel:
              system: Optional[str] = None,
              **input_kwargs) -> Tuple[str, Tuple[int, int]]:
         try:
-            resp = self._generate_sql(query)
+            resp = self._generate_sql(query, use_flash=True)
         except:
             print(f'\n*** {query} resulted in API error...\n')
             resp = ""

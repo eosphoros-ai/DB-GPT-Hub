@@ -39,7 +39,8 @@ class ProcessSqlData:
                  tips=False,
                  top_k=25,
                  extra_top_k=0,
-                 num_examples=0) -> None:
+                 num_examples=0,
+                 gt_example=False) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
         self.num_shot = num_shot
@@ -51,6 +52,7 @@ class ProcessSqlData:
         self.top_k = top_k
         self.extra_top_k = extra_top_k
         self.num_examples = num_examples
+        self.gt_example = gt_example
 
         model_id = "sentence-transformers/sentence-t5-base"
         self.emb_model = SentenceTransformer(model_id)
@@ -452,11 +454,19 @@ class ProcessSqlData:
                     k_indices = extract_k_examples(data["question"],
                                                    self.num_examples)
                     for ii, k_idx in enumerate(k_indices):
-                        examples += f"""
-                        \nExample {ii + 1})
-                        - question: {self.example_store[1][k_idx]}
-                        - answer (SQL query): {self.example_store[2][k_idx]}
-                        """
+                        offset = 1 if ii > (self.num_examples // 2) and self.gt_example else 0
+                        if ii == self.num_examples // 2 and self.gt_example:
+                            examples += f"""
+                            \nExample {ii + 1})
+                            - question: {data["question"]}
+                            - answer (SQL query): {data["SQL"]}
+                            """
+                        else:
+                            examples += f"""
+                            \nExample {ii + 1 + offset})
+                            - question: {self.example_store[1][k_idx]}
+                            - answer (SQL query): {self.example_store[2][k_idx]}
+                            """
 
                 hints = data["evidence"] if data["evidence"] else ""
                 input_instruction = BASIC_INSTRUCTION_PROMPT.format(
@@ -627,6 +637,7 @@ if __name__ == "__main__":
     parser.add_argument("--num_examples",
                         help="Retrieve relevant examples.",
                         default=0)
+    parser.add_argument("--gt_example", default=False)
     parser.add_argument(
         "--extra_top_k",
         help="Retrieve extra tables outside the DB to guarantee 'k' tables.",
@@ -637,14 +648,17 @@ if __name__ == "__main__":
     all_in_one_train_file = os.path.join(DATA_PATH,
                                          "example_text2sql_train.json")
     all_in_one_dev_file = os.path.join(DATA_PATH, "example_text2sql_dev.json")
-    process = ProcessSqlData(train_file=all_in_one_train_file,
-                             dev_file=all_in_one_dev_file,
-                             code_representation=args.code_representation,
-                             table_ranking=args.table_ranking,
-                             column_ranking=args.column_ranking,
-                             primary_keys=args.primary_keys,
-                             tips=args.tips,
-                             top_k=int(args.top_k),
-                             extra_top_k=int(args.extra_top_k),
-                             num_examples=int(args.num_examples))
+    process = ProcessSqlData(
+        train_file=all_in_one_train_file,
+        dev_file=all_in_one_dev_file,
+        code_representation=args.code_representation,
+        table_ranking=args.table_ranking,
+        column_ranking=args.column_ranking,
+        primary_keys=args.primary_keys,
+        tips=args.tips,
+        top_k=int(args.top_k),
+        extra_top_k=int(args.extra_top_k),
+        num_examples=int(args.num_examples),
+        gt_example=args.gt_example,
+    )
     process.create_sft_raw_data()

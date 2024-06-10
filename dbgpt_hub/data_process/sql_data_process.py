@@ -28,19 +28,23 @@ from dbgpt_hub.configs.config import (BASIC_INSTRUCTION_PROMPT, SQL_DATA_INFO,
 
 class ProcessSqlData:
 
-    def __init__(self,
-                 train_file=None,
-                 dev_file=None,
-                 num_shot=0,
-                 code_representation=False,
-                 table_ranking=False,
-                 column_ranking=False,
-                 primary_keys=False,
-                 tips=False,
-                 top_k=25,
-                 extra_top_k=0,
-                 num_examples=0,
-                 gt_example=False) -> None:
+    def __init__(
+        self,
+        train_file=None,
+        dev_file=None,
+        num_shot=0,
+        code_representation=False,
+        table_ranking=False,
+        column_ranking=False,
+        primary_keys=False,
+        tips=False,
+        top_k=25,
+        extra_top_k=0,
+        num_examples=0,
+        gt_example=False,
+        top_k_documents=0,
+        document_by="question",
+    ) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
         self.num_shot = num_shot
@@ -53,6 +57,8 @@ class ProcessSqlData:
         self.extra_top_k = extra_top_k
         self.num_examples = num_examples
         self.gt_example = gt_example
+        self.top_k_documents = top_k_documents
+        self.document_by = document_by
 
         model_id = "sentence-transformers/sentence-t5-base"
         self.emb_model = SentenceTransformer(model_id)
@@ -326,6 +332,7 @@ class ProcessSqlData:
         db_id_name,
         output_name,
         example_store_index,
+        document_store_index,
     ):
 
         if table_file.endswith(".json"):
@@ -454,7 +461,8 @@ class ProcessSqlData:
                     k_indices = extract_k_examples(data["question"],
                                                    self.num_examples)
                     for ii, k_idx in enumerate(k_indices):
-                        offset = 1 if ii > (self.num_examples // 2) and self.gt_example else 0
+                        offset = 1 if ii > (self.num_examples //
+                                            2) and self.gt_example else 0
                         if ii == self.num_examples // 2 and self.gt_example:
                             examples += f"""
                             \nExample {ii + 1})
@@ -468,12 +476,25 @@ class ProcessSqlData:
                             - answer (SQL query): {self.example_store[2][k_idx]}
                             """
 
+                documentation = ""
+                if self.top_k_documents > 0:
+                    k_indices = extract_k_examples(
+                        data["question"] if self.document_by == "question" else
+                        data["SQL"], self.top_k_documents)
+                    docs = [v[1] for v in self.doc_store.items()]
+                    for ii, k_idx in enumerate(k_indices):
+                        documentation += f"""
+                        \nSeciton {ii + 1}
+                        {docs[k_idx]}
+                        """
+
                 hints = data["evidence"] if data["evidence"] else ""
                 input_instruction = BASIC_INSTRUCTION_PROMPT.format(
                     db_name=data[db_id_name],
                     hints=hints,
                     schema=schema,
                     examples=examples,
+                    documentation=documentation,
                     question=data["question"])
 
                 input_idx = input_instruction.find("###Question###")
@@ -511,6 +532,17 @@ class ProcessSqlData:
                 # D, I = findex.search(np.array([query_arr]), top_k)
                 # k_similar_idx = I[0,:min(top_k, len(candidates))].tolist()
 
+            dindex = faiss.IndexFlatL2(d)
+            if self.top_k_documents > 0:
+                document_store_file = os.path.join(
+                    DATA_PATH, data_info["data_source"],
+                    data_info["document_store_file"])
+                with open(document_store_file, 'rb') as file:
+                    # filename -> (emb, doc_str)
+                    self.doc_store = pickle.load(file)
+                d_embs = [v[0] for k, v in self.doc_store.items()]
+                dindex.add(np.array(d_embs))
+
             train_data_file_list = [
                 os.path.join(DATA_PATH, data_info["data_source"], file)
                 for file in data_info["train_file"]
@@ -529,6 +561,7 @@ class ProcessSqlData:
                     db_id_name=data_info["db_id_name"],
                     output_name=data_info["output_name"],
                     example_store_index=findex_train,
+                    document_store_index=dindex,
                 ))
 
             dev_data_file_list = [
@@ -550,6 +583,7 @@ class ProcessSqlData:
                     db_id_name=data_info["db_id_name"],
                     output_name=data_info["output_name"],
                     example_store_index=findex_train,  # use train example store
+                    document_store_index=dindex,
                 ))
 
             # train_data.extend(
@@ -633,6 +667,7 @@ if __name__ == "__main__":
                         default=False)
     parser.add_argument("--num_shot", default=0)
     parser.add_argument("--tips", default=False)
+
     # New flags
     parser.add_argument("--num_examples",
                         help="Retrieve relevant examples.",
@@ -642,6 +677,14 @@ if __name__ == "__main__":
         "--extra_top_k",
         help="Retrieve extra tables outside the DB to guarantee 'k' tables.",
         default=0)
+    parser.add_argument(
+        "--top_k_documents",
+        help="Retrieve top k relevant SQLite document sections.",
+        default=0)
+    parser.add_argument(
+        "--document_by",
+        help="Retrieve SQLite sections by either `question` or `SQL`",
+        default="question")
 
     args = parser.parse_args()
 
@@ -660,5 +703,7 @@ if __name__ == "__main__":
         extra_top_k=int(args.extra_top_k),
         num_examples=int(args.num_examples),
         gt_example=args.gt_example,
+        top_k_documents=int(args.top_k_documents),
+        document_by=args.document_by,
     )
     process.create_sft_raw_data()

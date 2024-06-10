@@ -152,7 +152,7 @@ class GeminiModel:
              system: Optional[str] = None,
              **input_kwargs) -> Tuple[str, Tuple[int, int]]:
         try:
-            resp = self._generate_sql(query, use_flash=True)
+            resp = self._generate_sql(query, use_flash=False)
         except:
             print(f'\n*** {query} resulted in API error...\n')
             resp = ""

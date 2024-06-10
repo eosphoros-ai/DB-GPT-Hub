@@ -75,6 +75,7 @@ SQL_DATA_INFO = [
         "train_col_emb_file": "train_col_emb.pickle",
         "dev_col_emb_file": "dev_col_emb.pickle",
         "example_store_file": "example_store.pickle",
+        "document_store_file": "doc_store.pickle",
     }
     # ,
     # {
@@ -138,6 +139,9 @@ Output the SQLite query string ONLY.
 ***************************
 ###Examples###
 {examples}
+***************************
+###Documentation###
+{documentation}
 ***************************
 ###Question###
 {question}

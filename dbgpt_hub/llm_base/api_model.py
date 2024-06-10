@@ -103,7 +103,7 @@ class GeminiModel:
             input_str = query[query.find("###Question###"):]
             new_prompt = CHECKER_TEMPLATE.format(context_str, input_str, s,
                                                  err)
-            return self._generate_sql(new_prompt, use_flash=True)
+            return self._generate_sql(new_prompt, use_flash=False)
 
         def isValidSQL(sql, db):
             conn = sqlite3.connect(db)

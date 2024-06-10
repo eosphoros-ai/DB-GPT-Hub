@@ -547,22 +547,22 @@ class ProcessSqlData:
                 os.path.join(DATA_PATH, data_info["data_source"], file)
                 for file in data_info["train_file"]
             ]
-            train_data.extend(
-                self.decode_json_file_with_ddl(
-                    data_file_list=train_data_file_list,
-                    table_file=os.path.join(
-                        DATA_PATH,
-                        data_info["data_source"],
-                        data_info["train_tables_file"],
-                    ),
-                    db_folder_path=os.path.join(DATA_PATH,
-                                                data_info["data_source"],
-                                                "train", "train_databases"),
-                    db_id_name=data_info["db_id_name"],
-                    output_name=data_info["output_name"],
-                    example_store_index=findex_train,
-                    document_store_index=dindex,
-                ))
+            # train_data.extend(
+            #     self.decode_json_file_with_ddl(
+            #         data_file_list=train_data_file_list,
+            #         table_file=os.path.join(
+            #             DATA_PATH,
+            #             data_info["data_source"],
+            #             data_info["train_tables_file"],
+            #         ),
+            #         db_folder_path=os.path.join(DATA_PATH,
+            #                                     data_info["data_source"],
+            #                                     "train", "train_databases"),
+            #         db_id_name=data_info["db_id_name"],
+            #         output_name=data_info["output_name"],
+            #         example_store_index=findex_train,
+            #         document_store_index=dindex,
+            #     ))
 
             dev_data_file_list = [
                 os.path.join(DATA_PATH, data_info["data_source"], file)
@@ -643,8 +643,8 @@ class ProcessSqlData:
             #         ) if self.column_ranking else None,
             #         has_evidence=data_info["data_source"] == "bird",
             #     ))
-        with open(self.train_file, "w", encoding="utf-8") as s:
-            json.dump(train_data, s, indent=4, ensure_ascii=False)
+        # with open(self.train_file, "w", encoding="utf-8") as s:
+        #     json.dump(train_data, s, indent=4, ensure_ascii=False)
         with open(self.dev_file, "w", encoding="utf-8") as s:
             json.dump(dev_data, s, indent=4, ensure_ascii=False)
 

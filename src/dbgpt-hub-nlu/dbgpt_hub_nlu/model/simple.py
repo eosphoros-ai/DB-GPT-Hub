@@ -46,11 +46,11 @@ class SimpleIntentClassifier(nn.Module):
 
 
 def batch_sentence_embeddings(batch, tokenizer, model, device):
-    encoded_input = tokenizer(batch, padding=True, truncation=True, return_tensors="pt")
+    encoded_input = tokenizer(batch, padding=True, truncation=True, return_tensors="pt").to(device)
     with torch.no_grad():
         model_output = model(**encoded_input)
         sentence_embeddings = model_output[0][:, 0]
         sentence_embeddings = torch.nn.functional.normalize(
             sentence_embeddings, p=2, dim=1
-        ).to(device)
+        )
         return sentence_embeddings

@@ -96,6 +96,7 @@ def main() -> None:
     )
 
     base_tokenizer, base_model = _load_base_model(model_args)
+    base_model = base_model.to(training_args.device)
     input_dim, num_classes, label_features, dataset = _load_dataset(
         base_tokenizer, base_model, data_args, training_args, just_infer=just_infer
     )

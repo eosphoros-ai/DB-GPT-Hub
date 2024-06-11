@@ -1,4 +1,5 @@
 from typing import Optional, Type
+import os
 
 import torch
 from datasets import DatasetDict
@@ -45,6 +46,9 @@ class NLUTrainer:
 
     def load_model(self, model_path: Optional[str] = None):
         if not model_path:
+            return
+        model_file = os.path.join(model_path, "pytorch_model.bin")
+        if not os.path.exists(model_file):
             return
         # Load the saved model weights
         model = self.model_cls.from_pretrained(model_path)

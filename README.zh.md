@@ -410,10 +410,10 @@ poetry run sh dbgpt_hub/scripts/gen_train_eval_data.sh
 
 然后，指定参数并用几行代码完成整个Text2SQL fine-tune流程：
 ```python
-from dbgpt_hub.data_process import preprocess_sft_data
-from dbgpt_hub.train import start_sft
-from dbgpt_hub.predict import start_predict
-from dbgpt_hub.eval import start_evaluate
+from dbgpt_hub_sql.data_process import preprocess_sft_data
+from dbgpt_hub_sql.train import start_sft
+from dbgpt_hub_sql.predict import start_predict
+from dbgpt_hub_sql.eval import start_evaluate
 
 # 配置训练和验证集路径和参数
 data_folder = "dbgpt_hub/data"

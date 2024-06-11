@@ -392,10 +392,10 @@ Firstly, install `dbgpt-hub` with the following command
 
 Then, set up the arguments and run the whole process.
 ```python
-from dbgpt_hub.data_process import preprocess_sft_data
-from dbgpt_hub.train import start_sft
-from dbgpt_hub.predict import start_predict
-from dbgpt_hub.eval import start_evaluate
+from dbgpt_hub_sql.data_process import preprocess_sft_data
+from dbgpt_hub_sql.train import start_sft
+from dbgpt_hub_sql.predict import start_predict
+from dbgpt_hub_sql.eval import start_evaluate
 
 # Config the input datasets
 data_folder = "dbgpt_hub/data"

@@ -29,6 +29,7 @@ src/dbgpt-hub-sql/dbgpt_hub_sql/output/pred/*
 
 # Ignore NLU output
 src/dbgpt-hub-nlu/output
+src/dbgpt-hub-nlu/data
 
 #
 build/

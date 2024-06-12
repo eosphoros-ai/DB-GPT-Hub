@@ -1,12 +1,7 @@
 import json
 
 import torch
-from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
 from torch import nn
-from tqdm import tqdm
-from transformers import AutoModel, AutoTokenizer, Trainer, TrainingArguments
 
 
 class SimpleIntentClassifier(nn.Module):
@@ -46,7 +41,9 @@ class SimpleIntentClassifier(nn.Module):
 
 
 def batch_sentence_embeddings(batch, tokenizer, model, device):
-    encoded_input = tokenizer(batch, padding=True, truncation=True, return_tensors="pt").to(device)
+    encoded_input = tokenizer(
+        batch, padding=True, truncation=True, return_tensors="pt"
+    ).to(device)
     with torch.no_grad():
         model_output = model(**encoded_input)
         sentence_embeddings = model_output[0][:, 0]

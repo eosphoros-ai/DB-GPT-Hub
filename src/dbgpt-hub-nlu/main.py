@@ -1,5 +1,14 @@
+import logging
 import os
 import sys
+
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
+    datefmt="%m/%d/%Y %H:%M:%S",
+    handlers=[logging.StreamHandler(sys.stdout)],
+    level=logging.INFO,
+)
+
 from typing import TYPE_CHECKING, Tuple
 
 import torch
@@ -10,6 +19,8 @@ from dbgpt_hub_nlu.model.simple import SimpleIntentClassifier
 from dbgpt_hub_nlu.trainer import NLUTrainer, _load_base_model
 from transformers import HfArgumentParser
 
+logger = logging.getLogger(__name__)
+
 if TYPE_CHECKING:
     from datasets import Features
 
@@ -18,7 +29,8 @@ def _load_model(
     input_dim: int, num_classes: int, device: torch.device
 ) -> SimpleIntentClassifier:
     model = SimpleIntentClassifier(input_dim, num_classes)
-    model.to(device)
+    logger.info(f"Model loaded to devie: {device}")
+    model = model.to(device)
     return model
 
 
@@ -39,7 +51,7 @@ def _load_dataset(
             "intent_label_ids": batch["label"],
         }
 
-    ds = load_dataset(data_args.get_dataset_path())
+    ds = load_dataset(data_args.get_dataset_path(), trust_remote_code=True)
     # Just has train split
     ds = ds["train"]
     if data_args.max_train_samples:
@@ -95,8 +107,8 @@ def main() -> None:
         and not training_args.do_predict
     )
 
-    base_tokenizer, base_model = _load_base_model(model_args)
-    base_model = base_model.to(training_args.device)
+    base_tokenizer, base_model = _load_base_model(model_args, training_args.device)
+
     input_dim, num_classes, label_features, dataset = _load_dataset(
         base_tokenizer, base_model, data_args, training_args, just_infer=just_infer
     )

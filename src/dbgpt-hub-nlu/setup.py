@@ -20,8 +20,13 @@ setup_spec = SetupSpec()
 
 
 def core_dependencies():
-    setup_spec.extras["core"] = ["transformers>=4.41.2", "accelerate", "scikit-learn", "torch>=2.2.1", "datasets"]
-
+    setup_spec.extras["core"] = [
+        "transformers>=4.41.2",
+        "accelerate",
+        "scikit-learn",
+        "torch>=2.2.1",
+        "datasets",
+    ]
 
 
 def init_install_requires():

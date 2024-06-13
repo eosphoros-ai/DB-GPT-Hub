@@ -202,13 +202,13 @@ if __name__ == "__main__":
         default="../../pred_sql/pred_sql_bird_qwen14b_1212.sql",
     )
     args_parser.add_argument(
-        "--ground_truth_path", type=str, default="../../dbgpt_hub/data/bird/dev/dev.sql"
+        "--ground_truth_path", type=str, default="../../dbgpt_hub_sql/data/bird/dev/dev.sql"
     )
     args_parser.add_argument("--data_mode", type=str, default="dev")
     args_parser.add_argument(
         "--db_root_path",
         type=str,
-        default="../../dbgpt_hub/data/bird/dev/dev_databases/",
+        default="../../dbgpt_hub_sql/data/bird/dev/dev_databases/",
     )
     args_parser.add_argument("--num_cpus", type=int, default=1)
     args_parser.add_argument("--meta_time_out", type=float, default=30.0)

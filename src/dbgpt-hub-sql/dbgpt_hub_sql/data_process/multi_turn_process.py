@@ -37,8 +37,8 @@ def process_data(input_file_path):
 
 
 # 指定输入和输出文件路径
-train_file_path = "./dbgpt_hub/data/example_text2sql_train.json"
-dev_file_path = "./dbgpt_hub/data/example_text2sql_dev.json"
+train_file_path = "./dbgpt_hub_sql/data/example_text2sql_train.json"
+dev_file_path = "./dbgpt_hub_sql/data/example_text2sql_dev.json"
 # 处理数据
 process_data(train_file_path)
 process_data(dev_file_path)

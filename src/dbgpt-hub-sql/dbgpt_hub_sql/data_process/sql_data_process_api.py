@@ -18,9 +18,9 @@ class SqlDataProcessor(object):
         self, data_folder: Optional[str] = None, data_info: Optional[List[Dict]] = None
     ) -> Any:
         if data_folder is None:
-            self.data_folder = os.path.join(ROOT_PATH, "dbgpt_hub/data")
+            self.data_folder = os.path.join(ROOT_PATH, "dbgpt_hub_sql/data")
             print(
-                "The user do not provide exact data folder, we take 'dbgpt_hub/data' as the default folder"
+                "The user do not provide exact data folder, we take 'dbgpt_hub_sql/data' as the default folder"
             )
         else:
             self.data_folder = data_folder
@@ -195,7 +195,7 @@ def preprocess_sft_data(
 
 
 if __name__ == "__main__":
-    data_folder = os.path.join(ROOT_PATH, "dbgpt_hub/data")
+    data_folder = os.path.join(ROOT_PATH, "dbgpt_hub_sql/data")
     data_info = [
         {
             "data_source": "spider",

@@ -1,15 +1,15 @@
 # llama2 series
-python dbgpt_hub/train/export_model.py \
+python dbgpt_hub_sql/train/export_model.py \
     --model_name_or_path /home/LLM/CodeLlama-13b-Instruct-hf \
     --template llama2 \
     --finetuning_type lora \
-    --checkpoint_dir dbgpt_hub/output/adapter/CodeLlama-13b-sql-lora \
-    --output_dir dbgpt_hub/output/codellama-13b-sql-sft \
+    --checkpoint_dir dbgpt_hub_sql/output/adapter/CodeLlama-13b-sql-lora \
+    --output_dir dbgpt_hub_sql/output/codellama-13b-sql-sft \
     --fp16
 
 
 ## Baichuan2
-# python dbgpt_hub/train/export_model.py \
+# python dbgpt_hub_sql/train/export_model.py \
 #     --model_name_or_path Your_base_model_path_like_Baichuan2-13B-Chat \
 #     --template Your_template_like_baichuan2_eval \
 #     --finetuning_type lora \

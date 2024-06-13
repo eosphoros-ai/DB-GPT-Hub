@@ -23,7 +23,7 @@ def start_sft(
             "template": "llama2",
             "lora_rank": 64,
             "lora_alpha": 32,
-            "output_dir": "dbgpt_hub/output/adapter/CodeLlama-13b-sql-lora",
+            "output_dir": "dbgpt_hub_sql/output/adapter/CodeLlama-13b-sql-lora",
             "overwrite_cache": True,
             "overwrite_output_dir": True,
             "per_device_train_batch_size": 1,

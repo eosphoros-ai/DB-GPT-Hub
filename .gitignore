@@ -19,7 +19,7 @@ src/dbgpt-hub-sql/dbgpt_hub_sql/data/*
 !src/dbgpt-hub-sql/dbgpt_hub_sql/data/dataset_info.json
 !src/dbgpt-hub-sql/dbgpt_hub_sql/data/example_text2sql.json
 
-# Ignore everything under dbgpt_hub/ouput/ except the adapter directory
+# Ignore everything under dbgpt_hub_sql/ouput/ except the adapter directory
 src/dbgpt-hub-sql/dbgpt_hub_sql/output/adapter/*
 !src/dbgpt-hub-sql/dbgpt_hub_sql/output/adapter/.gitkeep
 src/dbgpt-hub-sql/dbgpt_hub_sql/output/logs/*

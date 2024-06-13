@@ -17,10 +17,10 @@ def generate_dataset_with_gpt(args: Optional[Dict[str, Any]] = None):
             "prompt": COT_PROMPT,
             "num_text2sql_pair_each_db": 1,
             "table_file_path": os.path.join(
-                ROOT_PATH, "dbgpt_hub/data/spider/tables.json"
+                ROOT_PATH, "dbgpt_hub_sql/data/spider/tables.json"
             ),
             "output_path": os.path.join(
-                ROOT_PATH, "dbgpt_hub/data/spider/synthetic_data_with_gpt.json"
+                ROOT_PATH, "dbgpt_hub_sql/data/spider/synthetic_data_with_gpt.json"
             ),
         }
     else:

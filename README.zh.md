@@ -381,14 +381,14 @@ poetry install
 ### 3.2、数据准备
 
 DB-GPT-Hub使用的是信息匹配生成法进行数据准备，即结合表信息的 SQL + Repository 生成方式，这种方式结合了数据表信息，能够更好地理解数据表的结构和关系，适用于生成符合需求的 SQL 语句。 
-从[spider数据集链接](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ) 下载spider数据集，默认将数据下载解压后，放在目录dbgpt_hub/data下面，即路径为`dbgpt_hub/data/spider`。 
+从[spider数据集链接](https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ) 下载spider数据集，默认将数据下载解压后，放在目录dbgpt_hub_sql/data下面，即路径为`dbgpt_hub_sql/data/spider`。 
 
 数据预处理部分，**只需运行如下脚本**即可：
 ```bash
 ## 生成train数据 和dev(eval)数据,
-poetry run sh dbgpt_hub/scripts/gen_train_eval_data.sh
+poetry run sh dbgpt_hub_sql/scripts/gen_train_eval_data.sh
 ```
-在`dbgpt_hub/data/`目录你会得到新生成的训练文件example_text2sql_train.json 和测试文件example_text2sql_dev.json ，数据量分别为8659和1034条。 对于后面微调时的数据使用在dbgpt_hub/data/dataset_info.json中将参数`file_name`值给为训练集的文件名，如example_text2sql_train.json。
+在`dbgpt_hub_sql/data/`目录你会得到新生成的训练文件example_text2sql_train.json 和测试文件example_text2sql_dev.json ，数据量分别为8659和1034条。 对于后面微调时的数据使用在dbgpt_hub_sql/data/dataset_info.json中将参数`file_name`值给为训练集的文件名，如example_text2sql_train.json。
 
 生成的json中的数据形如：  
 ```
@@ -400,7 +400,7 @@ poetry run sh dbgpt_hub/scripts/gen_train_eval_data.sh
         "history": []
     }, 
 ```     
-项目的数据处理代码中已经嵌套了`chase` 、`cosql`、`sparc`的数据处理，可以根据上面链接将数据集下载到data路径后，在`dbgpt_hub/configs/config.py`中将 `SQL_DATA_INFO`中对应的代码注释松开即可。  
+项目的数据处理代码中已经嵌套了`chase` 、`cosql`、`sparc`的数据处理，可以根据上面链接将数据集下载到data路径后，在`dbgpt_hub_sql/configs/config.py`中将 `SQL_DATA_INFO`中对应的代码注释松开即可。  
 
 ### 3.2 快速开始
 
@@ -416,7 +416,7 @@ from dbgpt_hub_sql.predict import start_predict
 from dbgpt_hub_sql.eval import start_evaluate
 
 # 配置训练和验证集路径和参数
-data_folder = "dbgpt_hub/data"
+data_folder = "dbgpt_hub_sql/data"
 data_info = [
         {
             "data_source": "spider",
@@ -442,7 +442,7 @@ train_args = {
             "template": "llama2",
             "lora_rank": 64,
             "lora_alpha": 32,
-            "output_dir": "dbgpt_hub/output/adapter/CodeLlama-13b-sql-lora",
+            "output_dir": "dbgpt_hub_sql/output/adapter/CodeLlama-13b-sql-lora",
             "overwrite_cache": True,
             "overwrite_output_dir": True,
             "per_device_train_batch_size": 1,
@@ -461,20 +461,20 @@ predict_args = {
             "model_name_or_path": "codellama/CodeLlama-13b-Instruct-hf",
             "template": "llama2",
             "finetuning_type": "lora",
-            "checkpoint_dir": "dbgpt_hub/output/adapter/CodeLlama-13b-sql-lora",
-            "predict_file_path": "dbgpt_hub/data/eval_data/dev_sql.json",
-            "predict_out_dir": "dbgpt_hub/output/",
+            "checkpoint_dir": "dbgpt_hub_sql/output/adapter/CodeLlama-13b-sql-lora",
+            "predict_file_path": "dbgpt_hub_sql/data/eval_data/dev_sql.json",
+            "predict_out_dir": "dbgpt_hub_sql/output/",
             "predicted_out_filename": "pred_sql.sql",
 }
 
 # 配置评估参数
 evaluate_args =  {
-            "input": "./dbgpt_hub/output/pred/pred_sql_dev_skeleton.sql",
-            "gold": "./dbgpt_hub/data/eval_data/gold.txt",
-            "gold_natsql": "./dbgpt_hub/data/eval_data/gold_natsql2sql.txt",
-            "db": "./dbgpt_hub/data/spider/database",
-            "table": "./dbgpt_hub/data/eval_data/tables.json",
-            "table_natsql": "./dbgpt_hub/data/eval_data/tables_for_natsql2sql.json",
+            "input": "./dbgpt_hub_sql/output/pred/pred_sql_dev_skeleton.sql",
+            "gold": "./dbgpt_hub_sql/data/eval_data/gold.txt",
+            "gold_natsql": "./dbgpt_hub_sql/data/eval_data/gold_natsql2sql.txt",
+            "db": "./dbgpt_hub_sql/data/spider/database",
+            "table": "./dbgpt_hub_sql/data/eval_data/tables.json",
+            "table_natsql": "./dbgpt_hub_sql/data/eval_data/tables_for_natsql2sql.json",
             "etype": "exec",
             "plug_value": True,
             "keep_distict": False,
@@ -499,33 +499,33 @@ start_evaluate(evaluate_args)
 默认QLoRA微调，运行命令：
 
 ```bash
-poetry run sh dbgpt_hub/scripts/train_sft.sh
+poetry run sh dbgpt_hub_sql/scripts/train_sft.sh
 ```
-微调后的模型权重会默认保存到adapter文件夹下面，即dbgpt_hub/output/adapter目录中。  
+微调后的模型权重会默认保存到adapter文件夹下面，即dbgpt_hub_sql/output/adapter目录中。  
 **如果使用多卡训练，想要用deepseed** ，则将train_sft.sh中默认的内容进行更改，
 调整为：
 
 ```
-CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
+CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_sql/train/sft_train.py \
     --quantization_bit 4 \
     ...
 ```    
 更改为： 
 ```
-deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
-    --deepspeed dbgpt_hub/configs/ds_config.json \
+deepspeed --num_gpus 2  dbgpt_hub_sql/train/sft_train.py \
+    --deepspeed dbgpt_hub_sql/configs/ds_config.json \
     --quantization_bit 4 \
     ...
 ```   
 如果需要指定对应的显卡id而不是默认的前两个如3,4，可以如下
 ```
-deepspeed --include localhost:3,4  dbgpt_hub/train/sft_train.py \
-    --deepspeed dbgpt_hub/configs/ds_config.json \
+deepspeed --include localhost:3,4  dbgpt_hub_sql/train/sft_train.py \
+    --deepspeed dbgpt_hub_sql/configs/ds_config.json \
     --quantization_bit 4 \
     ...
 ```    
 
-其他省略(...)的部分均保持一致即可。 如果想要更改默认的deepseed配置，进入 `dbgpt_hub/configs` 目录，在ds_config.json 更改即可，默认为stage2的策略。
+其他省略(...)的部分均保持一致即可。 如果想要更改默认的deepseed配置，进入 `dbgpt_hub_sql/configs` 目录，在ds_config.json 更改即可，默认为stage2的策略。
 
 脚本中微调时不同模型对应的关键参数lora_target 和 template，如下表：
 
@@ -550,10 +550,10 @@ deepspeed --include localhost:3,4  dbgpt_hub/train/sft_train.py \
 `train_sft.sh`中其他关键参数含义：
 > quantization_bit：是否量化，取值为[4或者8]   
 > model_name_or_path：  LLM模型的路径   
-> dataset： 取值为训练数据集的配置名字，对应在dbgpt_hub/data/dataset_info.json 中外层key值，如example_text2sql。   
+> dataset： 取值为训练数据集的配置名字，对应在dbgpt_hub_sql/data/dataset_info.json 中外层key值，如example_text2sql。   
 > max_source_length： 输入模型的文本长度，如果计算资源支持，可以尽能设大，如1024或者2048。  
 > max_target_length： 输出模型的sql内容长度，设置为512一般足够。   
-> output_dir ： SFT微调时Peft模块输出的路径，默认设置在dbgpt_hub/output/adapter/路径下 。  
+> output_dir ： SFT微调时Peft模块输出的路径，默认设置在dbgpt_hub_sql/output/adapter/路径下 。  
 > per_device_train_batch_size ： batch的大小，如果计算资源支持，可以设置为更大，默认为1。   
 > gradient_accumulation_steps ： 梯度更新的累计steps值 
 > save_steps ： 模型保存的ckpt的steps大小值，默认可以设置为100。  
@@ -563,13 +563,13 @@ deepspeed --include localhost:3,4  dbgpt_hub/train/sft_train.py \
 
 
 ### 3.4、模型预测
-项目目录下`./dbgpt_hub/`下的`output/pred/`，此文件路径为关于模型预测结果默认输出的位置(如果没有则建上)。   
+项目目录下`./dbgpt_hub_sql/`下的`output/pred/`，此文件路径为关于模型预测结果默认输出的位置(如果没有则建上)。   
 预测运行命令：
 ```bash
-poetry run sh ./dbgpt_hub/scripts/predict_sft.sh
+poetry run sh ./dbgpt_hub_sql/scripts/predict_sft.sh
 ```   
 脚本中默认带着参数`--quantization_bit `为QLoRA的预测，去掉即为LoRA的预测方式。  
-其中参数`predicted_input_filename`  为要预测的数据集文件， `--predicted_out_filename` 的值为模型预测的结果文件名。默认结果保存在`dbgpt_hub/output/pred`目录。
+其中参数`predicted_input_filename`  为要预测的数据集文件， `--predicted_out_filename` 的值为模型预测的结果文件名。默认结果保存在`dbgpt_hub_sql/output/pred`目录。
 
 
 ### 3.5、模型权重
@@ -578,7 +578,7 @@ poetry run sh ./dbgpt_hub/scripts/predict_sft.sh
 #### 3.5.1 模型和微调权重合并
 如果你需要将训练的基础模型和微调的Peft模块的权重合并，导出一个完整的模型。则运行如下模型导出脚本：  
 ```bash
-poetry run sh ./dbgpt_hub/scripts/export_merge.sh
+poetry run sh ./dbgpt_hub_sql/scripts/export_merge.sh
 ```
 注意将脚本中的相关参数路径值替换为你项目所对应的路径。      
 
@@ -588,7 +588,7 @@ poetry run sh ./dbgpt_hub/scripts/export_merge.sh
 运行以下命令来：
 
 ```bash
-poetry run python dbgpt_hub/eval/evaluation.py --plug_value --input  Your_model_pred_file
+poetry run python dbgpt_hub_sql/eval/evaluation.py --plug_value --input  Your_model_pred_file
 ```
 你可以在[这里](docs/eval_llm_result.md)找到我们最新的评估和实验结果。
 **注意**： 默认的代码中指向的数据库为从[Spider官方网站](https://yale-lily.github.io/spider)下载的大小为95M的database，如果你需要使用基于Spider的[test-suite](https://github.com/taoyds/test-suite-sql-eval)中的数据库(大小1.27G)，请先下载链接中的数据库到自定义目录，并在上述评估命令中增加参数和值，形如`--db Your_download_db_path`。

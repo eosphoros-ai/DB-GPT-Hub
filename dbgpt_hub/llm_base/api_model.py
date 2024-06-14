@@ -35,7 +35,8 @@ class GeminiModel:
         # self.model = GenerativeModel(
         #     model_name=sft_job.tuned_model_endpoint_name)
         self.model = GenerativeModel(model_name="gemini-1.5-pro-preview-0514")
-        self.model2 = GenerativeModel(model_name="gemini-1.5-flash-preview-0514")
+        self.model2 = GenerativeModel(
+            model_name="gemini-1.5-flash-preview-0514")
 
         self.template = get_template(self.data_args.template)
         self.system_prompt = self.data_args.system_prompt
@@ -52,16 +53,11 @@ class GeminiModel:
                                               "temperature": temperature
                                           },
                                           safety_settings={
-                                              HarmCategory(0):
-                                              HarmBlockThreshold.BLOCK_NONE,
-                                              HarmCategory(1):
-                                              HarmBlockThreshold.BLOCK_NONE,
-                                              HarmCategory(2):
-                                              HarmBlockThreshold.BLOCK_NONE,
-                                              HarmCategory(3):
-                                              HarmBlockThreshold.BLOCK_NONE,
-                                              HarmCategory(4):
-                                              HarmBlockThreshold.BLOCK_NONE,
+                                              0: HarmBlockThreshold.BLOCK_NONE,
+                                              1: HarmBlockThreshold.BLOCK_NONE,
+                                              2: HarmBlockThreshold.BLOCK_NONE,
+                                              3: HarmBlockThreshold.BLOCK_NONE,
+                                              4: HarmBlockThreshold.BLOCK_NONE,
                                           }).text.replace("```sql",
                                                           "").replace(
                                                               "```", "\n")

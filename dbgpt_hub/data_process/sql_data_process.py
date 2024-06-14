@@ -481,7 +481,7 @@ class ProcessSqlData:
                     k_indices = extract_k_examples(
                         data["question"] if self.document_by == "question" else
                         data["SQL"], self.top_k_documents)
-                    docs = [v[1] for v in self.doc_store.items()]
+                    docs = [v[1] for k, v in self.doc_store.items()]
                     for ii, k_idx in enumerate(k_indices):
                         documentation += f"""
                         \nSeciton {ii + 1}

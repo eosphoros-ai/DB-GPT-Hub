@@ -119,6 +119,7 @@ class GeminiModel:
                     conn.close()
             return True, err
 
+
         db_name = query.split("The database (\"")[1].split("\") structure")[0]
         db_path = os.path.join(db_folder_path, db_name) + f"/{db_name}.sqlite"
         logging.info("Connecting to " + db_path)

@@ -371,9 +371,33 @@ class ProcessSqlData:
                     if col[0] == i:
                         example_vals = list()
                         try:
+                            nval_limit = 5
+                            # DISABLED: check if it is a string column and try
+                            # to extend the example value list.
+                            if True:
+                              sql = (
+                                  f"SELECT typeof(`{col[1]}`) FROM `{table}`"
+                              )
+                              rows = cursor.execute(sql).fetchall()
+
+                              if "text" in rows[0][0].lower():
+                                  sql = (f"SELECT count(DISTINCT `{col[1]}`) "
+                                        f" FROM `{table}` WHERE `{col[1]}` IS NOT NULL"
+                                        )
+                                  col_val_cnt = cursor.execute(sql).fetchall()[0][0]
+                                  sql = f"SELECT count(*) FROM `{table}`"
+                                  row_cnt = float(cursor.execute(sql).fetchall()[0][0])
+                                  too_many_col_vals = ('time' in col[1].lower() or
+                                                      'phone' in col[1].lower() or
+                                                      'date' in col[1].lower() or
+                                                      #(row_cnt > 100 and col_val_cnt / row_cnt > 0.8) or
+                                                      (col_val_cnt > 100)
+                                                      )
+                                  if not too_many_col_vals:
+                                      nval_limit = 50
                             sql = (
                                 f'SELECT DISTINCT `{col[1]}` FROM `{table}` WHERE'
-                                f' `{col[1]}` IS NOT NULL LIMIT 5')
+                                f' `{col[1]}` IS NOT NULL LIMIT {nval_limit}')
                             rows = cursor.execute(sql).fetchall()
                             example_vals = [
                                 ','.join(map(truncate_example,

@@ -19,7 +19,7 @@ sys.path.append(ROOT_PATH)
 
 from tqdm import tqdm
 
-from dbgpt_hub.configs.config import (BASIC_INSTRUCTION_PROMPT, SQL_DATA_INFO,
+from dbgpt_hub.configs.config import (BASIC_INSTRUCTION_PROMPT, COT_INSTRUCTION_PROMPT, SQL_DATA_INFO,
                                       DATA_PATH, INPUT_PROMPT,
                                       INSTRUCTION_PROMPT,
                                       INSTRUCTION_ONE_SHOT_PROMPT,
@@ -44,6 +44,7 @@ class ProcessSqlData:
         gt_example=False,
         top_k_documents=0,
         document_by="question",
+        cot_prompt=False,
     ) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
@@ -59,6 +60,7 @@ class ProcessSqlData:
         self.gt_example = gt_example
         self.top_k_documents = top_k_documents
         self.document_by = document_by
+        self.cot_prompt = cot_prompt
 
         model_id = "sentence-transformers/sentence-t5-base"
         self.emb_model = SentenceTransformer(model_id)
@@ -372,29 +374,29 @@ class ProcessSqlData:
                         example_vals = list()
                         try:
                             nval_limit = 5
-                            # DISABLED: check if it is a string column and try
-                            # to extend the example value list.
-                            if True:
-                              sql = (
-                                  f"SELECT typeof(`{col[1]}`) FROM `{table}`"
-                              )
-                              rows = cursor.execute(sql).fetchall()
 
-                              if "text" in rows[0][0].lower():
-                                  sql = (f"SELECT count(DISTINCT `{col[1]}`) "
-                                        f" FROM `{table}` WHERE `{col[1]}` IS NOT NULL"
-                                        )
-                                  col_val_cnt = cursor.execute(sql).fetchall()[0][0]
-                                  sql = f"SELECT count(*) FROM `{table}`"
-                                  row_cnt = float(cursor.execute(sql).fetchall()[0][0])
-                                  too_many_col_vals = ('time' in col[1].lower() or
-                                                      'phone' in col[1].lower() or
-                                                      'date' in col[1].lower() or
-                                                      #(row_cnt > 100 and col_val_cnt / row_cnt > 0.8) or
-                                                      (col_val_cnt > 100)
-                                                      )
-                                  if not too_many_col_vals:
-                                      nval_limit = 50
+                            extend_text_examples = True
+                            if extend_text_examples:
+                                sql = (
+                                    f"SELECT typeof(`{col[1]}`) FROM `{table}`"
+                                )
+                                rows = cursor.execute(sql).fetchall()
+
+                                if "text" in rows[0][0].lower():
+                                    sql = (f"SELECT count(DISTINCT `{col[1]}`) "
+                                          f" FROM `{table}` WHERE `{col[1]}` IS NOT NULL"
+                                          )
+                                    col_val_cnt = cursor.execute(sql).fetchall()[0][0]
+                                    sql = f"SELECT count(*) FROM `{table}`"
+                                    row_cnt = float(cursor.execute(sql).fetchall()[0][0])
+                                    too_many_col_vals = ('time' in col[1].lower() or
+                                                        'phone' in col[1].lower() or
+                                                        'date' in col[1].lower() or
+                                                        #(row_cnt > 100 and col_val_cnt / row_cnt > 0.8) or
+                                                        (col_val_cnt > 100)
+                                                        )
+                                    if not too_many_col_vals:
+                                        nval_limit = 50
                             sql = (
                                 f'SELECT DISTINCT `{col[1]}` FROM `{table}` WHERE'
                                 f' `{col[1]}` IS NOT NULL LIMIT {nval_limit}')
@@ -513,13 +515,20 @@ class ProcessSqlData:
                         """
 
                 hints = data["evidence"] if data["evidence"] else ""
-                input_instruction = BASIC_INSTRUCTION_PROMPT.format(
-                    db_name=data[db_id_name],
-                    hints=hints,
-                    schema=schema,
-                    examples=examples,
-                    documentation=documentation,
-                    question=data["question"])
+                if self.cot_prompt:
+                    input_instruction = COT_INSTRUCTION_PROMPT.format(
+                        db_name=data[db_id_name],
+                        hints=hints,
+                        schema=schema,
+                        question=data["question"])
+                else:
+                    input_instruction = BASIC_INSTRUCTION_PROMPT.format(
+                        db_name=data[db_id_name],
+                        hints=hints,
+                        schema=schema,
+                        examples=examples,
+                        documentation=documentation,
+                        question=data["question"])
 
                 input_idx = input_instruction.find("###Question###")
 
@@ -709,6 +718,7 @@ if __name__ == "__main__":
         "--document_by",
         help="Retrieve SQLite sections by either `question` or `SQL`",
         default="question")
+    parser.add_argument("--cot_prompt", default=False)
 
     args = parser.parse_args()
 
@@ -729,5 +739,6 @@ if __name__ == "__main__":
         gt_example=args.gt_example,
         top_k_documents=int(args.top_k_documents),
         document_by=args.document_by,
+        cot_prompt=args.cot_prompt,
     )
     process.create_sft_raw_data()

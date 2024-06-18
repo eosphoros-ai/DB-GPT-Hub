@@ -147,6 +147,202 @@ Output the SQLite query string ONLY.
 {question}
 """
 
+COT_INSTRUCTION_PROMPT = """\
+You are a SQLite SQL expert.
+You need to generate SQLite SQL query given a question in natural language.
+The database ("{db_name}") structure is defined by the following table schemas (comments after '--' provide additional column descriptions).
+
+Given the "Table creation statements" and the "Question", you need understand the database and columns.
+
+Always output the steps to decompose the question into subquestions for text-to-SQL generation.
+Start the answer with ###Answer### followed by the line "Decompose the question into sub questions, considering the【Rules】, and generate the SQL after thinking step by step:"
+
+When you are OK with the generated query, output the postgres query string ONLY inside the xml delimiter <FINAL_ANSWER></FINAL_ANSWER>.
+===========
+Example 1
+**************************
+###Table creation statements###
+CREATE TABLE account (
+    account_id INT PRIMARY KEY,
+    district_id INT REFERENCES district(district_id),
+    frequency VARCHAR(255) NOT NULL,
+    date DATE NOT NULL
+);
+CREATE TABLE client (
+    client_id INT PRIMARY KEY,
+    gender CHAR(1) NOT NULL,
+    birth_date DATE NOT NULL,
+    district_id INT REFERENCES district(district_id)
+);
+CREATE TABLE district (
+    district_id INT PRIMARY KEY,
+    a4 VARCHAR(255) NOT NULL, -- Assuming A4 and A11 are strings due to examples
+    a11 VARCHAR(255) NOT NULL
+);
+**************************
+###Question###
+What is the gender of the youngest client who opened account in the lowest average salary branch? Given that Later birthdate refers to younger age; A11 refers to average salary
+
+###Answer###
+Decompose the question into sub questions, considering the【Rules】, and generate the SQL after thinking step by step:
+Sub question 1: What is the district_id of the branch with the lowest average salary?
+SQL
+```sql
+SELECT "district"."district_id"
+  FROM "district"
+  ORDER BY "A11" ASC NULLS LAST
+  LIMIT 1
+```
+
+Sub question 2: What is the youngest client who opened account in the lowest average salary branch?
+SQL
+```sql
+SELECT "T1"."client_id"
+  FROM "client" AS "T1"
+  INNER JOIN "district" AS "T2"
+  ON "T1"."district_id" = "T2"."district_id"
+  ORDER BY "T2"."A11" ASC, "T1"."birth_date" DESC NULLS LAST
+  LIMIT 1
+```
+
+Sub question 3: What is the gender of the youngest client who opened account in the lowest average salary branch?
+SQL
+```sql
+SELECT "T1"."gender"
+  FROM "client" AS "T1"
+  INNER JOIN "district" AS "T2"
+  ON "T1"."district_id" = "T2"."district_id"
+  ORDER BY "T2"."A11" ASC, "T1"."birth_date" DESC NULLS LAST
+  LIMIT 1
+```
+Question Solved.
+
+<FINAL_ANSWER>
+SELECT "T1"."gender"
+  FROM "client" AS "T1"
+  INNER JOIN "district" AS "T2"
+  ON "T1"."district_id" = "T2"."district_id"
+  ORDER BY "T2"."A11" ASC, "T1"."birth_date" DESC NULLS LAST
+  LIMIT 1
+</FINAL_ANSWER>
+
+===========
+Example 2
+**************************
+###Table creation statements###
+CREATE TABLE frpm (
+    2013-14 CALPADS Fall 1 Certification Status bigint, -- 2013-14 CALPADS Fall 1 Certification Status
+    Academic Year text, -- Academic Year
+    CDSCode bigint, -- CDSCode
+    Charter Funding Type text, -- Charter Funding Type
+    Charter School (Y/N) double precision, -- Charter School (Y/N)
+    County Code bigint, -- County Code
+    County Name text, -- County Code
+    District Code bigint, -- District Code Type
+    Educational Option Type text, -- Educational Option Type
+    Enrollment (Ages 5-17) double precision, -- Enrollment (Ages 5-17)
+    Enrollment (K-12) double precision, -- Enrollment (K-12)
+    Percent (%) Eligible Free (Ages 5-17) double precision,
+    Percent (%) Eligible Free (K-12) double precision,
+    School Name text, -- School Name
+    School Type text,
+);
+**************************
+###Question###
+What is the highest eligible free rate for K-12 students in the schools in Alameda County? Eligible free rate for K-12 = "Free Meal Count (K-12)" / "Enrollment (K-12)"
+
+###Answer###
+Decompose the question into sub questions, considering the【Rules】, and generate the SQL after thinking step by step:
+Sub question 1: What is the highest eligible free rate for K-12 students in the schools in Alameda County?
+SQL
+```sql
+SELECT MAX("Percent (%) Eligible Free (K-12)")
+  AS "Highest Eligible Free Rate for K-12 Students"
+  FROM "frpm" WHERE "County Name" = 'Alameda' and "Percent (%) Eligible Free (K-12)" IS NOT NULL;
+```
+Question Solved.
+
+<FINAL_ANSWER>
+SELECT MAX("Percent (%) Eligible Free (K-12)")
+  AS "Highest Eligible Free Rate for K-12 Students"
+  FROM "frpm" WHERE "County Name" = 'Alameda' and "Percent (%) Eligible Free (K-12)" IS NOT NULL;
+</FINAL_ANSWER>
+
+===========
+Example 3 (When it's not clear which column should be used for a string matching, use a loosen condition such as string LIKE and OR condition to cover multiple possible columns.)
+**************************
+###Table creation statements###
+CREATE TABLE "student_programs" (
+    "Program Type" text, -- Program Type Example values: ['Summer School', 'After School Program', 'Special Education']
+    "Participants (Ages 10-15)" double precision, -- Participants (Ages 10-15) Example values: ['1250.0', '500.0', '75.0']
+    "Total Enrollment (Ages 10-15)" double precision, -- Total Enrollment (Ages 10-15) Example values: ['500.0', '1800.0', '1000.0']
+    "School Category" text, --  Example values: ['Charter Schools', 'Private Schools', 'Magnet Schools']
+);
+**************************
+###Question###
+Please list the lowest three participation rates for students aged 10-15 in online programs. Participation rate for students aged 10-15 = "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)"
+###Answer###
+Decompose the question into sub questions, considering the【Rules】, and generate the SQL after thinking step by step:
+
+Sub question 1: List all the online programs. The given table has "School Category" and "Program Type" columns.
+It's not clear which column contains information about online programs. We can do a wildcard matching on both columns.
+SQL
+```sql
+SELECT * from "student_programs" WHERE LOWER("School Category") LIKE '%online%' OR LOWER("Program Type") LIKE '%online%';
+```
+
+Sub question 2:
+
+Please list the lowest three participation rates for students aged 10-15 in all programs, given that participation rate for students aged 10-15 = "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)"
+SQL
+```sql
+SELECT "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)" FROM "student_programs"
+  WHERE "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)" IS NOT NULL
+  ORDER BY "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)" ASC NULLS LAST LIMIT 3;
+```
+
+Sub question 3: Please list the lowest three participation rates for students aged 10-15 in online programs. Participation rate for students aged 10-15 = "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)"
+SQL
+```sql
+SELECT "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)" FROM "student_programs"
+  WHERE LOWER("School Category") LIKE '%online%' OR LOWER("Program Type") LIKE '%online%'
+  AND "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)" IS NOT NULL
+  ORDER BY "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)" ASC NULLS LAST LIMIT 3;
+```
+Question Solved.
+
+<FINAL_ANSWER>
+SELECT "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)" FROM "student_programs"
+  WHERE LOWER("School Category") LIKE '%online%' OR LOWER("Program Type") LIKE '%online%'
+  AND "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)" IS NOT NULL
+  ORDER BY "Participants (Ages 10-15)" / "Total Enrollment (Ages 10-15)" ASC NULLS LAST LIMIT 3;
+</FINAL_ANSWER>
+
+=============
+
+Now here is the real table creation statement and the question. Remember to generate the most concise SQL query.
+
+Also consider the "Rules" and some useful "Hints" if provided.
+
+***************************
+###Rules###
+- Do not use "ite " in front of your answer.
+- Verify column names and use table_name.column_name format.
+- Functions: use correct SQLite SQL functions for the intended data types.
+- HAVING Clause: Employ boolean expressions (comparisons, AND, OR, NOT). Consider subqueries for top values.
+- Table Joins: Ensure table names are correct and use appropriate joins.
+- Arithmetic: Use basic operators (+, -, *, /) if dedicated functions are missing.
+***************************
+###Hints###
+{hints}
+***************************
+###Table creation statements###
+{schema}
+***************************
+###Question###
+{question}
+"""
+
 SYNTAX_FIXER_TEMPLATE = """You are a SQLite SQL expert.
 You need to check the syntax of a given SQL query. Check if the query follows the rules. If not, fix it.
 - Put double quotations around column names and table names, especially when there is a space in between words.

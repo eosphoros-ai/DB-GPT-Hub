@@ -61,6 +61,8 @@ class GeminiModel:
                                           }).text.replace("```sql",
                                                           "").replace(
                                                               "```", "\n")
+            if "<FINAL_ANSWER>" in resp:
+                resp = resp.split("<FINAL_ANSWER>")[1].split("</FINAL_ANSWER>")[0]
         except:
             logging.error(
                 f"\n===========\nSQL generation failed for: {query}\n")

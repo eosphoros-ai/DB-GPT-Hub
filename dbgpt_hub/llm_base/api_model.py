@@ -1,5 +1,5 @@
 import sqlite3
-from dbgpt_hub.configs.config import CHECKER_TEMPLATE, SYNTAX_FIXER_TEMPLATE, VERIFICATION_TEMPLATE
+from dbgpt_hub.configs.config import CHECKER_TEMPLATE, LITERAL_ERROR_TEMPLATE, SYNTAX_FIXER_TEMPLATE, VERIFICATION_TEMPLATE
 import torch
 import json
 import os, re
@@ -99,25 +99,44 @@ class GeminiModel:
             input_str = query[query.find("###Question###"):]
             new_prompt = CHECKER_TEMPLATE.format(context_str, input_str, s,
                                                  err)
-            return self._generate_sql(new_prompt, use_flash=False)
+            new_sql = self._generate_sql(new_prompt, use_flash=False)
+            if s != new_sql:
+                logging.info(f"\n*** verify and update, from {s} to {new_sql}")
+            return new_sql
+
+        def fix_literal_error(s):
+            context_str = query[query.find("###Table creation statements###"
+                                           ):query.find("###Question###")]
+            input_str = query[query.find("###Question###"):]
+            new_prompt = LITERAL_ERROR_TEMPLATE.format(context_str, input_str, s)
+            new_sql = self._generate_sql(new_prompt, use_flash=False)
+            logging.info(f"\n*** Fixing literal error, from {s} to {new_sql}")
+            return new_sql
 
         def isValidSQL(sql, db):
             conn = sqlite3.connect(db)
             cursor = conn.cursor()
+
             err = ""
+            rows = []
+            is_valid = True
             try:
-                cursor.execute(sql)
+                rows = cursor.execute(sql).fetchall()
+                if len(rows) == 0:
+                    is_valid = False
+                    err = "empty results"
             except sqlite3.Warning as warning:
                 logging.error(f"SQLite Warning: {warning}")
-                return False, str(warning)
+                err = str(warning)
+                is_valid = False
             except sqlite3.Error as e:
                 logging.error(e)
                 err = str(e)
-                return False, err
+                is_valid = False
             finally:
                 if conn:
                     conn.close()
-            return True, err
+            return is_valid, err, len(rows)
 
 
         db_name = query.split("The database (\"")[1].split("\") structure")[0]
@@ -128,13 +147,16 @@ class GeminiModel:
         #_sql = verify_answer(sql)
         _sql = syntax_fix(_sql)
         retry_cnt, max_retries = 0, 2
-        valid, err = isValidSQL(_sql, db_path)
+        valid, err, row_cnt = isValidSQL(_sql, db_path)
 
         while not valid and retry_cnt < max_retries:
-            _sql = fix_error(_sql, err)
+            if row_cnt == 0:
+                _sql = fix_literal_error(_sql)
+            else:
+                _sql = fix_error(_sql, err)
             #_sql = verify_answer(_sql) # this is too expensive to repeat
             _sql = syntax_fix(_sql)
-            valid, err = isValidSQL(_sql, db_path)
+            valid, err, row_cnt = isValidSQL(_sql, db_path)
             retry_cnt += 1
         if retry_cnt == max_retries:
             logging.info(f"Correction failed due to {err}, query: {_sql}")

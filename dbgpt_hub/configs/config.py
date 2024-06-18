@@ -196,6 +196,31 @@ Now here is the real question.
 ###Answer###
 """
 
+LITERAL_ERROR_TEMPLATE = """You are a SQLite SQL expert.
+Someone had a question and they tried to run a SQL query to fetch the data for it.
+However, the query execution returned no results. It is possible there was some literal errors.
+Now you need to fix the query based on the question and the table schemas with example column values.
+
+The database structure is defined by the following table schemas (comments after '--' provide additional column descriptions).
+**************************
+###Table creation statements###
+{}
+**************************
+The original question is:
+{}
+
+The SQL query executed was:
+{}
+
+**************************
+Based on the question, table schemas, the example column values and the executed query, analyze what the query was trying to achieve and fix any literal errors,
+that might have caused empty results.
+
+If there is no literal errors, just output the original SQL query.
+
+When you are OK with the fixed query, output the sqlite query string ONLY. It should be the query in plain text.
+"""
+
 CHECKER_TEMPLATE = """You are a SQLite SQL expert.
 Someone had a question and they tried to run a SQL query to fetch the data for it.
 However, the query execution failed for some error.

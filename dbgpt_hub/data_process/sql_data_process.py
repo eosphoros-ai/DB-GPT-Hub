@@ -45,6 +45,8 @@ class ProcessSqlData:
         top_k_documents=0,
         document_by="question",
         cot_prompt=False,
+        column_description=False,
+        column_examples=False,
     ) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
@@ -61,6 +63,8 @@ class ProcessSqlData:
         self.top_k_documents = top_k_documents
         self.document_by = document_by
         self.cot_prompt = cot_prompt
+        self.column_description = column_description
+        self.column_examples = column_examples
 
         model_id = "sentence-transformers/sentence-t5-base"
         self.emb_model = SentenceTransformer(model_id)
@@ -439,9 +443,12 @@ class ProcessSqlData:
 
                         col_name = col[1]
                         col_type = column_types[j]
-                        col_comment = column_descs[j][1]
-                        if column_examples[j]:
-                            col_comment += f" Example values: {column_examples[j]}"
+                        col_comment = ""
+                        if self.column_description:
+                            col_comment = column_descs[j][1]
+                        if self.column_examples:
+                            if column_examples[j]:
+                                col_comment += f" Example values: {column_examples[j]}"
                         col_key = "\n    primary key" if is_primary_key else ""
                         col_key += fk_str
                         ddl_statements.append(
@@ -719,6 +726,8 @@ if __name__ == "__main__":
         help="Retrieve SQLite sections by either `question` or `SQL`",
         default="question")
     parser.add_argument("--cot_prompt", default=False)
+    parser.add_argument("--column_description", default=True)
+    parser.add_argument("--column_examples", default=True)
 
     args = parser.parse_args()
 
@@ -739,6 +748,8 @@ if __name__ == "__main__":
         gt_example=args.gt_example,
         top_k_documents=int(args.top_k_documents),
         document_by=args.document_by,
-        cot_prompt=args.cot_prompt,
+        cot_prompt=bool(int(args.cot_prompt)),
+        column_description=bool(int(args.column_description)),
+        column_examples=bool(int(args.column_examples)),
     )
     process.create_sft_raw_data()

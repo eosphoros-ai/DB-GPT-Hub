@@ -12,6 +12,46 @@ class NLUTrainingArguments(TrainingArguments):
             "help": "The output directory where the model predictions and checkpoints will be written."
         },
     )
+    num_train_epochs: int = field(
+        default=5
+        metadata={
+            "help": "Specify number of epochs, default 10"
+        }
+    )
+    per_device_train_batch_size: int = field(
+        default=8,
+        metadata={
+            "help": "Specify number of batch size, default 8"
+        }
+    )
+    learning_rate: float = field(
+        default=1e-4,
+        metadata={
+            "help": "Specify learning rate, default 1e-4"
+        }
+    )
+    weight_decay: float = field(
+        default=0.01,
+        metadata={
+            "help": "Specify weight decay, default 0.01"
+        }
+    )
+    do_train: bool = field(
+        default=True,
+        metadata={"help": "Whether to run training."}
+    )
+    evaluation_strategy: str = field(
+        default="epoch",
+        metadata={"help": "The evaluation strategy to use."},
+    )
+    save_strategy: str = field(
+        default="epoch",
+        metadata={"help": "The save strategy to use."},
+    )
+    load_best_model_at_end: bool = field(
+        default=True,
+        metadata={"help": "Whether to load the best model at the end of training."},
+    )
 
 
 @dataclass
@@ -28,13 +68,6 @@ class ModelArguments:
         default=None,
         metadata={
             "help": "Base pretrained tokenizer name or path if not the same as model_name"
-        },
-    )
-
-    model_name_or_path: str = field(
-        default=None,
-        metadata={
-            "help": "Path to pretrained model or model identifier from huggingface.co/models"
         },
     )
 
@@ -74,4 +107,21 @@ class ModelArguments:
             "help": "Will use the token generated when running `transformers-cli login` (necessary to use this script "
             "with private models)."
         },
+    )
+
+    lora_r: int = field(
+        default=8,
+        metadata={"help": "Lora R dimension"},
+    )
+    lora_alpha: int = field(
+        default=32,
+        metadata={"help": "Lora alpha parameter"},
+    )
+    lora_dropout: float = field(
+        default=0.1,
+        metadata={"help": "Lora dropout probability"},
+    )
+    max_length: int = field(
+        default=512,
+        metadata={"help": "Maximum input sequence length"},
     )

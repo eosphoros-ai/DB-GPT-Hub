@@ -92,6 +92,7 @@ def tokenize_and_align_labels(examples, tokenizer, max_length):
     tokenized_inputs["labels"] = labels
     return tokenized_inputs
 
+
 def compute_metrics(p, label_list, seqeval):
     predictions, labels = p
     predictions = np.argmax(predictions, axis=2)
@@ -193,6 +194,7 @@ def main():
         sentence = "康希诺生物股份公司在2020年的资产负债比率具体是多少?"
         tokens = token_classifier(sentence)
         print(tokens)
+
 
 if __name__ == "__main__":
     main()

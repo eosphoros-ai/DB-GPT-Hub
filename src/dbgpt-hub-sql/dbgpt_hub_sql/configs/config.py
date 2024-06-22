@@ -18,7 +18,9 @@ MERGED_MODELS = os.path.join(ROOT_PATH, "dbgpt_hub_sql/output/merged_models")
 # OUT_DIR= "/root/autodl-tmp/codellama"
 
 DATA_PATH = os.path.join(ROOT_PATH, "dbgpt_hub_sql/data")
-PREDICTED_DATA_PATH = os.path.join(ROOT_PATH, "dbgpt_hub_sql/data/eval_data/dev_sql.json")
+PREDICTED_DATA_PATH = os.path.join(
+    ROOT_PATH, "dbgpt_hub_sql/data/eval_data/dev_sql.json"
+)
 PREDICTED_OUT_FILENAME = "pred_sql.sql"
 # OUT_DIR = os.path.join(DATA_PATH, "out_pred")
 OUT_DIR = os.path.join(ROOT_PATH, "dbgpt_hub_sql/output/")

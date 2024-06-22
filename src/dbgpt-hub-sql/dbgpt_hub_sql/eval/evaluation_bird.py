@@ -202,7 +202,9 @@ if __name__ == "__main__":
         default="../../pred_sql/pred_sql_bird_qwen14b_1212.sql",
     )
     args_parser.add_argument(
-        "--ground_truth_path", type=str, default="../../dbgpt_hub_sql/data/bird/dev/dev.sql"
+        "--ground_truth_path",
+        type=str,
+        default="../../dbgpt_hub_sql/data/bird/dev/dev.sql",
     )
     args_parser.add_argument("--data_mode", type=str, default="dev")
     args_parser.add_argument(

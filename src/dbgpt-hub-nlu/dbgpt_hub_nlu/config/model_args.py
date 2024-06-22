@@ -13,33 +13,18 @@ class NLUTrainingArguments(TrainingArguments):
         },
     )
     num_train_epochs: int = field(
-        default=5
-        metadata={
-            "help": "Specify number of epochs, default 10"
-        }
+        default=5, metadata={"help": "Specify number of epochs, default 5"}
     )
     per_device_train_batch_size: int = field(
-        default=8,
-        metadata={
-            "help": "Specify number of batch size, default 8"
-        }
+        default=8, metadata={"help": "Specify number of batch size, default 8"}
     )
     learning_rate: float = field(
-        default=1e-4,
-        metadata={
-            "help": "Specify learning rate, default 1e-4"
-        }
+        default=1e-4, metadata={"help": "Specify learning rate, default 1e-4"}
     )
     weight_decay: float = field(
-        default=0.01,
-        metadata={
-            "help": "Specify weight decay, default 0.01"
-        }
+        default=0.01, metadata={"help": "Specify weight decay, default 0.01"}
     )
-    do_train: bool = field(
-        default=True,
-        metadata={"help": "Whether to run training."}
-    )
+    do_train: bool = field(default=True, metadata={"help": "Whether to run training."})
     evaluation_strategy: str = field(
         default="epoch",
         metadata={"help": "The evaluation strategy to use."},

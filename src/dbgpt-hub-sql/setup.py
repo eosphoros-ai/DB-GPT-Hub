@@ -36,7 +36,7 @@ def core_dependencies():
         "nltk>=3.8.1",
         "matplotlib>=3.8.1",
         "bitsandbytes>=0.39.0",
-        "accelerate"
+        "accelerate",
     ]
 
 

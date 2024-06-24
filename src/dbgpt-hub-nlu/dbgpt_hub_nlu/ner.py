@@ -133,22 +133,14 @@ def main():
     if data_args.dataset == "ner":
         label2id = {
             "O": 0,
-            "B-CONT": 1,
-            "I-CONT": 2,
-            "B-EDU": 3,
-            "I-EDU": 4,
-            "B-LOC": 5,
-            "I-LOC": 6,
-            "B-NAME": 7,
-            "I-NAME": 8,
-            "B-ORG": 9,
-            "I-ORG": 10,
-            "B-PRO": 11,
-            "I-PRO": 12,
-            "B-RACE": 13,
-            "I-RACE": 14,
-            "B-TITLE": 15,
-            "I-TITLE": 16,
+            "B-ent_name": 1,
+            "I-ent_name": 2,
+            "B-ent_short_name": 3,
+            "I-ent_short_name": 4,
+            "B-year": 5,
+            "I-year": 6,
+            "B-key_word": 7,
+            "I-key_word": 8
         }
         ds = load_dataset_from_excel("./datasets/financial_report/data/ner.xlsx")
     else:

@@ -125,7 +125,9 @@ Output the SQLite query string ONLY.
 ***************************
 ###Rules###
 - Do not use "ite " in front of your answer.
-- Verify column names and use table_name.column_name format.
+- Use table_name.column_name format.
+- Verify column names and make sure they exist, using the table creation statements.
+- Column values/literals: Make sure that column values and literals are correct. Consider the column example values provided.
 - Functions: use correct SQLite SQL functions for the intended data types.
 - HAVING Clause: Employ boolean expressions (comparisons, AND, OR, NOT). Consider subqueries for top values.
 - Table Joins: Ensure table names are correct and use appropriate joins.
@@ -445,6 +447,7 @@ Otherwise, think step by step about generating correct SQLite SQL result!
 Analyze the error and how to fix.
 
 DONT FORGET Additional rules to generate correct SQLite SQL dialect:
+- Column values/literals: Make sure that column values and literals are correct. Consider the column example values provided.
 - Table Aliases: Use aliases to avoid duplicate table name conflicts.
 - Column References: Verify column names and use table_name.column_name format.
 - Functions: Use correct SQLite functions for the intended data types.

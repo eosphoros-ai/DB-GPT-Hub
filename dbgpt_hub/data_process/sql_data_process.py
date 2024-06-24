@@ -385,8 +385,9 @@ class ProcessSqlData:
                                     f"SELECT typeof(`{col[1]}`) FROM `{table}`"
                                 )
                                 rows = cursor.execute(sql).fetchall()
+                                col_type = rows[0][0].lower()
 
-                                if "text" in rows[0][0].lower():
+                                if "text" in col_type:
                                     sql = (f"SELECT count(DISTINCT `{col[1]}`) "
                                           f" FROM `{table}` WHERE `{col[1]}` IS NOT NULL"
                                           )
@@ -396,18 +397,18 @@ class ProcessSqlData:
                                     too_many_col_vals = ('time' in col[1].lower() or
                                                         'phone' in col[1].lower() or
                                                         'date' in col[1].lower() or
-                                                        #(row_cnt > 100 and col_val_cnt / row_cnt > 0.8) or
-                                                        (col_val_cnt > 100)
+                                                        'ID' in col[1].lower() or
+                                                        'URL' in col[1].lower()
                                                         )
                                     if not too_many_col_vals:
-                                        nval_limit = 50
+                                        nval_limit = 100
                             sql = (
                                 f'SELECT DISTINCT `{col[1]}` FROM `{table}` WHERE'
                                 f' `{col[1]}` IS NOT NULL LIMIT {nval_limit}')
                             rows = cursor.execute(sql).fetchall()
                             example_vals = [
                                 ','.join(map(truncate_example,
-                                             r)).replace('\n', ',')
+                                            r)).replace('\n', ',')
                                 for r in rows
                             ]
                         except sqlite3.Error as e:

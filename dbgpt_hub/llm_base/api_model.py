@@ -153,7 +153,7 @@ class GeminiModel:
         _sql = sql
         #_sql = verify_answer(sql)
         #_sql = syntax_fix(_sql)
-        retry_cnt, max_retries = 0, 2
+        retry_cnt, max_retries = 0, 1
         valid, err, row_cnt = isValidSQL(_sql, db_path)
 
         while not valid and retry_cnt < max_retries:

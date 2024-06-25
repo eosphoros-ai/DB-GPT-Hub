@@ -62,7 +62,8 @@ class GeminiModel:
                                                           "").replace(
                                                               "```", "\n")
             if "<FINAL_ANSWER>" in resp:
-                resp = resp.split("<FINAL_ANSWER>")[1].split("</FINAL_ANSWER>")[0]
+                resp = resp.split("<FINAL_ANSWER>")[1].split(
+                    "</FINAL_ANSWER>")[0]
         except:
             logging.error(
                 f"\n===========\nSQL generation failed for: {query}\n")
@@ -90,7 +91,9 @@ class GeminiModel:
         def verify_answer(s):
             context_str = query[query.find("###Table creation statements###"
                                            ):query.find("###Question###")]
-            input_str = query[query.find("###Question###"):]
+            # this should capture the hints.
+            input_str = query[query.find("###Question###"):query.find(
+                "Now generate SQLite SQL query to answer the given")]
             new_prompt = VERIFICATION_TEMPLATE.format(context_str, input_str,
                                                       s)
             return self._generate_sql(new_prompt)
@@ -98,7 +101,9 @@ class GeminiModel:
         def fix_error(s, err):
             context_str = query[query.find("###Table creation statements###"
                                            ):query.find("###Question###")]
-            input_str = query[query.find("###Question###"):]
+            # this should capture the hints.
+            input_str = query[query.find("###Question###"):query.find(
+                "Now generate SQLite SQL query to answer the given")]
             new_prompt = CHECKER_TEMPLATE.format(context_str, input_str, s,
                                                  err)
             new_sql = self._generate_sql(new_prompt, use_flash=False)
@@ -110,7 +115,8 @@ class GeminiModel:
             context_str = query[query.find("###Table creation statements###"
                                            ):query.find("###Question###")]
             input_str = query[query.find("###Question###"):]
-            new_prompt = LITERAL_ERROR_TEMPLATE.format(context_str, input_str, s)
+            new_prompt = LITERAL_ERROR_TEMPLATE.format(context_str, input_str,
+                                                       s)
             new_sql = self._generate_sql(new_prompt, use_flash=False)
             logging.info(f"\n*** Fixing literal error, from {s} to {new_sql}")
             return new_sql
@@ -139,7 +145,6 @@ class GeminiModel:
                 if conn:
                     conn.close()
             return is_valid, err, len(rows)
-
 
         db_name = query.split("The database (\"")[1].split("\") structure")[0]
         db_path = os.path.join(db_folder_path, db_name) + f"/{db_name}.sqlite"

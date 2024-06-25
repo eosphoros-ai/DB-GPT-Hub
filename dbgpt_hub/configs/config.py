@@ -121,20 +121,21 @@ Consider the natural language question to SQL query "Examples".
 
 Also consider the "Rules" and some useful "Hints" if provided.
 
-Output the SQLite query string ONLY.
 ***************************
 ###Rules###
-- Do not use "ite " in front of your answer.
-- Use table_name.column_name format.
-- Verify column names and make sure they exist, using the table creation statements.
-- Column values/literals: Make sure that column values and literals are correct. Consider the column example values provided.
-- Functions: use correct SQLite SQL functions for the intended data types.
+- Try to use all the pieces of information provided in the hints.
+- Column values/literals: Make sure that column values and literals are correct. Consider the column example values and hints provided.
+- Table Aliases: Use aliases to avoid duplicate table name conflicts.
+- Column References: Verify column names and use table_name.column_name format.
+- Functions: Use correct SQLite functions for the intended data types.
 - HAVING Clause: Employ boolean expressions (comparisons, AND, OR, NOT). Consider subqueries for top values.
 - Table Joins: Ensure table names are correct and use appropriate joins.
 - Arithmetic: Use basic operators (+, -, *, /) if dedicated functions are missing.
-***************************
-###Hints###
-{hints}
+- Respect the upper and lower case in the question, make sure they are the same in the query.
+- Put double quotations around column names and table names, especially when there is a space in between words.
+- Use double quotations for string literals.
+- A single quote within the string can be encoded by putting two single quotes in a row (''): "Men's basketball" should be "Men''s basketball"
+- When comparing string/text type in filter criteria, use LIKE operator and surround the text with wildcards %.
 ***************************
 ###Table creation statements###
 {schema}
@@ -147,6 +148,12 @@ Output the SQLite query string ONLY.
 ***************************
 ###Question###
 {question}
+
+(Hints: {hints})
+***************************
+Now generate SQLite SQL query to answer the given "Question".
+
+Output the SQL query string ONLY.
 """
 
 COT_INSTRUCTION_PROMPT = """\
@@ -328,7 +335,6 @@ Also consider the "Rules" and some useful "Hints" if provided.
 
 ***************************
 ###Rules###
-- Do not use "ite " in front of your answer.
 - Verify column names and use table_name.column_name format.
 - Functions: use correct SQLite SQL functions for the intended data types.
 - HAVING Clause: Employ boolean expressions (comparisons, AND, OR, NOT). Consider subqueries for top values.
@@ -447,7 +453,8 @@ Otherwise, think step by step about generating correct SQLite SQL result!
 Analyze the error and how to fix.
 
 DONT FORGET Additional rules to generate correct SQLite SQL dialect:
-- Column values/literals: Make sure that column values and literals are correct. Consider the column example values provided.
+- Try to use all the pieces of information provided in the hints.
+- Column values/literals: Make sure that column values and literals are correct. Consider the column example values and hints provided.
 - Table Aliases: Use aliases to avoid duplicate table name conflicts.
 - Column References: Verify column names and use table_name.column_name format.
 - Functions: Use correct SQLite functions for the intended data types.
@@ -457,6 +464,8 @@ DONT FORGET Additional rules to generate correct SQLite SQL dialect:
 - Respect the upper and lower case in the question, make sure they are the same in the query.
 - Put double quotations around column names and table names, especially when there is a space in between words.
 - Use double quotations for string literals.
+- A single quote within the string can be encoded by putting two single quotes in a row (''): "Men's basketball" should be "Men''s basketball"
+- When comparing string/text type in filter criteria, use LIKE operator and surround the text with wildcards %.
 
 When you are OK with the fixed query, output the sqlite query string ONLY. It should be the query in plain text.
 """

@@ -401,7 +401,7 @@ class ProcessSqlData:
                                                         'URL' in col[1].lower()
                                                         )
                                     if not too_many_col_vals:
-                                        nval_limit = 100
+                                        nval_limit = 50
                             sql = (
                                 f'SELECT DISTINCT `{col[1]}` FROM `{table}` WHERE'
                                 f' `{col[1]}` IS NOT NULL LIMIT {nval_limit}')

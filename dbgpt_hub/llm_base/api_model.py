@@ -46,7 +46,7 @@ class GeminiModel:
 
     def _generate_sql(self,
                       query,
-                      temperature=0.,
+                      temperature=0.2,
                       retry=True,
                       use_flash=False):
         model = self.model2 if use_flash else self.model

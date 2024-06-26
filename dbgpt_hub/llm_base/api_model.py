@@ -1,7 +1,10 @@
+import pickle
 import sqlite3
 from dbgpt_hub.configs.config import CHECKER_TEMPLATE, LITERAL_ERROR_TEMPLATE, SYNTAX_FIXER_TEMPLATE, VERIFICATION_TEMPLATE
 import torch
 import json
+import random
+import numpy as np
 import os, re
 from typing import Any, Dict, Generator, List, Optional, Tuple
 from threading import Thread
@@ -111,12 +114,33 @@ class GeminiModel:
                 logging.info(f"\n*** verify and update, from {s} to {new_sql}")
             return new_sql
 
-        def fix_literal_error(s):
+        def fix_literal_error(s, db_id):
+            with open('dev_db_tbl_col_vals.pickle', 'rb') as file:
+                tbl_col_vals = pickle.load(file)[db_id]
+
+            def validate_email(email):
+                pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                return re.match(pattern, email) is not None
+
+            def format_col_vals(tbl_col_vals):
+                s = ""
+                for tbl, col_vals in tbl_col_vals.items():
+                    for col, vals in col_vals.items():
+                        if len(vals) > 0 and validate_email(vals[0]):
+                            continue
+                        if len(vals) > 50 and np.mean([len(v) for v in random.sample(vals, 10)]) > 90:
+                            continue
+                        s += f'* `{tbl}`.`{col}`: [{",".join(vals[:1200])}]\n'
+                return s
+
+            col_vals = format_col_vals(tbl_col_vals)
             context_str = query[query.find("###Table creation statements###"
                                            ):query.find("###Question###")]
-            input_str = query[query.find("###Question###"):]
-            new_prompt = LITERAL_ERROR_TEMPLATE.format(context_str, input_str,
-                                                       s)
+            # this should capture the hints.
+            input_str = query[query.find("###Question###"):query.find(
+                "Now generate SQLite SQL query to answer the given")]
+            new_prompt = LITERAL_ERROR_TEMPLATE.format(context_str, col_vals,
+                                                       input_str, s)
             new_sql = self._generate_sql(new_prompt, use_flash=False)
             logging.info(f"\n*** Fixing literal error, from {s} to {new_sql}")
             return new_sql
@@ -153,15 +177,14 @@ class GeminiModel:
         _sql = sql
         #_sql = verify_answer(sql)
         #_sql = syntax_fix(_sql)
-        retry_cnt, max_retries = 0, 1
+        retry_cnt, max_retries = 0, 2
         valid, err, row_cnt = isValidSQL(_sql, db_path)
 
         while not valid and retry_cnt < max_retries:
-            _sql = fix_error(_sql, err)
-            # if err == "empty results":
-            #     _sql = fix_literal_error(_sql)
-            # else:
-            #     _sql = fix_error(_sql, err)
+            if err == "empty results":
+                _sql = fix_literal_error(_sql, db_name)
+            else:
+                _sql = fix_error(_sql, err)
             #_sql = verify_answer(_sql) # this is too expensive to repeat
             #_sql = syntax_fix(_sql)
             valid, err, row_cnt = isValidSQL(_sql, db_path)

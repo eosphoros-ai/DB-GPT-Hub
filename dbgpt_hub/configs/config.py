@@ -430,8 +430,6 @@ Correct your SQL query based on this.
 **************************
 The original question is:
 {}
-
-(Hints: {})
 **************************
 The SQL query executed was:
 {}

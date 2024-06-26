@@ -7,6 +7,7 @@ import jsonlines
 import sys
 import re
 import argparse
+import random
 import pickle
 import faiss
 import numpy as np
@@ -357,6 +358,9 @@ class ProcessSqlData:
             else:
                 return s
 
+        # store comprehensive table column value examples
+        db_tbl_col_vals = dict()
+
         db_context = dict()
         for item in all_tables:
             db_path = os.path.join(db_folder_path,
@@ -372,9 +376,13 @@ class ProcessSqlData:
             primary_key = item["primary_keys"]
             foreign_keys = item["foreign_keys"]
 
+            db_tbl_col_vals[item['db_id']] = {}
+
             for i, table in enumerate(tables):
+                db_tbl_col_vals[item['db_id']][table] = {}
                 for j, col in enumerate(columns):
                     if col[0] == i:
+                        db_tbl_col_vals[item['db_id']][table][col[1]] = list()
                         example_vals = list()
                         try:
                             nval_limit = 5
@@ -394,6 +402,11 @@ class ProcessSqlData:
                                     col_val_cnt = cursor.execute(sql).fetchall()[0][0]
                                     sql = f"SELECT count(*) FROM `{table}`"
                                     row_cnt = float(cursor.execute(sql).fetchall()[0][0])
+
+                                    def validate_email(email):
+                                        pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                                        return re.match(pattern, email) is not None
+
                                     too_many_col_vals = ('time' in col[1].lower() or
                                                         'phone' in col[1].lower() or
                                                         'date' in col[1].lower() or
@@ -402,6 +415,22 @@ class ProcessSqlData:
                                                         )
                                     if not too_many_col_vals:
                                         nval_limit = 50
+                                        sql = (
+                                            f'SELECT DISTINCT `{col[1]}` FROM `{table}` WHERE'
+                                            f' `{col[1]}` IS NOT NULL')
+                                        rows = cursor.execute(sql).fetchall()
+
+                                        if (len(rows) > 0 and validate_email(rows[0][0])) or (len(rows) > 50 and np.mean([len(r) for r in random.sample(rows, 10)]) > 95):
+                                            nval_limit = 5
+                                        else:
+                                            db_tbl_col_vals[item['db_id']][table][
+                                                col[1]] = [
+                                                    ','.join(
+                                                        map(truncate_example,
+                                                            r)).replace('\n', ',')
+                                                    for r in rows
+                                                ]
+
                             sql = (
                                 f'SELECT DISTINCT `{col[1]}` FROM `{table}` WHERE'
                                 f' `{col[1]}` IS NOT NULL LIMIT {nval_limit}')
@@ -416,6 +445,12 @@ class ProcessSqlData:
                                 f"Failed to retrieve example values for {col[1]} due to {e}"
                             )
                         column_examples[j] = example_vals
+
+            # extra bookeeping for text example values
+            filename = os.path.join(
+                DATA_PATH, 'dev_db_tbl_col_vals.pickle')
+            with open(filename, "wb") as file:
+                pickle.dump(db_tbl_col_vals, file)
 
             table_creation_statements = ""
             for i, name in enumerate(tables):

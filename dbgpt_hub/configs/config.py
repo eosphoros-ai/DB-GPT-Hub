@@ -403,26 +403,59 @@ Now here is the real question.
 LITERAL_ERROR_TEMPLATE = """You are a SQLite SQL expert.
 Someone had a question and they tried to run a SQL query to fetch the data for it.
 However, the query execution returned no results. It is possible there was some literal errors.
+Or you used a wrong table(s) and column(s) in your query.
+
+The provided "Hints" should also give you the right column names and the literal values.
+
 Now you need to fix the query based on the question and the table schemas with example column values.
 
-The database structure is defined by the following table schemas (comments after '--' provide additional column descriptions).
+The database structure is defined by the following table schemas (comments after '--' provide additional column descriptions and example values).
+
+This time, I will provide additional table column example values in a separate section, "Table column example values" in the following format:
+* `table_name`.`column_name`: [val1, val2, val3, ...]
+* `table_name`.`column_name`: [val1, val2, val3, ...]
+
+Use this list to correct for any typos in your literals, also they are case sensitive.
+If the literal you are looking for do not appear in the table column value list, then also check if similar literals appear in the column or even in other columns.
+If it belongs to another column, consider rewriting your query with that and verify your query.
+Correct your SQL query based on this.
+
+
 **************************
 ###Table creation statements###
+{}
+**************************
+###Table column example values###
 {}
 **************************
 The original question is:
 {}
 
+(Hints: {})
+**************************
 The SQL query executed was:
 {}
 
 **************************
-Based on the question, table schemas, the example column values and the executed query, analyze what the query was trying to achieve and fix any literal errors,
-that might have caused empty results.
+Based on the question, table schemas, the example column values and the executed query, analyze what the query was trying to achieve and fix the query.
 
-If there is no literal errors, just output the original SQL query.
+DONT FORGET Additional rules to generate correct SQLite SQL dialect:
+- Try to use all the pieces of information provided in the hints.
+- Column values/literals: Make sure that column values and literals are correct. Consider the column example values and hints provided.
+- Table Aliases: Use aliases to avoid duplicate table name conflicts.
+- Column References: Verify column names and use table_name.column_name format.
+- Functions: Use correct SQLite functions for the intended data types.
+- HAVING Clause: Employ boolean expressions (comparisons, AND, OR, NOT). Consider subqueries for top values.
+- Table Joins: Ensure table names are correct and use appropriate joins.
+- Arithmetic: Use basic operators (+, -, *, /) if dedicated functions are missing.
+- Respect the upper and lower case in the question, make sure they are the same in the query.
+- Put double quotations around column names and table names, especially when there is a space in between words.
+- Use double quotations for string literals.
+- A single quote within the string can be encoded by putting two single quotes in a row (''): "Men's basketball" should be "Men''s basketball"
+- When comparing string/text type in filter criteria, use LIKE operator and surround the text with wildcards %.
 
-When you are OK with the fixed query, output the sqlite query string ONLY. It should be the query in plain text.
+If there is no error you can find or fix, just output the original SQL query.
+Output the sqlite query string ONLY. It should be the query in plain text.
 """
 
 CHECKER_TEMPLATE = """You are a SQLite SQL expert.

@@ -20,7 +20,6 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-
 class GeminiModel:
 
     def __init__(self, args: Optional[Dict[str, Any]] = None) -> None:
@@ -115,7 +114,8 @@ class GeminiModel:
             return new_sql
 
         def fix_literal_error(s, db_id):
-            with open('dev_db_tbl_col_vals.pickle', 'rb') as file:
+            file_path = 'dbgpt_hub/data/dev_db_tbl_col_vals.pickle'
+            with open(file_path, 'rb') as file:
                 tbl_col_vals = pickle.load(file)[db_id]
 
             def validate_email(email):
@@ -174,7 +174,7 @@ class GeminiModel:
         db_path = os.path.join(db_folder_path, db_name) + f"/{db_name}.sqlite"
         logging.info("Connecting to " + db_path)
 
-        _sql = sql
+        _sql = fix_literal_error(sql, db_name)
         #_sql = verify_answer(sql)
         #_sql = syntax_fix(_sql)
         retry_cnt, max_retries = 0, 2

@@ -131,11 +131,13 @@ Also consider the "Rules" and some useful "Hints" if provided.
 - HAVING Clause: Employ boolean expressions (comparisons, AND, OR, NOT). Consider subqueries for top values.
 - Table Joins: Ensure table names are correct and use appropriate joins.
 - Arithmetic: Use basic operators (+, -, *, /) if dedicated functions are missing.
-- Respect the upper and lower case in the question, make sure they are the same in the query.
 - Put double quotations around column names and table names, especially when there is a space in between words.
 - Use double quotations for string literals.
 - A single quote within the string can be encoded by putting two single quotes in a row (''): "Men's basketball" should be "Men''s basketball"
 - When comparing string/text type in filter criteria, use LIKE operator and surround the text with wildcards %.
+- Avoid using GROUP BY if not running aggregation functions.
+- Use DISTINCT if applicable.
+- Make sure you are not returning NULL values.
 ***************************
 ###Table creation statements###
 {schema}
@@ -402,8 +404,8 @@ Now here is the real question.
 
 LITERAL_ERROR_TEMPLATE = """You are a SQLite SQL expert.
 Someone had a question and they tried to run a SQL query to fetch the data for it.
-However, the query execution returned no results. It is possible there was some literal errors.
-Or you used a wrong table(s) and column(s) in your query.
+It is possible there were some literal errors in the query.
+Or you used a wrong table(s) and column(s) in the query.
 
 The provided "Hints" should also give you the right column names and the literal values.
 
@@ -446,11 +448,13 @@ DONT FORGET Additional rules to generate correct SQLite SQL dialect:
 - HAVING Clause: Employ boolean expressions (comparisons, AND, OR, NOT). Consider subqueries for top values.
 - Table Joins: Ensure table names are correct and use appropriate joins.
 - Arithmetic: Use basic operators (+, -, *, /) if dedicated functions are missing.
-- Respect the upper and lower case in the question, make sure they are the same in the query.
 - Put double quotations around column names and table names, especially when there is a space in between words.
 - Use double quotations for string literals.
 - A single quote within the string can be encoded by putting two single quotes in a row (''): "Men's basketball" should be "Men''s basketball"
 - When comparing string/text type in filter criteria, use LIKE operator and surround the text with wildcards %.
+- Avoid using GROUP BY if not running aggregation functions.
+- Use DISTINCT if applicable.
+- Make sure you are not returning NULL values.
 
 If there is no error you can find or fix, just output the original SQL query.
 Output the sqlite query string ONLY. It should be the query in plain text.
@@ -492,13 +496,19 @@ DONT FORGET Additional rules to generate correct SQLite SQL dialect:
 - HAVING Clause: Employ boolean expressions (comparisons, AND, OR, NOT). Consider subqueries for top values.
 - Table Joins: Ensure table names are correct and use appropriate joins.
 - Arithmetic: Use basic operators (+, -, *, /) if dedicated functions are missing.
-- Respect the upper and lower case in the question, make sure they are the same in the query.
 - Put double quotations around column names and table names, especially when there is a space in between words.
 - Use double quotations for string literals.
 - A single quote within the string can be encoded by putting two single quotes in a row (''): "Men's basketball" should be "Men''s basketball"
 - When comparing string/text type in filter criteria, use LIKE operator and surround the text with wildcards %.
+- Avoid using GROUP BY if not running aggregation functions.
+- Use DISTINCT if applicable.
+- Make sure you are not returning NULL values.
 
 When you are OK with the fixed query, output the sqlite query string ONLY. It should be the query in plain text.
+"""
+
+removed_rules = """
+- Respect the upper and lower case in the question, make sure they are the same in the query.
 """
 
 VERIFICATION_TEMPLATE = """You are a SQLite SQL expert.

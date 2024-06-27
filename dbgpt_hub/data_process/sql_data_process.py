@@ -410,7 +410,7 @@ class ProcessSqlData:
                                     too_many_col_vals = ('time' in col[1].lower() or
                                                         'phone' in col[1].lower() or
                                                         'date' in col[1].lower() or
-                                                        'id' in col[1].lower() or
+                                                        '_id' in col[1].lower() or
                                                         'url' in col[1].lower() or
                                                         'uuid' in col[1].lower()
                                                         )

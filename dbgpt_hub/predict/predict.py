@@ -52,4 +52,5 @@ def predict(model: ChatModel):
 if __name__ == "__main__":
     model = GeminiModel() #ChatModel()
     db_folder_path = '/root/DB-GPT-Hub/dbgpt_hub/data/bird/dev/dev_databases'
+    db_folder_path = '/root/DB-GPT-Hub/dbgpt_hub/data/spider/test_database'
     predict(model)

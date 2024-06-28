@@ -114,6 +114,8 @@ class GeminiModel:
             return new_sql
 
         def fix_literal_error(s, db_id):
+            if s == "":
+                return fix_error(s, "INFO:root:")
             file_path = 'dbgpt_hub/data/dev_db_tbl_col_vals.pickle'
             with open(file_path, 'rb') as file:
                 tbl_col_vals = pickle.load(file)[db_id]
@@ -174,7 +176,9 @@ class GeminiModel:
         db_path = os.path.join(db_folder_path, db_name) + f"/{db_name}.sqlite"
         logging.info("Connecting to " + db_path)
 
-        _sql = fix_literal_error(sql, db_name)
+        _sql = sql
+        if _sql != "":
+            _sql = fix_literal_error(sql, db_name)  # verification
         #_sql = verify_answer(sql)
         #_sql = syntax_fix(_sql)
         retry_cnt, max_retries = 0, 2
@@ -185,6 +189,7 @@ class GeminiModel:
                 _sql = fix_literal_error(_sql, db_name)
             else:
                 _sql = fix_error(_sql, err)
+                _sql = fix_literal_error(_sql, db_name)  # verification
             #_sql = verify_answer(_sql) # this is too expensive to repeat
             #_sql = syntax_fix(_sql)
             valid, err, row_cnt = isValidSQL(_sql, db_path)

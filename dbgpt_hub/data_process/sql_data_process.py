@@ -338,8 +338,8 @@ class ProcessSqlData:
         db_folder_path,
         db_id_name,
         output_name,
-        example_store_index,
-        document_store_index,
+        example_store_index = None,
+        document_store_index = None,
     ):
 
         if table_file.endswith(".json"):
@@ -393,7 +393,7 @@ class ProcessSqlData:
                                     f"SELECT typeof(`{col[1]}`) FROM `{table}`"
                                 )
                                 rows = cursor.execute(sql).fetchall()
-                                col_type = rows[0][0].lower()
+                                col_type = rows[0][0].lower() if len(rows) > 0 else ""
 
                                 if "text" in col_type:
                                     sql = (f"SELECT count(DISTINCT `{col[1]}`) "
@@ -514,6 +514,8 @@ class ProcessSqlData:
             return ";".join(create_stmts)
 
         def extract_k_examples(question, k):
+            if not example_store_index:
+                raise FileNotFoundError("--extra_top_k rquires example store index.")
             q_emb = self.emb_model.encode(question)
             D, I = example_store_index.search(np.array([q_emb]), k)
             return I[0, :min(k, len(I[0]))].tolist()
@@ -558,7 +560,7 @@ class ProcessSqlData:
                         {docs[k_idx]}
                         """
 
-                hints = data["evidence"] if data["evidence"] else ""
+                hints = data["evidence"] if "evidence" in data else ""
                 if self.cot_prompt:
                     input_instruction = COT_INSTRUCTION_PROMPT.format(
                         db_name=data[db_id_name],

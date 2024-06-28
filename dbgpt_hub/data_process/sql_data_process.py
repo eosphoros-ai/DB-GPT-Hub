@@ -590,140 +590,104 @@ class ProcessSqlData:
         train_data = []
         dev_data = []
         for data_info in SQL_DATA_INFO:
-            d = 768
-            findex_train, findex_dev = faiss.IndexFlatL2(d), faiss.IndexFlatL2(
-                d)
-            if self.num_examples > 0:
-                example_store_file = os.path.join(
-                    DATA_PATH,
-                    data_info["data_source"],
-                    data_info["example_store_file"],
-                )
-                with open(example_store_file, 'rb') as file:
-                    # (question_ids, queries, gt_queries, q_embs)
-                    example_store = pickle.load(file)
-                    self.example_store = example_store['train']
-                findex_train.add(np.array(example_store['train'][3]))
-                findex_dev.add(np.array(example_store['dev'][3]))
-                # To extract most similar k
-                # D, I = findex.search(np.array([query_arr]), top_k)
-                # k_similar_idx = I[0,:min(top_k, len(candidates))].tolist()
+            if data_info['data_source'] == 'spider':
+                dev_data_file_list = [
+                    os.path.join(DATA_PATH, data_info["data_source"], file)
+                    for file in data_info["dev_file"]
+                ]
+                dev_data.extend(
+                    self.decode_json_file_with_ddl(
+                        data_file_list=dev_data_file_list,
+                        table_file=os.path.join(
+                            DATA_PATH,
+                            data_info["data_source"],
+                            data_info["dev_tables_file"],
+                        ),
+                        db_folder_path=os.path.join(DATA_PATH,
+                                                    data_info["data_source"],
+                                                    "test_database"),
+                        db_id_name=data_info["db_id_name"],
+                        output_name=data_info["output_name"],
+                    ))
+                with open(self.dev_file, "w", encoding="utf-8") as s:
+                    json.dump(dev_data, s, indent=4, ensure_ascii=False)
 
-            dindex = faiss.IndexFlatL2(d)
-            if self.top_k_documents > 0:
-                document_store_file = os.path.join(
-                    DATA_PATH, data_info["data_source"],
-                    data_info["document_store_file"])
-                with open(document_store_file, 'rb') as file:
-                    # filename -> (emb, doc_str)
-                    self.doc_store = pickle.load(file)
-                d_embs = [v[0] for k, v in self.doc_store.items()]
-                dindex.add(np.array(d_embs))
-
-            train_data_file_list = [
-                os.path.join(DATA_PATH, data_info["data_source"], file)
-                for file in data_info["train_file"]
-            ]
-            # train_data.extend(
-            #     self.decode_json_file_with_ddl(
-            #         data_file_list=train_data_file_list,
-            #         table_file=os.path.join(
-            #             DATA_PATH,
-            #             data_info["data_source"],
-            #             data_info["train_tables_file"],
-            #         ),
-            #         db_folder_path=os.path.join(DATA_PATH,
-            #                                     data_info["data_source"],
-            #                                     "train", "train_databases"),
-            #         db_id_name=data_info["db_id_name"],
-            #         output_name=data_info["output_name"],
-            #         example_store_index=findex_train,
-            #         document_store_index=dindex,
-            #     ))
-
-            dev_data_file_list = [
-                os.path.join(DATA_PATH, data_info["data_source"], file)
-                for file in data_info["dev_file"]
-            ]
-
-            dev_data.extend(
-                self.decode_json_file_with_ddl(
-                    data_file_list=dev_data_file_list,
-                    table_file=os.path.join(
+            if data_info['data_source'] == 'bird':
+                d = 768
+                findex_train, findex_dev = faiss.IndexFlatL2(d), faiss.IndexFlatL2(
+                    d)
+                if self.num_examples > 0:
+                    example_store_file = os.path.join(
                         DATA_PATH,
                         data_info["data_source"],
-                        data_info["dev_tables_file"],
-                    ),
-                    db_folder_path=os.path.join(DATA_PATH,
-                                                data_info["data_source"],
-                                                "dev", "dev_databases"),
-                    db_id_name=data_info["db_id_name"],
-                    output_name=data_info["output_name"],
-                    example_store_index=findex_train,  # use train example store
-                    document_store_index=dindex,
-                ))
+                        data_info["example_store_file"],
+                    )
+                    with open(example_store_file, 'rb') as file:
+                        # (question_ids, queries, gt_queries, q_embs)
+                        example_store = pickle.load(file)
+                        self.example_store = example_store['train']
+                    findex_train.add(np.array(example_store['train'][3]))
+                    findex_dev.add(np.array(example_store['dev'][3]))
+                    # To extract most similar k
+                    # D, I = findex.search(np.array([query_arr]), top_k)
+                    # k_similar_idx = I[0,:min(top_k, len(candidates))].tolist()
 
-            # train_data.extend(
-            #     self.decode_json_file(
-            #         data_file_list=train_data_file_list,
-            #         table_file=os.path.join(
-            #             DATA_PATH,
-            #             data_info["data_source"],
-            #             data_info["train_tables_file"],
-            #         ),
-            #         db_folder_path=os.path.join(
-            #             DATA_PATH,
-            #             data_info["data_source"],
-            #             "database",
-            #         ),
-            #         db_id_name=data_info["db_id_name"],
-            #         output_name=data_info["output_name"],
-            #         is_multiple_turn=data_info["is_multiple_turn"],
-            #         tab_emb_file=os.path.join(
-            #             DATA_PATH,
-            #             data_info["data_source"],
-            #             data_info["train_tab_emb_file"],
-            #         ) if self.table_ranking else None,
-            #         col_emb_file=os.path.join(
-            #             DATA_PATH,
-            #             data_info["data_source"],
-            #             data_info["train_col_emb_file"],
-            #         ) if self.column_ranking else None,
-            #         has_evidence=data_info["data_source"] == "bird",
-            #     ))
+                dindex = faiss.IndexFlatL2(d)
+                if self.top_k_documents > 0:
+                    document_store_file = os.path.join(
+                        DATA_PATH, data_info["data_source"],
+                        data_info["document_store_file"])
+                    with open(document_store_file, 'rb') as file:
+                        # filename -> (emb, doc_str)
+                        self.doc_store = pickle.load(file)
+                    d_embs = [v[0] for k, v in self.doc_store.items()]
+                    dindex.add(np.array(d_embs))
 
-            # dev_data.extend(
-            #     self.decode_json_file(
-            #         data_file_list=dev_data_file_list,
-            #         table_file=os.path.join(
-            #             DATA_PATH,
-            #             data_info["data_source"],
-            #             data_info["dev_tables_file"],
-            #         ),
-            #         db_folder_path=os.path.join(
-            #             DATA_PATH,
-            #             data_info["data_source"],
-            #             "database",
-            #         ),
-            #         db_id_name=data_info["db_id_name"],
-            #         output_name=data_info["output_name"],
-            #         is_multiple_turn=data_info["is_multiple_turn"],
-            #         tab_emb_file=os.path.join(
-            #             DATA_PATH,
-            #             data_info["data_source"],
-            #             data_info["dev_tab_emb_file"],
-            #         ) if self.table_ranking else None,
-            #         col_emb_file=os.path.join(
-            #             DATA_PATH,
-            #             data_info["data_source"],
-            #             data_info["dev_col_emb_file"],
-            #         ) if self.column_ranking else None,
-            #         has_evidence=data_info["data_source"] == "bird",
-            #     ))
-        # with open(self.train_file, "w", encoding="utf-8") as s:
-        #     json.dump(train_data, s, indent=4, ensure_ascii=False)
-        with open(self.dev_file, "w", encoding="utf-8") as s:
-            json.dump(dev_data, s, indent=4, ensure_ascii=False)
+                # train_data_file_list = [
+                #     os.path.join(DATA_PATH, data_info["data_source"], file)
+                #     for file in data_info["train_file"]
+                # ]
+                # train_data.extend(
+                #     self.decode_json_file_with_ddl(
+                #         data_file_list=train_data_file_list,
+                #         table_file=os.path.join(
+                #             DATA_PATH,
+                #             data_info["data_source"],
+                #             data_info["train_tables_file"],
+                #         ),
+                #         db_folder_path=os.path.join(DATA_PATH,
+                #                                     data_info["data_source"],
+                #                                     "train", "train_databases"),
+                #         db_id_name=data_info["db_id_name"],
+                #         output_name=data_info["output_name"],
+                #         example_store_index=findex_train,
+                #         document_store_index=dindex,
+                #     ))
+                # with open(self.train_file, "w", encoding="utf-8") as s:
+                #     json.dump(train_data, s, indent=4, ensure_ascii=False)
+
+                dev_data_file_list = [
+                    os.path.join(DATA_PATH, data_info["data_source"], file)
+                    for file in data_info["dev_file"]
+                ]
+                dev_data.extend(
+                    self.decode_json_file_with_ddl(
+                        data_file_list=dev_data_file_list,
+                        table_file=os.path.join(
+                            DATA_PATH,
+                            data_info["data_source"],
+                            data_info["dev_tables_file"],
+                        ),
+                        db_folder_path=os.path.join(DATA_PATH,
+                                                    data_info["data_source"],
+                                                    "dev", "dev_databases"),
+                        db_id_name=data_info["db_id_name"],
+                        output_name=data_info["output_name"],
+                        example_store_index=findex_train,  # use train example store
+                        document_store_index=dindex,
+                    ))
+            with open(self.dev_file, "w", encoding="utf-8") as s:
+                json.dump(dev_data, s, indent=4, ensure_ascii=False)
 
 
 if __name__ == "__main__":

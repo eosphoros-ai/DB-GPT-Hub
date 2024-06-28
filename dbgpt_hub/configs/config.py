@@ -47,36 +47,36 @@ EXT2TYPE = {"csv": "csv", "json": "json", "jsonl": "json", "txt": "text"}
 # text2sql dataset information for processing sql data
 # TODO: BIRD \ WiKiSQL \ ...
 SQL_DATA_INFO = [
-    {
-        "data_source": "spider",
-        "train_file": ["train_spider.json", "train_others.json"],
-        "dev_file": ["test_data/dev.json"],
-        "train_tables_file": "tables.json",
-        "dev_tables_file": "test_data/tables.json",
-        "db_id_name": "db_id",
-        "output_name": "query",
-        "is_multiple_turn": False,
-        "train_tab_emb_file": "train_tab_emb.pickle",
-    "dev_tab_emb_file": "dev_tab_emb.pickle",
-    "train_col_emb_file": "train_col_emb.pickle",
-    "dev_col_emb_file": "dev_col_emb.pickle",
-    }
     # {
-    #     "data_source": "bird",
-    #     "train_file": ["train/train.json"],
-    #     "dev_file": ["dev/dev.json"],
-    #     "train_tables_file": "train/train_tables.json",
-    #     "dev_tables_file": "dev/dev_tables.json",
+    #     "data_source": "spider",
+    #     "train_file": ["train_spider.json", "train_others.json"],
+    #     "dev_file": ["test_data/dev.json"],
+    #     "train_tables_file": "tables.json",
+    #     "dev_tables_file": "test_data/tables.json",
     #     "db_id_name": "db_id",
-    #     "output_name": "SQL",
+    #     "output_name": "query",
     #     "is_multiple_turn": False,
     #     "train_tab_emb_file": "train_tab_emb.pickle",
-    #     "dev_tab_emb_file": "dev_tab_emb.pickle",
-    #     "train_col_emb_file": "train_col_emb.pickle",
-    #     "dev_col_emb_file": "dev_col_emb.pickle",
-    #     "example_store_file": "example_store.pickle",
-    #     "document_store_file": "doc_store.pickle",
+    # "dev_tab_emb_file": "dev_tab_emb.pickle",
+    # "train_col_emb_file": "train_col_emb.pickle",
+    # "dev_col_emb_file": "dev_col_emb.pickle",
     # }
+    {
+        "data_source": "bird",
+        "train_file": ["train/train.json"],
+        "dev_file": ["dev/dev.json"],
+        "train_tables_file": "train/train_tables.json",
+        "dev_tables_file": "dev/dev_tables.json",
+        "db_id_name": "db_id",
+        "output_name": "SQL",
+        "is_multiple_turn": False,
+        "train_tab_emb_file": "train_tab_emb.pickle",
+        "dev_tab_emb_file": "dev_tab_emb.pickle",
+        "train_col_emb_file": "train_col_emb.pickle",
+        "dev_col_emb_file": "dev_col_emb.pickle",
+        "example_store_file": "example_store.pickle",
+        "document_store_file": "doc_store.pickle",
+    }
     # ,
     # {
     #     "data_source": "chase",
@@ -136,8 +136,8 @@ Also consider the "Rules" and some useful "Hints" if provided.
 - A single quote within the string can be encoded by putting two single quotes in a row (''): "Men's basketball" should be "Men''s basketball"
 - When comparing string/text type in filter criteria, use LIKE operator and surround the text with wildcards %.
 - Avoid using GROUP BY if not running aggregation functions.
-- Use DISTINCT if applicable.
-- Make sure you are not returning NULL values.
+- When you need to find the highest or lowest values based on a certain condition, using ORDER BY + LIMIT 1 is prefered over using MAX/MIN within sub queries.
+- If the question doesn't specify exactly which columns to select, between name column and id column, prefer to select id column.
 ***************************
 ###Table creation statements###
 {schema}
@@ -453,8 +453,9 @@ DONT FORGET Additional rules to generate correct SQLite SQL dialect:
 - A single quote within the string can be encoded by putting two single quotes in a row (''): "Men's basketball" should be "Men''s basketball"
 - When comparing string/text type in filter criteria, use LIKE operator and surround the text with wildcards %.
 - Avoid using GROUP BY if not running aggregation functions.
-- Use DISTINCT if applicable.
-- Make sure you are not returning NULL values.
+- When you need to find the highest or lowest values based on a certain condition, using ORDER BY + LIMIT 1 is prefered over using MAX/MIN within sub queries.
+- If the question doesn't specify exactly which columns to select, between name column and id column, prefer to select id column.
+
 
 If there is no error you can find or fix, just output the original SQL query.
 Output the sqlite query string ONLY. It should be the query in plain text.
@@ -501,8 +502,9 @@ DONT FORGET Additional rules to generate correct SQLite SQL dialect:
 - A single quote within the string can be encoded by putting two single quotes in a row (''): "Men's basketball" should be "Men''s basketball"
 - When comparing string/text type in filter criteria, use LIKE operator and surround the text with wildcards %.
 - Avoid using GROUP BY if not running aggregation functions.
-- Use DISTINCT if applicable.
-- Make sure you are not returning NULL values.
+- When you need to find the highest or lowest values based on a certain condition, using ORDER BY + LIMIT 1 is prefered over using MAX/MIN within sub queries.
+- If the question doesn't specify exactly which columns to select, between name column and id column, prefer to select id column.
+
 
 When you are OK with the fixed query, output the sqlite query string ONLY. It should be the query in plain text.
 """

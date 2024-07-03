@@ -177,8 +177,8 @@ class GeminiModel:
         logging.info("Connecting to " + db_path)
 
         _sql = sql
-        if _sql != "":
-            _sql = fix_literal_error(sql, db_name)  # verification
+        # if _sql != "":
+        #     _sql = fix_literal_error(sql, db_name)  # verification
         #_sql = verify_answer(sql)
         #_sql = syntax_fix(_sql)
         retry_cnt, max_retries = 0, 2
@@ -189,7 +189,7 @@ class GeminiModel:
                 _sql = fix_literal_error(_sql, db_name)
             else:
                 _sql = fix_error(_sql, err)
-                _sql = fix_literal_error(_sql, db_name)  # verification
+                # _sql = fix_literal_error(_sql, db_name)  # verification
             #_sql = verify_answer(_sql) # this is too expensive to repeat
             #_sql = syntax_fix(_sql)
             valid, err, row_cnt = isValidSQL(_sql, db_path)

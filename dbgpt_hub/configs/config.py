@@ -515,7 +515,8 @@ removed_rules = """
 
 VERIFICATION_TEMPLATE = """You are a SQLite SQL expert.
 Someone had a question and they tried to run a SQL query to fetch the data for it.
-Now you need to verify if the query is correctly addressing the question.
+Now you need to verify if the query is correctly addressing the question,
+given the table schemas, column definitions and example values, and hints.
 
 The database structure is defined by the following table schemas (comments after '--' provide additional column descriptions).
 **************************
@@ -530,21 +531,11 @@ The SQL query executed was:
 
 **************************
 Based on the question, table schemas, analyze what the query was trying to achieve and verify against the question.
-You can do this step-by-step. First, describe the query in natural languagge. Next, compare your description to the original question.
 
-If it is correct, then just return the query as-is. If not, try to fix and return a correct SQLite SQL query.
-ONLY return the verified/corrected SQLite SQL query string.
+Your response should be one of the following:
 
-DONT FORGET Additional rules to generate correct SQLite SQL dialect:
-- Table Aliases: Use aliases to avoid duplicate table name conflicts.
-- Column References: Verify column names and use table_name.column_name format.
-- Functions: Use correct SQLite functions for the intended data types.
-- HAVING Clause: Employ boolean expressions (comparisons, AND, OR, NOT). Consider subqueries for top values.
-- Table Joins: Ensure table names are correct and use appropriate joins.
-- Arithmetic: Use basic operators (+, -, *, /) if dedicated functions are missing.
-- Respect the upper and lower case in the question, make sure they are the same in the query.
-- Put double quotations around column names and table names, especially when there is a space in between words.
-- Use double quotations for string values.
+- Return "correct" if SQL is correctly answering the question.
+- Return "incorrect" if SQL is not correctly answering the question.
 """
 
 #### SPIDER ####

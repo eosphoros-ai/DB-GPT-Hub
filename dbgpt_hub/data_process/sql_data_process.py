@@ -43,6 +43,7 @@ class ProcessSqlData:
         extra_top_k=0,
         num_examples=0,
         gt_example=False,
+        gt_pos=0.5,
         top_k_documents=0,
         document_by="question",
         cot_prompt=False,
@@ -61,6 +62,7 @@ class ProcessSqlData:
         self.extra_top_k = extra_top_k
         self.num_examples = num_examples
         self.gt_example = gt_example
+        self.gt_pos = gt_pos
         self.top_k_documents = top_k_documents
         self.document_by = document_by
         self.cot_prompt = cot_prompt
@@ -533,9 +535,8 @@ class ProcessSqlData:
                     k_indices = extract_k_examples(data["question"],
                                                    self.num_examples)
                     for ii, k_idx in enumerate(k_indices):
-                        offset = 1 if ii > (self.num_examples //
-                                            2) and self.gt_example else 0
-                        if ii == self.num_examples // 2 and self.gt_example:
+                        offset = 1 if ii > int(self.num_examples * self.gt_pos) and self.gt_example else 0
+                        if ii == int(self.num_examples * self.gt_pos) and self.gt_example:
                             examples += f"""
                             \nExample {ii + 1})
                             - question: {data["question"]}
@@ -645,28 +646,28 @@ class ProcessSqlData:
                     d_embs = [v[0] for k, v in self.doc_store.items()]
                     dindex.add(np.array(d_embs))
 
-                train_data_file_list = [
-                    os.path.join(DATA_PATH, data_info["data_source"], file)
-                    for file in data_info["train_file"]
-                ]
-                train_data.extend(
-                    self.decode_json_file_with_ddl(
-                        data_file_list=train_data_file_list,
-                        table_file=os.path.join(
-                            DATA_PATH,
-                            data_info["data_source"],
-                            data_info["train_tables_file"],
-                        ),
-                        db_folder_path=os.path.join(DATA_PATH,
-                                                    data_info["data_source"],
-                                                    "train", "train_databases"),
-                        db_id_name=data_info["db_id_name"],
-                        output_name=data_info["output_name"],
-                        example_store_index=findex_train,
-                        document_store_index=dindex,
-                    ))
-                with open(self.train_file, "w", encoding="utf-8") as s:
-                    json.dump(train_data, s, indent=4, ensure_ascii=False)
+                # train_data_file_list = [
+                #     os.path.join(DATA_PATH, data_info["data_source"], file)
+                #     for file in data_info["train_file"]
+                # ]
+                # train_data.extend(
+                #     self.decode_json_file_with_ddl(
+                #         data_file_list=train_data_file_list,
+                #         table_file=os.path.join(
+                #             DATA_PATH,
+                #             data_info["data_source"],
+                #             data_info["train_tables_file"],
+                #         ),
+                #         db_folder_path=os.path.join(DATA_PATH,
+                #                                     data_info["data_source"],
+                #                                     "train", "train_databases"),
+                #         db_id_name=data_info["db_id_name"],
+                #         output_name=data_info["output_name"],
+                #         example_store_index=findex_train,
+                #         document_store_index=dindex,
+                #     ))
+                # with open(self.train_file, "w", encoding="utf-8") as s:
+                #     json.dump(train_data, s, indent=4, ensure_ascii=False)
 
                 dev_data_file_list = [
                     os.path.join(DATA_PATH, data_info["data_source"], file)
@@ -716,6 +717,7 @@ if __name__ == "__main__":
                         help="Retrieve relevant examples.",
                         default=0)
     parser.add_argument("--gt_example", default=False)
+    parser.add_argument("--gt_pos", default=0.5)
     parser.add_argument(
         "--extra_top_k",
         help="Retrieve extra tables outside the DB to guarantee 'k' tables.",
@@ -749,6 +751,7 @@ if __name__ == "__main__":
         extra_top_k=int(args.extra_top_k),
         num_examples=int(args.num_examples),
         gt_example=args.gt_example,
+        gt_pos=args.gt_pos,
         top_k_documents=int(args.top_k_documents),
         document_by=args.document_by,
         cot_prompt=bool(int(args.cot_prompt)),

@@ -530,6 +530,8 @@ class ProcessSqlData:
             prompt = EXAMPLE_GENERATOR.format(schema, k)
             return self.model._generate_sql(prompt)
 
+        db_examples = dict()
+
         res = []
         for data in tqdm(datas):
             if data[db_id_name] in db_context.keys():
@@ -541,7 +543,11 @@ class ProcessSqlData:
                 examples = ""
                 if self.num_examples > 0:
                     if self.synthetic_examples:
-                        examples = generate_k_examples(schema, self.num_examples)
+                        if data[db_id_name] not in db_examples:
+                            examples = generate_k_examples(schema, self.num_examples)
+                            db_examples[data[db_id_name]] = examples
+                        else:
+                            examples = db_examples[data[db_id_name]]
                     else:
                         k_indices = extract_k_examples(data["question"],
                                                       self.num_examples)

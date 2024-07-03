@@ -3,6 +3,7 @@ import os
 import json
 import sqlite3
 from dbgpt_hub.data_process.data_utils import extract_most_similar_idx
+from dbgpt_hub.llm_base.api_model import GeminiModel
 import jsonlines
 import sys
 import re
@@ -20,7 +21,7 @@ sys.path.append(ROOT_PATH)
 
 from tqdm import tqdm
 
-from dbgpt_hub.configs.config import (BASIC_INSTRUCTION_PROMPT, COT_INSTRUCTION_PROMPT, SQL_DATA_INFO,
+from dbgpt_hub.configs.config import (BASIC_INSTRUCTION_PROMPT, COT_INSTRUCTION_PROMPT, EXAMPLE_GENERATOR, SQL_DATA_INFO,
                                       DATA_PATH, INPUT_PROMPT,
                                       INSTRUCTION_PROMPT,
                                       INSTRUCTION_ONE_SHOT_PROMPT,
@@ -44,6 +45,7 @@ class ProcessSqlData:
         num_examples=0,
         gt_example=False,
         gt_pos=0.5,
+        synthetic_examples=False,
         top_k_documents=0,
         document_by="question",
         cot_prompt=False,
@@ -63,6 +65,7 @@ class ProcessSqlData:
         self.num_examples = num_examples
         self.gt_example = gt_example
         self.gt_pos = gt_pos
+        self.synthetic_examples = synthetic_examples
         self.top_k_documents = top_k_documents
         self.document_by = document_by
         self.cot_prompt = cot_prompt
@@ -71,6 +74,7 @@ class ProcessSqlData:
 
         model_id = "sentence-transformers/sentence-t5-base"
         self.emb_model = SentenceTransformer(model_id)
+        self.model = GeminiModel()
 
     def decode_json_file(
         self,
@@ -522,6 +526,10 @@ class ProcessSqlData:
             D, I = example_store_index.search(np.array([q_emb]), k)
             return I[0, :min(k, len(I[0]))].tolist()
 
+        def generate_k_examples(schema, k):
+            prompt = EXAMPLE_GENERATOR.format(schema, k)
+            return self.model._generate_sql(prompt)
+
         res = []
         for data in tqdm(datas):
             if data[db_id_name] in db_context.keys():
@@ -532,22 +540,25 @@ class ProcessSqlData:
                                               self.extra_top_k)
                 examples = ""
                 if self.num_examples > 0:
-                    k_indices = extract_k_examples(data["question"],
-                                                   self.num_examples)
-                    for ii, k_idx in enumerate(k_indices):
-                        offset = 1 if ii > int(self.num_examples * self.gt_pos) and self.gt_example else 0
-                        if ii == int(self.num_examples * self.gt_pos) and self.gt_example:
-                            examples += f"""
-                            \nExample {ii + 1})
-                            - question: {data["question"]}
-                            - answer (SQL query): {data["SQL"]}
-                            """
-                        else:
-                            examples += f"""
-                            \nExample {ii + 1 + offset})
-                            - question: {self.example_store[1][k_idx]}
-                            - answer (SQL query): {self.example_store[2][k_idx]}
-                            """
+                    if self.synthetic_examples:
+                        examples = generate_k_examples(schema, self.num_examples)
+                    else:
+                        k_indices = extract_k_examples(data["question"],
+                                                      self.num_examples)
+                        for ii, k_idx in enumerate(k_indices):
+                            offset = 1 if ii > int(self.num_examples * self.gt_pos) and self.gt_example else 0
+                            if ii == int(self.num_examples * self.gt_pos) and self.gt_example:
+                                examples += f"""
+                                \nExample {ii + 1})
+                                - question: {data["question"]}
+                                - answer (SQL query): {data["SQL"]}
+                                """
+                            else:
+                                examples += f"""
+                                \nExample {ii + 1 + offset})
+                                - question: {self.example_store[1][k_idx]}
+                                - answer (SQL query): {self.example_store[2][k_idx]}
+                                """
 
                 documentation = ""
                 if self.top_k_documents > 0:
@@ -718,6 +729,7 @@ if __name__ == "__main__":
                         default=0)
     parser.add_argument("--gt_example", default=False)
     parser.add_argument("--gt_pos", default=0.5)
+    parser.add_argument("--synthetic_examples", default=False)
     parser.add_argument(
         "--extra_top_k",
         help="Retrieve extra tables outside the DB to guarantee 'k' tables.",
@@ -752,6 +764,7 @@ if __name__ == "__main__":
         num_examples=int(args.num_examples),
         gt_example=args.gt_example,
         gt_pos=float(args.gt_pos),
+        synthetic_examples=bool(int(args.synthetic_examples)),
         top_k_documents=int(args.top_k_documents),
         document_by=args.document_by,
         cot_prompt=bool(int(args.cot_prompt)),

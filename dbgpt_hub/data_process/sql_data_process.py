@@ -751,7 +751,7 @@ if __name__ == "__main__":
         extra_top_k=int(args.extra_top_k),
         num_examples=int(args.num_examples),
         gt_example=args.gt_example,
-        gt_pos=args.gt_pos,
+        gt_pos=float(args.gt_pos),
         top_k_documents=int(args.top_k_documents),
         document_by=args.document_by,
         cot_prompt=bool(int(args.cot_prompt)),

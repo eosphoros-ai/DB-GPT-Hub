@@ -22,7 +22,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 class GeminiModel:
 
-    def __init__(self, args: Optional[Dict[str, Any]] = None) -> None:
+    def __init__(self) -> None:
         vertexai.init(project="400355794761", location="us-central1")
         # 1.0-pro finetuned model
         # sft_job = sft.SupervisedTuningJob(
@@ -33,6 +33,15 @@ class GeminiModel:
         self.model = GenerativeModel(model_name="gemini-1.5-pro-preview-0514")
         self.model2 = GenerativeModel(
             model_name="gemini-1.5-flash-preview-0514")
+
+    def _infer_args(self, args: Optional[Dict[str, Any]] = None):
+        (
+            model_args,
+            self.data_args,
+            finetuning_args,
+            self.generating_args,
+        ) = get_infer_args(args)
+
 
     def _generate_sql(self,
                       query,

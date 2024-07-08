@@ -114,8 +114,8 @@ def main() -> None:
     )
     model = _load_model(input_dim, num_classes, training_args.device)
     trainer = NLUTrainer(dataset, model, training_args)
-    if model_args.model_name_or_path:
-        trainer.load_model(model_args.model_name_or_path)
+    if training_args.output_dir:
+        trainer.load_model(training_args.output_dir)
 
     if training_args.do_train:
         trainer.train()

@@ -25,7 +25,7 @@ pip install -e .
 
 ```bash
 # 假设后续使用 gte-large-zh 作为基础模型
-export base_mode="/data/models/gte-large-zh"
+export base_model="/data/models/gte-large-zh"
 
 python main.py \
 --dataset financial_report \
@@ -52,7 +52,7 @@ python main.py \
 --dataset_dir ./datasets \
 --base_model_name_or_path $base_model \
 --per_device_train_batch_size 4096 \
---model_name_or_path ./output \
+--output_dir ./output \
 --do_eval
 ```
 
@@ -64,7 +64,7 @@ python main.py \
 --dataset_dir ./datasets \
 --base_model_name_or_path $base_model \
 --per_device_train_batch_size 4096 \
---model_name_or_path ./output \
+--output_dir ./output \
 --do_infer \
 --input_text "请问安泰集团在2021年的营业成本是多少元"
 ```

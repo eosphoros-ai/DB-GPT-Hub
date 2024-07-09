@@ -26,11 +26,11 @@ def load_tokenizer(base_model_name_or_path):
     return AutoTokenizer.from_pretrained(base_model_name_or_path)
 
 
-def load_dataset_from_excel(file_path):
-    df = pd.read_excel(file_path)
-    df["tokens"] = df["tokens"].apply(ast.literal_eval)
-    df["labels"] = df["labels"].apply(ast.literal_eval)
-    df["ner_tags"] = df["ner_tags"].apply(ast.literal_eval)
+def load_dataset_from_jsonl(file_path):
+    df = pd.read_json(file_path, lines=True)
+    # df["tokens"] = df["tokens"].apply(ast.literal_eval)
+    # df["labels"] = df["labels"].apply(ast.literal_eval)
+    # df["ner_tags"] = df["ner_tags"].apply(ast.literal_eval)
     dataset_dict = {
         "tokens": df["tokens"].tolist(),
         "labels": df["labels"].tolist(),

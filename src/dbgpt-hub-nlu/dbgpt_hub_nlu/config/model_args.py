@@ -13,7 +13,7 @@ class NLUTrainingArguments(TrainingArguments):
         },
     )
     num_train_epochs: int = field(
-        default=5, metadata={"help": "Specify number of epochs, default 5"}
+        default=6, metadata={"help": "Specify number of epochs, default 6"}
     )
     per_device_train_batch_size: int = field(
         default=8, metadata={"help": "Specify number of batch size, default 8"}
@@ -47,7 +47,12 @@ class ModelArguments:
             "help": "Path to pretrained model or model identifier from huggingface.co/models"
         }
     )
-
+    adapter_name_or_path: Optional[str] = field(
+        default=None,
+        metadata={
+            "help": "Path to pretrained adapter or adapter identifier from huggingface.co/models"
+        }
+    )
     base_tokenizer_name: Optional[str] = field(
         default=None,
         metadata={

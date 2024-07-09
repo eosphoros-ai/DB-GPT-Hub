@@ -543,14 +543,12 @@ class ProcessSqlData:
                 examples = ""
                 if self.num_examples > 0:
                     if self.synthetic_examples:
-                        if data[db_id_name] not in db_examples:
-                            examples = generate_k_examples(schema, self.num_examples)
-                            db_examples[data[db_id_name]] = examples
-                        else:
+                        if 'difficulty' in data and data['difficulty'] == 'simple':
+                            if data[db_id_name] not in db_examples:
+                                db_examples[data[db_id_name]] = generate_k_examples(schema, self.num_examples)
                             examples = db_examples[data[db_id_name]]
                     else:
-                        k_indices = extract_k_examples(data["question"],
-                                                      self.num_examples)
+                        k_indices = extract_k_examples(data["question"],  self.num_examples)
                         for ii, k_idx in enumerate(k_indices):
                             offset = 1 if ii > int(self.num_examples * self.gt_pos) and self.gt_example else 0
                             if ii == int(self.num_examples * self.gt_pos) and self.gt_example:

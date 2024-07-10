@@ -537,7 +537,7 @@ class ProcessSqlData:
             if data[db_id_name] in db_context.keys():
                 # all tables and columns with primary and foreign keys.
                 schema = db_context[data[db_id_name]]
-                if self.extra_top_k > 0:
+                if self.extra_top_k > 0 and data['difficulty'] != 'simple':
                     schema = extract_k_tables(db_context, data[db_id_name],
                                               self.extra_top_k)
                 examples = ""

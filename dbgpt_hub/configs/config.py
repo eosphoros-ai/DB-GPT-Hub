@@ -356,7 +356,7 @@ MAJORITY_VOTING = """You are a SQLite SQL expert.
 
 You need to the most likely or correct SQLite SQL from a set of candidates that answers a question in natural language.
 
-The database ("{db_name}") structure is defined by the following table schemas (comments after '--' provide additional column descriptions).
+The database structure is defined by the following table schemas (comments after '--' provide additional column descriptions).
 
 Given the "Table creation statements" and the "Question", you need understand the database and columns.
 

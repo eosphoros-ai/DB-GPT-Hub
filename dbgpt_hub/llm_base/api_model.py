@@ -45,7 +45,7 @@ class GeminiModel:
 
     def _generate_sql(self,
                       query,
-                      temperature=0.8,
+                      temperature=0.5,
                       retry=True,
                       use_flash=False):
         model = self.model2 if use_flash else self.model
@@ -80,11 +80,17 @@ class GeminiModel:
         return resp
 
     def majority_voting(self, query, candidates):
-        print(query, "\n\n\n")
-        print("-----------------", candidates, "\n\n\n")
-        sql = self._generate_sql(MAJORITY_VOTING.format(query, candidates),
-                                  use_flash=True)
-        print(sql, "\n\n\n")
+        should_vote = False
+        for c in candidates:
+            if c != candidates[0]:
+                should_vote = True
+                break
+        if not should_vote:
+            return candidates[0]
+
+        sql = self._generate_sql(MAJORITY_VOTING.format(input=query, candidates=candidates),
+                                  use_flash=False)
+        logging.info("Consensus: " + sql)
         return sql
 
     def verify_and_correct(self, query, sql, db_folder_path):

@@ -1,6 +1,6 @@
 import pickle
 import sqlite3
-from dbgpt_hub.configs.config import CHECKER_TEMPLATE, LITERAL_ERROR_TEMPLATE, SYNTAX_FIXER_TEMPLATE, VERIFICATION_TEMPLATE
+from dbgpt_hub.configs.config import CHECKER_TEMPLATE, LITERAL_ERROR_TEMPLATE, MAJORITY_VOTING, SYNTAX_FIXER_TEMPLATE, VERIFICATION_TEMPLATE
 import torch
 import json
 import random
@@ -19,6 +19,7 @@ from google.generativeai.types import HarmCategory, HarmBlockThreshold
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
+
 
 class GeminiModel:
 
@@ -42,10 +43,9 @@ class GeminiModel:
             self.generating_args,
         ) = get_infer_args(args)
 
-
     def _generate_sql(self,
                       query,
-                      temperature=0.5,
+                      temperature=0.8,
                       retry=True,
                       use_flash=False):
         model = self.model2 if use_flash else self.model
@@ -78,6 +78,14 @@ class GeminiModel:
         resp = re.sub(r"ite\s*\n?\s*SELECT", "SELECT", resp)
         resp = re.sub('\s+', ' ', resp).strip()
         return resp
+
+    def majority_voting(self, query, candidates):
+        print(query, "\n\n\n")
+        print("-----------------", candidates, "\n\n\n")
+        sql = self._generate_sql(MAJORITY_VOTING.format(query, candidates),
+                                  use_flash=True)
+        print(sql, "\n\n\n")
+        return sql
 
     def verify_and_correct(self, query, sql, db_folder_path):
 
@@ -130,7 +138,8 @@ class GeminiModel:
                     for col, vals in col_vals.items():
                         if len(vals) > 0 and validate_email(vals[0]):
                             continue
-                        if len(vals) > 50 and np.mean([len(v) for v in random.sample(vals, 10)]) > 90:
+                        if len(vals) > 50 and np.mean(
+                            [len(v) for v in random.sample(vals, 10)]) > 90:
                             continue
                         s += f'* `{tbl}`.`{col}`: [{",".join(vals[:1200])}]\n'
                 return s

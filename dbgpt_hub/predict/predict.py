@@ -29,8 +29,12 @@ def inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
     res = []
     for item in tqdm(predict_data, desc="Inference Progress", unit="item"):
         print(f"item[input] \n{item['input']}")
-        response, _ = model.chat(query=item["input"], history=[], **input_kwargs)
-        response = model.verify_and_correct(item["input"], response, db_folder_path)
+        cands = []
+        for i in range(5):
+            response, _ = model.chat(query=item["input"], history=[], **input_kwargs)
+            response = model.verify_and_correct(item["input"], response, db_folder_path)
+            cands.append(response)
+        response = model.majority_voting(item["input"], cands)
         res.append(response)
     return res
 

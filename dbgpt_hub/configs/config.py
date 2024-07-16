@@ -352,6 +352,28 @@ Also consider the "Rules" and some useful "Hints" if provided.
 {question}
 """
 
+MAJORITY_VOTING = """You are a SQLite SQL expert.
+
+You need to the most likely or correct SQLite SQL from a set of candidates that answers a question in natural language.
+
+The database ("{db_name}") structure is defined by the following table schemas (comments after '--' provide additional column descriptions).
+
+Given the "Table creation statements" and the "Question", you need understand the database and columns.
+
+Consider the natural language question to SQL query "Examples".
+
+Also consider the "Rules" and some useful "Hints" if provided.
+
+***************************
+{input}
+***************************
+Now consider the following SQL candidates and pick a single SQL query that most likely and correctly
+answers the given "Question":
+{candidates}
+
+Only return a single SQL query from the candidates and the SQL only as a string.
+"""
+
 SYNTAX_FIXER_TEMPLATE = """You are a SQLite SQL expert.
 You need to check the syntax of a given SQL query. Check if the query follows the rules. If not, fix it.
 - Put double quotations around column names and table names, especially when there is a space in between words.

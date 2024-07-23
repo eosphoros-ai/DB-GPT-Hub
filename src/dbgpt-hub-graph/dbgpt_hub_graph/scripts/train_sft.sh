@@ -1,7 +1,7 @@
 wandb offline # Close wandb
 # a100 ,单卡
 current_date=$(date +"%Y%m%d_%H%M")
-train_log="dbgpt_hub_sql/output/logs/train_sft_test_${current_date}.log"
+train_log="dbgpt_hub_graph/output/logs/train_sft_test_${current_date}.log"
 start_time=$(date +%s)
 echo " Train Start time: $(date -d @$start_time +'%Y-%m-%d %H:%M:%S')" >>${train_log}
 
@@ -16,10 +16,10 @@ if [ "$num_shot" -eq 1 ]; then
     dataset="example_text2sql_train_one_shot"
 fi
 model_name_or_path=${model_name_or_path-"codellama/CodeLlama-7b-Instruct-hf"}
-output_dir="dbgpt_hub_sql/output/adapter/CodeLlama-7b-sql-lora"
+output_dir="dbgpt_hub_graph/output/adapter/CodeLlama-7b-sql-lora"
 
 # the default param set could be run in a server with one a100(40G) gpu, if your server not support the set,you can set smaller param such as  lora_rank and use qlora with quant 4 eg...
-# CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_sql/train/sft_train.py \
+# CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_graph/train/sft_train.py \
 #     --model_name_or_path $model_name_or_path \
 #     --do_train \
 #     --dataset $dataset \
@@ -45,10 +45,10 @@ output_dir="dbgpt_hub_sql/output/adapter/CodeLlama-7b-sql-lora"
 #     # --bf16#v100不支持bf16
 
 # param set for V100
-CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_sql/train/sft_train.py \
+CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_graph/train/sft_train.py \
     --model_name_or_path $model_name_or_path \
     --do_train \
-    --dataset $dataset \
+    --dataset test \
     --max_source_length 1024 \
     --max_target_length 512 \
     --finetuning_type lora \
@@ -80,8 +80,8 @@ echo "Time elapsed: ${hour}  hour $min min " >>${train_log}
 
 
 # 多卡，deepseed启动，A100
-# deepspeed --num_gpus 2  dbgpt_hub_sql/train/sft_train.py \
-#     --deepspeed dbgpt_hub_sql/configs/stage2.json \
+# deepspeed --num_gpus 2  dbgpt_hub_graph/train/sft_train.py \
+#     --deepspeed dbgpt_hub_graph/configs/stage2.json \
 #     --quantization_bit 4 \
 #     --model_name_or_path /home/model_files/Llama-2-13b-chat-hf \
 #     --do_train \
@@ -93,7 +93,7 @@ echo "Time elapsed: ${hour}  hour $min min " >>${train_log}
 #     --lora_rank 64 \
 #     --lora_alpha 32 \
 #     --lora_target q_proj,v_proj \
-#     --output_dir dbgpt_hub_sql/output/adapter/llama2-13b-qlora_1024_epoch1_debug1008_withDeepseed_mulitCard \
+#     --output_dir dbgpt_hub_graph/output/adapter/llama2-13b-qlora_1024_epoch1_debug1008_withDeepseed_mulitCard \
 #     --overwrite_cache \
 #     --overwrite_output_dir \
 #     --per_device_train_batch_size 1 \
@@ -108,7 +108,7 @@ echo "Time elapsed: ${hour}  hour $min min " >>${train_log}
 
 
 # 多卡，deepseed，全量微调
-# deepspeed --include localhost:4,5,6,7  dbgpt_hub_sql/train/sft_train.py \
+# deepspeed --include localhost:4,5,6,7  dbgpt_hub_graph/train/sft_train.py \
 #     --dataset example_text2sql_train \
 #     --model_name_or_path CodeLlama-7b-Instruct-hf \
 #     --do_train \
@@ -116,7 +116,7 @@ echo "Time elapsed: ${hour}  hour $min min " >>${train_log}
 #     --max_source_length 2048 \
 #     --max_target_length 512 \
 #     --template llama2 \
-#     --output_dir dbgpt_hub_sql/output/adapter/code-llama-7b-2048_epoch4_full \
+#     --output_dir dbgpt_hub_graph/output/adapter/code-llama-7b-2048_epoch4_full \
 #     --overwrite_cache \
 #     --overwrite_output_dir \
 #     --per_device_train_batch_size 4 \
@@ -127,4 +127,4 @@ echo "Time elapsed: ${hour}  hour $min min " >>${train_log}
 #     --num_train_epochs 4 \
 #     --plot_loss \
 #     --bf16 True\
-#     --deepspeed dbgpt_hub_sql/configs/stage3.json 2>&1 | tee ${train_log}
+#     --deepspeed dbgpt_hub_graph/configs/stage3.json 2>&1 | tee ${train_log}

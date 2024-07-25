@@ -1,4 +1,4 @@
-base_model="/data/models/chinese-roberta-wwm-ext"
+base_model="/data/models/bge-large-zh-v1.5"
 # base_model="/data/models/gte-large-zh"
 
 python main.py \

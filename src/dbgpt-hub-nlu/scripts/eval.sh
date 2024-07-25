@@ -1,5 +1,5 @@
 # base_model="/data/models/chinese-roberta-wwm-ext"
-base_model="/data/models/gte-large-zh"
+base_model="/data/models/bge-large-zh-v1.5"
 
 python main.py \
 --base_model_name_or_path $base_model \

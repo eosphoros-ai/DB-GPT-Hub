@@ -140,7 +140,7 @@ def main():
             "B-year": 5,
             "I-year": 6,
             "B-key_word": 7,
-            "I-key_word": 8
+            "I-key_word": 8,
         }
         ds = load_dataset_from_excel("./datasets/financial_report/data/ner.xlsx")
     else:

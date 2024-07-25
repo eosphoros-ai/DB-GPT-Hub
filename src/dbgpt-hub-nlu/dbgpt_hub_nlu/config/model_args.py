@@ -24,13 +24,12 @@ class NLUTrainingArguments(TrainingArguments):
     weight_decay: float = field(
         default=0.01, metadata={"help": "Specify weight decay, default 0.01"}
     )
-    do_train: bool = field(default=True, metadata={"help": "Whether to run training."})
-    evaluation_strategy: str = field(
-        default="epoch",
-        metadata={"help": "The evaluation strategy to use."},
+    do_train: bool = field(default=False, metadata={"help": "Whether to run training."})
+    eval_strategy: str = field(
+        default="no", metadata={"help": "The evaluation strategy to use."}
     )
     save_strategy: str = field(
-        default="epoch",
+        default="no",
         metadata={"help": "The save strategy to use."},
     )
     load_best_model_at_end: bool = field(

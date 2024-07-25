@@ -31,13 +31,7 @@ class FinancialReport(datasets.GeneratorBasedBuilder):
             {
                 "text": datasets.Value("string"),
                 "label": datasets.ClassLabel(
-                    names=[
-                        "年报基础信息问答",
-                        "财务指标计算",
-                        "专业名称解释",
-                        "报告解读分析",
-                        "统计对比分析",
-                    ]
+                    names=["年报基础信息问答", "财务指标计算", "专业名称解释", "报告解读分析", "统计对比分析", "其他问题"]
                 ),
             }
         )

@@ -199,6 +199,7 @@ class GeminiModel:
         logging.info("Connecting to " + db_path)
 
         _sql = sql
+        _sql = enforce_rules(_sql)
         # if _sql != "":
         #     _sql = fix_literal_error(sql, db_name)  # verification
         #_sql = verify_answer(sql)

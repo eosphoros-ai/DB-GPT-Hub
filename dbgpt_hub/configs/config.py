@@ -157,6 +157,30 @@ Now generate SQLite SQL query to answer the given "Question".
 Output the SQL query string ONLY.
 """
 
+NOT_NULL_TEMPLATE = """You are a SQLite SQL exeprt.
+
+You have written a SQL query, "SQL", to answer a user question, "Question".
+
+***************************
+###SQL###
+{sql}
+***************************
+###Question###
+{question}
+***************************
+
+Your job is to verify and fix the SQL query if needed.
+
+Your verification should be based on the following rules:
+- If you are doing a logical operation on a column, such as mathematical operations and sorting, make sure to filter null values within those columns
+- When ORDER BY is used, just include the column name in the ORDER BY in the SELECT clause when explicitly asked in the question. Otherwise, do not include the column name in the SELECT clause.
+
+See if you should modify the SQL to satify the verification rules above. Return the updated SQL query. Make sure that the SQL query is in SQLite dialect.
+If the SQL already satisfies the rules or the rules are not applicable, then just return the original SQL.
+
+Just return the SQL query string.
+"""
+
 COT_INSTRUCTION_PROMPT = """\
 You are a SQLite SQL expert.
 You need to generate SQLite SQL query given a question in natural language.
@@ -505,7 +529,6 @@ Now similarly, generate examples (question input and SQL output pairs) for the t
 Only outputs the examples (question input and SQL output pairs), and each eaxmple can be separated by a new line.
 
 """
-
 
 LITERAL_ERROR_TEMPLATE = """You are a SQLite SQL expert.
 Someone had a question and they tried to run a SQL query to fetch the data for it.

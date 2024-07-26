@@ -1,6 +1,6 @@
 import pickle
 import sqlite3
-from dbgpt_hub.configs.config import CHECKER_TEMPLATE, LITERAL_ERROR_TEMPLATE, MAJORITY_VOTING, SYNTAX_FIXER_TEMPLATE, VERIFICATION_TEMPLATE
+from dbgpt_hub.configs.config import CHECKER_TEMPLATE, LITERAL_ERROR_TEMPLATE, MAJORITY_VOTING, NOT_NULL_TEMPLATE, SYNTAX_FIXER_TEMPLATE, VERIFICATION_TEMPLATE
 import torch
 import json
 import random
@@ -114,6 +114,11 @@ class GeminiModel:
                                                       s)
             return self._generate_sql(new_prompt)
 
+        def enforce_rules(s):
+            input_str = query[query.find("###Question###"):query.find(
+                "Now generate SQLite SQL query to answer the given")]
+            return self._generate_sql(NOT_NULL_TEMPLATE.format(sql=s, question=input_str))
+
         def fix_error(s, err):
             context_str = query[query.find("###Table creation statements###"
                                            ):query.find("###Question###")]
@@ -123,8 +128,8 @@ class GeminiModel:
             new_prompt = CHECKER_TEMPLATE.format(context_str, input_str, s,
                                                  err)
             new_sql = self._generate_sql(new_prompt, use_flash=False)
-            if s != new_sql:
-                logging.info(f"\n*** verify and update, from {s} to {new_sql}")
+            # if s != new_sql:
+            #     logging.info(f"\n*** verify and update, from {s} to {new_sql}")
             return new_sql
 
         def fix_literal_error(s, db_id):
@@ -159,7 +164,7 @@ class GeminiModel:
             new_prompt = LITERAL_ERROR_TEMPLATE.format(context_str, col_vals,
                                                        input_str, s)
             new_sql = self._generate_sql(new_prompt, use_flash=False)
-            logging.info(f"\n*** Fixing literal error, from {s} to {new_sql}")
+            #logging.info(f"\n*** Fixing literal error, from {s} to {new_sql}")
             return new_sql
 
         def isValidSQL(sql, db):
@@ -207,12 +212,11 @@ class GeminiModel:
                 # _sql = fix_literal_error(_sql, db_name)  # verification
             #_sql = verify_answer(_sql) # this is too expensive to repeat
             #_sql = syntax_fix(_sql)
+            _sql = enforce_rules(_sql)
             valid, err, row_cnt = isValidSQL(_sql, db_path)
             retry_cnt += 1
         if retry_cnt == max_retries:
-            logging.info(f"Correction failed due to {err}, query: {_sql}")
-        else:
-            logging.info(f"New query: {_sql}")
+            logging.info(f"Correction failed due to {err}")
         return _sql
 
     @torch.inference_mode()

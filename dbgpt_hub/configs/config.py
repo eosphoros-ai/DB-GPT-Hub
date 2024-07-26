@@ -191,12 +191,15 @@ You have written a SQL query, "SQL", to answer a user question, "Question".
 ###Question###
 {question}
 ***************************
+###Table creation statements###
+{schema}
+***************************
 
 Your job is to verify and fix the SQL query if needed.
 
 Your verification should be based on the following rules:
 - When you need to find the highest or lowest values based on a certain condition, using ORDER BY + LIMIT 1 is prefered over using MAX/MIN within sub queries.
-- If the question doesn't specify exactly which columns to select, between name column and id column, prefer to select id column.
+- If the question doesn't specify exactly which columns to select, between name column and id column, prefer to select id column. Infer the correct name for the id column based on the "Table creation statements".
 - If predicted query includes an ORDER BY clause to sort the results, you should only include the column(s) used for sorting in the SELECT clause if the question specifically ask for them. Otherwise, omit these columns from the SELECT.
 - When ORDER BY is used, just include the column name in the ORDER BY in the SELECT clause when explicitly asked in the question. Otherwise, do not include the column name in the SELECT clause.
 

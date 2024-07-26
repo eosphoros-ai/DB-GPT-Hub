@@ -62,7 +62,7 @@ def parallelized_inference(model: ChatModel, predict_data: List[Dict], **input_k
                     else:
                         failure_count += 1
                 futures = not_done
-        print(f"Successful inferences: {success_count}, Failed inferences: {fauilure_count}")
+        print(f"Successful inferences: {success_count}, Failed inferences: {failure_count}")
         res = [res_dict[i] for i in range(len(predict_data))]
     return res
 

@@ -46,7 +46,6 @@ class GeminiModel:
     def _generate_sql(self,
                       query,
                       temperature=0.5,
-                      retry=True,
                       use_flash=False):
         model = self.model2 if use_flash else self.model
         try:
@@ -69,11 +68,6 @@ class GeminiModel:
         except:
             logging.error(
                 f"\n===========\nSQL generation failed for: {query}\n")
-            if retry:
-                logging.info("Retrying...")
-                return self._generate_sql(query,
-                                          retry=False,
-                                          use_flash=use_flash)
             return ""
         resp = re.sub(r"ite\s*\n?\s*SELECT", "SELECT", resp)
         resp = re.sub('\s+', ' ', resp).strip()

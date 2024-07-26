@@ -65,9 +65,9 @@ class GeminiModel:
             if "<FINAL_ANSWER>" in resp:
                 resp = resp.split("<FINAL_ANSWER>")[1].split(
                     "</FINAL_ANSWER>")[0]
-        except:
+        except Exception as e:
             logging.error(
-                f"\n===========\nSQL generation failed for: {query}\n")
+                f"\n===========\nSQL generation failed for: {str(e)}\n")
             return ""
         resp = re.sub(r"ite\s*\n?\s*SELECT", "SELECT", resp)
         resp = re.sub('\s+', ' ', resp).strip()

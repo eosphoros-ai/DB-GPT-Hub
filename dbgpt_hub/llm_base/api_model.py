@@ -1,4 +1,3 @@
-import functools
 import pickle
 import sqlite3
 from dbgpt_hub.configs.config import CHECKER_TEMPLATE, LITERAL_ERROR_TEMPLATE, MAJORITY_VOTING, NOT_NULL_TEMPLATE, SELECT_FIX_TEMPLATE, SYNTAX_FIXER_TEMPLATE, VERIFICATION_TEMPLATE
@@ -22,45 +21,6 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 
-def retry_on_quota_exceeded(
-    max_attempts=10, initial_delay=1.0, backoff_factor=2
-):
-  """A decorator for retrying a function call with an exponential backoff delay
-
-  if the error message contains "Quota exceeded".
-
-  Parameters:
-  - max_attempts: Maximum number of attempts
-  - initial_delay: Initial delay between retries in seconds
-  - backoff_factor: Factor by which the delay increases after each retry
-  """
-
-  def decorator(func):
-    @functools.wraps(func)
-    def wrapper(*args, **kwargs):
-      attempts = 0
-      delay = initial_delay
-      while attempts < max_attempts:
-        try:
-          return func(*args, **kwargs)
-        except Exception as e:
-          attempts += 1
-          if 'Quota exceeded' in str(e) and attempts < max_attempts:
-            logging.warning(
-                f'Quota exceeded, retrying {attempts} time in {delay} seconds.'
-            )
-            time.sleep(delay)
-            delay *= backoff_factor
-          else:
-            logging.error(
-                f'Final attempt failed or error not related to quota. {e}'
-            )
-            raise e
-
-    return wrapper
-
-  return decorator
-
 class GeminiModel:
 
     def __init__(self) -> None:
@@ -83,29 +43,38 @@ class GeminiModel:
             self.generating_args,
         ) = get_infer_args(args)
 
-    @retry_on_quota_exceeded
     def _generate_sql(self,
                       query,
                       temperature=0.5,
                       retry=True,
                       use_flash=False):
         model = self.model2 if use_flash else self.model
-        resp = model.generate_content(query,
-                                      generation_config={
-                                          "temperature": temperature
-                                      },
-                                      safety_settings={
-                                          0: HarmBlockThreshold.BLOCK_NONE,
-                                          1: HarmBlockThreshold.BLOCK_NONE,
-                                          2: HarmBlockThreshold.BLOCK_NONE,
-                                          3: HarmBlockThreshold.BLOCK_NONE,
-                                          4: HarmBlockThreshold.BLOCK_NONE,
-                                      }).text.replace("```sql",
-                                                      "").replace(
-                                                          "```", "\n")
-        if "<FINAL_ANSWER>" in resp:
-            resp = resp.split("<FINAL_ANSWER>")[1].split(
-                "</FINAL_ANSWER>")[0]
+        try:
+            resp = model.generate_content(query,
+                                          generation_config={
+                                              "temperature": temperature
+                                          },
+                                          safety_settings={
+                                              0: HarmBlockThreshold.BLOCK_NONE,
+                                              1: HarmBlockThreshold.BLOCK_NONE,
+                                              2: HarmBlockThreshold.BLOCK_NONE,
+                                              3: HarmBlockThreshold.BLOCK_NONE,
+                                              4: HarmBlockThreshold.BLOCK_NONE,
+                                          }).text.replace("```sql",
+                                                          "").replace(
+                                                              "```", "\n")
+            if "<FINAL_ANSWER>" in resp:
+                resp = resp.split("<FINAL_ANSWER>")[1].split(
+                    "</FINAL_ANSWER>")[0]
+        except:
+            logging.error(
+                f"\n===========\nSQL generation failed for: {query}\n")
+            if retry:
+                logging.info("Retrying...")
+                return self._generate_sql(query,
+                                          retry=False,
+                                          use_flash=use_flash)
+            return ""
         resp = re.sub(r"ite\s*\n?\s*SELECT", "SELECT", resp)
         resp = re.sub('\s+', ' ', resp).strip()
         return resp

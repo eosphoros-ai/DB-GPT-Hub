@@ -51,7 +51,7 @@ def parallelized_inference(model: ChatModel, predict_data: List[Dict], **input_k
 
         with tqdm(total=len(predict_data), desc="Inference Progress", unit="item") as pbar:
             while futures:
-                done, not_done = wait(futures, return_when=FIRST_EXCEPTION)
+                done, not_done = wait(futures, return_when=FIRST_COMPLETED)
                 for future in done:
                     index = futures.pop(future)  # Get the index and remove from dict
                     result = future.result()

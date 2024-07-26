@@ -172,7 +172,32 @@ You have written a SQL query, "SQL", to answer a user question, "Question".
 Your job is to verify and fix the SQL query if needed.
 
 Your verification should be based on the following rules:
-- If you are doing a logical operation on a column, such as mathematical operations and sorting, make sure to filter null values within those columns
+- If you are doing a logical operation on a column, such as mathematical operations and sorting, make sure to filter NULL values within those columns
+
+See if you should modify the SQL to satify the verification rules above. Return the updated SQL query. Make sure that the SQL query is in SQLite dialect.
+If the SQL already satisfies the rules or the rules are not applicable, then just return the original SQL.
+
+Just return the SQL query string.
+"""
+
+SELECT_FIX_TEMPLATE = """You are a SQLite SQL exeprt.
+
+You have written a SQL query, "SQL", to answer a user question, "Question".
+
+***************************
+###SQL###
+{sql}
+***************************
+###Question###
+{question}
+***************************
+
+Your job is to verify and fix the SQL query if needed.
+
+Your verification should be based on the following rules:
+- When you need to find the highest or lowest values based on a certain condition, using ORDER BY + LIMIT 1 is prefered over using MAX/MIN within sub queries.
+- If the question doesn't specify exactly which columns to select, between name column and id column, prefer to select id column.
+- If predicted query includes an ORDER BY clause to sort the results, you should only include the column(s) used for sorting in the SELECT clause if the question specifically ask for them. Otherwise, omit these columns from the SELECT.
 - When ORDER BY is used, just include the column name in the ORDER BY in the SELECT clause when explicitly asked in the question. Otherwise, do not include the column name in the SELECT clause.
 
 See if you should modify the SQL to satify the verification rules above. Return the updated SQL query. Make sure that the SQL query is in SQLite dialect.

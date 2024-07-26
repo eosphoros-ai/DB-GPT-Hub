@@ -28,21 +28,23 @@ def prepare_dataset(predict_file_path: Optional[str] = None, ) -> List[Dict]:
 def inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
     res = []
     for item in tqdm(predict_data, desc="Inference Progress", unit="item"):
+        n_candidates = 1
         cands = []
-        for i in range(4):
+        for i in range(n_candidates):
             response, _ = model.chat(query=item["input"],
                                      history=[],
                                      **input_kwargs)
             response = model.verify_and_correct(item["input"], response,
                                                 db_folder_path)
             cands.append(response)
-            print()
-        query = item["input"].split(
-            'Also consider the "Rules" and some useful "Hints" if provided.'
-        )[1].split(
-            'Now generate SQLite SQL query to answer the given "Question".')[0]
-        response = model.majority_voting(query, cands)
-        res.append(response)
+        if n_candidates == 1:
+            res.append(response)
+        else:
+            query = item["input"].split(
+                'Also consider the "Rules" and some useful "Hints" if provided.'
+            )[1].split(
+                'Now generate SQLite SQL query to answer the given "Question".')[0]
+            res.append(model.majority_voting(query, cands))
     return res
 
 

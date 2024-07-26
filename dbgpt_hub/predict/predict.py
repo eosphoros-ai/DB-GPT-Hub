@@ -9,7 +9,7 @@ sys.path.append(ROOT_PATH)
 
 from tqdm import tqdm
 from typing import List, Dict, Optional, Any
-from concurrent.futures import FIRST_EXCEPTION, ThreadPoolExecutor, as_completed, wait
+from concurrent.futures import FIRST_COMPLETED, FIRST_EXCEPTION, ThreadPoolExecutor, as_completed, wait
 
 from dbgpt_hub.data_process.data_utils import extract_sql_prompt_dataset
 from dbgpt_hub.llm_base.chat_model import ChatModel
@@ -42,7 +42,7 @@ def inference_worker(model, item, input_kwargs):  # Worker function for a single
         return model.majority_voting(query, cands)
 
 def parallelized_inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
-    num_threads = 10  # Set the desired number of threads
+    num_threads = 5  # Set the desired number of threads
     res_dict = {}
     with ThreadPoolExecutor(max_workers=num_threads) as executor:
         # Submit all inference tasks to the executor

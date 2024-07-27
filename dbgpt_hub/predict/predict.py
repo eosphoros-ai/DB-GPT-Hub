@@ -42,29 +42,29 @@ def inference_worker(model, item, input_kwargs):  # Worker function for a single
         return model.majority_voting(query, cands)
 
 def parallelized_inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
-    num_threads = 5  # Set the desired number of threads
+    num_threads = 5
     res_dict = {}
-    with ThreadPoolExecutor(max_workers=num_threads) as executor:
-        # Submit all inference tasks to the executor
-        futures = {executor.submit(inference_worker, model, item, input_kwargs): i for i, item in enumerate(predict_data)}
-        success_count, failure_count = 0, 0
+    success_count, failure_count = 0, 0
 
-        with tqdm(total=len(predict_data), desc="Inference Progress", unit="item") as pbar:
-            while futures:
-                done, not_done = wait(futures, return_when=FIRST_COMPLETED)
-                for future in done:
-                    index = futures.pop(future)  # Get the index and remove from dict
-                    result = future.result()
-                    res_dict[index] = result
-                    pbar.update(1)
-                    if future.result() != "":
-                        success_count += 1
-                    else:
-                        failure_count += 1
-                futures = not_done
-        print(f"Successful inferences: {success_count}, Failed inferences: {failure_count}")
-        res = [res_dict[i] for i in range(len(predict_data))]
-    return res
+    # Initialization outside the executor
+    pbar = tqdm(total=len(predict_data), desc="Inference Progress", unit="item")
+
+    with ThreadPoolExecutor(max_workers=num_threads) as executor:
+        futures = {executor.submit(inference_worker, model, item, input_kwargs): i for i, item in enumerate(predict_data)}
+
+        # Use 'as_completed' for smoother progress bar updates
+        for future in tqdm(as_completed(futures, timeout=1800), total=len(futures), desc="Inference Progress", unit="item"):
+            index = futures[future]
+            result = future.result()
+            res_dict[index] = result
+
+            if result != "":
+                success_count += 1
+            else:
+                failure_count += 1
+
+    print(f"Successful inferences: {success_count}, Failed inferences: {failure_count}")
+    return [res_dict[i] for i in range(len(predict_data))]
 
 
 def inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):

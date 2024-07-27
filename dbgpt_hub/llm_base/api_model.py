@@ -46,7 +46,7 @@ class GeminiModel:
     def _generate_sql(self,
                       query,
                       temperature=0.5,
-                      use_flash=False):
+                      use_flash=False, max_retires=3):
         model = self.model2 if use_flash else self.model
         try:
             resp = model.generate_content(query,
@@ -67,7 +67,9 @@ class GeminiModel:
                     "</FINAL_ANSWER>")[0]
         except Exception as e:
             if "Quota exceeded" in str(e):
-                logging.error(str(e))
+                import time
+                time.sleep(8)
+                return self._generate_sql(query, temperature, use_flash)
             else:
                 logging.error(
                     f"SQL generation failed for: {str(e)[:20]} ...")

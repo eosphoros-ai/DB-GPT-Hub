@@ -42,7 +42,7 @@ def inference_worker(model, item, input_kwargs):  # Worker function for a single
         return model.majority_voting(query, cands)
 
 def parallelized_inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
-    num_threads = 10
+    num_threads = 5
     res_dict = {}
     success_count, failure_count = 0, 0
 

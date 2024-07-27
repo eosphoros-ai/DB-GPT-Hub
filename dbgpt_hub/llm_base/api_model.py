@@ -67,7 +67,7 @@ class GeminiModel:
                     "</FINAL_ANSWER>")[0]
         except Exception as e:
             logging.error(
-                f"\n===========\nSQL generation failed for: {str(e)}\n")
+                f"\n===========\nSQL generation failed.")
             return ""
         resp = re.sub(r"ite\s*\n?\s*SELECT", "SELECT", resp)
         resp = re.sub('\s+', ' ', resp).strip()

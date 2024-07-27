@@ -66,8 +66,11 @@ class GeminiModel:
                 resp = resp.split("<FINAL_ANSWER>")[1].split(
                     "</FINAL_ANSWER>")[0]
         except Exception as e:
-            logging.error(
-                f"\n===========\nSQL generation failed.")
+            if "Quota exceeded" in str(e):
+                logging.error(str(e))
+            else:
+                logging.error(
+                    f"SQL generation failed for: {str(e)[:20]} ...")
             return ""
         resp = re.sub(r"ite\s*\n?\s*SELECT", "SELECT", resp)
         resp = re.sub('\s+', ' ', resp).strip()

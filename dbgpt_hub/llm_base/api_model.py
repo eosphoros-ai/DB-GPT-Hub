@@ -119,7 +119,8 @@ class GeminiModel:
             input_str = query[query.find("###Question###"):query.find(
                 "Now generate SQLite SQL query to answer the given")]
             _sql = self._generate_sql(NOT_NULL_TEMPLATE.format(sql=s, question=input_str), use_flash=True)
-            _sql = self._generate_sql(SELECT_FIX_TEMPLATE.format(sql=_sql, question=input_str, schema=context_str))
+            # TODO(yeounoh) - worse accuracy, probably need to do so with fine-tuning.
+            #_sql = self._generate_sql(SELECT_FIX_TEMPLATE.format(sql=_sql, question=input_str, schema=context_str))
             return _sql
 
         def fix_error(s, err):

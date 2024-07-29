@@ -157,7 +157,31 @@ Now generate SQLite SQL query to answer the given "Question".
 Output the SQL query string ONLY.
 """
 
-NOT_NULL_TEMPLATE = """You are a SQLite SQL exeprt.
+DISTINCT_ERROR_TEMPLATE = """You are a SQLite SQL expert.
+
+Your task is to meticulously examine the provided "SQL" query and determine if it requires the `DISTINCT` keyword to accurately answer the given "Question".
+
+***************************
+###SQL query###
+{sql}
+***************************
+###Question###
+{question}
+***************************
+
+Here are some tips to help you make the right decision:
+1. Look at the question and the result and see if the result respects the intent of the question. If the question expects distinct results, but the result is not distinct, then `DISTINCT` is required.
+2. For aggregate functions, like count adding distinct helps in case user is expecting us to not do double counting.
+3. If you think adding `DISTINCT` would not change the result, add it. It is better to add it.
+4. Do not make any assumption about the primary key.
+
+Return the updated SQL query. Make sure that the SQL query is in SQLite dialect.
+If the SQL already satisfies the rules or the rules are not applicable, then just return the original SQL.
+
+Just return the SQL query string.
+"""
+
+NOT_NULL_ERROR_TEMPLATE = """You are a SQLite SQL exeprt.
 
 You have written a SQL query, "SQL", to answer a user question, "Question".
 

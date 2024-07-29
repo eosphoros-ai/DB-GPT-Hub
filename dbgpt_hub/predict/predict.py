@@ -53,7 +53,7 @@ def parallelized_inference(model: ChatModel, predict_data: List[Dict], **input_k
         futures = {executor.submit(inference_worker, model, item, input_kwargs): i for i, item in enumerate(predict_data)}
 
         # Use 'as_completed' for smoother progress bar updates
-        for future in tqdm(as_completed(futures, timeout=1800), total=len(futures), desc="Inference Progress", unit="item"):
+        for future in tqdm(as_completed(futures, timeout=8000), total=len(futures), desc="Inference Progress", unit="item"):
             index = futures[future]
             result = future.result()
             res_dict[index] = result

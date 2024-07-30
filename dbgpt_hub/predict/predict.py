@@ -42,7 +42,7 @@ def inference_worker(model, item, input_kwargs):  # Worker function for a single
         return model.majority_voting(query, cands)
 
 def parallelized_inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
-    num_threads = 5
+    num_threads = 10
     res_dict = {}
     success_count, failure_count = 0, 0
 
@@ -53,7 +53,8 @@ def parallelized_inference(model: ChatModel, predict_data: List[Dict], **input_k
         futures = {executor.submit(inference_worker, model, item, input_kwargs): i for i, item in enumerate(predict_data)}
 
         try:
-            for future in tqdm(as_completed(futures, timeout=8000), total=len(futures), desc="Inference Progress", unit="item"):
+            for future in tqdm(as_completed(futures, timeout=40000 // num_threads),
+                               total=len(futures), desc="Inference Progress", unit="item"):
                 index = futures[future]
                 result = future.result()
                 res_dict[index] = result
@@ -61,6 +62,7 @@ def parallelized_inference(model: ChatModel, predict_data: List[Dict], **input_k
                     success_count += 1
                 else:
                     failure_count += 1
+                pbar.update(1)
         except TimeoutError as e:
             print(e)
     print(f"Successful inferences: {success_count}, Failed inferences: {failure_count}")

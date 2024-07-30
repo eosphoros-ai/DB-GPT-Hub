@@ -52,20 +52,22 @@ def parallelized_inference(model: ChatModel, predict_data: List[Dict], **input_k
     with ThreadPoolExecutor(max_workers=num_threads) as executor:
         futures = {executor.submit(inference_worker, model, item, input_kwargs): i for i, item in enumerate(predict_data)}
 
-        # Use 'as_completed' for smoother progress bar updates
-        for future in tqdm(as_completed(futures, timeout=8000), total=len(futures), desc="Inference Progress", unit="item"):
-            index = futures[future]
-            result = future.result()
-            res_dict[index] = result
-
-            if result != "":
-                success_count += 1
-            else:
-                failure_count += 1
-
+        try:
+            for future in tqdm(as_completed(futures, timeout=8000), total=len(futures), desc="Inference Progress", unit="item"):
+                index = futures[future]
+                result = future.result()
+                res_dict[index] = result
+                if result != "":
+                    success_count += 1
+                else:
+                    failure_count += 1
+        except TimeoutError as e:
+            print(e)
     print(f"Successful inferences: {success_count}, Failed inferences: {failure_count}")
+    for i in range(len(predict_data)):
+        if i not in res_dict:
+            res_dict[i] = ""
     return [res_dict[i] for i in range(len(predict_data))]
-
 
 def inference(model: ChatModel, predict_data: List[Dict], **input_kwargs):
     res = []

@@ -76,6 +76,7 @@ SQL_DATA_INFO = [
         "dev_col_emb_file": "dev_col_emb.pickle",
         "example_store_file": "example_store.pickle",
         "document_store_file": "doc_store.pickle",
+        "column_selection_file": "sqlite_col_selection.csv",
     }
     # ,
     # {

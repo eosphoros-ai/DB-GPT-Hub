@@ -51,6 +51,7 @@ class ProcessSqlData:
         cot_prompt=False,
         column_description=False,
         column_examples=False,
+        use_column_filtering=False,
     ) -> None:
         self.train_file = train_file
         self.dev_file = dev_file
@@ -71,6 +72,7 @@ class ProcessSqlData:
         self.cot_prompt = cot_prompt
         self.column_description = column_description
         self.column_examples = column_examples
+        self.use_column_filtering = use_column_filtering
 
         model_id = "sentence-transformers/sentence-t5-base"
         self.emb_model = SentenceTransformer(model_id)
@@ -346,6 +348,7 @@ class ProcessSqlData:
         output_name,
         example_store_index = None,
         document_store_index = None,
+        column_filtered_schemas = None
     ):
 
         if table_file.endswith(".json"):
@@ -540,6 +543,10 @@ class ProcessSqlData:
                 if self.extra_top_k > 0 and data['difficulty'] != 'simple':
                     schema = extract_k_tables(db_context, data[db_id_name],
                                               self.extra_top_k)
+                if self.use_column_filtering:
+                    if int(data['question_id']) in column_filtered_schemas:
+                        schema = column_filtered_schemas[int(data['question_id'])]
+
                 examples = ""
                 if self.num_examples > 0:
                     if self.synthetic_examples:
@@ -661,6 +668,17 @@ class ProcessSqlData:
                     d_embs = [v[0] for k, v in self.doc_store.items()]
                     dindex.add(np.array(d_embs))
 
+                col_selected_schemas = None
+                if self.use_column_filtering:
+                    column_selection_file = os.path.join(
+                        DATA_PATH, data_info["data_source"],
+                        data_info["column_selection_file"])
+                    import pandas as pd
+                    df = pd.load_csv(column_selection_file)
+                    col_selected_schemas = dict()
+                    for k, v in zip(df['id'], df['col_selection_schema']):
+                        col_selected_schemas[int(k)] = v
+
                 # train_data_file_list = [
                 #     os.path.join(DATA_PATH, data_info["data_source"], file)
                 #     for file in data_info["train_file"]
@@ -703,6 +721,7 @@ class ProcessSqlData:
                         output_name=data_info["output_name"],
                         example_store_index=findex_train,  # use train example store
                         document_store_index=dindex,
+                        column_filtered_schemas=col_selected_schemas,
                     ))
                 with open(self.dev_file, "w", encoding="utf-8") as s:
                     json.dump(dev_data, s, indent=4, ensure_ascii=False)
@@ -750,6 +769,10 @@ if __name__ == "__main__":
     parser.add_argument("--column_description", default=True)
     parser.add_argument("--column_examples", default=True)
 
+    # Enable this to load column filtered schemas
+    # TODO: implement CHESS column filtering components to replace this
+    parser.add_argument("--use_column_filtering", default=False)
+
     args = parser.parse_args()
 
     all_in_one_train_file = os.path.join(DATA_PATH,
@@ -774,5 +797,6 @@ if __name__ == "__main__":
         cot_prompt=bool(int(args.cot_prompt)),
         column_description=bool(int(args.column_description)),
         column_examples=bool(int(args.column_examples)),
+        use_column_filtering=bool(int(args.use_column_filtering)),
     )
     process.create_sft_raw_data()

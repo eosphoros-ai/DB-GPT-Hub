@@ -674,7 +674,7 @@ class ProcessSqlData:
                         DATA_PATH, data_info["data_source"],
                         data_info["column_selection_file"])
                     import pandas as pd
-                    df = pd.load_csv(column_selection_file)
+                    df = pd.read_csv(column_selection_file)
                     col_selected_schemas = dict()
                     for k, v in zip(df['id'], df['col_selection_schema']):
                         col_selected_schemas[int(k)] = v

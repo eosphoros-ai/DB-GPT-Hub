@@ -550,7 +550,7 @@ class ProcessSqlData:
                 examples = ""
                 if self.num_examples > 0:
                     if self.synthetic_examples:
-                        if 'difficulty' in data and data['difficulty'] == 'simple':
+                        if 'difficulty' in data: #and data['difficulty'] == 'simple':
                             if data[db_id_name] not in db_examples:
                                 db_examples[data[db_id_name]] = generate_k_examples(schema, self.num_examples)
                             examples = db_examples[data[db_id_name]]

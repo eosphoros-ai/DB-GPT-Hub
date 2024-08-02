@@ -22,7 +22,7 @@ def result_callback(result):
     exec_result.append(result)
 
 
-def execute_sql(predicted_sql, ground_truth, db_path):
+def execute_sql(predicted_sql, ground_truth, db_path, gt_tied_sql=""):
     conn = sqlite3.connect(db_path)
     # Connect to the database
     cursor = conn.cursor()
@@ -39,13 +39,15 @@ def execute_sql(predicted_sql, ground_truth, db_path):
     if set(predicted_res) == set(ground_truth_res):
         res = 1
         time_ratio = true_exec_time / pred_exec_time if pred_exec_time > 0 else 0
+    if res == 0 and gt_tied_sql != "":
+        return execute_sql(predicted_sql, gt_tied_sql, db_path, "")
     return res, time_ratio
 
 
-def execute_model(predicted_sql, ground_truth, db_place, idx, meta_time_out):
+def execute_model(predicted_sql, ground_truth, db_place, idx, meta_time_out, gt_tied_sql=""):
     try:
         res, time_ratio = func_timeout(
-            meta_time_out, execute_sql, args=(predicted_sql, ground_truth, db_place)
+            meta_time_out, execute_sql, args=(predicted_sql, ground_truth, db_place, gt_tied_sql)
         )
     except KeyboardInterrupt:
         sys.exit(0)
@@ -101,13 +103,15 @@ def package_sqls(sql_path, db_root_path, mode="gpt", data_mode="dev"):
     return clean_sqls, db_path_list
 
 
-def run_sqls_parallel(sqls, db_places, num_cpus=1, meta_time_out=30.0):
+def run_sqls_parallel(sqls, db_places, num_cpus=1, meta_time_out=30.0, gt_tied_queries=None):
     pool = mp.Pool(processes=num_cpus)
     for i, sql_pair in enumerate(sqls):
         predicted_sql, ground_truth = sql_pair
+        if gt_tied_queries:
+            gt_tied_sql = gt_tied_queries[i] if i in gt_tied_queries else ""
         pool.apply_async(
             execute_model,
-            args=(predicted_sql, ground_truth, db_places[i], i, meta_time_out),
+            args=(predicted_sql, ground_truth, db_places[i], i, meta_time_out, gt_tied_sql),
             callback=result_callback,
         )
     pool.close()
@@ -222,6 +226,7 @@ if __name__ == "__main__":
         default="match",
         choices=("all", "exec", "match", "ves"),
     )
+    args_parser.add_argument("--gt_tied_json_path", type=str, default="")
 
     args = args_parser.parse_args()
     exec_result = []
@@ -236,6 +241,12 @@ if __name__ == "__main__":
     gt_queries, db_paths_gt = package_sqls(
         args.ground_truth_path, args.db_root_path, mode="gt", data_mode=args.data_mode
     )
+    # generate gt_tied sqls dict
+    gt_tied_queries = {}
+    if args.gt_tied_json_path:
+      with open(args.gt_tied_json_path, 'r') as f:
+          for tied_item in json.load(f):
+              gt_tied_queries[tied_item["question_id"]] = tied_item["SQL"]
 
     if len(db_paths) == 0:
         db_paths = db_paths_gt
@@ -247,6 +258,7 @@ if __name__ == "__main__":
             db_places=db_paths,
             num_cpus=args.num_cpus,
             meta_time_out=args.meta_time_out,
+            gt_tied_queries=gt_tied_queries,
         )
     else:
         for i, sql_pair in enumerate(query_pairs):

@@ -70,9 +70,15 @@ def extract_alpaca_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:
 
 def extract_sql_prompt_dataset(example: Dict[str, Any]) -> Dict[str, str]:
     if example.get("input", "") != "":
-        prompt_format = SQL_PROMPT_DICT["prompt_input"]
+        #prompt_format = SQL_PROMPT_DICT["prompt_input"]
+        prompt_format = SQL_PROMPT_DICT["prompt_no_prefix"]
     else:
         prompt_format = SQL_PROMPT_DICT["prompt_no_input"]
+
+    # clip if more than 1m tokens
+    s = prompt_format.format(**example)
+    if len(s) >= 1000000:
+        s = s[:999500] + "\n" + example['input']
     return {"input": prompt_format.format(**example)}
 
 
@@ -163,6 +169,9 @@ def load_data(
 
 templates: Dict[str, Template] = {}
 
+def get_template(name: str) -> Template:
+    template = templates.get(name, None)
+    return template
 
 def get_template_and_fix_tokenizer(
     name: str, tokenizer: "PreTrainedTokenizer"

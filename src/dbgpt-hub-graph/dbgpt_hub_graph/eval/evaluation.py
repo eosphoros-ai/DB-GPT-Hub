@@ -42,15 +42,17 @@ def evaluate(gold, predict, etype, impl):
         GrammarEvaluator = getattr(m, "GrammarEvaluator")
         evaluator = GrammarEvaluator()
 
-
+    total = 0
     for i in range(len(gseq_one)):
         score = evaluator.evaluate(pseq_one[i], gseq_one[i])
-        score_total += score
+        if score != -1:
+            score_total += score
+            total += 1
         # print(score)
         # print(pseq_one[i])
         # print(gseq_one[i])
         # print("--------------------------------------")
-    print(score_total / len(gseq_one))
+    print(score_total / total)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -76,7 +78,7 @@ if __name__ == "__main__":
         "--impl",
         dest="impl",
         type=str,
-        default="tugraph-db",
+        default="tugraph_db",
         help="implementation folder for grammar evaluator",
     )
     args = parser.parse_args()

@@ -22,7 +22,6 @@ src/dbgpt-hub-gql/codellama/*
 !src/dbgpt-hub-sql/dbgpt_hub_sql/data/dataset_info.json
 !src/dbgpt-hub-sql/dbgpt_hub_sql/data/example_text2sql.json
 !src/dbgpt-hub-gql/dbgpt_hub_gql/data/tugraph-analytics
-!src/dbgpt-hub-gql/dbgpt_hub_gql/data/eval_data/
 !src/dbgpt-hub-gql/dbgpt_hub_gql/data/dataset_info.json
 !src/dbgpt-hub-gql/dbgpt_hub_gql/data/example_text2sql.json
 

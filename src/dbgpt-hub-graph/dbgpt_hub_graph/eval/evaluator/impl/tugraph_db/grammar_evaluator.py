@@ -1,8 +1,8 @@
 import jaro
 import antlr4
 from antlr4 import *
-from evaluator.impl.tugraph_db.Gql.GqlLexer import GqlLexer
-from evaluator.impl.tugraph_db.Gql.GqlParser import GqlParser
+from evaluator.impl.tugraph_db.LcypherLexer import LcypherLexer
+from evaluator.impl.tugraph_db.LcypherParser import LcypherParser
 from antlr4.error.ErrorListener import ErrorListener
 
 class MyErrorListener(ErrorListener):
@@ -16,25 +16,25 @@ class GrammarEvaluator:
         error_listener = MyErrorListener()
         try:
             input_stream = InputStream(query_gold)
-            lexer = GqlLexer(input_stream)
+            lexer = LcypherLexer(input_stream)
             lexer.removeErrorListeners()
             lexer.addErrorListener(error_listener)
             stream = CommonTokenStream(lexer)
-            parser = GqlParser(stream)
+            parser = LcypherParser(stream)
             parser.removeErrorListeners()
             parser.addErrorListener(error_listener)
-            tree = parser.gqlRequest()  # 开始规则
+            tree = parser.oC_Cypher()  # 开始规则
             # print(tree.toStringTree(recog=parser))  # 打印解析树
             try:
                 input_stream = InputStream(query_predict)
-                lexer = GqlLexer(input_stream)
+                lexer = LcypherLexer(input_stream)
                 lexer.removeErrorListeners()
                 lexer.addErrorListener(error_listener)
                 stream = CommonTokenStream(lexer)
-                parser = GqlParser(stream)
+                parser = LcypherParser(stream)
                 parser.removeErrorListeners()
                 parser.addErrorListener(error_listener)
-                tree = parser.gqlRequest()  # 开始规则
+                tree = parser.oC_Cypher()  # 开始规则
                 return 1
             except Exception as e:
                 return 0

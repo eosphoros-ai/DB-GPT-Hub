@@ -17,6 +17,8 @@ src/dbgpt-hub-sql/dbgpt_hub_sql/data/*
 src/dbgpt-hub-gql/dbgpt_hub_gql/data/*
 src/dbgpt-hub-sql/codellama/*
 src/dbgpt-hub-gql/codellama/*
+src/dbgpt-hub-sql/wandb/*
+src/dbgpt-hub-gql/wandb/*
 # But track the data/eval_data folder itself
 !src/dbgpt-hub-sql/dbgpt_hub_sql/data/eval_data/
 !src/dbgpt-hub-sql/dbgpt_hub_sql/data/dataset_info.json

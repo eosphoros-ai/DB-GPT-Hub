@@ -9,7 +9,7 @@ sys.path.append(ROOT_PATH)
 
 from typing import Any, Dict, List, Optional
 
-from dbgpt_hub_graph.configs.config import INPUT_PROMPT, INSTRUCTION_PROMPT
+from dbgpt_hub_gql.configs.config import INPUT_PROMPT, INSTRUCTION_PROMPT
 from tqdm import tqdm
 
 
@@ -18,9 +18,9 @@ class SqlDataProcessor(object):
         self, data_folder: Optional[str] = None, data_info: Optional[List[Dict]] = None
     ) -> Any:
         if data_folder is None:
-            self.data_folder = os.path.join(ROOT_PATH, "dbgpt_hub_graph/data")
+            self.data_folder = os.path.join(ROOT_PATH, "dbgpt_hub_gql/data")
             print(
-                "The user do not provide exact data folder, we take 'dbgpt_hub_graph/data' as the default folder"
+                "The user do not provide exact data folder, we take 'dbgpt_hub_gql/data' as the default folder"
             )
         else:
             self.data_folder = data_folder
@@ -195,7 +195,7 @@ def preprocess_sft_data(
 
 
 if __name__ == "__main__":
-    data_folder = os.path.join(ROOT_PATH, "dbgpt_hub_graph/data")
+    data_folder = os.path.join(ROOT_PATH, "dbgpt_hub_gql/data")
     data_info = [
         {
             "data_source": "spider",

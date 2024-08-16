@@ -79,7 +79,7 @@ class DataArguments:
         },
     )
     dataset_dir: Optional[str] = field(
-        default="dbgpt_hub_graph/data/",
+        default="dbgpt_hub_gql/data/",
         metadata={"help": "The name of the folder containing datasets."},
     )
     cutoff_len: Optional[int] = field(
@@ -163,7 +163,7 @@ class DataArguments:
         },
     )
     predicted_input_filename: Optional[str] = field(
-        default="dbgpt_hub_graph/data/example_text2sql_dev.json",
+        default="dbgpt_hub_gql/data/example_text2sql_dev.json",
         metadata={"help": "Predict input filename to do pred "},
     )
     predicted_out_filename: Optional[str] = field(

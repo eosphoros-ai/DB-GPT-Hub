@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional
 
-from dbgpt_hub_graph.baseline import show_result
+from dbgpt_hub_gql.baseline import show_result
 
 
 def show_scores():

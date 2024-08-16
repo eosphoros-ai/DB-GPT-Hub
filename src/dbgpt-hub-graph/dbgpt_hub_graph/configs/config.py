@@ -11,19 +11,19 @@ DEFAULT_FT_MODEL_NAME = "Baichuan2-13B-Chat"
 MODEL_PATH = os.path.join(MODELS_PARENT_PATH, DEFAULT_FT_MODEL_NAME)
 
 # MODEL_PATH = os.path.join(ROOT_PATH, "model")
-ADAPTER_PATH = os.path.join(ROOT_PATH, "dbgpt_hub_graph/output/adapter")
-MERGED_MODELS = os.path.join(ROOT_PATH, "dbgpt_hub_graph/output/merged_models")
+ADAPTER_PATH = os.path.join(ROOT_PATH, "dbgpt_hub_gql/output/adapter")
+MERGED_MODELS = os.path.join(ROOT_PATH, "dbgpt_hub_gql/output/merged_models")
 
 # DATA_PATH = "/root/autodl-tmp/data/spider/pre_processed_data"
 # OUT_DIR= "/root/autodl-tmp/codellama"
 
-DATA_PATH = os.path.join(ROOT_PATH, "dbgpt_hub_graph/data")
+DATA_PATH = os.path.join(ROOT_PATH, "dbgpt_hub_gql/data")
 PREDICTED_DATA_PATH = os.path.join(
-    ROOT_PATH, "dbgpt_hub_graph/data/eval_data/dev_sql.json"
+    ROOT_PATH, "dbgpt_hub_gql/data/eval_data/dev_sql.json"
 )
 PREDICTED_OUT_FILENAME = "pred_sql.sql"
 # OUT_DIR = os.path.join(DATA_PATH, "out_pred")
-OUT_DIR = os.path.join(ROOT_PATH, "dbgpt_hub_graph/output/")
+OUT_DIR = os.path.join(ROOT_PATH, "dbgpt_hub_gql/output/")
 
 ## model constants
 IGNORE_INDEX = -100

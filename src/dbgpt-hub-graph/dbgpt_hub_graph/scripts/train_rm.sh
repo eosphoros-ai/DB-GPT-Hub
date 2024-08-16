@@ -1,13 +1,13 @@
 wandb offline # Close wandb
 # a100 ,单卡
 current_date=$(date +"%Y%m%d_%H%M")
-train_log="dbgpt_hub_graph/output/logs/train_sft_test_${current_date}.log"
+train_log="dbgpt_hub_gql/output/logs/train_sft_test_${current_date}.log"
 start_time=$(date +%s)
 echo " Train Start time: $(date -d @$start_time +'%Y-%m-%d %H:%M:%S')" >>${train_log}
 
 # the default param set could be run in a server with one a100(40G) gpu, if your server not support the set,you can set smaller param such as  lora_rank and use qlora with quant 4 eg...
-deepspeed --num_gpus 4  dbgpt_hub_graph/train/rm_train.py \
-    --deepspeed dbgpt_hub_graph/configs/ds_config.json \
+deepspeed --num_gpus 4  dbgpt_hub_gql/train/rm_train.py \
+    --deepspeed dbgpt_hub_gql/configs/ds_config.json \
     --stage rm \
     --model_name_or_path /home/CPF/LLM/qwen-7b-chat \
     --do_train \
@@ -19,7 +19,7 @@ deepspeed --num_gpus 4  dbgpt_hub_graph/train/rm_train.py \
     --template chatml \
     --lora_rank 64 \
     --lora_alpha 32 \
-    --output_dir dbgpt_hub_graph/output/adapter/qwen-7b-rm-test \
+    --output_dir dbgpt_hub_gql/output/adapter/qwen-7b-rm-test \
     --overwrite_cache \
     --overwrite_output_dir \
     --per_device_train_batch_size 1 \

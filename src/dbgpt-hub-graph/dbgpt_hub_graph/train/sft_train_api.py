@@ -1,7 +1,7 @@
 import os
 from typing import Any, Dict, Optional
 
-from dbgpt_hub_graph.train import sft_train
+from dbgpt_hub_gql.train import sft_train
 
 
 def start_sft(
@@ -23,7 +23,7 @@ def start_sft(
             "template": "llama2",
             "lora_rank": 64,
             "lora_alpha": 32,
-            "output_dir": "dbgpt_hub_graph/output/adapter/CodeLlama-13b-sql-lora",
+            "output_dir": "dbgpt_hub_gql/output/adapter/CodeLlama-13b-sql-lora",
             "overwrite_cache": True,
             "overwrite_output_dir": True,
             "per_device_train_batch_size": 1,

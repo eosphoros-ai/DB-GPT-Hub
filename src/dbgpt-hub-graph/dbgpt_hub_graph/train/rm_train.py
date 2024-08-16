@@ -5,15 +5,15 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Sequence, Tuple, Un
 
 import numpy as np
 import torch
-from dbgpt_hub_graph.data_process.data_utils import (
+from dbgpt_hub_gql.data_process.data_utils import (
     get_dataset,
     preprocess_dataset,
     split_dataset,
 )
-from dbgpt_hub_graph.llm_base.config_parser import get_train_args
-from dbgpt_hub_graph.llm_base.load_tokenizer import load_model_and_tokenizer
-from dbgpt_hub_graph.llm_base.loggings import LogCallback, get_logger
-from dbgpt_hub_graph.llm_base.model_trainer import plot_loss
+from dbgpt_hub_gql.llm_base.config_parser import get_train_args
+from dbgpt_hub_gql.llm_base.load_tokenizer import load_model_and_tokenizer
+from dbgpt_hub_gql.llm_base.loggings import LogCallback, get_logger
+from dbgpt_hub_gql.llm_base.model_trainer import plot_loss
 from transformers import (
     DataCollatorWithPadding,
     Seq2SeqTrainingArguments,
@@ -27,8 +27,8 @@ from transformers.modeling_utils import custom_object_save, unwrap_model
 from transformers.trainer_utils import PREFIX_CHECKPOINT_DIR, has_length
 
 if TYPE_CHECKING:
-    from dbgpt_hub_graph.configs.data_args import DataArguments
-    from dbgpt_hub_graph.configs.model_args import (
+    from dbgpt_hub_gql.configs.data_args import DataArguments
+    from dbgpt_hub_gql.configs.model_args import (
         FinetuningArguments,
         GeneratingArguments,
         ModelArguments,

@@ -7,8 +7,8 @@ sys.path.append(ROOT_PATH)
 
 from typing import Any, Dict, List, Optional
 
-from dbgpt_hub_graph.data_process.data_utils import extract_sql_prompt_dataset
-from dbgpt_hub_graph.llm_base.chat_model import ChatModel
+from dbgpt_hub_gql.data_process.data_utils import extract_sql_prompt_dataset
+from dbgpt_hub_gql.llm_base.chat_model import ChatModel
 from tqdm import tqdm
 
 

@@ -2,7 +2,7 @@
 from abc import ABC
 
 import pymysql
-from dbgpt_hub_graph.data_process.connections.base_connector import BaseConnector
+from dbgpt_hub_gql.data_process.connections.base_connector import BaseConnector
 
 
 class MySQLConnector(BaseConnector, ABC):

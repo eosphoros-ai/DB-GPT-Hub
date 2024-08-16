@@ -5,16 +5,16 @@ ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fi
 sys.path.append(ROOT_PATH)
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
-from dbgpt_hub_graph.configs.config import IGNORE_INDEX
-from dbgpt_hub_graph.data_process.data_utils import (
+from dbgpt_hub_gql.configs.config import IGNORE_INDEX
+from dbgpt_hub_gql.data_process.data_utils import (
     get_dataset,
     preprocess_dataset,
     split_dataset,
 )
-from dbgpt_hub_graph.llm_base.config_parser import get_train_args
-from dbgpt_hub_graph.llm_base.load_tokenizer import load_model_and_tokenizer
-from dbgpt_hub_graph.llm_base.loggings import LogCallback, get_logger
-from dbgpt_hub_graph.llm_base.model_trainer import (
+from dbgpt_hub_gql.llm_base.config_parser import get_train_args
+from dbgpt_hub_gql.llm_base.load_tokenizer import load_model_and_tokenizer
+from dbgpt_hub_gql.llm_base.loggings import LogCallback, get_logger
+from dbgpt_hub_gql.llm_base.model_trainer import (
     ComputeMetrics,
     Seq2SeqPeftTrainer,
     get_logits_processor,
@@ -23,7 +23,7 @@ from dbgpt_hub_graph.llm_base.model_trainer import (
 from transformers import DataCollatorForSeq2Seq, Seq2SeqTrainingArguments
 
 if TYPE_CHECKING:
-    from dbgpt_hub_graph.configs import (
+    from dbgpt_hub_gql.configs import (
         DataArguments,
         FinetuningArguments,
         GeneratingArguments,

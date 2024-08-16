@@ -1,38 +1,12 @@
 {
-  "example_text2sql_train": {
-    "file_name": "example_text2sql_train.json",
+  "tugraph_analytics_train": {
+    "file_name": "./tugraph-analytics/train.json",
     "columns": {
       "prompt": "instruction",
       "query": "input",
       "response": "output",
       "history": "history"
     }
-  },
-  "example_text2sql_train_one_shot": {
-    "file_name": "example_text2sql_train_one_shot.json",
-    "columns": {
-      "prompt": "instruction",
-      "query": "input",
-      "response": "output",
-      "history": "history"
-    }
-  },
-  "gql_train": {
-    "file_name": "./geaflow/train.json",
-    "columns": {
-      "prompt": "instruction",
-      "query": "input",
-      "response": "output",
-      "history": "history"
-    }
-  },
-  "example_rm_train": {
-    "file_name": "oaast_rm_zh.json",
-    "columns": {
-      "prompt": "instruction",
-      "query": "input",
-      "response": "output",
-      "history": "history"
-    }
+  }
   }
 }

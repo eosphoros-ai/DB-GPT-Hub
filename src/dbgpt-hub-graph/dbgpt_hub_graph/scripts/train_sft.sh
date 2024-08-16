@@ -48,7 +48,7 @@ output_dir="dbgpt_hub_graph/output/adapter/CodeLlama-7b-sql-lora"
 CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_graph/train/sft_train.py \
     --model_name_or_path $model_name_or_path \
     --do_train \
-    --dataset test \
+    --dataset gql_train \
     --max_source_length 1024 \
     --max_target_length 512 \
     --finetuning_type lora \

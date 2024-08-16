@@ -78,7 +78,7 @@ if __name__ == "__main__":
         "--impl",
         dest="impl",
         type=str,
-        default="tugraph_db",
+        default="tugraph-analytics",
         help="implementation folder for grammar evaluator",
     )
     args = parser.parse_args()

@@ -1,7 +1,7 @@
 import os
 from typing import Any, Dict, Optional
 
-from dbgpt_hub_graph.predict import predict
+from dbgpt_hub_gql.predict import predict
 
 
 def start_predict(
@@ -16,9 +16,9 @@ def start_predict(
             "model_name_or_path": "codellama/CodeLlama-13b-Instruct-hf",
             "template": "llama2",
             "finetuning_type": "lora",
-            "checkpoint_dir": "dbgpt_hub_graph/output/adapter/CodeLlama-13b-sql-lora",
-            "predict_file_path": "dbgpt_hub_graph/data/eval_data/dev_sql.json",
-            "predict_out_dir": "dbgpt_hub_graph/output/",
+            "checkpoint_dir": "dbgpt_hub_gql/output/adapter/CodeLlama-13b-sql-lora",
+            "predict_file_path": "dbgpt_hub_gql/data/eval_data/dev_sql.json",
+            "predict_out_dir": "dbgpt_hub_gql/output/",
             "predicted_out_filename": "pred_sql.sql",
         }
     else:

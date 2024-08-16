@@ -36,7 +36,7 @@ from ..configs.data_args import (
 if TYPE_CHECKING:
     pass
 
-from dbgpt_hub_graph.llm_base.loggings import get_logger
+from dbgpt_hub_gql.llm_base.loggings import get_logger
 
 logger = get_logger(__name__)
 

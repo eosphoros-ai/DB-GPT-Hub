@@ -75,7 +75,7 @@ def init_baseline_json():
         json.dump(json_data, file, indent=4)
 
 
-data = pkgutil.get_data("dbgpt_hub_graph", baseline_file)
+data = pkgutil.get_data("dbgpt_hub_gql", baseline_file)
 if data is not None:
     baseline_json = json.loads(data.decode("utf-8"))
 else:
@@ -128,7 +128,7 @@ def show_score(dataset=None, model=None, method=None, prompt=None):
 
 
     Examples
-    >>> from dbgpt_hub_graph.baseline import show_score
+    >>> from dbgpt_hub_gql.baseline import show_score
     >>> show_score(dataset="spider", model="llama2-7b-chat", method="lora", prompt="alpaca")
 
     """
@@ -172,7 +172,7 @@ def show_scores():
 
 
     Examples
-    >>> from dbgpt_hub_graph.baseline import show_scores
+    >>> from dbgpt_hub_gql.baseline import show_scores
     >>> show_scores()
 
     """

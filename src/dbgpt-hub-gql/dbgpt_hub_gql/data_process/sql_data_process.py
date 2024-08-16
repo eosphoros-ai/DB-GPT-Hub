@@ -9,7 +9,7 @@ import jsonlines
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.append(ROOT_PATH)
 
-from dbgpt_hub_graph.configs.config import (
+from dbgpt_hub_gql.configs.config import (
     DATA_PATH,
     INPUT_PROMPT,
     INSTRUCTION_ONE_SHOT_PROMPT,

@@ -6,7 +6,7 @@ from evaluator.evaluator import Evaluator
 from evaluator.similarity_evaluator import SimilarityEvaluator
 
 def evaluate(gold, predict, etype, impl):
-    log_file = open("detail.log", "w")
+    # log_file = open("detail.log", "w")
 
     with open(gold) as f:
         gseq_one = []

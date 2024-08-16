@@ -17,8 +17,8 @@
       "history": "history"
     }
   },
-  "test": {
-    "file_name": "test.json",
+  "gql_train": {
+    "file_name": "./geaflow/train.json",
     "columns": {
       "prompt": "instruction",
       "query": "input",

@@ -9,9 +9,9 @@ CUDA_VISIBLE_DEVICES=0,1  python dbgpt_hub_graph/predict/predict.py \
     --model_name_or_path codellama/CodeLlama-7b-Instruct-hf \
     --template llama2 \
     --finetuning_type lora \
-    --predicted_input_filename dbgpt_hub_graph/data/example_text2sql_dev.json \
+    --predicted_input_filename dbgpt_hub_graph/data/geaflow/dev.json \
     --checkpoint_dir dbgpt_hub_graph/output/adapter/CodeLlama-7b-sql-lora \
-    --predicted_out_filename dbgpt_hub_graph/output/pred/pred_codellama7b.sql >> ${pred_log}
+    --predicted_out_filename dbgpt_hub_graph/output/pred/gql_dev.txt >> ${pred_log}
 
 echo "############pred end###############" >>${pred_log}
 echo "pred End time: $(date)" >>${pred_log}

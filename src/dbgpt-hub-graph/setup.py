@@ -51,9 +51,9 @@ init_install_requires()
 excluded_packages = ["tests", "*.tests", "*.tests.*", "examples"]
 
 setup(
-    name="dbgpt-hub-sql",
+    name="dbgpt-hub-gql",
     version="0.3.1",
-    description="DB-GPT-Hub: Text-to-SQL parsing with LLMs",
+    description="DB-GPT-Hub: Text-to-GQL parsing with LLMs",
     packages=find_packages(exclude=excluded_packages),
     install_requires=setup_spec.install_requires,
     extras_require=setup_spec.unique_extras,

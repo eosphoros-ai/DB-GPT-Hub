@@ -30,14 +30,14 @@ ALPACA_PROMPT_DICT = {
 
 SQL_PROMPT_DICT = {
     "prompt_input": (
-        "I want you to act as a SQL terminal in front of an example database, \
-         you need only to return the sql command to me.Below is an instruction that describes a task, \
+        "I want you to act as a GQL terminal in front of an example database, \
+         you need only to return the gql command to me.Below is an instruction that describes a task, \
          Write a response that appropriately completes the request.\n"
         "##Instruction:\n{instruction}\n###Input:\n{input}\n\n###Response:"
     ),
     "prompt_no_input": (
-        "I want you to act as a SQL terminal in front of an example database, \
-        you need only to return the sql command to me.Below is an instruction that describes a task, \
+        "I want you to act as a GQL terminal in front of an example database, \
+        you need only to return the gql command to me.Below is an instruction that describes a task, \
         Write a response that appropriately completes the request.\n"
         "####Instruction:\n{instruction}\n\###Response: "
     ),
@@ -73,7 +73,7 @@ class DataArguments:
         }
     )
     dataset: Optional[str] = field(
-        default="example_text2sql",
+        default="tugraph_db_train",
         metadata={
             "help": "The name of provided dataset(s) to use. Use commas to separate multiple datasets."
         },
@@ -163,11 +163,11 @@ class DataArguments:
         },
     )
     predicted_input_filename: Optional[str] = field(
-        default="dbgpt_hub_gql/data/example_text2sql_dev.json",
+        default="dbgpt_hub_gql/data/tugraph-db/dev.json",
         metadata={"help": "Predict input filename to do pred "},
     )
     predicted_out_filename: Optional[str] = field(
-        default="pred_sql.sql",
+        default="pred_gql.txt",
         metadata={"help": "Filename to save predicted outcomes"},
     )
 

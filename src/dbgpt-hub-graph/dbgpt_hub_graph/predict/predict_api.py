@@ -16,10 +16,10 @@ def start_predict(
             "model_name_or_path": "codellama/CodeLlama-13b-Instruct-hf",
             "template": "llama2",
             "finetuning_type": "lora",
-            "checkpoint_dir": "dbgpt_hub_gql/output/adapter/CodeLlama-13b-sql-lora",
-            "predict_file_path": "dbgpt_hub_gql/data/eval_data/dev_sql.json",
+            "checkpoint_dir": "dbgpt_hub_gql/output/adapter/CodeLlama-13b-gql-lora",
+            "predict_file_path": "dbgpt_hub_gql/data/tugraph-db/dev.json",
             "predict_out_dir": "dbgpt_hub_gql/output/",
-            "predicted_out_filename": "pred_sql.sql",
+            "predicted_out_filename": "pred_gql.txt",
         }
     else:
         args = args

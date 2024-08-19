@@ -15,7 +15,7 @@ def start_sft(
         args = {
             "model_name_or_path": "codellama/CodeLlama-13b-Instruct-hf",
             "do_train": True,
-            "dataset": "example_text2sql_train",
+            "dataset": "tugraph_db_train",
             "max_source_length": 2048,
             "max_target_length": 512,
             "finetuning_type": "lora",
@@ -23,7 +23,7 @@ def start_sft(
             "template": "llama2",
             "lora_rank": 64,
             "lora_alpha": 32,
-            "output_dir": "dbgpt_hub_gql/output/adapter/CodeLlama-13b-sql-lora",
+            "output_dir": "dbgpt_hub_gql/output/adapter/CodeLlama-13b-gql-lora",
             "overwrite_cache": True,
             "overwrite_output_dir": True,
             "per_device_train_batch_size": 1,

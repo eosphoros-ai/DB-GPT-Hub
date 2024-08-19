@@ -2,6 +2,7 @@ import os
 import sys
 import argparse
 import importlib
+import prettytable as pt
 from evaluator.evaluator import Evaluator
 from evaluator.similarity_evaluator import SimilarityEvaluator
 
@@ -29,8 +30,6 @@ def evaluate(gold, predict, etype, impl):
                 else:
                     pseq_one.append(l.strip())
 
-    print(f"gseq_one length  {len(gseq_one)}")
-    print(f"pseq_one length {len(pseq_one)}")
     assert len(gseq_one) == len(pseq_one), "number of predicted queries and gold standard queries must equal"
 
     score_total = 0
@@ -48,11 +47,11 @@ def evaluate(gold, predict, etype, impl):
         if score != -1:
             score_total += score
             total += 1
-        # print(score)
-        # print(pseq_one[i])
-        # print(gseq_one[i])
-        # print("--------------------------------------")
-    print(score_total / total)
+
+    tb = pt.PrettyTable()
+    tb.field_names = ["Evaluation Type", "Total Count", "Accuracy"]
+    tb.add_row([etype, len(gseq_one), "{:.3f}".format(score_total / total)])
+    print(tb)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

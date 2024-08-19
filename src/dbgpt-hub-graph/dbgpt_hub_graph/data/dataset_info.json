@@ -7,5 +7,14 @@
       "response": "output",
       "history": "history"
     }
+  },
+  "tugraph_db_train": {
+    "file_name": "./tugraph-db/train.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "history": "history"
+    }
   }
 }

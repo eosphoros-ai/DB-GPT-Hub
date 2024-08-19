@@ -2,12 +2,14 @@ import os
 import sys
 import argparse
 import importlib
+import json
 import prettytable as pt
 from evaluator.evaluator import Evaluator
 from evaluator.similarity_evaluator import SimilarityEvaluator
 
 def evaluate(gold, predict, etype, impl):
-    # log_file = open("detail.log", "w")
+    log_file = open(f"{os.path.dirname(__file__)}/../output/logs/eval.log", "w")
+    log_lines = []
 
     with open(gold) as f:
         gseq_one = []
@@ -47,6 +49,13 @@ def evaluate(gold, predict, etype, impl):
         if score != -1:
             score_total += score
             total += 1
+            tmp_log = {}
+            tmp_log["pred"] = pseq_one[i]
+            tmp_log["gold"] = gseq_one[i]
+            tmp_log["score"] = score
+            log_lines.append(tmp_log)
+
+    json.dump(log_lines, log_file, ensure_ascii=False, indent=4)
 
     tb = pt.PrettyTable()
     tb.field_names = ["Evaluation Type", "Total Count", "Accuracy"]

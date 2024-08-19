@@ -25,6 +25,20 @@
     <td>0.934</td>
     <td>0.990</td>
   </tr>
+  <tr >
+    <td></td>
+    <td></td>
+    <td>base</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td>tugraph-db</td>
+    <td>CodeLlama-7B-Instruct</td>
+    <td>lora</td>
+    <td>0.901</td>
+    <td>0.892</td>
+  </tr>
 </table>
 
 ## 使用方法

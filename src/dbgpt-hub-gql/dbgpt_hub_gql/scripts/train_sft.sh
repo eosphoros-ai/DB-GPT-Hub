@@ -11,9 +11,10 @@ num_shot=0
 # one-shot train
 # num_shot=1
 
-dataset="tugraph_analytics_train"
+# dataset="tugraph_analytics_train"
+dataset="tugraph_db_train"
 model_name_or_path=${model_name_or_path-"codellama/CodeLlama-7b-Instruct-hf"}
-output_dir="dbgpt_hub_gql/output/adapter/CodeLlama-7b-sql-lora"
+output_dir="dbgpt_hub_gql/output/adapter/CodeLlama-7b-gql-lora"
 
 # the default param set could be run in a server with one V100(16G) gpu
 CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_gql/train/sft_train.py \

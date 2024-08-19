@@ -5,13 +5,21 @@ pred_log="dbgpt_hub_gql/output/logs/pred_test_${current_date}.log"
 start_time=$(date +%s)
 echo " Pred Start time: $(date -d @$start_time +'%Y-%m-%d %H:%M:%S')" >>${pred_log}
 
+# CUDA_VISIBLE_DEVICES=0,1  python dbgpt_hub_gql/predict/predict.py \
+#     --model_name_or_path codellama/CodeLlama-7b-Instruct-hf \
+#     --template llama2 \
+#     --finetuning_type lora \
+#     --predicted_input_filename dbgpt_hub_gql/data/tugraph-analytics/dev.json \
+#     --checkpoint_dir dbgpt_hub_gql/output/adapter/CodeLlama-7b-gql-lora \
+#     --predicted_out_filename dbgpt_hub_gql/output/pred/tugraph_analytics_dev.txt >> ${pred_log}
+
 CUDA_VISIBLE_DEVICES=0,1  python dbgpt_hub_gql/predict/predict.py \
     --model_name_or_path codellama/CodeLlama-7b-Instruct-hf \
     --template llama2 \
     --finetuning_type lora \
-    --predicted_input_filename dbgpt_hub_gql/data/tugraph-analytics/dev.json \
-    --checkpoint_dir dbgpt_hub_gql/output/adapter/CodeLlama-7b-sql-lora \
-    --predicted_out_filename dbgpt_hub_gql/output/pred/tugraph_analytics_dev.txt >> ${pred_log}
+    --predicted_input_filename dbgpt_hub_gql/data/tugraph-db/dev.json \
+    --checkpoint_dir dbgpt_hub_gql/output/adapter/CodeLlama-7b-gql-lora \
+    --predicted_out_filename dbgpt_hub_gql/output/pred/tugraph_db_dev.txt >> ${pred_log}
 
 echo "############pred end###############" >>${pred_log}
 echo "pred End time: $(date)" >>${pred_log}

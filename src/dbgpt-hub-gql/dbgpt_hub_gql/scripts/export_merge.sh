@@ -3,8 +3,8 @@ python dbgpt_hub_gql/train/export_model.py \
     --model_name_or_path codellama/CodeLlama-7b-Instruct-hf \
     --template llama2 \
     --finetuning_type lora \
-    --checkpoint_dir dbgpt_hub_gql/output/adapter/CodeLlama-7b-sql-lora \
-    --output_dir dbgpt_hub_gql/output/codellama-7b-sql-sft \
+    --checkpoint_dir dbgpt_hub_gql/output/adapter/CodeLlama-7b-gql-lora \
+    --output_dir dbgpt_hub_gql/output/codellama-7b-gql-sft \
     --fp16
 
 

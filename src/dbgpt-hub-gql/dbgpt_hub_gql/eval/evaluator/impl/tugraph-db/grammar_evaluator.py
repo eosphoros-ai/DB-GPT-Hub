@@ -9,13 +9,15 @@ sys.path.append(os.path.dirname(__file__))
 from LcypherLexer import LcypherLexer
 from LcypherParser import LcypherParser
 
+
 class MyErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        raise Exception("ERROR: when parsing line %d column %d: %s\n" % \
-                        (line, column, msg))
+        raise Exception(
+            "ERROR: when parsing line %d column %d: %s\n" % (line, column, msg)
+        )
+
 
 class GrammarEvaluator:
-
     def evaluate(self, query_predict, query_gold):
         error_listener = MyErrorListener()
         try:

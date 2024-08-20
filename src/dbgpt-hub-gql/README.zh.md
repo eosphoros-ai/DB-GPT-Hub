@@ -1,6 +1,6 @@
 # DB-GPT-GQL
 
-面向图数据库查询语言的Text-to-SQL
+面向图数据库查询语言的利用LLMs实现Text-to-GQL解析的模块
 
 ## Baseline
 <table style="text-align: center;">

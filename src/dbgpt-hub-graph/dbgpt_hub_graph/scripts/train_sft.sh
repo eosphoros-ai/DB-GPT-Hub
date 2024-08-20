@@ -12,7 +12,8 @@ num_shot=0
 # num_shot=1
 
 # dataset="tugraph_analytics_train"
-dataset="tugraph_db_train"
+# dataset="tugraph_db_train"
+dataset="tugraph_db_example_train"
 model_name_or_path=${model_name_or_path-"codellama/CodeLlama-7b-Instruct-hf"}
 output_dir="dbgpt_hub_gql/output/adapter/CodeLlama-7b-gql-lora"
 

@@ -17,7 +17,7 @@ def start_predict(
             "template": "llama2",
             "finetuning_type": "lora",
             "checkpoint_dir": "dbgpt_hub_gql/output/adapter/CodeLlama-13b-gql-lora",
-            "predict_file_path": "dbgpt_hub_gql/data/tugraph-db/dev.json",
+            "predict_file_path": "dbgpt_hub_gql/data/tugraph-db-example/dev.json",
             "predict_out_dir": "dbgpt_hub_gql/output/",
             "predicted_out_filename": "pred_gql.txt",
         }

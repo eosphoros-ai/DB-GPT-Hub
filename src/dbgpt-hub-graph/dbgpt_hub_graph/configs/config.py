@@ -19,7 +19,7 @@ MERGED_MODELS = os.path.join(ROOT_PATH, "dbgpt_hub_gql/output/merged_models")
 
 DATA_PATH = os.path.join(ROOT_PATH, "dbgpt_hub_gql/data")
 PREDICTED_DATA_PATH = os.path.join(
-    ROOT_PATH, "dbgpt_hub_gql/data/tugraph-db/dev.json"
+    ROOT_PATH, "dbgpt_hub_gql/data/tugraph-db-example/dev.json"
 )
 PREDICTED_OUT_FILENAME = "pred_gql.txt"
 # OUT_DIR = os.path.join(DATA_PATH, "out_pred")

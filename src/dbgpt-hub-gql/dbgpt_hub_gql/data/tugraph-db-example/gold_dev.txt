@@ -1,0 +1,37 @@
+MATCH p=(michael{id:"2654"})-[]->() RETURN p
+MATCH (n)-[e:directed]-(m) RETURN n,e,m
+OPTIONAL MATCH (m:user{id:"662"})<-[:is_friend]-(a:user) RETURN a,m
+MATCH (n)-[e:person_person]-(m) RETURN n,e,m
+MATCH (u:user {login: 'Michael'})-[r:rate]->(m:movie)<-[s:rate]-(v)-[r2:rate]->(m2:movie) WHERE r.stars < 3 AND s.stars < 3 AND r2.stars > 3 RETURN u, m, v, m2
+MATCH (m:person{name:"魏成",introduce:"数学天才，和申玉菲只是形式上的婚姻，申玉菲想通过他的数学能力，解决三体问题"})<-[:person_person]-(a:person) RETURN a,m
+MATCH p=(node{id:"579"})-[]->() RETURN p
+MATCH p=(michael{name:"银河纪元"})-[]->() RETURN p SKIP 10
+MATCH (n)-[e:person_plan]-(m) RETURN n,e,m
+MATCH (m:movie {title: 'Forrest Gump'})<-[:acted_in]-(a:person) RETURN a, m
+MATCH (m:genre{name:"Mystery"})<-[:has_genre]-(a:movie) RETURN a,m
+MATCH (m:movie{title:"Forrest Gump"})<-[:acted_in]-(a:person) RETURN a,m
+RETURN toFloat('11.5')
+MATCH (u:user {login: 'Michael'})-[:is_friend]->(v:user)-[r:rate]->(m:movie) WHERE r.stars > 3 RETURN u, v, m
+MATCH (m:movie{title:"12 Angry Men"})<-[:write]-(a:person) RETURN a,m
+MATCH (n)-[e:directed]-(m) RETURN n,e,m SKIP 1
+MATCH p=(michael{id:"579"})-[]->() RETURN p
+MATCH (n:organization) RETURN n.name,n.name ORDER BY n.name
+MATCH (u:person{name:"弗雷德里克·泰勒"})-[r:person_organization]->(m:organization) RETURN DISTINCT m.name,r
+MATCH (p:movie{id:"1293",title:"Gravity"})-[e]-(neighbor:person) RETURN p,e,neighbor SKIP 7
+MATCH (m:movie{id:"3915"})<-[:rate]-(a:user) RETURN a,m
+MATCH (u:movie{id:"517"})-[r:has_genre]->(m:genre) RETURN DISTINCT m.id,r
+MATCH (a:person {name: 'Laurence Fishburne'}),(e:person {name: 'Carrie-Anne Moss'}) RETURN a.born, e.born, abs(a.born-e.born)
+MATCH (n:person) RETURN n.name ORDER BY n.name SKIP 1 LIMIT 2
+MATCH (n)-[e:has_genre]-(m) RETURN n,e,m
+MATCH (a:person {name: "叶文洁"})-[e1:person_person]->(n)-[e2:person_person]->(b:person) RETURN a,b,n,e1,e2
+MATCH (u:person{id:"2432",name:"Pat Morita"})-[r:write]->(m:movie) RETURN m.tagline,r
+MATCH (p:person {name: "叶文洁"}) SET p.introduce = "清华大学教授、ETO精神领袖、首位和三体人交流的人" RETURN p
+WITH ['Anne', 'John', 'Bill', 'Diane', 'Eve'] AS names RETURN names[1..3] AS result
+MATCH (u:user{id:"187"})-[r:is_friend]->(m:user) RETURN m.id,r
+MATCH (n:person) RETURN n.name AS name UNION ALL MATCH (n:movie) RETURN n.title AS name
+MATCH (n)-[e:person_person]-(m) RETURN n,e,m
+MATCH (u:user {login: 'Michael'})-[:is_friend]->(v:user)-[r:rate]->(m:movie) WHERE r.stars > 3 RETURN u, v, m
+WITH ['one','two','three'] AS coll RETURN coll, head(coll)
+MATCH (u:user {login: 'Michael'})-[r:rate]->(m:movie)<-[s:rate]-(v)-[r2:rate]->(m2:movie) WHERE r.stars < 3 AND s.stars < 3 AND r2.stars > 3 RETURN u, m, v, m2
+MATCH (n)-[e:rate]-(m) RETURN n,e,m
+MATCH p=(michael{id:"1245",name:"Alan Tudyk"})-[]->() RETURN p

@@ -41,6 +41,17 @@
   </tr>
 </table>
 
+## 数据集
+
+### tugraph-analytics
+在当前文档所在的目录下执行以下命令
+```bash
+cd ./dbgpt_hub_gql/data
+wget https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-analytics/tugraph-analytics.zip
+unzip tugraph-analytics.zip
+rm -f ./tugraph-analytics.zip 
+```
+
 ## 使用方法
 
 ### 环境准备

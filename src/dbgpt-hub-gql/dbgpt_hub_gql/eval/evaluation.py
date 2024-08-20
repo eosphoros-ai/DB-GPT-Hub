@@ -94,7 +94,7 @@ if __name__ == "__main__":
     # Print args
     print(f"params as fllows \n {args}")
 
-    # Second, evaluate the predicted SQL queries
+    # Second, evaluate the predicted GQL queries
     evaluate(
         args.gold,
         args.input,

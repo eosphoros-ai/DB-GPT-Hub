@@ -27,8 +27,7 @@ class GrammarEvaluator:
             parser = LcypherParser(stream)
             parser.removeErrorListeners()
             parser.addErrorListener(error_listener)
-            tree = parser.oC_Cypher()  # 开始规则
-            # print(tree.toStringTree(recog=parser))  # 打印解析树
+            tree = parser.oC_Cypher()
             try:
                 input_stream = InputStream(query_predict)
                 lexer = LcypherLexer(input_stream)
@@ -38,11 +37,9 @@ class GrammarEvaluator:
                 parser = LcypherParser(stream)
                 parser.removeErrorListeners()
                 parser.addErrorListener(error_listener)
-                tree = parser.oC_Cypher()  # 开始规则
+                tree = parser.oC_Cypher()
                 return 1
             except Exception as e:
                 return 0
         except Exception as e:
-            # print(query_gold)
-            # print(e)
             return -1

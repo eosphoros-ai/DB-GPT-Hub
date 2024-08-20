@@ -16,5 +16,14 @@
       "response": "output",
       "history": "history"
     }
+  },
+  "tugraph_db_example_train": {
+    "file_name": "./tugraph-db-example/train.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "history": "history"
+    }
   }
 }

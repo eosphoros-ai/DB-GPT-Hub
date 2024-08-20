@@ -73,7 +73,7 @@ class DataArguments:
         }
     )
     dataset: Optional[str] = field(
-        default="tugraph_db_train",
+        default="tugraph_db_example_train",
         metadata={
             "help": "The name of provided dataset(s) to use. Use commas to separate multiple datasets."
         },
@@ -163,7 +163,7 @@ class DataArguments:
         },
     )
     predicted_input_filename: Optional[str] = field(
-        default="dbgpt_hub_gql/data/tugraph-db/dev.json",
+        default="dbgpt_hub_gql/data/tugraph-db-example/dev.json",
         metadata={"help": "Predict input filename to do pred "},
     )
     predicted_out_filename: Optional[str] = field(

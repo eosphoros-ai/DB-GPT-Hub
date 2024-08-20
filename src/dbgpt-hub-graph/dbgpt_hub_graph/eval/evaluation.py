@@ -7,6 +7,7 @@ import prettytable as pt
 from evaluator.evaluator import Evaluator
 from evaluator.similarity_evaluator import SimilarityEvaluator
 
+
 def evaluate(gold, predict, etype, impl):
     log_file = open(f"{os.path.dirname(__file__)}/../output/logs/eval.log", "w")
     log_lines = []
@@ -20,19 +21,20 @@ def evaluate(gold, predict, etype, impl):
             else:
                 gseq_one.append(l.strip())
 
-    
     with open(predict) as f:
         plist = []
         pseq_one = []
         for l in f.readlines():
-                if len(l.strip()) == 0:
-                    # when some predict is none, support it can continue work
-                    pseq_one.append("no out")
+            if len(l.strip()) == 0:
+                # when some predict is none, support it can continue work
+                pseq_one.append("no out")
 
-                else:
-                    pseq_one.append(l.strip())
+            else:
+                pseq_one.append(l.strip())
 
-    assert len(gseq_one) == len(pseq_one), "number of predicted queries and gold standard queries must equal"
+    assert len(gseq_one) == len(
+        pseq_one
+    ), "number of predicted queries and gold standard queries must equal"
 
     score_total = 0
     if etype == "similarity":
@@ -61,6 +63,7 @@ def evaluate(gold, predict, etype, impl):
     tb.field_names = ["Evaluation Type", "Total Count", "Accuracy"]
     tb.add_row([etype, len(gseq_one), "{:.3f}".format(score_total / total)])
     print(tb)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -95,9 +98,4 @@ if __name__ == "__main__":
     print(f"params as fllows \n {args}")
 
     # Second, evaluate the predicted GQL queries
-    evaluate(
-        args.gold,
-        args.input,
-        args.etype,
-        args.impl
-    )
+    evaluate(args.gold, args.input, args.etype, args.impl)

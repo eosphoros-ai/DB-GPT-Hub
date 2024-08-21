@@ -1,6 +1,10 @@
 # DB-GPT-GQL
 
-面向图数据库查询语言的利用LLMs实现Text-to-GQL解析的模块
+DB-GPT-GQL是一个面向图数据库查询语言的，利用LLMs实现Text-to-GQL翻译的模块。主要包含模型微调、Text-to-GQL推理，推理结果评估等步骤。关系型数据库领域的Text-to-SQL翻译任务发展至如今已经拥有了大量的数据集以及多维度的翻译结果评估流程。不同于已经逐渐成熟的Text-to-SQL翻译任务，Text-to-GQL翻译任务由于图查询语言缺乏统一规范、目标成为国际标准的ISOGQL尚未真正落地等原因，使得建立属于各类图查询语言的完整语料数据集和建立Text-to-GQL翻译结果评估机制成为了两个颇具挑战性的任务。
+
+DB-GPT-GQL不仅支持了基于多个大模型的微调、推理流程，在翻译结果评估方面也提供了两种评估方式，第一种是基于翻译结果与标准答案之间近似程度的文本相似度评估，这一评估方式适用于任何图查询语言，第二种则是基于不同图查询语言的语法解析器对翻译结果进行语法解析的语法正确性评估，目前已支持tugraph-db与tugraph-analytics两个数据库的图查询语言。
+
+未来DB-GPT-GQL将会实现基于翻译结果的执行计划正确性评估（不需要实际数据），以及更进一步的执行正确性评估（需要实际数据），并参考Text-to-SQL领域的spider数据集中的方法实现对数据集中查询语言复杂程度的分级。
 
 ## Baseline
 <table style="text-align: center;">
@@ -19,11 +23,11 @@
     <td>0</td>
   </tr>
   <tr>
-    <td>tugraph-analytics</td>
+    <td>tugraph-db</td>
     <td>CodeLlama-7B-Instruct</td>
     <td>lora</td>
-    <td>0.934</td>
-    <td>0.990</td>
+    <td>0.901</td>
+    <td>0.892</td>
   </tr>
   <tr >
     <td></td>
@@ -33,11 +37,11 @@
     <td>0</td>
   </tr>
   <tr>
-    <td>tugraph-db</td>
+    <td>tugraph-analytics</td>
     <td>CodeLlama-7B-Instruct</td>
     <td>lora</td>
-    <td>0.901</td>
-    <td>0.892</td>
+    <td>0.934</td>
+    <td>0.990</td>
   </tr>
 </table>
 

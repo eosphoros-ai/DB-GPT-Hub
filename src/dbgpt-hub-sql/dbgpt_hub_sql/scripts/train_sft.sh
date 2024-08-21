@@ -15,41 +15,15 @@ dataset="example_text2sql_train"
 if [ "$num_shot" -eq 1 ]; then
     dataset="example_text2sql_train_one_shot"
 fi
-model_name_or_path=${model_name_or_path-"codellama/CodeLlama-7b-Instruct-hf"}
-output_dir="dbgpt_hub_sql/output/adapter/CodeLlama-7b-sql-lora"
+model_name_or_path=${model_name_or_path-"codellama/CodeLlama-13b-Instruct-hf"}
+output_dir="dbgpt_hub_sql/output/adapter/CodeLlama-13b-sql-lora"
 
-# the default param set could be run in a server with one a100(40G) gpu, if your server not support the set,you can set smaller param such as  lora_rank and use qlora with quant 4 eg...
-# CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_sql/train/sft_train.py \
-#     --model_name_or_path $model_name_or_path \
-#     --do_train \
-#     --dataset $dataset \
-#     --max_source_length 2048 \
-#     --max_target_length 512 \
-#     --finetuning_type lora \
-#     --lora_target q_proj,v_proj \
-#     --template llama2 \
-#     --lora_rank 64 \
-#     --lora_alpha 32 \
-#     --output_dir $output_dir \
-#     --overwrite_cache \
-#     --overwrite_output_dir \
-#     --per_device_train_batch_size 1 \
-#     --gradient_accumulation_steps 16 \
-#     --lr_scheduler_type cosine_with_restarts \
-#     --logging_steps 50 \
-#     --save_steps 2000 \
-#     --learning_rate 2e-4 \
-#     --num_train_epochs 8 \
-#     --plot_loss \
-#     --bf16  >> ${train_log}
-#     # --bf16#v100不支持bf16
-
-# param set for V100
+the default param set could be run in a server with one a100(40G) gpu, if your server not support the set,you can set smaller param such as  lora_rank and use qlora with quant 4 eg...
 CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_sql/train/sft_train.py \
     --model_name_or_path $model_name_or_path \
     --do_train \
     --dataset $dataset \
-    --max_source_length 1024 \
+    --max_source_length 2048 \
     --max_target_length 512 \
     --finetuning_type lora \
     --lora_target q_proj,v_proj \
@@ -67,7 +41,7 @@ CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_sql/train/sft_train.py \
     --learning_rate 2e-4 \
     --num_train_epochs 8 \
     --plot_loss \
-    --fp16 >> ${train_log}
+    --bf16  >> ${train_log}
     # --bf16#v100不支持bf16
     
 echo "############train end###############" >>${train_log}

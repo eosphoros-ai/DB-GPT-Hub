@@ -18,7 +18,7 @@ fi
 model_name_or_path=${model_name_or_path-"codellama/CodeLlama-13b-Instruct-hf"}
 output_dir="dbgpt_hub_sql/output/adapter/CodeLlama-13b-sql-lora"
 
-the default param set could be run in a server with one a100(40G) gpu, if your server not support the set,you can set smaller param such as  lora_rank and use qlora with quant 4 eg...
+# the default param set could be run in a server with one a100(40G) gpu, if your server not support the set,you can set smaller param such as  lora_rank and use qlora with quant 4 eg...
 CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_sql/train/sft_train.py \
     --model_name_or_path $model_name_or_path \
     --do_train \

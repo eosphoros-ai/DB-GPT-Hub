@@ -1,10 +1,10 @@
 # llama2 series
 python dbgpt_hub_sql/train/export_model.py \
-    --model_name_or_path codellama/CodeLlama-7b-Instruct-hf \
+    --model_name_or_path /home/LLM/CodeLlama-13b-Instruct-hf \
     --template llama2 \
     --finetuning_type lora \
-    --checkpoint_dir dbgpt_hub_sql/output/adapter/CodeLlama-7b-sql-lora \
-    --output_dir dbgpt_hub_sql/output/codellama-7b-sql-sft \
+    --checkpoint_dir dbgpt_hub_sql/output/adapter/CodeLlama-13b-sql-lora \
+    --output_dir dbgpt_hub_sql/output/codellama-13b-sql-sft \
     --fp16
 
 

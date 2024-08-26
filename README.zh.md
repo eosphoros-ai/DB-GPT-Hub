@@ -24,8 +24,15 @@
 
 
 [**英文**](README.md) | [**Discord**](https://discord.gg/7uQnPuveTY) | [**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC) | [**Huggingface**](https://huggingface.co/eosphoros) | [**Community**](https://github.com/eosphoros-ai/community)
+
+
+[**Text2SQL**](README.zh.md) | [**Text2GQL**](src/dbgpt-hub-gql/README.zh.md) | [**Text2NLU**](src/dbgpt-hub-nlu/README.zh.md)
 </div>
 
+
+## 🔥🔥🔥 News
+- 支持 [Text2NLU](src/dbgpt-hub-nlu/README.zh.md)微调,提升自然语言理解准确率。
+- 支持 [Text2GQL](src/dbgpt-hub-gql/README.zh.md)微调,可以通过自然语言生成图查询语句。
 
 ## Baseline
 - 更新日期: 2023/12/08

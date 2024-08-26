@@ -25,7 +25,16 @@
 
 
 [**简体中文**](README.zh.md) | [**Discord**](https://discord.gg/7uQnPuveTY) | [**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC) | [**Huggingface**](https://huggingface.co/eosphoros) | [**Community**](https://github.com/eosphoros-ai/community)
+
+
+[**Text2SQL**](README.zh.md) | [**Text2GQL**](src/dbgpt-hub-gql/README.zh.md) | [**Text2NLU**](src/dbgpt-hub-nlu/README.zh.md)
+
 </div>
+
+
+## 🔥🔥🔥 News
+- Support [Text2NLU](src/dbgpt-hub-nlu/README.zh.md) fine-tuning to improve semantic understanding accuracy.
+- Support [Text2GQL](src/dbgpt-hub-gql/README.zh.md) fine-tuning to generate graph query.
 
 ## Baseline
 - update time: 2023/12/08

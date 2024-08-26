@@ -14,18 +14,35 @@ data/eval
 output_pred/
 wandb/
 src/dbgpt-hub-sql/dbgpt_hub_sql/data/*
+src/dbgpt-hub-gql/dbgpt_hub_gql/data/*
+src/dbgpt-hub-sql/codellama/*
+src/dbgpt-hub-gql/codellama/*
+src/dbgpt-hub-sql/wandb/*
+src/dbgpt-hub-gql/wandb/*
 # But track the data/eval_data folder itself
 !src/dbgpt-hub-sql/dbgpt_hub_sql/data/eval_data/
 !src/dbgpt-hub-sql/dbgpt_hub_sql/data/dataset_info.json
 !src/dbgpt-hub-sql/dbgpt_hub_sql/data/example_text2sql.json
+!src/dbgpt-hub-gql/dbgpt_hub_gql/data/tugraph-db-example
+!src/dbgpt-hub-gql/dbgpt_hub_gql/data/dataset_info.json
+!src/dbgpt-hub-gql/dbgpt_hub_gql/data/example_text2sql.json
 
 # Ignore everything under dbgpt_hub_sql/ouput/ except the adapter directory
+src/dbgpt-hub-sql/dbgpt_hub_sql/output/
 src/dbgpt-hub-sql/dbgpt_hub_sql/output/adapter/*
 !src/dbgpt-hub-sql/dbgpt_hub_sql/output/adapter/.gitkeep
 src/dbgpt-hub-sql/dbgpt_hub_sql/output/logs/*
 !src/dbgpt-hub-sql/dbgpt_hub_sql/output/logs/.gitkeep
 src/dbgpt-hub-sql/dbgpt_hub_sql/output/pred/*
 !src/dbgpt-hub-sql/dbgpt_hub_sql/output/pred/.gitkeep
+
+src/dbgpt-hub-gql/dbgpt_hub_gql/output/
+src/dbgpt-hub-gql/dbgpt_hub_gql/output/adapter/*
+!src/dbgpt-hub-gql/dbgpt_hub_gql/output/adapter/.gitkeep
+src/dbgpt-hub-gql/dbgpt_hub_gql/output/logs/*
+!src/dbgpt-hub-gql/dbgpt_hub_gql/output/logs/.gitkeep
+src/dbgpt-hub-gql/dbgpt_hub_gql/output/pred/*
+!src/dbgpt-hub-gql/dbgpt_hub_gql/output/pred/.gitkeep
 
 # Ignore NLU output
 src/dbgpt-hub-nlu/output

@@ -5,6 +5,8 @@ import os.path
 class GrammarEvaluator:
     def __init__(self):
         jvmPath = jpype.getDefaultJVMPath()
+
+        # gql grammar paerser from tugraph-analytics https://github.com/TuGraph-family/tugraph-analytics/tree/master/geaflow/geaflow-dsl/geaflow-dsl-parser/src/main/java/com/antgroup/geaflow/dsl/parser
         jarpath = (
             os.path.dirname(__file__)
             + "/geaflow-dsl-parser-0.5.0-jar-with-dependencies.jar"

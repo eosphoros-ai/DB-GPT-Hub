@@ -30,15 +30,15 @@
     <td></td>
     <td></td>
     <td>base</td>
-    <td>0</td>
-    <td>0</td>
+    <td>0.493</td>
+    <td>0.002</td>
   </tr>
   <tr>
     <td>tugraph-analytics</td>
     <td>CodeLlama-7B-Instruct</td>
     <td>lora</td>
-    <td>0.934</td>
-    <td>0.990</td>
+    <td>0.935</td>
+    <td>0.984</td>
   </tr>
 </table>
 

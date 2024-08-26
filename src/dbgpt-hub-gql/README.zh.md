@@ -7,6 +7,7 @@
 <table style="text-align: center;">
   <tr>
     <th style="text-align: center;">Language</th>
+    <th style="text-align: center;">Dataset</th>
     <th style="text-align: center;">Model</th>
     <th>Method</th>
     <th>Similarity</th>
@@ -15,12 +16,14 @@
   <tr >
     <td></td>
     <td></td>
+    <td></td>
     <td>base</td>
     <td>0</td>
     <td>0</td>
   </tr>
   <tr>
-    <td>tugraph-db-example</td>
+    <td><a href="https://github.com/TuGraph-family/tugraph-db">tugraph-db</a> Cypher</td>
+    <td>./dbgpt_hub_gql/data/tugraph-db-example</td>
     <td>CodeLlama-7B-Instruct</td>
     <td>lora</td>
     <td>0.901</td>
@@ -29,12 +32,14 @@
   <tr >
     <td></td>
     <td></td>
+    <td></td>
     <td>base</td>
     <td>0.493</td>
     <td>0.002</td>
   </tr>
   <tr>
-    <td>tugraph-analytics</td>
+    <td><a href="https://github.com/TuGraph-family/tugraph-analytics">tugraph-analytics</a> GQL</td>
+    <td><a href="https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-analytics/tugraph-analytics.zip">tugraph-analytics GQL数据集</a></td>
     <td>CodeLlama-7B-Instruct</td>
     <td>lora</td>
     <td>0.935</td>
@@ -75,8 +80,6 @@ DB-GPT-GQL不仅支持了基于多个大模型的微调、预测流程，在翻�
 ### 2.1、数据集
 
 本项目样例数据集为`tugraph-db-example`，其中包含tugraph-db提供的，可在tugraph-db上可执行的185条语料，存放在`/dbgpt_hub_gql/data/tugraph-db-example`文件夹中，同时提供下列可下载的数据集：
-
-- [tugraph-db](https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-analytics/tugraph-analytics.zip)： 符合tugraph-db的Cypher语法的数据集，采用“ [语法制导的语料生成策略](https://mp.weixin.qq.com/s/rZdj8TEoHZg_f4C-V4lq2A)”，将查询语言模板结合多样化的schema生成查询语言，并使用大模型泛化与之对应的自然语言问题描述后生成的语料。
 
 - [tugraph-analytics](https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-analytics/tugraph-analytics.zip)： 符合tugraph-analytics的GQL语法的数据集，采用“ [语法制导的语料生成策略](https://mp.weixin.qq.com/s/rZdj8TEoHZg_f4C-V4lq2A)”，将查询语言模板结合多样化的schema生成查询语言，并使用大模型泛化与之对应的自然语言问题描述后生成的语料。
 

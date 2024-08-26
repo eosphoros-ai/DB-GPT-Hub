@@ -2,7 +2,7 @@
 
 ## Baseline
 
-- 更新日期: 2024/08/21
+- 更新日期: 2024/08/26
 
 <table style="text-align: center;">
   <tr>
@@ -18,16 +18,16 @@
     <td></td>
     <td></td>
     <td>base</td>
-    <td>0</td>
-    <td>0</td>
+    <td>0.769</td>
+    <td>0.703</td>
   </tr>
   <tr>
-    <td><a href="https://github.com/TuGraph-family/tugraph-db">tugraph-db</a> Cypher</td>
-    <td>./dbgpt_hub_gql/data/tugraph-db-example</td>
+    <td>Cypher <a href="https://github.com/TuGraph-family/tugraph-db">(tugraph-db)</a></td>
+    <td><a href="https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-db/tugraph-db.zip">TuGraph-DB Cypher数据集</a></td>
     <td>CodeLlama-7B-Instruct</td>
     <td>lora</td>
-    <td>0.901</td>
-    <td>0.892</td>
+    <td>0.928</td>
+    <td>0.946</td>
   </tr>
   <tr >
     <td></td>
@@ -38,8 +38,8 @@
     <td>0.002</td>
   </tr>
   <tr>
-    <td><a href="https://github.com/TuGraph-family/tugraph-analytics">tugraph-analytics</a> GQL</td>
-    <td><a href="https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-analytics/tugraph-analytics.zip">tugraph-analytics GQL数据集</a></td>
+    <td>GQL<a href="https://github.com/TuGraph-family/tugraph-analytics">(tugraph-analytics)</a></td>
+    <td><a href="https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-analytics/tugraph-analytics.zip">TuGraph-Analytics GQL数据集</a></td>
     <td>CodeLlama-7B-Instruct</td>
     <td>lora</td>
     <td>0.935</td>

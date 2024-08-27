@@ -5,6 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
+.gitkeep
 
 # Distribution / packaging
 .Python
@@ -13,21 +14,23 @@ data/spider
 data/eval
 output_pred/
 wandb/
-dbgpt_hub/data/*
+src/dbgpt-hub-sql/dbgpt_hub_sql/data/*
 # But track the data/eval_data folder itself
-!dbgpt_hub/data/eval_data/
-!dbgpt_hub/data/dataset_info.json
-!dbgpt_hub/data/example_text2sql.json
+!src/dbgpt-hub-sql/dbgpt_hub_sql/data/eval_data/
+!src/dbgpt-hub-sql/dbgpt_hub_sql/data/dataset_info.json
+!src/dbgpt-hub-sql/dbgpt_hub_sql/data/example_text2sql.json
 
-# Ignore everything under dbgpt_hub/ouput/ except the adapter directory
-dbgpt_hub/output/adapter/*
-!dbgpt_hub/output/adapter/.gitkeep
-dbgpt_hub/output/logs/*
-!dbgpt_hub/output/logs/.gitkeep
-dbgpt_hub/output/pred/*
-!dbgpt_hub/output/pred/.gitkeep
+# Ignore everything under dbgpt_hub_sql/ouput/ except the adapter directory
+src/dbgpt-hub-sql/dbgpt_hub_sql/output/adapter/*
+!src/dbgpt-hub-sql/dbgpt_hub_sql/output/adapter/.gitkeep
+src/dbgpt-hub-sql/dbgpt_hub_sql/output/logs/*
+!src/dbgpt-hub-sql/dbgpt_hub_sql/output/logs/.gitkeep
+src/dbgpt-hub-sql/dbgpt_hub_sql/output/pred/*
+!src/dbgpt-hub-sql/dbgpt_hub_sql/output/pred/.gitkeep
 
-
+# Ignore NLU output
+src/dbgpt-hub-nlu/output
+src/dbgpt-hub-nlu/data
 
 #
 build/

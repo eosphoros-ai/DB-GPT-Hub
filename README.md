@@ -1,6 +1,5 @@
 # DB-GPT-Hub: Text-to-SQL parsing with LLMs
 
-
 <div align="center">
   <p>
     <a href="https://github.com/eosphoros-ai/DB-GPT">
@@ -25,9 +24,17 @@
 
 
 [**简体中文**](README.zh.md) | [**Discord**](https://discord.gg/7uQnPuveTY) | [**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC) | [**Huggingface**](https://huggingface.co/eosphoros) | [**Community**](https://github.com/eosphoros-ai/community) | [**Paper**](https://arxiv.org/abs/2406.11434)
+
+
+[**Text2SQL**](README.md) | [**Text2NLU**](src/dbgpt-hub-nlu/README.zh.md) 
 </div>
 
+## 🔥🔥🔥 News
+- Support [Text2NLU](src/dbgpt-hub-nlu/README.zh.md) fine-tuning to improve semantic understanding accuracy.
+
 ## Baseline
+
+Text2SQL eval execution accuracy (ex) metric, and we will move this to `src/dbgpt_hub_sql`
 - update time: 2023/12/08
 - metric: execution accuracy (ex)
 - more details refer to [docs/eval-llm-result.md](https://github.com/eosphoros-ai/DB-GPT-Hub/blob/main/docs/eval_llm_result.md)
@@ -381,8 +388,9 @@ git clone https://github.com/eosphoros-ai/DB-GPT-Hub.git
 cd DB-GPT-Hub
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub
-pip install poetry
-poetry install
+
+cd src/dbgpt_hub_sql
+pip install -e .
 ```
 ### 3.2 Quick Start
 
@@ -392,13 +400,13 @@ Firstly, install `dbgpt-hub` with the following command
 
 Then, set up the arguments and run the whole process.
 ```python
-from dbgpt_hub.data_process import preprocess_sft_data
-from dbgpt_hub.train import start_sft
-from dbgpt_hub.predict import start_predict
-from dbgpt_hub.eval import start_evaluate
+from dbgpt_hub_sql.data_process import preprocess_sft_data
+from dbgpt_hub_sql.train import start_sft
+from dbgpt_hub_sql.predict import start_predict
+from dbgpt_hub_sql.eval import start_evaluate
 
 # Config the input datasets
-data_folder = "dbgpt_hub/data"
+data_folder = "dbgpt_hub_sql/data"
 data_info = [
         {
             "data_source": "spider",
@@ -424,7 +432,7 @@ train_args = {
             "template": "llama2",
             "lora_rank": 64,
             "lora_alpha": 32,
-            "output_dir": "dbgpt_hub/output/adapter/CodeLlama-13b-sql-lora",
+            "output_dir": "dbgpt_hub_sql/output/adapter/CodeLlama-13b-sql-lora",
             "overwrite_cache": True,
             "overwrite_output_dir": True,
             "per_device_train_batch_size": 1,
@@ -443,20 +451,20 @@ predict_args = {
             "model_name_or_path": "codellama/CodeLlama-13b-Instruct-hf",
             "template": "llama2",
             "finetuning_type": "lora",
-            "checkpoint_dir": "dbgpt_hub/output/adapter/CodeLlama-13b-sql-lora",
-            "predict_file_path": "dbgpt_hub/data/eval_data/dev_sql.json",
-            "predict_out_dir": "dbgpt_hub/output/",
+            "checkpoint_dir": "dbgpt_hub_sql/output/adapter/CodeLlama-13b-sql-lora",
+            "predict_file_path": "dbgpt_hub_sql/data/eval_data/dev_sql.json",
+            "predict_out_dir": "dbgpt_hub_sql/output/",
             "predicted_out_filename": "pred_sql.sql",
 }
 
 # Config evaluation parameters
 evaluate_args =  {
-            "input": "./dbgpt_hub/output/pred/pred_sql_dev_skeleton.sql",
-            "gold": "./dbgpt_hub/data/eval_data/gold.txt",
-            "gold_natsql": "./dbgpt_hub/data/eval_data/gold_natsql2sql.txt",
-            "db": "./dbgpt_hub/data/spider/database",
-            "table": "./dbgpt_hub/data/eval_data/tables.json",
-            "table_natsql": "./dbgpt_hub/data/eval_data/tables_for_natsql2sql.json",
+            "input": "./dbgpt_hub_sql/output/pred/pred_sql_dev_skeleton.sql",
+            "gold": "./dbgpt_hub_sql/data/eval_data/gold.txt",
+            "gold_natsql": "./dbgpt_hub_sql/data/eval_data/gold_natsql2sql.txt",
+            "db": "./dbgpt_hub_sql/data/spider/database",
+            "table": "./dbgpt_hub_sql/data/eval_data/tables.json",
+            "table_natsql": "./dbgpt_hub_sql/data/eval_data/tables_for_natsql2sql.json",
             "etype": "exec",
             "plug_value": True,
             "keep_distict": False,
@@ -479,15 +487,15 @@ start_evaluate(evaluate_args)
 
 DB-GPT-Hub uses the information matching generation method for data preparation, i.e. the SQL + Repository generation method that combines table information. This method combines data table information to better understand the structure and relationships of the data table, and is suitable for generating SQL statements that meet the requirements.  
 
-Download the [Spider dataset]((https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ)) from the Spider dataset link. By default, after downloading and extracting the data, place it in the dbgpt_hub/data directory, i.e., the path should be `dbgpt_hub/data/spider`.  
+Download the [Spider dataset]((https://drive.google.com/uc?export=download&id=1TqleXec_OykOYFREKKtschzY29dUcVAQ)) from the Spider dataset link. By default, after downloading and extracting the data, place it in the dbgpt_hub_sql/data directory, i.e., the path should be `dbgpt_hub_sql/data/spider`.  
 
 For the data preprocessing part, simply **run the following script** :
 ```bash
 ## generate train and dev(eval) data
-poetry run sh dbgpt_hub/scripts/gen_train_eval_data.sh
+sh dbgpt_hub_sql/scripts/gen_train_eval_data.sh
 ```
 
-In the directory `dbgpt_hub/data/`, you will find the newly generated training file example_text2sql_train.json and testing file example_text2sql_dev.json, containing 8659 and 1034 entries respectively. For the data used in subsequent fine-tuning, set the parameter `file_name` value to the file name of the training set in dbgpt_hub/data/dataset_info.json, such as example_text2sql_train.json
+In the directory `dbgpt_hub_sql/data/`, you will find the newly generated training file example_text2sql_train.json and testing file example_text2sql_dev.json, containing 8659 and 1034 entries respectively. For the data used in subsequent fine-tuning, set the parameter `file_name` value to the file name of the training set in dbgpt_hub_sql/data/dataset_info.json, such as example_text2sql_train.json
 
 
 The data in the generated JSON looks something like this:
@@ -500,7 +508,7 @@ The data in the generated JSON looks something like this:
         "history": []
     }, 
 ```     
-The data processing code of `chase`, `cosql` and `sparc` has been embedded in the data processing code of the project. After downloading the data set according to the above link, you only need to add ` in `dbgpt_hub/configs/config.py` Just loosen the corresponding code comment in SQL_DATA_INFO`.   
+The data processing code of `chase`, `cosql` and `sparc` has been embedded in the data processing code of the project. After downloading the data set according to the above link, you only need to add ` in `dbgpt_hub_sql/configs/config.py` Just loosen the corresponding code comment in SQL_DATA_INFO`.   
 
 ### 3.4. Model fine-tuning
 
@@ -508,35 +516,35 @@ The model fine-tuning supports both LoRA and QLoRA methods. We can run the follo
 Run the command:
 
 ```bash
-poetry run sh dbgpt_hub/scripts/train_sft.sh
+sh dbgpt_hub_sql/scripts/train_sft.sh
 ```
 
-After fine-tuning, the model weights will be saved by default in the adapter folder, specifically in the dbgpt_hub/output/adapter directory.   
+After fine-tuning, the model weights will be saved by default in the adapter folder, specifically in the dbgpt_hub_sql/output/adapter directory.   
 
 If you're using **multi-GPU training and want to utilize deepseed**, you should modify the default content in train_sft.sh. The change  is:
 
 ```
-CUDA_VISIBLE_DEVICES=0 python dbgpt_hub/train/sft_train.py \
+CUDA_VISIBLE_DEVICES=0 python dbgpt_hub_sql/train/sft_train.py \
     --quantization_bit 4 \
     ...
 ```    
 change to ： 
 ```
-deepspeed --num_gpus 2  dbgpt_hub/train/sft_train.py \
-    --deepspeed dbgpt_hub/configs/ds_config.json \
+deepspeed --num_gpus 2  dbgpt_hub_sql/train/sft_train.py \
+    --deepspeed dbgpt_hub_sql/configs/ds_config.json \
     --quantization_bit 4 \
     ...
 ```     
 
 if you need  order card  id   
 ```
-deepspeed --include localhost:0,1  dbgpt_hub/train/sft_train.py \
-    --deepspeed dbgpt_hub/configs/ds_config.json \
+deepspeed --include localhost:0,1  dbgpt_hub_sql/train/sft_train.py \
+    --deepspeed dbgpt_hub_sql/configs/ds_config.json \
     --quantization_bit 4 \
     ...
 ```    
 
-The other parts that are omitted (…) can be kept consistent. If you want to change the default deepseed configuration, go into the `dbgpt_hub/configs` directory and make changes to ds_config.json as needed,the default is stage2.   
+The other parts that are omitted (…) can be kept consistent. If you want to change the default deepseed configuration, go into the `dbgpt_hub_sql/configs` directory and make changes to ds_config.json as needed,the default is stage2.   
 
 In the script, during fine-tuning, different models correspond to key parameters lora_target and template, as shown in the following table:   
 
@@ -563,10 +571,10 @@ In the script, during fine-tuning, different models correspond to key parameters
 
  > quantization_bit: Indicates whether quantization is applied, with valid values being [4 or 8].   
 > model_name_or_path: The path of the LLM (Large Language Model).   
-> dataset: Specifies the name of the training dataset configuration, corresponding to the outer key value in dbgpt_hub/data/dataset_info.json, such as example_text2sql.  
+> dataset: Specifies the name of the training dataset configuration, corresponding to the outer key value in dbgpt_hub_sql/data/dataset_info.json, such as example_text2sql.  
 > max_source_length: The length of the text input into the model. If computing resources allow, it can be set as large as possible, like 1024 or 2048.      
 > max_target_length: The length of the SQL content output by the model; 512 is generally sufficient.   
-> output_dir: The output path of the Peft module during SFT (Supervised Fine-Tuning), set by default to `dbgpt_hub/output/adapter/` .     
+> output_dir: The output path of the Peft module during SFT (Supervised Fine-Tuning), set by default to `dbgpt_hub_sql/output/adapter/` .     
 > per_device_train_batch_size: The size of the batch. If computing resources allow, it can be set larger; the default is 1.   
 > gradient_accumulation_steps: The number of steps for accumulating gradients before an update.   
 > save_steps: The number of steps at which model checkpoints are saved; it can be set to 100 by default.  
@@ -575,10 +583,10 @@ In the script, during fine-tuning, different models correspond to key parameters
 
 ### 3.5. Model Predict
 
-Under the project directory ./dbgpt_hub/output/pred/, this folder is the default output location for model predictions(if not exist, just mkdir).
+Under the project directory ./dbgpt_hub_sql/output/pred/, this folder is the default output location for model predictions(if not exist, just mkdir).
 
 ```bash
-poetry run sh ./dbgpt_hub/scripts/predict_sft.sh
+sh ./dbgpt_hub_sql/scripts/predict_sft.sh
 ```
 
 In the script, by default with the parameter `--quantization_bit`, it predicts using QLoRA. Removing it switches to the LoRA prediction method.
@@ -593,7 +601,7 @@ You can find the second corresponding model weights  from Huggingface [hg-eospho
 If you need to merge the weights of the trained base model and the fine-tuned Peft module to export a complete model, execute the following model export script:   
 
 ```bash
-poetry run sh ./dbgpt_hub/scripts/export_merge.sh
+sh ./dbgpt_hub_sql/scripts/export_merge.sh
 ```
 
 Be sure to replace the parameter path values in the script with the paths corresponding to your project.  
@@ -602,7 +610,7 @@ Be sure to replace the parameter path values in the script with the paths corres
 To evaluate model performance on the dataset, default is spider dev dataset.
 Run the following command:
 ```bash
-poetry run python dbgpt_hub/eval/evaluation.py --plug_value --input Your_model_pred_file
+python dbgpt_hub_sql/eval/evaluation.py --plug_value --input Your_model_pred_file
 ```
 You can find the results of our latest review and part of experiment results [here](docs/eval_llm_result.md)  
 **Note**: The database pointed to by the default code is a 95M database downloaded from [Spider official website] (https://yale-lily.github.io/spider). If you need to use Spider database (size 1.27G) in [test-suite](https://github.com/taoyds/test-suite-sql-eval), please download the database in the link to the custom directory first, and run the above evaluation command which add parameters and values ​​like `--db Your_download_db_path`.
@@ -644,13 +652,13 @@ We warmly invite more individuals to join us and actively engage in various aspe
 
 Before submitting your code, please ensure that it is formatted according to the black style by using the following command: 
 ```
-poetry run black dbgpt_hub
+black dbgpt_hub
 ```
 
 If you have more time to execute more detailed type checking and style checking of your code, please use the following command:
 ```
-poetry run pyright dbgpt_hub
-poetry run pylint dbgpt_hub
+pyright dbgpt_hub
+pylint dbgpt_hub
 ```
 
 If you have any questions or need further assistance, don't hesitate to reach out. We appreciate your involvement!

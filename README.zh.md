@@ -379,8 +379,9 @@ git clone https://github.com/eosphoros-ai/DB-GPT-Hub.git
 cd DB-GPT-Hub
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub
-pip install poetry
-poetry install
+
+cd src/dbgpt_hub_sql
+pip install -e .
 ```
 
 ### 3.2、数据准备
@@ -391,7 +392,7 @@ DB-GPT-Hub使用的是信息匹配生成法进行数据准备，即结合表信�
 数据预处理部分，**只需运行如下脚本**即可：
 ```bash
 ## 生成train数据 和dev(eval)数据,
-poetry run sh dbgpt_hub_sql/scripts/gen_train_eval_data.sh
+sh dbgpt_hub_sql/scripts/gen_train_eval_data.sh
 ```
 在`dbgpt_hub_sql/data/`目录你会得到新生成的训练文件example_text2sql_train.json 和测试文件example_text2sql_dev.json ，数据量分别为8659和1034条。 对于后面微调时的数据使用在dbgpt_hub_sql/data/dataset_info.json中将参数`file_name`值给为训练集的文件名，如example_text2sql_train.json。
 
@@ -504,7 +505,7 @@ start_evaluate(evaluate_args)
 默认QLoRA微调，运行命令：
 
 ```bash
-poetry run sh dbgpt_hub_sql/scripts/train_sft.sh
+sh dbgpt_hub_sql/scripts/train_sft.sh
 ```
 微调后的模型权重会默认保存到adapter文件夹下面，即dbgpt_hub_sql/output/adapter目录中。  
 **如果使用多卡训练，想要用deepseed** ，则将train_sft.sh中默认的内容进行更改，
@@ -571,7 +572,7 @@ deepspeed --include localhost:3,4  dbgpt_hub_sql/train/sft_train.py \
 项目目录下`./dbgpt_hub_sql/`下的`output/pred/`，此文件路径为关于模型预测结果默认输出的位置(如果没有则建上)。   
 预测运行命令：
 ```bash
-poetry run sh ./dbgpt_hub_sql/scripts/predict_sft.sh
+sh ./dbgpt_hub_sql/scripts/predict_sft.sh
 ```   
 脚本中默认带着参数`--quantization_bit `为QLoRA的预测，去掉即为LoRA的预测方式。  
 其中参数`predicted_input_filename`  为要预测的数据集文件， `--predicted_out_filename` 的值为模型预测的结果文件名。默认结果保存在`dbgpt_hub_sql/output/pred`目录。
@@ -583,7 +584,7 @@ poetry run sh ./dbgpt_hub_sql/scripts/predict_sft.sh
 #### 3.5.1 模型和微调权重合并
 如果你需要将训练的基础模型和微调的Peft模块的权重合并，导出一个完整的模型。则运行如下模型导出脚本：  
 ```bash
-poetry run sh ./dbgpt_hub_sql/scripts/export_merge.sh
+sh ./dbgpt_hub_sql/scripts/export_merge.sh
 ```
 注意将脚本中的相关参数路径值替换为你项目所对应的路径。      
 
@@ -593,7 +594,7 @@ poetry run sh ./dbgpt_hub_sql/scripts/export_merge.sh
 运行以下命令来：
 
 ```bash
-poetry run python dbgpt_hub_sql/eval/evaluation.py --plug_value --input  Your_model_pred_file
+python dbgpt_hub_sql/eval/evaluation.py --plug_value --input  Your_model_pred_file
 ```
 你可以在[这里](docs/eval_llm_result.md)找到我们最新的评估和实验结果。
 **注意**： 默认的代码中指向的数据库为从[Spider官方网站](https://yale-lily.github.io/spider)下载的大小为95M的database，如果你需要使用基于Spider的[test-suite](https://github.com/taoyds/test-suite-sql-eval)中的数据库(大小1.27G)，请先下载链接中的数据库到自定义目录，并在上述评估命令中增加参数和值，形如`--db Your_download_db_path`。

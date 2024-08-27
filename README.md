@@ -1,6 +1,5 @@
 # DB-GPT-Hub: Text-to-SQL parsing with LLMs
 
-
 <div align="center">
   <p>
     <a href="https://github.com/eosphoros-ai/DB-GPT">
@@ -25,9 +24,17 @@
 
 
 [**简体中文**](README.zh.md) | [**Discord**](https://discord.gg/7uQnPuveTY) | [**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC) | [**Huggingface**](https://huggingface.co/eosphoros) | [**Community**](https://github.com/eosphoros-ai/community)
+
+[**Text2SQL**](README.md) | [**Text2NLU**](src/dbgpt-hub-nlu/README.zh.md) 
+
 </div>
 
+## 🔥🔥🔥 News
+- Support [Text2NLU](src/dbgpt-hub-nlu/README.zh.md) fine-tuning to improve semantic understanding accuracy.
+
 ## Baseline
+
+Text2SQL eval execution accuracy (ex) metric, and we will move this to `src/dbgpt_hub_sql`
 - update time: 2023/12/08
 - metric: execution accuracy (ex)
 - more details refer to [docs/eval-llm-result.md](https://github.com/eosphoros-ai/DB-GPT-Hub/blob/main/docs/eval_llm_result.md)

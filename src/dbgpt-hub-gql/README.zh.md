@@ -122,17 +122,14 @@ DB-GPT-GQL目前已经支持的base模型有：
 ```bash
 git clone https://github.com/eosphoros-ai/DB-GPT-Hub.git
 cd DB-GPT-Hub
-conda create -n dbgpt_hub python=3.10 
-conda activate dbgpt_hub
-pip install poetry
-poetry install
+conda create -n dbgpt_hub_gql python=3.10 
+conda activate dbgpt_hub_gql
 ```
 
 进入DB-GPT-GQL项目目录，并使用poetry安装依赖
 ```bash
 cd src/dbgpt-hub-gql
-pip install poetry
-poetry install
+pip install -e .
 ```
 
 ### 3.2、模型准备
@@ -185,7 +182,7 @@ output_dir="dbgpt_hub_gql/output/adapter/CodeLlama-7b-gql-lora"
 
 运行微调脚本，开始微调
 ```bash
-poetry run sh dbgpt_hub_gql/scripts/train_sft.sh
+sh dbgpt_hub_gql/scripts/train_sft.sh
 ```
 
 ### 3.4、模型预测
@@ -205,7 +202,7 @@ CUDA_VISIBLE_DEVICES=0,1  python dbgpt_hub_gql/predict/predict.py \
 运行预测脚本，获取预测结果
 
 ```bash
-poetry run sh ./dbgpt_hub_gql/scripts/predict_sft.sh
+sh dbgpt_hub_gql/scripts/predict_sft.sh
 ```
 
 ### 3.5、模型评估
@@ -217,7 +214,7 @@ poetry run sh ./dbgpt_hub_gql/scripts/predict_sft.sh
 文本相似度评估直接统计预测结果与标准结果的Jaro–Winkler distance
 
 ```bash
-poetry run python dbgpt_hub_gql/eval/evaluation.py  --input ./dbgpt_hub_gql/output/pred/tugraph_db_example_dev.txt --gold ./dbgpt_hub_gql/data/tugraph-db-example/gold_dev.txt --etype similarity
+python dbgpt_hub_gql/eval/evaluation.py  --input ./dbgpt_hub_gql/output/pred/tugraph_db_example_dev.txt --gold ./dbgpt_hub_gql/data/tugraph-db-example/gold_dev.txt --etype similarity
 ```
 
 #### 3.5.2、语法正确性评估
@@ -225,7 +222,7 @@ poetry run python dbgpt_hub_gql/eval/evaluation.py  --input ./dbgpt_hub_gql/outp
 `tugraph-db-example`是符合`tugraph-db`的LCypher语法规则的语料数据集，语法正确性评估使用ANTLR4工具，基于`./dbgpt_hub_gql/eval/evaluator/impl/tugraph-db/Lcypher.g4`文件生成了语法解析器，用于评估模型预测结果的语法正确性。
 
 ```bash
-poetry run python dbgpt_hub_gql/eval/evaluation.py  --input ./dbgpt_hub_gql/output/pred/tugraph_db_example_dev.txt --gold ./dbgpt_hub_gql/data/tugraph-db-example/gold_dev.txt --etype grammar --impl tugraph-db
+python dbgpt_hub_gql/eval/evaluation.py  --input ./dbgpt_hub_gql/output/pred/tugraph_db_example_dev.txt --gold ./dbgpt_hub_gql/data/tugraph-db-example/gold_dev.txt --etype grammar --impl tugraph-db
 ```
 
 ### 3.6、模型权重合并
@@ -233,5 +230,5 @@ poetry run python dbgpt_hub_gql/eval/evaluation.py  --input ./dbgpt_hub_gql/outp
 如果你需要将训练的基础模型和微调的Peft模块的权重合并，导出一个完整的模型。则运行如下模型导出脚本：
 
 ```bash
-poetry run sh ./dbgpt_hub_gql/scripts/export_merge.sh
+sh dbgpt_hub_gql/scripts/export_merge.sh
 ```

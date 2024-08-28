@@ -29,6 +29,7 @@
 
 ## 🔥🔥🔥 News
 - 支持 [Text2NLU](src/dbgpt-hub-nlu/README.zh.md) 微调, 提升意图识别准确率。
+- 支持 [Text2GQL](src/dbgpt-hub-gql/README.zh.md)微调,可以通过自然语言生成图查询语句。
 
 ## Baseline
 - 更新日期: 2023/12/08

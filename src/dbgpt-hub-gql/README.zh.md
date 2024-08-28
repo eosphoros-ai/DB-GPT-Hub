@@ -24,7 +24,7 @@
   <tr>
     <td>Cypher <a href="https://github.com/TuGraph-family/tugraph-db">(tugraph-db)</a></td>
     <td><a href="https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-db/tugraph-db.zip">TuGraph-DB Cypher数据集</a></td>
-    <td>CodeLlama-7B-Instruct</td>
+    <td><a href="https://huggingface.co/tugraph/CodeLlama-7b-Cypher-hf/tree/1.0">CodeLlama-7B-Instruct</a></td>
     <td>lora</td>
     <td>0.928</td>
     <td>0.946</td>
@@ -40,7 +40,7 @@
   <tr>
     <td>GQL<a href="https://github.com/TuGraph-family/tugraph-analytics">(tugraph-analytics)</a></td>
     <td><a href="https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-analytics/tugraph-analytics.zip">TuGraph-Analytics GQL数据集</a></td>
-    <td>CodeLlama-7B-Instruct</td>
+    <td><a href="https://huggingface.co/tugraph/CodeLlama-7b-GQL-hf/tree/1.1">CodeLlama-7B-Instruct</a></td>
     <td>lora</td>
     <td>0.935</td>
     <td>0.984</td>

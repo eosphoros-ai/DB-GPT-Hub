@@ -19,7 +19,7 @@ from dbgpt_hub_nlu.model.simple import SimpleIntentClassifier
 from dbgpt_hub_nlu.trainer import NLUTrainer, _load_base_model
 from transformers import HfArgumentParser
 
-sger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     from datasets import Features

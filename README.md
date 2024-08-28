@@ -1,6 +1,5 @@
 # DB-GPT-Hub: Text-to-SQL parsing with LLMs
 
-
 <div align="center">
   <p>
     <a href="https://github.com/eosphoros-ai/DB-GPT">
@@ -24,18 +23,18 @@
   </p>
 
 
+[**简体中文**](README.zh.md) | [**Discord**](https://discord.gg/7uQnPuveTY) | [**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC) | [**Huggingface**](https://huggingface.co/eosphoros) | [**Community**](https://github.com/eosphoros-ai/community) | [**Paper**](https://arxiv.org/abs/2406.11434)
 
-[**简体中文**](README.zh.md) | [**Discord**](https://discord.gg/7uQnPuveTY) | [**Wechat**](https://github.com/eosphoros-ai/DB-GPT/blob/main/README.zh.md#%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC) | [**Huggingface**](https://huggingface.co/eosphoros) | [**Community**](https://github.com/eosphoros-ai/community)
-[**Text2SQL**](README.zh.md) | [**Text2GQL**](src/dbgpt-hub-gql/README.zh.md) | [**Text2NLU**](src/dbgpt-hub-nlu/README.zh.md)
 
+[**Text2SQL**](README.md) | [**Text2NLU**](src/dbgpt-hub-nlu/README.zh.md) 
 </div>
-
 
 ## 🔥🔥🔥 News
 - Support [Text2NLU](src/dbgpt-hub-nlu/README.zh.md) fine-tuning to improve semantic understanding accuracy.
-- Support [Text2GQL](src/dbgpt-hub-gql/README.zh.md) fine-tuning to generate graph query.
 
 ## Baseline
+
+Text2SQL eval execution accuracy (ex) metric, and we will move this to `src/dbgpt_hub_sql`
 - update time: 2023/12/08
 - metric: execution accuracy (ex)
 - more details refer to [docs/eval-llm-result.md](https://github.com/eosphoros-ai/DB-GPT-Hub/blob/main/docs/eval_llm_result.md)
@@ -389,8 +388,9 @@ git clone https://github.com/eosphoros-ai/DB-GPT-Hub.git
 cd DB-GPT-Hub
 conda create -n dbgpt_hub python=3.10 
 conda activate dbgpt_hub
-pip install poetry
-poetry install
+
+cd src/dbgpt_hub_sql
+pip install -e .
 ```
 ### 3.2 Quick Start
 
@@ -492,7 +492,7 @@ Download the [Spider dataset]((https://drive.google.com/uc?export=download&id=1T
 For the data preprocessing part, simply **run the following script** :
 ```bash
 ## generate train and dev(eval) data
-poetry run sh dbgpt_hub_sql/scripts/gen_train_eval_data.sh
+sh dbgpt_hub_sql/scripts/gen_train_eval_data.sh
 ```
 
 In the directory `dbgpt_hub_sql/data/`, you will find the newly generated training file example_text2sql_train.json and testing file example_text2sql_dev.json, containing 8659 and 1034 entries respectively. For the data used in subsequent fine-tuning, set the parameter `file_name` value to the file name of the training set in dbgpt_hub_sql/data/dataset_info.json, such as example_text2sql_train.json
@@ -516,7 +516,7 @@ The model fine-tuning supports both LoRA and QLoRA methods. We can run the follo
 Run the command:
 
 ```bash
-poetry run sh dbgpt_hub_sql/scripts/train_sft.sh
+sh dbgpt_hub_sql/scripts/train_sft.sh
 ```
 
 After fine-tuning, the model weights will be saved by default in the adapter folder, specifically in the dbgpt_hub_sql/output/adapter directory.   
@@ -586,7 +586,7 @@ In the script, during fine-tuning, different models correspond to key parameters
 Under the project directory ./dbgpt_hub_sql/output/pred/, this folder is the default output location for model predictions(if not exist, just mkdir).
 
 ```bash
-poetry run sh ./dbgpt_hub_sql/scripts/predict_sft.sh
+sh ./dbgpt_hub_sql/scripts/predict_sft.sh
 ```
 
 In the script, by default with the parameter `--quantization_bit`, it predicts using QLoRA. Removing it switches to the LoRA prediction method.
@@ -601,7 +601,7 @@ You can find the second corresponding model weights  from Huggingface [hg-eospho
 If you need to merge the weights of the trained base model and the fine-tuned Peft module to export a complete model, execute the following model export script:   
 
 ```bash
-poetry run sh ./dbgpt_hub_sql/scripts/export_merge.sh
+sh ./dbgpt_hub_sql/scripts/export_merge.sh
 ```
 
 Be sure to replace the parameter path values in the script with the paths corresponding to your project.  
@@ -610,7 +610,7 @@ Be sure to replace the parameter path values in the script with the paths corres
 To evaluate model performance on the dataset, default is spider dev dataset.
 Run the following command:
 ```bash
-poetry run python dbgpt_hub_sql/eval/evaluation.py --plug_value --input Your_model_pred_file
+python dbgpt_hub_sql/eval/evaluation.py --plug_value --input Your_model_pred_file
 ```
 You can find the results of our latest review and part of experiment results [here](docs/eval_llm_result.md)  
 **Note**: The database pointed to by the default code is a 95M database downloaded from [Spider official website] (https://yale-lily.github.io/spider). If you need to use Spider database (size 1.27G) in [test-suite](https://github.com/taoyds/test-suite-sql-eval), please download the database in the link to the custom directory first, and run the above evaluation command which add parameters and values ​​like `--db Your_download_db_path`.
@@ -652,13 +652,13 @@ We warmly invite more individuals to join us and actively engage in various aspe
 
 Before submitting your code, please ensure that it is formatted according to the black style by using the following command: 
 ```
-poetry run black dbgpt_hub
+black dbgpt_hub
 ```
 
 If you have more time to execute more detailed type checking and style checking of your code, please use the following command:
 ```
-poetry run pyright dbgpt_hub
-poetry run pylint dbgpt_hub
+pyright dbgpt_hub
+pylint dbgpt_hub
 ```
 
 If you have any questions or need further assistance, don't hesitate to reach out. We appreciate your involvement!

@@ -46,7 +46,11 @@ def _load_dataset(
     def handle_fin_func(batch):
         return {
             "input_ids": batch_sentence_embeddings(
-                batch["text"], tokenizer, model, training_args.device
+                batch["text"],
+                tokenizer,
+                model,
+                training_args.device,
+                batch_size=data_args.preprocess_batch_size,
             ),
             "intent_label_ids": batch["label"],
         }
@@ -113,9 +117,10 @@ def main() -> None:
         base_tokenizer, base_model, data_args, training_args, just_infer=just_infer
     )
     model = _load_model(input_dim, num_classes, training_args.device)
-    trainer = NLUTrainer(dataset, model, training_args)
-    if model_args.model_name_or_path:
-        trainer.load_model(model_args.model_name_or_path)
+    trainer = NLUTrainer(dataset, model, training_args, label_features)
+    if training_args.output_dir:
+        # Load existing checkpoint
+        trainer.load_model(training_args.output_dir)
 
     if training_args.do_train:
         trainer.train()
@@ -128,7 +133,11 @@ def main() -> None:
 
         input_text = infer_args.input_text
         input_ids = batch_sentence_embeddings(
-            [input_text], base_tokenizer, base_model, training_args.device
+            [input_text],
+            base_tokenizer,
+            base_model,
+            training_args.device,
+            batch_size=data_args.preprocess_batch_size,
         )
         trainer.infer(input_ids, label_features)
 

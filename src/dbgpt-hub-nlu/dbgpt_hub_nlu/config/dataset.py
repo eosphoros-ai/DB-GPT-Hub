@@ -13,7 +13,9 @@ class DataArguments:
         default="./datasets",
         metadata={"help": "The name of the folder containing datasets."},
     )
-
+    preprocess_batch_size: int = field(
+        default=8, metadata={"help": "Batch size for data preprocess"}
+    )
     max_train_samples: Optional[int] = field(
         default=None,
         metadata={

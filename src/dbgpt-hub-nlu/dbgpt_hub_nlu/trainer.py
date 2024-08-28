@@ -35,6 +35,7 @@ class NLUTrainer:
         dataset: DatasetDict,
         model,
         training_args: NLUTrainingArguments,
+        label_features,
         model_cls: Optional[Type] = None,
     ):
         self.dataset = dataset
@@ -48,6 +49,7 @@ class NLUTrainer:
             eval_dataset=self.dataset["valid"] if training_args.do_eval else None,
             compute_metrics=compute_metrics,
         )
+        self.label_features = label_features
 
     def load_model(self, model_path: Optional[str] = None):
         if not model_path:
@@ -64,7 +66,9 @@ class NLUTrainer:
 
     def train(self):
         self.trainer.train()
-        self.model.save_pretrained(self.training_args.output_dir)
+        label_features = self.label_features
+        label_dict = {label: i for i, label in enumerate(label_features.names)}
+        self.model.save_pretrained(self.training_args.output_dir, label_dict)
         self.trainer.save_model()
 
     def evaluate(self):
@@ -84,4 +88,4 @@ class NLUTrainer:
             return prediction
 
     def _get_label_features(self):
-        return self.dataset["train"].features["label"]
+        return self.label_features

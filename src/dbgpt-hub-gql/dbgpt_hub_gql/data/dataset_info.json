@@ -1,0 +1,29 @@
+{
+  "tugraph_analytics_train": {
+    "file_name": "./tugraph-analytics/train.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "history": "history"
+    }
+  },
+  "tugraph_db_train": {
+    "file_name": "./tugraph-db/train.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "history": "history"
+    }
+  },
+  "tugraph_db_example_train": {
+    "file_name": "./tugraph-db-example/train.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "history": "history"
+    }
+  }
+}

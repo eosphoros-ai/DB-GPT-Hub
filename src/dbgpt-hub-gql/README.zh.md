@@ -79,9 +79,11 @@ DB-GPT-GQL不仅支持了基于多个大模型的微调、预测流程，在翻�
 
 ### 2.1、数据集
 
-本项目样例数据集为`tugraph-db-example`，其中包含tugraph-db提供的，可在tugraph-db上可执行的185条语料，存放在`/dbgpt_hub_gql/data/tugraph-db-example`文件夹中，同时提供下列可下载的数据集：
+本项目样例数据集为`Cypher(tugraph-db)`，其中包含tugraph-db提供的，可在tugraph-db上可执行的185条语料，存放在`/dbgpt_hub_gql/data/tugraph-db-example`文件夹中，当前可使用的数据集如下：
 
-- [tugraph-analytics](https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-analytics/tugraph-analytics.zip)： 符合tugraph-analytics的GQL语法的数据集，采用“ [语法制导的语料生成策略](https://mp.weixin.qq.com/s/rZdj8TEoHZg_f4C-V4lq2A)”，将查询语言模板结合多样化的schema生成查询语言，并使用大模型泛化与之对应的自然语言问题描述后生成的语料。
+- [Cypher(tugraph-db)](https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-db/tugraph-db.zip)： 符合tugraph-db的Cypher语法的数据集，采用“ [语法制导的语料生成策略](https://mp.weixin.qq.com/s/rZdj8TEoHZg_f4C-V4lq2A)”，将查询语言模板结合多样化的schema生成查询语言，并使用大模型泛化与之对应的自然语言问题描述后生成的语料。[语料生成框架](https://github.com/TuGraph-contrib/Awesome-Text2GQL)现已开源，欢迎参与共建。
+
+- [GQL(tugraph-analytics)](https://tugraph-web.oss-cn-beijing.aliyuncs.com/tugraph/datasets/text2gql/tugraph-analytics/tugraph-analytics.zip)： 符合tugraph-analytics的GQL语法的数据集，采用“ [语法制导的语料生成策略](https://mp.weixin.qq.com/s/rZdj8TEoHZg_f4C-V4lq2A)”，将查询语言模板结合多样化的schema生成查询语言，并使用大模型泛化与之对应的自然语言问题描述后生成的语料。
 
 请将下载并解压完成后的数据集放置在`/dbgpt_hub_gql/data/`目录下使用。
 

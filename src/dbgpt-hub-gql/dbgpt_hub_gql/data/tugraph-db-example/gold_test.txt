@@ -1,0 +1,37 @@
+MATCH (p:time{name:"DX3906星系黑域纪元"})-[e]-(neighbor:time) RETURN p,e,neighbor SKIP 4
+MATCH (n) RETURN n
+MATCH (p:person{name:"托马斯·维德"})-[e]-(neighbor:plan) RETURN p,e,neighbor
+MATCH (m:time{name:"威慑纪元",time:"公元2208年-2270年"})<-[:time_time]-(a:time) RETURN a,m
+OPTIONAL MATCH (p:movie{tagline:"Everything is Connected"})-[e]-(neighbor:genre) RETURN p,e,neighbor
+MATCH (n)-[e:person_person]-(m) RETURN n,e,m
+MATCH (u:person{born:"1965"})-[r:acted_in]->(m:movie) RETURN m.tagline,r
+MATCH (n:person) RETURN n.name ORDER BY n.name SKIP 1 LIMIT 2
+MATCH (m:movie{title:"Beowulf"})<-[:produce]-(a:person) RETURN a,m SKIP 4
+MATCH (n)-[e:person_plan]-(m) RETURN n,e,m
+MATCH (n) RETURN n
+OPTIONAL MATCH p=(michael{id:"1935",title:"The Croods"})-[]->() RETURN p
+MATCH (u:user {login: 'Michael'})-[r:rate]->(m:movie) WHERE r.stars < 3 RETURN m.title, r.stars
+MATCH p=(michael{id:"1105",name:"Hans Matheson"})-[]->() RETURN p
+MATCH p = (laurence {name: 'Laurence Fishburne'})-[:acted_in*2]-(co_actor) RETURN p
+MATCH (p:plan {name: "面壁计划"})-[e]-(neighbor:person) RETURN neighbor,p,e
+MATCH (n)-[e:organization_plan]-(m) RETURN n,e,m
+MATCH (n)-[e:produce]-(m) RETURN n,e,m
+MATCH (u:movie{tagline:"The Legend Ends"})-[r:has_keyword]->(m:keyword) RETURN m.id,r SKIP 1
+MATCH (m:organization{name:"智子"})<-[:organization_organization]-(a:organization) RETURN a,m
+MATCH (u:user {login: 'Michael'})-[r:rate]->(m:movie)<-[s:rate]-(v) WHERE r.stars < 3 AND s.stars < 3 RETURN u, m, v
+MATCH (u:user {login: 'Michael'})-[r:rate]->(m:movie)<-[s:rate]-(v)-[r2:rate]->(m2:movie) WHERE r.stars < 3 AND s.stars < 3 AND r2.stars > 3 RETURN u, m, v, m2
+MATCH (n)-[e:person_organization]-(m) RETURN n,e,m
+MATCH (m:movie {title:'Forrest Gump'})<-[r:rate]-(u:user)-[r2:rate]->(m2:movie) WHERE r.stars>3 AND r2.stars>3 RETURN m, u,m2
+OPTIONAL MATCH (p:time{name:"危机纪元"})-[e]-(neighbor:time) RETURN p,e,neighbor
+MATCH (m:organization{name:"PIA"})<-[:person_organization]-(a:person) RETURN a,m
+MATCH p=(node{id:"579"})-[]->() RETURN p
+MATCH (n:Account{id:4817170722885471951}) RETURN n.createTime as createTime, n.isBlocked as isBlocked, n.type as type
+MATCH (p:organization{name:"PDC"})-[e]-(neighbor:organization) RETURN p,e,neighbor
+OPTIONAL MATCH (m:plan{name:"古筝行动"})<-[:organization_plan]-(a:organization) RETURN a,m
+OPTIONAL MATCH (n:Account{id:177335832397484055})<-[e:transfer]-(m:Account) WHERE e.amount > 0.0 AND e.timestamp > 627020616747 AND e.timestamp < 1669690342640 AND m.isBlocked=true WITH count(m) * 1.0 as numM OPTIONAL MATCH (n:Account{id:177335832397484055})<-[e:transfer]-(m:Account) WITH count(m) as numIn, numM RETURN CASE WHEN numIn = 0 THEN -1 ELSE round(numM / numIn * 1000) / 1000 END as blockRatio
+MATCH (n)-[e:organization_plan]-(m) RETURN n,e,m
+MATCH (a:person {name: "叶文洁"})-[e1:person_person]->(n)<-[e2:person_person]-(b:person {name: "汪淼"}) RETURN a,b,n,e1,e2
+MATCH (matrix:movie {title: 'The Matrix'})-[*0..1]-(x) RETURN x
+OPTIONAL MATCH p=(michael{name:"太阳系",introduce:""})-[]->() RETURN p
+MATCH (p:movie{id:"805",title:"Star Wars: Episode IV - A New Hope"})-[e]-(neighbor:person) RETURN DISTINCT p,e,neighbor
+MATCH (n:person) RETURN DISTINCT n.name,n.id ORDER BY person.id DESC

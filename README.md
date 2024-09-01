@@ -31,6 +31,7 @@
 
 ## 🔥🔥🔥 News
 - Support [Text2NLU](src/dbgpt-hub-nlu/README.zh.md) fine-tuning to improve semantic understanding accuracy.
+- Support [Text2GQL](src/dbgpt-hub-gql/README.zh.md) fine-tuning to generate graph query.
 
 ## Baseline
 

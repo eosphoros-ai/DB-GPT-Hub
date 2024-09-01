@@ -1,0 +1,765 @@
+[
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "找所有name属性值大于或等于'Peter'的节点，并返回这些节点的name 和 born属性值。",
+        "output": "MATCH (a) WHERE a.name >= 'Peter' RETURN a.name, a.born",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "查询姓名为\"量子号\",介绍为\"炮灰\"的组织u具有组织和计划间的关系的计划有哪些?返回m节点的name属性值,边r",
+        "output": "MATCH (u:organization{name:\"量子号\",introduce:\"炮灰\"})-[r:organization_plan]->(m:plan) RETURN m.name,r",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "在图中查找与登录用户名为\"Stewart\"的用户p有关的电影有哪些?返回子图",
+        "output": "MATCH (p:user{id:\"399\",login:\"Stewart\"})-[e]-(neighbor:movie) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查询所有通过has_keyword类型关系连接的节点对n和m,返回对应的n,关键字边,m",
+        "output": "MATCH (n)-[e:has_keyword]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "筛选出name属性值大于或等于'Peter'的节点a，返回节点a的name和born属性值。",
+        "output": "MATCH (a) WHERE a.name >= 'Peter' RETURN a.name, a.born",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "找到数据库中具有euid=0_3937_0_0_0的关系，并返回其相连的节点对。",
+        "output": "MATCH (a)-[r]->(b) WHERE euid(r)=\"0_3937_0_0_0\" RETURN a,b",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "将2.3转为整数后返回，并重命名为integer。",
+        "output": "RETURN toInteger('2.3') AS integer",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "获得与名为\"神迹计划\"的计划p有关的组织有哪些?返回对应的计划,e,组织",
+        "output": "MATCH (p:plan{name:\"神迹计划\"})-[e]-(neighbor:organization) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找图数据库中符合(michael{id:\"1102\",name:\"Jack O'Connell\"})-[]->()模式的节点和关系,将匹配到的路径赋值给变量p,返回匹配的链路p",
+        "output": "MATCH p=(michael{id:\"1102\",name:\"Jack O'Connell\"})-[]->() RETURN p",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "查找具有belt属性值为'white'或belt属性为空的所有节点，并返回这些节点的name、age和belt属性值，同时按照name属性值升序排列返回的结果。",
+        "output": "MATCH (n) WHERE n.belt = 'white' OR n.belt IS NULL RETURN n.name, n.age, n.belt ORDER BY n.name",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "获得名称为\"叶哲泰\",介绍为\"物理学教授,在文革中因为坚持真理被学生打死\"的人相关的计划有哪些?返回m节点的name属性值,边r",
+        "output": "MATCH (u:person{name:\"叶哲泰\",introduce:\"物理学教授,在文革中因为坚持真理被学生打死\"})-[r:person_plan]->(m:plan) RETURN DISTINCT m.name,r",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "查找所有belt属性值为'white' 或belt属性为空的节点，返回这些节点的name、age和belt属性值，按照节点的name属性值升序排列返回的结果。",
+        "output": "MATCH (n) WHERE n.belt = 'white' OR n.belt IS NULL RETURN n.name, n.age, n.belt ORDER BY n.name",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "筛选出名称在字典序上等于或在'Peter'之后的所有节点，返回所有节点的name和born属性值。",
+        "output": "MATCH (a) WHERE a.name >= 'Peter' RETURN a.name, a.born",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "在图中查找流派n,返回n节点的name属性值,n节点的name属性值,同时按照节点的name属性升序排序",
+        "output": "MATCH (n:genre) RETURN n.name,n.name ORDER BY n.name",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "从数据库中查找姓名为\"威慑纪元\",时间为\"公元2208年-2270年\"的时间u具有时间关系的时间有哪些?返回m节点的name属性值,边r",
+        "output": "MATCH (u:time{name:\"威慑纪元\",time:\"公元2208年-2270年\"})-[r:time_time]->(m:time) RETURN m.name,r",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "从数据库中查找与名字为\"关一帆\"的人p有关的人有哪些?返回对应的人,e,人",
+        "output": "MATCH (p:person{name:\"关一帆\"})-[e]-(neighbor:person) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "获得流派id是\"610\"的电影有哪些?返回a节点,m节点",
+        "output": "MATCH (m:genre{id:\"610\"})<-[:has_genre]-(a:movie) RETURN a,m",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "找到\"掩体计划\"的计划m有关的人有哪些?返回节点a,节点m",
+        "output": "MATCH (m:plan{name:\"掩体计划\"})<-[:person_plan]-(a:person) RETURN a,m",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "查找图数据库中,返回节点a的name属性值,并将该值重命名为name,保留前670条数据",
+        "output": "MATCH (a{name:\"蓝星\"}) RETURN a.name AS name LIMIT 670",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找数据库中的关键字n,返回n节点的id属性值,n节点的name属性值,同时按照节点的id属性排序",
+        "output": "MATCH (n:keyword) RETURN n.id,n.name ORDER BY keyword.id",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "将'one','two','three'作为临时结果集coll，返回coll和coll的最后一个元素。",
+        "output": "WITH ['one','two','three'] AS coll RETURN coll, last(coll)",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "找到符合(michael{name:\"叶文洁\",introduce:\"清华大学教授、ETO精神领袖\"})-[]->()模式的节点和关系,将匹配到的路径赋值给变量p,返回匹配的链路p",
+        "output": "MATCH p=(michael{name:\"叶文洁\",introduce:\"清华大学教授、ETO精神领袖\"})-[]->() RETURN p",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "从数据库中查找,返回a节点的name属性值,并将该值重命名为name",
+        "output": "MATCH (a{name:\"人类时代\",time:\"公元1453年-1980年\",important_events:\"叶文洁出生、红岸基地成立\"}) RETURN a.name AS name",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "找到与Laurence Fishburne有两步acted_in关系的共同演员，返回这些路径。",
+        "output": "MATCH p = (laurence {name: 'Laurence Fishburne'})-[:acted_in*2]-(co_actor) RETURN p",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "查询所有通过time_time类型关系连接的节点对n和m,返回对应的n,时间上的关系,m",
+        "output": "MATCH (n)-[e:time_time]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查询Michael讨厌的电影，返回电影的标题和评分。",
+        "output": "MATCH (u:user {login: 'Michael'})-[r:rate]->(m:movie) WHERE r.stars < 3 RETURN m.title, r.stars",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "在图中查找的时间n,返回n节点的important_events属性值,n节点的name属性值,同时按照节点的important_events属性升序排序",
+        "output": "MATCH (n:time) RETURN DISTINCT n.important_events,n.name ORDER BY n.important_events",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "从数据库中查找名称为\"Chiwetel Ejiofor\",出生年份为\"1977\"的人u出版的电影有哪些?返回m节点的tagline属性值,边r",
+        "output": "MATCH (u:person{name:\"Chiwetel Ejiofor\",born:\"1977\"})-[r:produce]->(m:movie) RETURN m.tagline,r",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "创建一个人物节点，其介绍为物理学教授，姓名为bbb，返回此节点。",
+        "output": "CREATE (a:person {introduce: \"物理学教授\", name: \"bbb\"}) RETURN a",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "查找图数据库中姓名为\"二向箔\"的组织u具有组织间的关系的组织有哪些?返回m节点的introduce属性值,边r",
+        "output": "MATCH (u:organization{name:\"二向箔\"})-[r:organization_organization]->(m:organization) RETURN m.introduce,r",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "查找数据库中节点u人\"智子\"人物间关系有哪些?返回有关节点的introduce属性值,边r",
+        "output": "MATCH (u:person{name:\"智子\"})-[r:person_person]->(m:person) RETURN m.introduce,r",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "以可选的方式从数据库中查找与标题为\"The Avengers\"的电影p有关的人有哪些?返回对应的电影,e,人",
+        "output": "OPTIONAL MATCH (p:movie{id:\"2055\",title:\"The Avengers\"})-[e]-(neighbor:person) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查询图数据库中与Michael Douglas有直接出边关系的路径。",
+        "output": "MATCH p = (michael {name: 'Michael Douglas'})-[]->() RETURN p",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "在图中查找与姓名为\"Talia Shire\"的人p有关的电影有哪些?返回子图",
+        "output": "MATCH (p:person{id:\"482\",name:\"Talia Shire\"})-[e]-(neighbor:movie) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "返回数据库中的所有匹配到的节点。",
+        "output": "MATCH (n) RETURN n",
+        "history": []
+    },
+    {
+        "db_id": "finbench",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nfinbench包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "给定一个src账户260083977992279253，在startTime1627020616747=和endTime=1669690342640之间的特定时间范围内，找到从src到dst的所有金额超过阈值的转出（edge），返回转出次数和金额总和。",
+        "output": "MATCH (n:Account{id:260083977992279253}) WITH n MATCH (n)-[e:transfer]->(m:Account) WHERE e.amount > 0.0 AND e.timestamp > 1627020616747 AND e.timestamp < 1669690342640 WITH m.id as dstId, count(e) as numEdges, sum(e.amount) as sumAmount RETURN dstId, numEdges, round(sumAmount * 1000) / 1000 as sumAmount ORDER BY sumAmount DESC, dstId ASC",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "在图中查找所有通过has_keyword类型关系连接的节点对n和m,返回子图",
+        "output": "MATCH (n)-[e:has_keyword]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "找到符合(a)-[r]->(b)关系，过滤条件是 euid(r)的值必须等于0_3937_0_0_0，返回所有符合条件的a,b节点。",
+        "output": "MATCH (a)-[r]->(b) WHERE euid(r)=\"0_3937_0_0_0\" RETURN a,b",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "查找数据库中符合(michael{name:\"申玉菲\"})-[]->()模式的节点和关系,返回匹配的链路p",
+        "output": "MATCH p=(michael{name:\"申玉菲\"})-[]->() RETURN p",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找图数据库中与id为\"2239\"的人p有关的电影有哪些?返回子图",
+        "output": "MATCH (p:person{id:\"2239\"})-[e]-(neighbor:movie) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "在图中查找给标签为\"Meet The Original Force Of Nature\"的电影m打分的用户有哪些?返回a节点,m节点",
+        "output": "MATCH (m:movie{tagline:\"Meet The Original Force Of Nature\"})<-[:rate]-(a:user) RETURN a,m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查询所有参演Forrest Gump电影的演员。",
+        "output": "MATCH (m:movie {title: 'Forrest Gump'})<-[:acted_in]-(a:person) RETURN a, m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "从数据库中查找与标签为\"It was the greatest art heist in history\"的电影p有关的关键字有哪些?返回子图",
+        "output": "MATCH (p:movie{tagline:\"It was the greatest art heist in history\"})-[e]-(neighbor:keyword) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "finbench",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nfinbench包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "查找账户4779452526250437773，在startTime1627020616747=和endTime=1669690342640之间的时间范围内，其他账户向该账户转入金额超过100的转账记录。返回转入的数量和金额总和。",
+        "output": "MATCH (n:Account{id:4779452526250437773})<-[e:transfer]-(m:Account) WHERE e.amount > 100.0 AND e.timestamp > 1627020616747 AND e.timestamp < 1669690342640 WITH m.id as srcId, count(e) as numEdges, sum(e.amount) as sumAmount RETURN srcId, numEdges, round(sumAmount * 1000) / 1000 as sumAmount ORDER BY sumAmount DESC, srcId ASC",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "获得所有通过person_organization类型关系连接的节点对n和m,返回相应的节点和关系",
+        "output": "MATCH (n)-[e:person_organization]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "找到电影The Matrix节点以及与其有直接关系的所有节点，并返回这些节点。",
+        "output": "MATCH (matrix:movie {title: 'The Matrix'})-[*0..1]-(x) RETURN x",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找图数据库中与出生日期为\"1943\"的人p有关的电影有哪些?返回相应的节点和关系",
+        "output": "MATCH (p:person{id:\"483\",name:\"Gianni Russo\",born:\"1943\"})-[e]-(neighbor:movie) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找符合(node{id:\"579\"})-[]->()模式的节点和关系，将匹配到的路径赋值给变量p并返回。",
+        "output": "MATCH p=(node{id:\"579\"})-[]->() RETURN p",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "查询图数据库中名称为Carrie-Anne Moss的节点，并返回该节点的 born 属性值，且将该值重命名为SomethingTotallyDifferent。",
+        "output": "MATCH (a {name: 'Carrie-Anne Moss'}) RETURN a.born AS SomethingTotallyDifferent",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "查找图数据库中符合(michael{name:\"量子号\",introduce:\"炮灰\"})-[]->()模式的节点和关系,返回匹配的链路p",
+        "output": "MATCH p=(michael{name:\"量子号\",introduce:\"炮灰\"})-[]->() RETURN p",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查询与用户u有相似低评分的电影偏好，但对其他电影有高评分的用户。返回相关的用户和电影。",
+        "output": "MATCH (u:user {login: 'Michael'})-[r:rate]->(m:movie)<-[s:rate]-(v)-[r2:rate]->(m2:movie) WHERE r.stars < 3 AND s.stars < 3 AND r2.stars > 3 RETURN u, m, v, m2",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找图数据库中的用户n,返回n节点的id属性值,n节点的id属性值,按照节点的id属性升序排列返回的结果",
+        "output": "MATCH (n:user) RETURN n.id,n.id ORDER BY user.id",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "以可选的方式从数据库中查找所有通过rate类型关系连接的节点对n和m,返回对应的n,打分,m",
+        "output": "OPTIONAL MATCH (n)-[e:rate]-(m) RETURN DISTINCT n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查询图数据库中与Michael Douglas有直接出边关系的路径。",
+        "output": "MATCH p = (michael {name: 'Michael Douglas'})-[]->() RETURN p",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "从数据库中查找,返回节点a的name属性值,并将该值重命名为name",
+        "output": "MATCH (a{name:\"阶梯计划\"}) RETURN a.name AS name",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "节点n,返回n.name,只保留前10项。",
+        "output": "MATCH (n) RETURN n.name LIMIT 10",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "从图数据库中查找所有带有person标签的节点，并按照节点的name属性值排序，跳过第一个结果，返回接下来的两个结果name属性值。",
+        "output": "MATCH (n:person) RETURN n.name ORDER BY n.name SKIP 1 LIMIT 2",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "从数据库中查找,返回a节点的introduce属性值,并将该值重命名为introduce",
+        "output": "MATCH (a{name:\"叶哲泰\"}) RETURN a.introduce AS introduce",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "在图中查找符合(michael{id:\"21\"})-[]->()模式的节点和关系,将匹配到的路径赋值给变量p,返回匹配的链路p",
+        "output": "MATCH p=(michael{id:\"21\"})-[]->() RETURN p",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "找到与Michael Douglas有直接出边关系的所有路径，返回这些路径。",
+        "output": "MATCH p = (michael {name: 'Michael Douglas'})-[]->() RETURN p",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找图数据库中所有通过write类型关系连接的节点对n和m,返回相应的节点和关系",
+        "output": "MATCH (n)-[e:write]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找图数据库中所有通过acted_in类型关系连接的节点对n和m,返回子图",
+        "output": "MATCH (n)-[e:acted_in]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "以可选的方式查找数据库中的电影n,返回n节点的title属性值,n节点的id属性值,同时按照节点的title属性升序排序",
+        "output": "OPTIONAL MATCH (n:movie) RETURN n.title,n.id ORDER BY movie.title",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "找到有关键字id为\"3388\"的关键字模板m的电影有哪些?返回a节点,m节点",
+        "output": "MATCH (m:keyword{id:\"3388\"})<-[:has_keyword]-(a:movie) RETURN a,m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "在图数据库中创建一个带有person标签的新节点，并为该节点设置id属性为2001，name属性值为Anders，完成创建后，返回该节点。",
+        "output": "CREATE (n:person {id:2002, name: 'Andres'}) RETURN n",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找数据库中与名字为\"Paul Norell\"的人p有关的电影有哪些?返回对应的人,e,电影",
+        "output": "MATCH (p:person{id:\"660\",name:\"Paul Norell\"})-[e]-(neighbor:movie) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "创建一个带有person标签的新节点，并为该节点设置id属性为2002和name属性为Anders。创建完成后，返回新节点的详细信息。",
+        "output": "CREATE (n:person {id:2002, name: 'Andres'}) RETURN n",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "从数据库中查找符合(michael{name:\"伊万\",introduce:\"万有引力号维护工程师\"})-[]->()模式的节点和关系,返回匹配的链路p,跳过前3条数据",
+        "output": "MATCH p=(michael{name:\"伊万\",introduce:\"万有引力号维护工程师\"})-[]->() RETURN p SKIP 3",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "从数据库中查找与id为\"610\"的流派p有关的电影有哪些?返回相应的节点和关系",
+        "output": "MATCH (p:genre{id:\"610\"})-[e]-(neighbor:movie) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "从数据库中查找的计划n,返回n节点的content属性值,n节点的content属性值,同时按照节点的content属性降序排序",
+        "output": "MATCH (n:plan) RETURN n.content,n.content ORDER BY n.content DESC",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查询和用户Michael给同一部电影打分小于3星的用户，返回Michael、用户和电影的信息组成的子图。",
+        "output": "MATCH (u:user {login: 'Michael'})-[r:rate]->(m:movie)<-[s:rate]-(v) WHERE r.stars < 3 AND s.stars < 3 RETURN u, m, v",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "从数据库中查找所有通过has_genre类型关系连接的节点对n和m,返回对应的n,流派e,m",
+        "output": "MATCH (n)-[e:has_genre]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "将'Anne', 'John', 'Bill', 'Diane', 'Eve'作为临时结果集names，从names中检索数据，并返回names列表中的第二到四个元素。",
+        "output": "WITH ['Anne', 'John', 'Bill', 'Diane', 'Eve'] AS names RETURN names[1..3] AS result",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "Michael讨厌的电影有哪些？",
+        "output": "MATCH (u:user {login: 'Michael'})-[r:rate]->(m:movie) WHERE r.stars < 3 RETURN m.title, r.stars",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查询谁在电影Forrest Gump中扮演了什么角色，返回人的名字和扮演的角色。",
+        "output": "MATCH (m:movie {title: 'Forrest Gump'})<-[r:acted_in]-(a:person) RETURN a.name,r.role",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "在图中查找所有通过is_friend类型关系连接的节点对n和m,返回子图",
+        "output": "MATCH (n)-[e:is_friend]-(m) RETURN DISTINCT n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "查询边为人物关系的节点和路径。",
+        "output": "MATCH (n)-[e:person_person]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "finbench",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nfinbench包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "首先查找所有向src账户id是243478878511713854转过账的中间账户m，然后找到m的转账对象中是黑户的账号dst，且src和dst账号id不同，以上转账记录时间在1627020616747到1669690342640范围内，返回去重后的dst账号id并排序。",
+        "output": "MATCH (src:Account{id:243478878511713854})<-[e1:transfer]-(m:Account)-[e2:transfer]->(dst:Account) WHERE dst.isBlocked = true AND src.id <> dst.id AND e1.timestamp > 1627020616747 AND e1.timestamp < 1669690342640 AND e2.timestamp > 1627020616747 AND e2.timestamp < 1669690342640 RETURN DISTINCT dst.id as dstId ORDER BY dstId ASC",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "找到与Michael Douglas有直接出边关系的所有路径，返回这些路径。",
+        "output": "MATCH p = (michael {name: 'Michael Douglas'})-[]->() RETURN p",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "找到所有通过acted_in类型关系连接的节点对n和m,返回子图",
+        "output": "MATCH (n)-[e:acted_in]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "找到所有通过write类型关系连接的节点对n和m,返回相应的节点和关系",
+        "output": "MATCH (n)-[e:write]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "登录用户是Michaeld的朋友喜爱的电影有哪些？返回相关信息。",
+        "output": "MATCH (u:user {login: 'Michael'})-[:is_friend]->(v:user)-[r:rate]->(m:movie) WHERE r.stars > 3 RETURN u, v, m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "创建一个标签为person的节点，其id属性为2001，name属性值为Anders。",
+        "output": "CREATE (n:person {id:2001, name: 'Andres'})",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "获得出生年份为1977的Chiwetel Ejiofor出版的电影m有哪些?返回m节点的tagline属性值和连接关系。",
+        "output": "MATCH (u:person{name:\"Chiwetel Ejiofor\",born:\"1977\"})-[r:produce]->(m:movie) RETURN m.tagline,r",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找名称为Carrie-Anne Moss的节点,返回该节点的born属性值，并将其重命名为SomethingTotallyDifferent。",
+        "output": "MATCH (a {name: 'Carrie-Anne Moss'}) RETURN a.born AS SomethingTotallyDifferent",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "找到电影The Matrix节点以及与其有直接关系的所有节点，并返回这些节点。",
+        "output": "MATCH (matrix:movie {title: 'The Matrix'})-[*0..1]-(x) RETURN x",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "查找图数据库中与姓名为\"PDC\"的组织p有关的计划有哪些?返回对应的组织,e,计划",
+        "output": "MATCH (p:organization{name:\"PDC\"})-[e]-(neighbor:plan) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "从图数据库中查找属性belt为white或为空的节点n，返回这些节点n的name、age和belt属性，同时按照节点的name属性排序。",
+        "output": "MATCH (n) WHERE n.belt = 'white' OR n.belt IS NULL RETURN n.name, n.age, n.belt ORDER BY n.name",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "查找名称为Carrie-Anne Moss的节点,返回该节点的born属性值，并将其重命名为SomethingTotallyDifferent。",
+        "output": "MATCH (a {name: 'Carrie-Anne Moss'}) RETURN a.born AS SomethingTotallyDifferent",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "从数据库中查找所有通过organization_organization类型关系连接的节点对n和m,返回相应的节点和关系",
+        "output": "MATCH (n)-[e:organization_organization]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "查找图数据库中具有euid=0_3937_0_0_0关系，并返回与这些关系相关联的两个节点。",
+        "output": "MATCH (a)-[r]->(b) WHERE euid(r)=\"0_3937_0_0_0\" RETURN a,b",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "获得与标签为\"The extraordinary true story of Solomon Northup\"的电影p有关的用户有哪些?返回相应的节点和关系,跳过前9条数据",
+        "output": "MATCH (p:movie{id:\"1693\",title:\"12 Years a Slave\",tagline:\"The extraordinary true story of Solomon Northup\"})-[e]-(neighbor:user) RETURN p,e,neighbor SKIP 9",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找图数据库中导演id为\"1\"的电影m的人有哪些?返回a节点,m节点",
+        "output": "MATCH (m:movie{id:\"1\"})<-[:directed]-(a:person) RETURN a,m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "获得所有通过produce类型关系连接的节点对n和m,返回对应的n,出版,m",
+        "output": "MATCH (n)-[e:produce]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "common",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\n\n\n",
+        "input": "找到符合(a)-[r]->(b)关系，过滤条件是 euid(r)的值必须等于0_3937_0_0_0，返回所有符合条件的a,b节点。",
+        "output": "MATCH (a)-[r]->(b) WHERE euid(r)=\"0_3937_0_0_0\" RETURN a,b",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "查找图数据库中与名字为\"PIA\"的组织p有关的人有哪些?返回子图",
+        "output": "MATCH (p:organization{name:\"PIA\"})-[e]-(neighbor:person) RETURN DISTINCT p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "在图中查找与名为\"雾伞计划\"的计划p有关的人有哪些?返回对应的计划,e,人",
+        "output": "MATCH (p:plan{name:\"雾伞计划\"})-[e]-(neighbor:person) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找图数据库中名为\"Pat Morita\"的人u写的电影有哪些?返回m节点的tagline属性值和连接关系。",
+        "output": "MATCH (u:person{name:\"Pat Morita\"})-[r:write]->(m:movie) RETURN m.tagline,r",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查询与标题为\"The Monuments Men\"的电影p有关的人有哪些?返回子图",
+        "output": "MATCH (p:movie{id:\"1356\",title:\"The Monuments Men\"})-[e]-(neighbor:person) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "以可选的方式找到登录用户名为\"Jacob\"的用户u打分的电影有哪些?返回m节点的tagline属性值,r边",
+        "output": "OPTIONAL MATCH (u:user{login:\"Jacob\"})-[r:rate]->(m:movie) RETURN m.tagline,r",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "获得所有通过is_friend类型关系连接的节点对n和m,返回子图",
+        "output": "MATCH (n)-[e:is_friend]-(m) RETURN n,e,m",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找图数据库中带有person标签的节点的name属性值和带有movie标签的节点的title属性值，将这些结果合并在一起返回，并将合并后的列名统一为 name。",
+        "output": "MATCH (n:person) RETURN n.name AS name UNION ALL MATCH (n:movie) RETURN n.title AS name",
+        "history": []
+    },
+    {
+        "db_id": "finbench",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nfinbench包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "根据账户id4817170722885471951，找到1627020616747-1669690342640时间段内的所有转入和转出关系，返回转入和转出各自的总金额和最大金额，如果转入或转出边不存在，则返回-1作为最大金额值。",
+        "output": "MATCH (n:Account{id:%d}) WITH n OPTIONAL MATCH (n)-[e:transfer]->(m:Account) WHERE e.timestamp > 1627020616747 AND e.timestamp < 1669690342640 WITH n, sum(e.amount) as sumEdge1Amount, max(e.amount) as maxEdge1Amount, count(e) as numEdge1 OPTIONAL MATCH (n)<-[e:transfer]-(m:Account) WHERE e.timestamp > 1627020616747 AND e.timestamp < 1669690342640 WITH sumEdge1Amount, maxEdge1Amount, numEdge1, sum(e.amount) as sumEdge2Amount, max(e.amount) as maxEdge2Amount, count(e) as numEdge2 RETURN round(sumEdge1Amount * 1000) / 1000 as sumEdge1Amount, CASE WHEN maxEdge1Amount < 0 THEN -1 ELSE round(maxEdge1Amount * 1000) / 1000 END as maxEdge1Amount, numEdge1, round(sumEdge2Amount * 1000) / 1000 as sumEdge2Amount, CASE WHEN maxEdge2Amount < 0 THEN -1 ELSE round(maxEdge2Amount * 1000) / 1000 END as maxEdge2Amount, numEdge2",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "从数据库中查找与名字为\"motion capture\"的关键字p有关的电影有哪些?返回子图",
+        "output": "MATCH (p:keyword{id:\"2587\",name:\"motion capture\"})-[e]-(neighbor:movie) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找图数据库中与用户id为\"240\"的节点p有关的用户有哪些?返回相应的节点和关系",
+        "output": "MATCH (p:user{id:\"240\"})-[e]-(neighbor:user) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "在图中查找与名字为\"PIA\"的组织p有关的组织有哪些?返回相应的节点和关系",
+        "output": "MATCH (p:organization{name:\"PIA\"})-[e]-(neighbor:organization) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "获得与id为\"39\"的用户p有关的用户有哪些?返回子图",
+        "output": "MATCH (p:user{id:\"39\"})-[e]-(neighbor:user) RETURN p,e,neighbor",
+        "history": []
+    },
+    {
+        "db_id": "movie",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nmovie包含节点person、genre、keyword、movie、user和边acted_in、rate、directed、is_friend、has_genre、has_keyword、produce、write。节点person有属性id、name、born、poster_image。节点genre有属性id、name。节点keyword有属性id、name。节点movie有属性id、title、tagline、summary、poster_image、duration、rated。节点user有属性id、login。边acted_in有属性role。边rate有属性stars。\n\n",
+        "input": "查找图数据库中名为\"David Wenham\"的人u导演的电影有哪些?返回m节点的tagline属性值和连接关系。",
+        "output": "MATCH (u:person{name:\"David Wenham\"})-[r:directed]->(m:movie) RETURN m.tagline,r",
+        "history": []
+    },
+    {
+        "db_id": "the_three_body",
+        "instruction": "我希望你像一个Tugraph数据库前端一样工作，你只需要返回给我cypher语句。下面是一条描述任务的指令，写一条正确的response来完成这个请求.\n\"\n##Instruction:\nthe_three_body包含节点person、organization、plan、time和边person_person、person_plan、person_organization、organization_plan、organization_organization、time_time。节点person有属性name、introduce。节点organization有属性name、introduce。节点plan有属性name、content。节点time有属性name、time、important_events。边person_person有属性relation。边person_plan有属性relation。边person_organization有属性relation。边organization_plan有属性relation。边organization_organization有属性relation。边time_time有属性relation。\n\n",
+        "input": "获得的人n,返回n节点的introduce属性值,n节点的introduce属性值,同时按照节点的introduce属性排序",
+        "output": "MATCH (n:person) RETURN n.introduce,n.introduce ORDER BY n.introduce",
+        "history": []
+    }
+]

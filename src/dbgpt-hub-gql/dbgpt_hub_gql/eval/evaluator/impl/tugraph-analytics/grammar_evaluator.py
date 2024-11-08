@@ -16,7 +16,7 @@ class GrammarEvaluator:
         JDClass = jpype.JClass("com.antgroup.geaflow.dsl.parser.GeaFlowDSLParser")
         self.jd = JDClass()
 
-    def evaluate(self, query_predict, query_gold):
+    def evaluate(self, query_predict, query_gold, db_id):
         try:
             result_gold = self.jd.parseStatement(query_gold)
             try:

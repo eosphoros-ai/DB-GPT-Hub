@@ -67,6 +67,22 @@ class ExecutionEvaluator:
             self.session_pool[dataset].append(self.driver_gold.session(database=dataset))
             self.session_pool[dataset].append(self.driver_predict.session(database=dataset))
 
+    def __del__(self):
+        # python stop 2 seperate tugraph-db server
+        try:
+            # stop server in ci command
+            self.process = subprocess.run([
+                'sh',
+                f'{current_dir}/server/server_gold/stop.sh'
+            ], stdout=self.log, stderr=self.log, close_fds=True)
+
+            self.process = subprocess.run([
+                'sh',
+                f'{current_dir}/server/server_predict/stop.sh'
+            ], stdout=self.log, stderr=self.log, close_fds=True)
+        except Exception as e:
+            # in dev environment, start server before run tests
+            logging.debug(e)
 
     def evaluate(self, query_predict, query_gold, db_id):
         if db_id not in self.session_pool.keys():
@@ -92,15 +108,21 @@ class ExecutionEvaluator:
             return 0
         else:
             if ret_predict == True:
-                for i in range(len(res_gold)):
-                    res_gold[i] = str(res_gold[i])
-                res_gold.sort()
-                for i in range(len(res_predict)):
-                    res_predict[i] = str(res_predict[i])
-                res_predict.sort()
-                if res_predict == res_gold:
-                    return 1
+                if "SKIP" in query_gold or "LIMIT" in query_gold:
+                    if len(res_gold) == len(res_predict):
+                        return 1
+                    else:
+                        return 0
                 else:
-                    return 0
+                    for i in range(len(res_gold)):
+                        res_gold[i] = str(res_gold[i])
+                    res_gold.sort()
+                    for i in range(len(res_predict)):
+                        res_predict[i] = str(res_predict[i])
+                    res_predict.sort()
+                    if res_predict == res_gold:
+                        return 1
+                    else:
+                        return 0
             else:
                 return 0

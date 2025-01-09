@@ -134,6 +134,12 @@ cd src/dbgpt-hub-gql
 pip install -e .
 ```
 
+创建输出及日志目录
+```bash
+mkdir dbgpt_hub_gql/output
+mkdir dbgpt_hub_gql/output/logs
+```
+
 ### 3.2、模型准备
 创建并进入codellama模型存放目录
 ```bash

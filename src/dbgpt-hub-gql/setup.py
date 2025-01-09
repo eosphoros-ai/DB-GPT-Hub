@@ -77,6 +77,7 @@ def core_dependencies():
         "antlr4-python3-runtime==4.13.2",
         "JPype1==1.5.0",
         "neo4j>=5.26.0",
+        "protobuf==3.20.*",
     ]
 
 

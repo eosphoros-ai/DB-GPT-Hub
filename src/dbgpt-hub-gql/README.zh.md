@@ -138,6 +138,7 @@ pip install -e .
 ```bash
 mkdir dbgpt_hub_gql/output
 mkdir dbgpt_hub_gql/output/logs
+mkdir dbgpt_hub_gql/output/pred
 ```
 
 ### 3.2、模型准备
@@ -222,7 +223,7 @@ sh dbgpt_hub_gql/scripts/predict_sft.sh
 文本相似度评估直接统计预测结果与标准结果的Jaro–Winkler distance
 
 ```bash
-python dbgpt_hub_gql/eval/evaluation.py  --input ./dbgpt_hub_gql/output/pred/tugraph_db_example_dev.txt --gold ./dbgpt_hub_gql/data/tugraph-db-example/gold_dev.txt --etype similarity
+python dbgpt_hub_gql/eval/evaluation.py  --input ./dbgpt_hub_gql/output/pred/tugraph_db_example_dev.txt --gold ./dbgpt_hub_gql/data/tugraph-db-example/dev.json --etype similarity
 ```
 
 #### 3.5.2、语法正确性评估
@@ -230,7 +231,7 @@ python dbgpt_hub_gql/eval/evaluation.py  --input ./dbgpt_hub_gql/output/pred/tug
 `tugraph-db-example`是符合`tugraph-db`的LCypher语法规则的语料数据集，语法正确性评估使用ANTLR4工具，基于`./dbgpt_hub_gql/eval/evaluator/impl/tugraph-db/Lcypher.g4`文件生成了语法解析器，用于评估模型预测结果的语法正确性。
 
 ```bash
-python dbgpt_hub_gql/eval/evaluation.py  --input ./dbgpt_hub_gql/output/pred/tugraph_db_example_dev.txt --gold ./dbgpt_hub_gql/data/tugraph-db-example/gold_dev.txt --etype grammar --impl tugraph-db
+python dbgpt_hub_gql/eval/evaluation.py  --input ./dbgpt_hub_gql/output/pred/tugraph_db_example_dev.txt --gold ./dbgpt_hub_gql/data/tugraph-db-example/dev.json --etype grammar --impl tugraph-db
 ```
 
 ### 3.6、模型权重合并

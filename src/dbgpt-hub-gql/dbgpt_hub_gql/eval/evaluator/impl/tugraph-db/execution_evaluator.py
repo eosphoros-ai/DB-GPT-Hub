@@ -112,7 +112,7 @@ class ExecutionEvaluator:
 
     def evaluate(self, query_predict, query_gold, db_id):
         if db_id not in self.session_pool.keys():
-            return 0
+            return -1
 
         # run cypher on the server for ground truth
         ret_gold = True

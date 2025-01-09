@@ -142,9 +142,23 @@ class ExecutionEvaluator:
             return -1
         else:
             if ret_predict == True:
-                if len(res_gold) == len(res_predict):
-                    return 1
+                if "SKIP" in query_gold or "LIMIT" in query_gold:
+                    # if SKIP or LIMIT in cypher, only compare the size of query result
+                    if len(res_gold) == len(res_predict):
+                        return 1
+                    else:
+                        return 0
                 else:
-                    return 0
+                    # else, sort all query results then compare if two results are same
+                    for i in range(len(res_gold)):
+                        res_gold[i] = str(res_gold[i])
+                    res_gold.sort()
+                    for i in range(len(res_predict)):
+                        res_predict[i] = str(res_predict[i])
+                    res_predict.sort()
+                    if res_predict == res_gold:
+                        return 1
+                    else:
+                        return 0
             else:
                 return 0

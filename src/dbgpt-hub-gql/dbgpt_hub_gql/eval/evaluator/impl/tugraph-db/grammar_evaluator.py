@@ -18,7 +18,7 @@ class MyErrorListener(ErrorListener):
 
 
 class GrammarEvaluator:
-    def evaluate(self, query_predict, query_gold):
+    def evaluate(self, query_predict, query_gold, db_id):
         error_listener = MyErrorListener()
         try:
             input_stream = InputStream(query_gold)

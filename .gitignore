@@ -27,6 +27,8 @@ src/dbgpt-hub-gql/wandb/*
 !src/dbgpt-hub-gql/dbgpt_hub_gql/data/tugraph-db-example
 !src/dbgpt-hub-gql/dbgpt_hub_gql/data/dataset_info.json
 !src/dbgpt-hub-gql/dbgpt_hub_gql/data/example_text2sql.json
+# Ignore all server's dataset folder under eval/evaluator/impl
+src/dbgpt-hub-gql/dbgpt_hub_gql/eval/evaluator/impl/tugraph-db/datasets
 
 # Ignore everything under dbgpt_hub_sql/ouput/ except the adapter directory
 src/dbgpt-hub-sql/dbgpt_hub_sql/output/

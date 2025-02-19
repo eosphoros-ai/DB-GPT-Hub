@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 
 import torch
 from peft import LoraConfig, PeftModel, TaskType, get_peft_model
-from peft.utils import CONFIG_NAME, WEIGHTS_NAME
+from peft.utils import CONFIG_NAME, SAFETENSORS_WEIGHTS_NAME
 
 from .config_parser import load_trainable_params
 from .loggings import get_logger
@@ -59,7 +59,7 @@ def init_adapter(
 
         if model_args.checkpoint_dir is not None:
             assert os.path.exists(
-                os.path.join(model_args.checkpoint_dir[0], WEIGHTS_NAME)
+                os.path.join(model_args.checkpoint_dir[0], SAFETENSORS_WEIGHTS_NAME)
             ), "Provided path ({}) does not contain a LoRA weight.".format(
                 model_args.checkpoint_dir[0]
             )

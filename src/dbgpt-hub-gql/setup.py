@@ -22,7 +22,7 @@ setup_spec = SetupSpec()
 def core_dependencies():
     setup_spec.extras["core"] = [
         "transformers>=4.41.2",
-        "datasets>=2.14.6",
+        "datasets>=2.14.7",
         "tiktoken>=0.7.0",
         "torch>=2.0.0",
         "peft>=0.4.0",
@@ -76,6 +76,8 @@ def core_dependencies():
         "jaro-winkler==2.0.3",
         "antlr4-python3-runtime==4.13.2",
         "JPype1==1.5.0",
+        "neo4j>=5.26.0",
+        "protobuf==3.20.*",
     ]
 
 

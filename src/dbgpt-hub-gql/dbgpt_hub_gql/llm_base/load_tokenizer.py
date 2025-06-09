@@ -15,7 +15,7 @@ from transformers import (
     PreTrainedTokenizer,
     PreTrainedTokenizerBase,
 )
-from transformers.deepspeed import is_deepspeed_zero3_enabled
+from transformers.integrations.deepspeed import is_deepspeed_zero3_enabled
 from transformers.trainer import SAFE_WEIGHTS_NAME, WEIGHTS_NAME
 from transformers.utils import cached_file, check_min_version
 from transformers.utils.versions import require_version

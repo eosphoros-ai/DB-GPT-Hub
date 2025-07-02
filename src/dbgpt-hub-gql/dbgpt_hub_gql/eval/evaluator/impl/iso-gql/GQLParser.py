@@ -41894,7 +41894,9 @@ class GQLParser(Parser):
     class GqlProgramContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -41966,7 +41968,9 @@ class GQLParser(Parser):
     class ProgramActivityContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42057,7 +42061,9 @@ class GQLParser(Parser):
     class SessionActivityContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42155,7 +42161,9 @@ class GQLParser(Parser):
     class TransactionActivityContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42201,13 +42209,22 @@ class GQLParser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if (
-                    (((_la - 31) & ~0x3F) == 0 and ((1 << (_la - 31)) & 3461332977278001153) != 0)
+                    (
+                        ((_la - 31) & ~0x3F) == 0
+                        and ((1 << (_la - 31)) & 3461332977278001153) != 0
+                    )
                     or (
                         ((_la - 100) & ~0x3F) == 0
                         and ((1 << (_la - 100)) & 6342202976706233345) != 0
                     )
-                    or (((_la - 177) & ~0x3F) == 0 and ((1 << (_la - 177)) & 351843721159689) != 0)
-                    or (((_la - 278) & ~0x3F) == 0 and ((1 << (_la - 278)) & 34493958145) != 0)
+                    or (
+                        ((_la - 177) & ~0x3F) == 0
+                        and ((1 << (_la - 177)) & 351843721159689) != 0
+                    )
+                    or (
+                        ((_la - 278) & ~0x3F) == 0
+                        and ((1 << (_la - 278)) & 34493958145) != 0
+                    )
                     or _la == 368
                 ):
                     self.state = 1182
@@ -42281,7 +42298,9 @@ class GQLParser(Parser):
     class EndTransactionCommandContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42339,7 +42358,9 @@ class GQLParser(Parser):
     class SessionSetCommandContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42356,10 +42377,14 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.SessionSetGraphClauseContext, 0)
 
         def sessionSetTimeZoneClause(self):
-            return self.getTypedRuleContext(GQLParser.SessionSetTimeZoneClauseContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SessionSetTimeZoneClauseContext, 0
+            )
 
         def sessionSetParameterClause(self):
-            return self.getTypedRuleContext(GQLParser.SessionSetParameterClauseContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SessionSetParameterClauseContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_sessionSetCommand
@@ -42421,7 +42446,9 @@ class GQLParser(Parser):
     class SessionSetSchemaClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42468,7 +42495,9 @@ class GQLParser(Parser):
     class SessionSetGraphClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42526,7 +42555,9 @@ class GQLParser(Parser):
     class SessionSetTimeZoneClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42557,7 +42588,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def sessionSetTimeZoneClause(self):
-        localctx = GQLParser.SessionSetTimeZoneClauseContext(self, self._ctx, self.state)
+        localctx = GQLParser.SessionSetTimeZoneClauseContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 16, self.RULE_sessionSetTimeZoneClause)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -42578,7 +42611,9 @@ class GQLParser(Parser):
     class SetTimeZoneValueContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42620,12 +42655,16 @@ class GQLParser(Parser):
     class SessionSetParameterClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def sessionSetGraphParameterClause(self):
-            return self.getTypedRuleContext(GQLParser.SessionSetGraphParameterClauseContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SessionSetGraphParameterClauseContext, 0
+            )
 
         def sessionSetBindingTableParameterClause(self):
             return self.getTypedRuleContext(
@@ -42633,7 +42672,9 @@ class GQLParser(Parser):
             )
 
         def sessionSetValueParameterClause(self):
-            return self.getTypedRuleContext(GQLParser.SessionSetValueParameterClauseContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SessionSetValueParameterClauseContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_sessionSetParameterClause
@@ -42653,7 +42694,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def sessionSetParameterClause(self):
-        localctx = GQLParser.SessionSetParameterClauseContext(self, self._ctx, self.state)
+        localctx = GQLParser.SessionSetParameterClauseContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 20, self.RULE_sessionSetParameterClause)
         try:
             self.state = 1225
@@ -42688,7 +42731,9 @@ class GQLParser(Parser):
     class SessionSetGraphParameterClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42699,7 +42744,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.SessionSetParameterNameContext, 0)
 
         def optTypedGraphInitializer(self):
-            return self.getTypedRuleContext(GQLParser.OptTypedGraphInitializerContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.OptTypedGraphInitializerContext, 0
+            )
 
         def PROPERTY(self):
             return self.getToken(GQLParser.PROPERTY, 0)
@@ -42722,7 +42769,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def sessionSetGraphParameterClause(self):
-        localctx = GQLParser.SessionSetGraphParameterClauseContext(self, self._ctx, self.state)
+        localctx = GQLParser.SessionSetGraphParameterClauseContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 22, self.RULE_sessionSetGraphParameterClause)
         self._la = 0  # Token type
         try:
@@ -42751,7 +42800,9 @@ class GQLParser(Parser):
     class SessionSetBindingTableParameterClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42762,7 +42813,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.SessionSetParameterNameContext, 0)
 
         def optTypedBindingTableInitializer(self):
-            return self.getTypedRuleContext(GQLParser.OptTypedBindingTableInitializerContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.OptTypedBindingTableInitializerContext, 0
+            )
 
         def BINDING(self):
             return self.getToken(GQLParser.BINDING, 0)
@@ -42816,7 +42869,9 @@ class GQLParser(Parser):
     class SessionSetValueParameterClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42827,7 +42882,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.SessionSetParameterNameContext, 0)
 
         def optTypedValueInitializer(self):
-            return self.getTypedRuleContext(GQLParser.OptTypedValueInitializerContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.OptTypedValueInitializerContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_sessionSetValueParameterClause
@@ -42847,7 +42904,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def sessionSetValueParameterClause(self):
-        localctx = GQLParser.SessionSetValueParameterClauseContext(self, self._ctx, self.state)
+        localctx = GQLParser.SessionSetValueParameterClauseContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 26, self.RULE_sessionSetValueParameterClause)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -42868,12 +42927,16 @@ class GQLParser(Parser):
     class SessionSetParameterNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def sessionParameterSpecification(self):
-            return self.getTypedRuleContext(GQLParser.SessionParameterSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SessionParameterSpecificationContext, 0
+            )
 
         def IF(self):
             return self.getToken(GQLParser.IF, 0)
@@ -42931,7 +42994,9 @@ class GQLParser(Parser):
     class SessionResetCommandContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -42977,8 +43042,14 @@ class GQLParser(Parser):
             if (
                 _la == 22
                 or _la == 53
-                or (((_la - 164) & ~0x3F) == 0 and ((1 << (_la - 164)) & 8796095119363) != 0)
-                or (((_la - 289) & ~0x3F) == 0 and ((1 << (_la - 289)) & 137439019009) != 0)
+                or (
+                    ((_la - 164) & ~0x3F) == 0
+                    and ((1 << (_la - 164)) & 8796095119363) != 0
+                )
+                or (
+                    ((_la - 289) & ~0x3F) == 0
+                    and ((1 << (_la - 289)) & 137439019009) != 0
+                )
             ):
                 self.state = 1254
                 self.sessionResetArguments()
@@ -42994,7 +43065,9 @@ class GQLParser(Parser):
     class SessionResetArgumentsContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43023,7 +43096,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.ZONE, 0)
 
         def sessionParameterSpecification(self):
-            return self.getTypedRuleContext(GQLParser.SessionParameterSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SessionParameterSpecificationContext, 0
+            )
 
         def PARAMETER(self):
             return self.getToken(GQLParser.PARAMETER, 0)
@@ -43120,7 +43195,9 @@ class GQLParser(Parser):
     class SessionCloseCommandContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43167,7 +43244,9 @@ class GQLParser(Parser):
     class SessionParameterSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43192,7 +43271,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def sessionParameterSpecification(self):
-        localctx = GQLParser.SessionParameterSpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.SessionParameterSpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 36, self.RULE_sessionParameterSpecification)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -43209,7 +43290,9 @@ class GQLParser(Parser):
     class StartTransactionCommandContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43220,7 +43303,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.TRANSACTION, 0)
 
         def transactionCharacteristics(self):
-            return self.getTypedRuleContext(GQLParser.TransactionCharacteristicsContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.TransactionCharacteristicsContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_startTransactionCommand
@@ -43267,7 +43352,9 @@ class GQLParser(Parser):
     class TransactionCharacteristicsContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43301,7 +43388,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def transactionCharacteristics(self):
-        localctx = GQLParser.TransactionCharacteristicsContext(self, self._ctx, self.state)
+        localctx = GQLParser.TransactionCharacteristicsContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 40, self.RULE_transactionCharacteristics)
         self._la = 0  # Token type
         try:
@@ -43331,7 +43420,9 @@ class GQLParser(Parser):
     class TransactionModeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43373,7 +43464,9 @@ class GQLParser(Parser):
     class TransactionAccessModeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43437,7 +43530,9 @@ class GQLParser(Parser):
     class RollbackCommandContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43479,7 +43574,9 @@ class GQLParser(Parser):
     class CommitCommandContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43521,7 +43618,9 @@ class GQLParser(Parser):
     class NestedProcedureSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43552,7 +43651,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def nestedProcedureSpecification(self):
-        localctx = GQLParser.NestedProcedureSpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.NestedProcedureSpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 50, self.RULE_nestedProcedureSpecification)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -43573,7 +43674,9 @@ class GQLParser(Parser):
     class ProcedureSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43615,7 +43718,9 @@ class GQLParser(Parser):
     class NestedDataModifyingProcedureSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43649,7 +43754,9 @@ class GQLParser(Parser):
         localctx = GQLParser.NestedDataModifyingProcedureSpecificationContext(
             self, self._ctx, self.state
         )
-        self.enterRule(localctx, 54, self.RULE_nestedDataModifyingProcedureSpecification)
+        self.enterRule(
+            localctx, 54, self.RULE_nestedDataModifyingProcedureSpecification
+        )
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1310
@@ -43669,7 +43776,9 @@ class GQLParser(Parser):
     class NestedQuerySpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43700,7 +43809,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def nestedQuerySpecification(self):
-        localctx = GQLParser.NestedQuerySpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.NestedQuerySpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 56, self.RULE_nestedQuerySpecification)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -43721,7 +43832,9 @@ class GQLParser(Parser):
     class ProcedureBodyContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43732,7 +43845,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.AtSchemaClauseContext, 0)
 
         def bindingVariableDefinitionBlock(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableDefinitionBlockContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableDefinitionBlockContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_procedureBody
@@ -43788,15 +43903,21 @@ class GQLParser(Parser):
     class BindingVariableDefinitionBlockContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def bindingVariableDefinition(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(GQLParser.BindingVariableDefinitionContext)
+                return self.getTypedRuleContexts(
+                    GQLParser.BindingVariableDefinitionContext
+                )
             else:
-                return self.getTypedRuleContext(GQLParser.BindingVariableDefinitionContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.BindingVariableDefinitionContext, i
+                )
 
         def getRuleIndex(self):
             return GQLParser.RULE_bindingVariableDefinitionBlock
@@ -43816,7 +43937,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def bindingVariableDefinitionBlock(self):
-        localctx = GQLParser.BindingVariableDefinitionBlockContext(self, self._ctx, self.state)
+        localctx = GQLParser.BindingVariableDefinitionBlockContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 60, self.RULE_bindingVariableDefinitionBlock)
         self._la = 0  # Token type
         try:
@@ -43833,7 +43956,10 @@ class GQLParser(Parser):
                 if not (
                     _la == 225
                     or _la == 278
-                    or (((_la - 289) & ~0x3F) == 0 and ((1 << (_la - 289)) & 16842753) != 0)
+                    or (
+                        ((_la - 289) & ~0x3F) == 0
+                        and ((1 << (_la - 289)) & 16842753) != 0
+                    )
                 ):
                     break
 
@@ -43848,7 +43974,9 @@ class GQLParser(Parser):
     class BindingVariableDefinitionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43856,7 +43984,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.GraphVariableDefinitionContext, 0)
 
         def bindingTableVariableDefinition(self):
-            return self.getTypedRuleContext(GQLParser.BindingTableVariableDefinitionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingTableVariableDefinitionContext, 0
+            )
 
         def valueVariableDefinition(self):
             return self.getTypedRuleContext(GQLParser.ValueVariableDefinitionContext, 0)
@@ -43879,7 +44009,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def bindingVariableDefinition(self):
-        localctx = GQLParser.BindingVariableDefinitionContext(self, self._ctx, self.state)
+        localctx = GQLParser.BindingVariableDefinitionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 62, self.RULE_bindingVariableDefinition)
         try:
             self.state = 1334
@@ -43914,7 +44046,9 @@ class GQLParser(Parser):
     class StatementBlockContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -43973,15 +44107,21 @@ class GQLParser(Parser):
     class StatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def linearCatalogModifyingStatement(self):
-            return self.getTypedRuleContext(GQLParser.LinearCatalogModifyingStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.LinearCatalogModifyingStatementContext, 0
+            )
 
         def linearDataModifyingStatement(self):
-            return self.getTypedRuleContext(GQLParser.LinearDataModifyingStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.LinearDataModifyingStatementContext, 0
+            )
 
         def compositeQueryStatement(self):
             return self.getTypedRuleContext(GQLParser.CompositeQueryStatementContext, 0)
@@ -44039,7 +44179,9 @@ class GQLParser(Parser):
     class NextStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44097,7 +44239,9 @@ class GQLParser(Parser):
     class GraphVariableDefinitionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44108,7 +44252,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.BindingVariableContext, 0)
 
         def optTypedGraphInitializer(self):
-            return self.getTypedRuleContext(GQLParser.OptTypedGraphInitializerContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.OptTypedGraphInitializerContext, 0
+            )
 
         def PROPERTY(self):
             return self.getToken(GQLParser.PROPERTY, 0)
@@ -44160,7 +44306,9 @@ class GQLParser(Parser):
     class OptTypedGraphInitializerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44191,7 +44339,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def optTypedGraphInitializer(self):
-        localctx = GQLParser.OptTypedGraphInitializerContext(self, self._ctx, self.state)
+        localctx = GQLParser.OptTypedGraphInitializerContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 72, self.RULE_optTypedGraphInitializer)
         self._la = 0  # Token type
         try:
@@ -44202,7 +44352,10 @@ class GQLParser(Parser):
             if (
                 _la == 25
                 or _la == 211
-                or (((_la - 289) & ~0x3F) == 0 and ((1 << (_la - 289)) & 4398046576641) != 0)
+                or (
+                    ((_la - 289) & ~0x3F) == 0
+                    and ((1 << (_la - 289)) & 4398046576641) != 0
+                )
             ):
                 self.state = 1362
                 self._errHandler.sync(self)
@@ -44227,7 +44380,9 @@ class GQLParser(Parser):
     class GraphInitializerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44274,7 +44429,9 @@ class GQLParser(Parser):
     class BindingTableVariableDefinitionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44285,7 +44442,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.BindingVariableContext, 0)
 
         def optTypedBindingTableInitializer(self):
-            return self.getTypedRuleContext(GQLParser.OptTypedBindingTableInitializerContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.OptTypedBindingTableInitializerContext, 0
+            )
 
         def BINDING(self):
             return self.getToken(GQLParser.BINDING, 0)
@@ -44308,7 +44467,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def bindingTableVariableDefinition(self):
-        localctx = GQLParser.BindingTableVariableDefinitionContext(self, self._ctx, self.state)
+        localctx = GQLParser.BindingTableVariableDefinitionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 76, self.RULE_bindingTableVariableDefinition)
         self._la = 0  # Token type
         try:
@@ -44337,7 +44498,9 @@ class GQLParser(Parser):
     class OptTypedBindingTableInitializerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44345,7 +44508,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.BindingTableInitializerContext, 0)
 
         def bindingTableReferenceValueType(self):
-            return self.getTypedRuleContext(GQLParser.BindingTableReferenceValueTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingTableReferenceValueTypeContext, 0
+            )
 
         def typed(self):
             return self.getTypedRuleContext(GQLParser.TypedContext, 0)
@@ -44368,7 +44533,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def optTypedBindingTableInitializer(self):
-        localctx = GQLParser.OptTypedBindingTableInitializerContext(self, self._ctx, self.state)
+        localctx = GQLParser.OptTypedBindingTableInitializerContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 78, self.RULE_optTypedBindingTableInitializer)
         self._la = 0  # Token type
         try:
@@ -44377,7 +44544,8 @@ class GQLParser(Parser):
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la == 211 or (
-                ((_la - 278) & ~0x3F) == 0 and ((1 << (_la - 278)) & 9007233614479361) != 0
+                ((_la - 278) & ~0x3F) == 0
+                and ((1 << (_la - 278)) & 9007233614479361) != 0
             ):
                 self.state = 1380
                 self._errHandler.sync(self)
@@ -44402,7 +44570,9 @@ class GQLParser(Parser):
     class BindingTableInitializerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44449,7 +44619,9 @@ class GQLParser(Parser):
     class ValueVariableDefinitionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44460,7 +44632,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.BindingVariableContext, 0)
 
         def optTypedValueInitializer(self):
-            return self.getTypedRuleContext(GQLParser.OptTypedValueInitializerContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.OptTypedValueInitializerContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_valueVariableDefinition
@@ -44501,7 +44675,9 @@ class GQLParser(Parser):
     class OptTypedValueInitializerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44532,7 +44708,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def optTypedValueInitializer(self):
-        localctx = GQLParser.OptTypedValueInitializerContext(self, self._ctx, self.state)
+        localctx = GQLParser.OptTypedValueInitializerContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 84, self.RULE_optTypedValueInitializer)
         self._la = 0  # Token type
         try:
@@ -44542,10 +44720,22 @@ class GQLParser(Parser):
             _la = self._input.LA(1)
             if (
                 (((_la) & ~0x3F) == 0 and ((1 << _la) & 1135228676472832) != 0)
-                or (((_la - 70) & ~0x3F) == 0 and ((1 << (_la - 70)) & -9187345438330574823) != 0)
-                or (((_la - 135) & ~0x3F) == 0 and ((1 << (_la - 135)) & 6989589922362163201) != 0)
-                or (((_la - 202) & ~0x3F) == 0 and ((1 << (_la - 202)) & 8645246561) != 0)
-                or (((_la - 278) & ~0x3F) == 0 and ((1 << (_la - 278)) & 9010532828842081) != 0)
+                or (
+                    ((_la - 70) & ~0x3F) == 0
+                    and ((1 << (_la - 70)) & -9187345438330574823) != 0
+                )
+                or (
+                    ((_la - 135) & ~0x3F) == 0
+                    and ((1 << (_la - 135)) & 6989589922362163201) != 0
+                )
+                or (
+                    ((_la - 202) & ~0x3F) == 0
+                    and ((1 << (_la - 202)) & 8645246561) != 0
+                )
+                or (
+                    ((_la - 278) & ~0x3F) == 0
+                    and ((1 << (_la - 278)) & 9010532828842081) != 0
+                )
                 or _la == 368
                 or _la == 370
             ):
@@ -44572,7 +44762,9 @@ class GQLParser(Parser):
     class ValueInitializerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44619,7 +44811,9 @@ class GQLParser(Parser):
     class GraphExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44630,7 +44824,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.ObjectExpressionPrimaryContext, 0)
 
         def objectNameOrBindingVariable(self):
-            return self.getTypedRuleContext(GQLParser.ObjectNameOrBindingVariableContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ObjectNameOrBindingVariableContext, 0
+            )
 
         def currentGraph(self):
             return self.getTypedRuleContext(GQLParser.CurrentGraphContext, 0)
@@ -44694,7 +44890,9 @@ class GQLParser(Parser):
     class CurrentGraphContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44745,7 +44943,9 @@ class GQLParser(Parser):
     class BindingTableExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44761,7 +44961,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.ObjectExpressionPrimaryContext, 0)
 
         def objectNameOrBindingVariable(self):
-            return self.getTypedRuleContext(GQLParser.ObjectNameOrBindingVariableContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ObjectNameOrBindingVariableContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_bindingTableExpression
@@ -44822,12 +45024,16 @@ class GQLParser(Parser):
     class NestedBindingTableQuerySpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def nestedQuerySpecification(self):
-            return self.getTypedRuleContext(GQLParser.NestedQuerySpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NestedQuerySpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_nestedBindingTableQuerySpecification
@@ -44866,7 +45072,9 @@ class GQLParser(Parser):
     class ObjectExpressionPrimaryContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -44877,7 +45085,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.ValueExpressionPrimaryContext, 0)
 
         def parenthesizedValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.ParenthesizedValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ParenthesizedValueExpressionContext, 0
+            )
 
         def nonParenthesizedValueExpressionPrimarySpecialCase(self):
             return self.getTypedRuleContext(
@@ -44939,15 +45149,21 @@ class GQLParser(Parser):
     class LinearCatalogModifyingStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def simpleCatalogModifyingStatement(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(GQLParser.SimpleCatalogModifyingStatementContext)
+                return self.getTypedRuleContexts(
+                    GQLParser.SimpleCatalogModifyingStatementContext
+                )
             else:
-                return self.getTypedRuleContext(GQLParser.SimpleCatalogModifyingStatementContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.SimpleCatalogModifyingStatementContext, i
+                )
 
         def getRuleIndex(self):
             return GQLParser.RULE_linearCatalogModifyingStatement
@@ -44967,7 +45183,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def linearCatalogModifyingStatement(self):
-        localctx = GQLParser.LinearCatalogModifyingStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.LinearCatalogModifyingStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 98, self.RULE_linearCatalogModifyingStatement)
         self._la = 0  # Token type
         try:
@@ -44982,7 +45200,10 @@ class GQLParser(Parser):
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (
-                    (((_la - 44) & ~0x3F) == 0 and ((1 << (_la - 44)) & 274878431233) != 0)
+                    (
+                        ((_la - 44) & ~0x3F) == 0
+                        and ((1 << (_la - 44)) & 274878431233) != 0
+                    )
                     or _la == 160
                 ):
                     break
@@ -44998,12 +45219,16 @@ class GQLParser(Parser):
     class SimpleCatalogModifyingStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def primitiveCatalogModifyingStatement(self):
-            return self.getTypedRuleContext(GQLParser.PrimitiveCatalogModifyingStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PrimitiveCatalogModifyingStatementContext, 0
+            )
 
         def callCatalogModifyingProcedureStatement(self):
             return self.getTypedRuleContext(
@@ -45028,7 +45253,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simpleCatalogModifyingStatement(self):
-        localctx = GQLParser.SimpleCatalogModifyingStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimpleCatalogModifyingStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 100, self.RULE_simpleCatalogModifyingStatement)
         try:
             self.state = 1434
@@ -45058,7 +45285,9 @@ class GQLParser(Parser):
     class PrimitiveCatalogModifyingStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -45075,7 +45304,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.DropGraphStatementContext, 0)
 
         def createGraphTypeStatement(self):
-            return self.getTypedRuleContext(GQLParser.CreateGraphTypeStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CreateGraphTypeStatementContext, 0
+            )
 
         def dropGraphTypeStatement(self):
             return self.getTypedRuleContext(GQLParser.DropGraphTypeStatementContext, 0)
@@ -45098,7 +45329,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def primitiveCatalogModifyingStatement(self):
-        localctx = GQLParser.PrimitiveCatalogModifyingStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.PrimitiveCatalogModifyingStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 102, self.RULE_primitiveCatalogModifyingStatement)
         try:
             self.state = 1442
@@ -45151,7 +45384,9 @@ class GQLParser(Parser):
     class CreateSchemaStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -45162,7 +45397,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.SCHEMA, 0)
 
         def catalogSchemaParentAndName(self):
-            return self.getTypedRuleContext(GQLParser.CatalogSchemaParentAndNameContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogSchemaParentAndNameContext, 0
+            )
 
         def IF(self):
             return self.getToken(GQLParser.IF, 0)
@@ -45224,7 +45461,9 @@ class GQLParser(Parser):
     class DropSchemaStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -45235,7 +45474,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.SCHEMA, 0)
 
         def catalogSchemaParentAndName(self):
-            return self.getTypedRuleContext(GQLParser.CatalogSchemaParentAndNameContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogSchemaParentAndNameContext, 0
+            )
 
         def IF(self):
             return self.getToken(GQLParser.IF, 0)
@@ -45292,7 +45533,9 @@ class GQLParser(Parser):
     class CreateGraphStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -45300,7 +45543,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.CREATE, 0)
 
         def catalogGraphParentAndName(self):
-            return self.getTypedRuleContext(GQLParser.CatalogGraphParentAndNameContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogGraphParentAndNameContext, 0
+            )
 
         def GRAPH(self):
             return self.getToken(GQLParser.GRAPH, 0)
@@ -45433,7 +45678,9 @@ class GQLParser(Parser):
     class OpenGraphTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -45506,7 +45753,9 @@ class GQLParser(Parser):
     class OfGraphTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -45520,7 +45769,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.TypedContext, 0)
 
         def nestedGraphTypeSpecification(self):
-            return self.getTypedRuleContext(GQLParser.NestedGraphTypeSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NestedGraphTypeSpecificationContext, 0
+            )
 
         def GRAPH(self):
             return self.getToken(GQLParser.GRAPH, 0)
@@ -45610,7 +45861,9 @@ class GQLParser(Parser):
     class GraphTypeLikeGraphContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -45657,7 +45910,9 @@ class GQLParser(Parser):
     class GraphSourceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -45714,7 +45969,9 @@ class GQLParser(Parser):
     class DropGraphStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -45725,7 +45982,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.GRAPH, 0)
 
         def catalogGraphParentAndName(self):
-            return self.getTypedRuleContext(GQLParser.CatalogGraphParentAndNameContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogGraphParentAndNameContext, 0
+            )
 
         def PROPERTY(self):
             return self.getToken(GQLParser.PROPERTY, 0)
@@ -45792,7 +46051,9 @@ class GQLParser(Parser):
     class CreateGraphTypeStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -45800,7 +46061,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.CREATE, 0)
 
         def catalogGraphTypeParentAndName(self):
-            return self.getTypedRuleContext(GQLParser.CatalogGraphTypeParentAndNameContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogGraphTypeParentAndNameContext, 0
+            )
 
         def graphTypeSource(self):
             return self.getTypedRuleContext(GQLParser.GraphTypeSourceContext, 0)
@@ -45847,7 +46110,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def createGraphTypeStatement(self):
-        localctx = GQLParser.CreateGraphTypeStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.CreateGraphTypeStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 120, self.RULE_createGraphTypeStatement)
         self._la = 0  # Token type
         try:
@@ -45916,7 +46181,9 @@ class GQLParser(Parser):
     class GraphTypeSourceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -45930,7 +46197,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.GraphTypeLikeGraphContext, 0)
 
         def nestedGraphTypeSpecification(self):
-            return self.getTypedRuleContext(GQLParser.NestedGraphTypeSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NestedGraphTypeSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_graphTypeSource
@@ -46000,7 +46269,9 @@ class GQLParser(Parser):
     class CopyOfGraphTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46052,7 +46323,9 @@ class GQLParser(Parser):
     class DropGraphTypeStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46066,7 +46339,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.TYPE, 0)
 
         def catalogGraphTypeParentAndName(self):
-            return self.getTypedRuleContext(GQLParser.CatalogGraphTypeParentAndNameContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogGraphTypeParentAndNameContext, 0
+            )
 
         def PROPERTY(self):
             return self.getToken(GQLParser.PROPERTY, 0)
@@ -46135,7 +46410,9 @@ class GQLParser(Parser):
     class CallCatalogModifyingProcedureStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46179,15 +46456,21 @@ class GQLParser(Parser):
     class LinearDataModifyingStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def focusedLinearDataModifyingStatement(self):
-            return self.getTypedRuleContext(GQLParser.FocusedLinearDataModifyingStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.FocusedLinearDataModifyingStatementContext, 0
+            )
 
         def ambientLinearDataModifyingStatement(self):
-            return self.getTypedRuleContext(GQLParser.AmbientLinearDataModifyingStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.AmbientLinearDataModifyingStatementContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_linearDataModifyingStatement
@@ -46207,7 +46490,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def linearDataModifyingStatement(self):
-        localctx = GQLParser.LinearDataModifyingStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.LinearDataModifyingStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 130, self.RULE_linearDataModifyingStatement)
         try:
             self.state = 1587
@@ -46255,7 +46540,9 @@ class GQLParser(Parser):
     class FocusedLinearDataModifyingStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46287,7 +46574,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def focusedLinearDataModifyingStatement(self):
-        localctx = GQLParser.FocusedLinearDataModifyingStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.FocusedLinearDataModifyingStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 132, self.RULE_focusedLinearDataModifyingStatement)
         try:
             self.state = 1591
@@ -46316,7 +46605,9 @@ class GQLParser(Parser):
     class FocusedLinearDataModifyingStatementBodyContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46324,10 +46615,14 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.UseGraphClauseContext, 0)
 
         def simpleLinearDataAccessingStatement(self):
-            return self.getTypedRuleContext(GQLParser.SimpleLinearDataAccessingStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimpleLinearDataAccessingStatementContext, 0
+            )
 
         def primitiveResultStatement(self):
-            return self.getTypedRuleContext(GQLParser.PrimitiveResultStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PrimitiveResultStatementContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_focusedLinearDataModifyingStatementBody
@@ -46376,7 +46671,9 @@ class GQLParser(Parser):
     class FocusedNestedDataModifyingProcedureSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46392,16 +46689,24 @@ class GQLParser(Parser):
             return GQLParser.RULE_focusedNestedDataModifyingProcedureSpecification
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterFocusedNestedDataModifyingProcedureSpecification"):
+            if hasattr(
+                listener, "enterFocusedNestedDataModifyingProcedureSpecification"
+            ):
                 listener.enterFocusedNestedDataModifyingProcedureSpecification(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitFocusedNestedDataModifyingProcedureSpecification"):
+            if hasattr(
+                listener, "exitFocusedNestedDataModifyingProcedureSpecification"
+            ):
                 listener.exitFocusedNestedDataModifyingProcedureSpecification(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitFocusedNestedDataModifyingProcedureSpecification"):
-                return visitor.visitFocusedNestedDataModifyingProcedureSpecification(self)
+            if hasattr(
+                visitor, "visitFocusedNestedDataModifyingProcedureSpecification"
+            ):
+                return visitor.visitFocusedNestedDataModifyingProcedureSpecification(
+                    self
+                )
             else:
                 return visitor.visitChildren(self)
 
@@ -46409,7 +46714,9 @@ class GQLParser(Parser):
         localctx = GQLParser.FocusedNestedDataModifyingProcedureSpecificationContext(
             self, self._ctx, self.state
         )
-        self.enterRule(localctx, 136, self.RULE_focusedNestedDataModifyingProcedureSpecification)
+        self.enterRule(
+            localctx, 136, self.RULE_focusedNestedDataModifyingProcedureSpecification
+        )
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1598
@@ -46427,7 +46734,9 @@ class GQLParser(Parser):
     class AmbientLinearDataModifyingStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46459,7 +46768,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def ambientLinearDataModifyingStatement(self):
-        localctx = GQLParser.AmbientLinearDataModifyingStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.AmbientLinearDataModifyingStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 138, self.RULE_ambientLinearDataModifyingStatement)
         try:
             self.state = 1603
@@ -46506,15 +46817,21 @@ class GQLParser(Parser):
     class AmbientLinearDataModifyingStatementBodyContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def simpleLinearDataAccessingStatement(self):
-            return self.getTypedRuleContext(GQLParser.SimpleLinearDataAccessingStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimpleLinearDataAccessingStatementContext, 0
+            )
 
         def primitiveResultStatement(self):
-            return self.getTypedRuleContext(GQLParser.PrimitiveResultStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PrimitiveResultStatementContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_ambientLinearDataModifyingStatementBody
@@ -46561,15 +46878,21 @@ class GQLParser(Parser):
     class SimpleLinearDataAccessingStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def simpleDataAccessingStatement(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(GQLParser.SimpleDataAccessingStatementContext)
+                return self.getTypedRuleContexts(
+                    GQLParser.SimpleDataAccessingStatementContext
+                )
             else:
-                return self.getTypedRuleContext(GQLParser.SimpleDataAccessingStatementContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.SimpleDataAccessingStatementContext, i
+                )
 
         def getRuleIndex(self):
             return GQLParser.RULE_simpleLinearDataAccessingStatement
@@ -46589,7 +46912,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simpleLinearDataAccessingStatement(self):
-        localctx = GQLParser.SimpleLinearDataAccessingStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimpleLinearDataAccessingStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 142, self.RULE_simpleLinearDataAccessingStatement)
         self._la = 0  # Token type
         try:
@@ -46605,8 +46930,14 @@ class GQLParser(Parser):
                 _la = self._input.LA(1)
                 if not (
                     _la == 44
-                    or (((_la - 76) & ~0x3F) == 0 and ((1 << (_la - 76)) & 90072009744089097) != 0)
-                    or (((_la - 143) & ~0x3F) == 0 and ((1 << (_la - 143)) & 4644354296316033) != 0)
+                    or (
+                        ((_la - 76) & ~0x3F) == 0
+                        and ((1 << (_la - 76)) & 90072009744089097) != 0
+                    )
+                    or (
+                        ((_la - 143) & ~0x3F) == 0
+                        and ((1 << (_la - 143)) & 4644354296316033) != 0
+                    )
                 ):
                     break
 
@@ -46621,7 +46952,9 @@ class GQLParser(Parser):
     class SimpleDataAccessingStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46629,7 +46962,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.SimpleQueryStatementContext, 0)
 
         def simpleDataModifyingStatement(self):
-            return self.getTypedRuleContext(GQLParser.SimpleDataModifyingStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimpleDataModifyingStatementContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_simpleDataAccessingStatement
@@ -46649,7 +46984,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simpleDataAccessingStatement(self):
-        localctx = GQLParser.SimpleDataAccessingStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimpleDataAccessingStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 144, self.RULE_simpleDataAccessingStatement)
         try:
             self.state = 1616
@@ -46678,15 +47015,21 @@ class GQLParser(Parser):
     class SimpleDataModifyingStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def primitiveDataModifyingStatement(self):
-            return self.getTypedRuleContext(GQLParser.PrimitiveDataModifyingStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PrimitiveDataModifyingStatementContext, 0
+            )
 
         def callDataModifyingProcedureStatement(self):
-            return self.getTypedRuleContext(GQLParser.CallDataModifyingProcedureStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CallDataModifyingProcedureStatementContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_simpleDataModifyingStatement
@@ -46706,7 +47049,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simpleDataModifyingStatement(self):
-        localctx = GQLParser.SimpleDataModifyingStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimpleDataModifyingStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 146, self.RULE_simpleDataModifyingStatement)
         try:
             self.state = 1620
@@ -46736,7 +47081,9 @@ class GQLParser(Parser):
     class PrimitiveDataModifyingStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46770,7 +47117,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def primitiveDataModifyingStatement(self):
-        localctx = GQLParser.PrimitiveDataModifyingStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.PrimitiveDataModifyingStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 148, self.RULE_primitiveDataModifyingStatement)
         try:
             self.state = 1626
@@ -46810,7 +47159,9 @@ class GQLParser(Parser):
     class InsertStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46857,7 +47208,9 @@ class GQLParser(Parser):
     class SetStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46904,7 +47257,9 @@ class GQLParser(Parser):
     class SetItemListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -46968,7 +47323,9 @@ class GQLParser(Parser):
     class SetItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -47034,12 +47391,16 @@ class GQLParser(Parser):
     class SetPropertyItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def bindingVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceContext, 0
+            )
 
         def PERIOD(self):
             return self.getToken(GQLParser.PERIOD, 0)
@@ -47096,12 +47457,16 @@ class GQLParser(Parser):
     class SetAllPropertiesItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def bindingVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceContext, 0
+            )
 
         def EQUALS_OPERATOR(self):
             return self.getToken(GQLParser.EQUALS_OPERATOR, 0)
@@ -47113,7 +47478,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.RIGHT_BRACE, 0)
 
         def propertyKeyValuePairList(self):
-            return self.getTypedRuleContext(GQLParser.PropertyKeyValuePairListContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PropertyKeyValuePairListContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_setAllPropertiesItem
@@ -47150,7 +47517,10 @@ class GQLParser(Parser):
             if (
                 _la == 4
                 or _la == 5
-                or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 281474976710655) != 0)
+                or (
+                    ((_la - 277) & ~0x3F) == 0
+                    and ((1 << (_la - 277)) & 281474976710655) != 0
+                )
             ):
                 self.state = 1656
                 self.propertyKeyValuePairList()
@@ -47168,12 +47538,16 @@ class GQLParser(Parser):
     class SetLabelItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def bindingVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceContext, 0
+            )
 
         def isOrColon(self):
             return self.getTypedRuleContext(GQLParser.IsOrColonContext, 0)
@@ -47220,7 +47594,9 @@ class GQLParser(Parser):
     class RemoveStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -47267,7 +47643,9 @@ class GQLParser(Parser):
     class RemoveItemListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -47331,7 +47709,9 @@ class GQLParser(Parser):
     class RemoveItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -47388,12 +47768,16 @@ class GQLParser(Parser):
     class RemovePropertyItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def bindingVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceContext, 0
+            )
 
         def PERIOD(self):
             return self.getToken(GQLParser.PERIOD, 0)
@@ -47440,12 +47824,16 @@ class GQLParser(Parser):
     class RemoveLabelItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def bindingVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceContext, 0
+            )
 
         def isOrColon(self):
             return self.getTypedRuleContext(GQLParser.IsOrColonContext, 0)
@@ -47492,7 +47880,9 @@ class GQLParser(Parser):
     class DeleteStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -47558,7 +47948,9 @@ class GQLParser(Parser):
     class DeleteItemListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -47622,7 +48014,9 @@ class GQLParser(Parser):
     class DeleteItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -47664,7 +48058,9 @@ class GQLParser(Parser):
     class CallDataModifyingProcedureStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -47689,7 +48085,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def callDataModifyingProcedureStatement(self):
-        localctx = GQLParser.CallDataModifyingProcedureStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.CallDataModifyingProcedureStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 180, self.RULE_callDataModifyingProcedureStatement)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -47706,12 +48104,16 @@ class GQLParser(Parser):
     class CompositeQueryStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def compositeQueryExpression(self):
-            return self.getTypedRuleContext(GQLParser.CompositeQueryExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CompositeQueryExpressionContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_compositeQueryStatement
@@ -47748,7 +48150,9 @@ class GQLParser(Parser):
     class CompositeQueryExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -47756,7 +48160,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.CompositeQueryPrimaryContext, 0)
 
         def compositeQueryExpression(self):
-            return self.getTypedRuleContext(GQLParser.CompositeQueryExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CompositeQueryExpressionContext, 0
+            )
 
         def queryConjunction(self):
             return self.getTypedRuleContext(GQLParser.QueryConjunctionContext, 0)
@@ -47781,7 +48187,9 @@ class GQLParser(Parser):
     def compositeQueryExpression(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = GQLParser.CompositeQueryExpressionContext(self, self._ctx, _parentState)
+        localctx = GQLParser.CompositeQueryExpressionContext(
+            self, self._ctx, _parentState
+        )
         _prevctx = localctx
         _startState = 184
         self.enterRecursionRule(localctx, 184, self.RULE_compositeQueryExpression, _p)
@@ -47808,7 +48216,9 @@ class GQLParser(Parser):
                     if not self.precpred(self._ctx, 2):
                         from antlr4.error.Errors import FailedPredicateException
 
-                        raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
+                        raise FailedPredicateException(
+                            self, "self.precpred(self._ctx, 2)"
+                        )
                     self.state = 1712
                     self.queryConjunction()
                     self.state = 1713
@@ -47828,7 +48238,9 @@ class GQLParser(Parser):
     class QueryConjunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -47886,7 +48298,9 @@ class GQLParser(Parser):
     class SetOperatorContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -47977,7 +48391,9 @@ class GQLParser(Parser):
     class CompositeQueryPrimaryContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48019,15 +48435,21 @@ class GQLParser(Parser):
     class LinearQueryStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def focusedLinearQueryStatement(self):
-            return self.getTypedRuleContext(GQLParser.FocusedLinearQueryStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.FocusedLinearQueryStatementContext, 0
+            )
 
         def ambientLinearQueryStatement(self):
-            return self.getTypedRuleContext(GQLParser.AmbientLinearQueryStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.AmbientLinearQueryStatementContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_linearQueryStatement
@@ -48058,7 +48480,21 @@ class GQLParser(Parser):
                 self.state = 1740
                 self.focusedLinearQueryStatement()
                 pass
-            elif token in [44, 91, 92, 100, 130, 132, 143, 159, 160, 162, 180, 195, 368]:
+            elif token in [
+                44,
+                91,
+                92,
+                100,
+                130,
+                132,
+                143,
+                159,
+                160,
+                162,
+                180,
+                195,
+                368,
+            ]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 1741
                 self.ambientLinearQueryStatement()
@@ -48077,7 +48513,9 @@ class GQLParser(Parser):
     class FocusedLinearQueryStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48088,15 +48526,23 @@ class GQLParser(Parser):
 
         def focusedLinearQueryStatementPart(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(GQLParser.FocusedLinearQueryStatementPartContext)
+                return self.getTypedRuleContexts(
+                    GQLParser.FocusedLinearQueryStatementPartContext
+                )
             else:
-                return self.getTypedRuleContext(GQLParser.FocusedLinearQueryStatementPartContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.FocusedLinearQueryStatementPartContext, i
+                )
 
         def focusedPrimitiveResultStatement(self):
-            return self.getTypedRuleContext(GQLParser.FocusedPrimitiveResultStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.FocusedPrimitiveResultStatementContext, 0
+            )
 
         def focusedNestedQuerySpecification(self):
-            return self.getTypedRuleContext(GQLParser.FocusedNestedQuerySpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.FocusedNestedQuerySpecificationContext, 0
+            )
 
         def selectStatement(self):
             return self.getTypedRuleContext(GQLParser.SelectStatementContext, 0)
@@ -48119,7 +48565,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def focusedLinearQueryStatement(self):
-        localctx = GQLParser.FocusedLinearQueryStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.FocusedLinearQueryStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 194, self.RULE_focusedLinearQueryStatement)
         try:
             self.state = 1754
@@ -48171,7 +48619,9 @@ class GQLParser(Parser):
     class FocusedLinearQueryStatementPartContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48179,7 +48629,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.UseGraphClauseContext, 0)
 
         def simpleLinearQueryStatement(self):
-            return self.getTypedRuleContext(GQLParser.SimpleLinearQueryStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimpleLinearQueryStatementContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_focusedLinearQueryStatementPart
@@ -48199,7 +48651,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def focusedLinearQueryStatementPart(self):
-        localctx = GQLParser.FocusedLinearQueryStatementPartContext(self, self._ctx, self.state)
+        localctx = GQLParser.FocusedLinearQueryStatementPartContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 196, self.RULE_focusedLinearQueryStatementPart)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -48218,7 +48672,9 @@ class GQLParser(Parser):
     class FocusedLinearQueryAndPrimitiveResultStatementPartContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48226,25 +48682,37 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.UseGraphClauseContext, 0)
 
         def simpleLinearQueryStatement(self):
-            return self.getTypedRuleContext(GQLParser.SimpleLinearQueryStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimpleLinearQueryStatementContext, 0
+            )
 
         def primitiveResultStatement(self):
-            return self.getTypedRuleContext(GQLParser.PrimitiveResultStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PrimitiveResultStatementContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_focusedLinearQueryAndPrimitiveResultStatementPart
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterFocusedLinearQueryAndPrimitiveResultStatementPart"):
+            if hasattr(
+                listener, "enterFocusedLinearQueryAndPrimitiveResultStatementPart"
+            ):
                 listener.enterFocusedLinearQueryAndPrimitiveResultStatementPart(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitFocusedLinearQueryAndPrimitiveResultStatementPart"):
+            if hasattr(
+                listener, "exitFocusedLinearQueryAndPrimitiveResultStatementPart"
+            ):
                 listener.exitFocusedLinearQueryAndPrimitiveResultStatementPart(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitFocusedLinearQueryAndPrimitiveResultStatementPart"):
-                return visitor.visitFocusedLinearQueryAndPrimitiveResultStatementPart(self)
+            if hasattr(
+                visitor, "visitFocusedLinearQueryAndPrimitiveResultStatementPart"
+            ):
+                return visitor.visitFocusedLinearQueryAndPrimitiveResultStatementPart(
+                    self
+                )
             else:
                 return visitor.visitChildren(self)
 
@@ -48252,7 +48720,9 @@ class GQLParser(Parser):
         localctx = GQLParser.FocusedLinearQueryAndPrimitiveResultStatementPartContext(
             self, self._ctx, self.state
         )
-        self.enterRule(localctx, 198, self.RULE_focusedLinearQueryAndPrimitiveResultStatementPart)
+        self.enterRule(
+            localctx, 198, self.RULE_focusedLinearQueryAndPrimitiveResultStatementPart
+        )
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1759
@@ -48272,7 +48742,9 @@ class GQLParser(Parser):
     class FocusedPrimitiveResultStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48280,7 +48752,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.UseGraphClauseContext, 0)
 
         def primitiveResultStatement(self):
-            return self.getTypedRuleContext(GQLParser.PrimitiveResultStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PrimitiveResultStatementContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_focusedPrimitiveResultStatement
@@ -48300,7 +48774,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def focusedPrimitiveResultStatement(self):
-        localctx = GQLParser.FocusedPrimitiveResultStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.FocusedPrimitiveResultStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 200, self.RULE_focusedPrimitiveResultStatement)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -48319,7 +48795,9 @@ class GQLParser(Parser):
     class FocusedNestedQuerySpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48327,7 +48805,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.UseGraphClauseContext, 0)
 
         def nestedQuerySpecification(self):
-            return self.getTypedRuleContext(GQLParser.NestedQuerySpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NestedQuerySpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_focusedNestedQuerySpecification
@@ -48347,7 +48827,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def focusedNestedQuerySpecification(self):
-        localctx = GQLParser.FocusedNestedQuerySpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.FocusedNestedQuerySpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 202, self.RULE_focusedNestedQuerySpecification)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -48366,18 +48848,26 @@ class GQLParser(Parser):
     class AmbientLinearQueryStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def primitiveResultStatement(self):
-            return self.getTypedRuleContext(GQLParser.PrimitiveResultStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PrimitiveResultStatementContext, 0
+            )
 
         def simpleLinearQueryStatement(self):
-            return self.getTypedRuleContext(GQLParser.SimpleLinearQueryStatementContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimpleLinearQueryStatementContext, 0
+            )
 
         def nestedQuerySpecification(self):
-            return self.getTypedRuleContext(GQLParser.NestedQuerySpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NestedQuerySpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_ambientLinearQueryStatement
@@ -48397,7 +48887,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def ambientLinearQueryStatement(self):
-        localctx = GQLParser.AmbientLinearQueryStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.AmbientLinearQueryStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 204, self.RULE_ambientLinearQueryStatement)
         self._la = 0  # Token type
         try:
@@ -48411,8 +48903,14 @@ class GQLParser(Parser):
                 _la = self._input.LA(1)
                 if (
                     _la == 44
-                    or (((_la - 91) & ~0x3F) == 0 and ((1 << (_la - 91)) & 4506348406440449) != 0)
-                    or (((_la - 159) & ~0x3F) == 0 and ((1 << (_la - 159)) & 68719476747) != 0)
+                    or (
+                        ((_la - 91) & ~0x3F) == 0
+                        and ((1 << (_la - 91)) & 4506348406440449) != 0
+                    )
+                    or (
+                        ((_la - 159) & ~0x3F) == 0
+                        and ((1 << (_la - 159)) & 68719476747) != 0
+                    )
                 ):
                     self.state = 1769
                     self.simpleLinearQueryStatement()
@@ -48439,7 +48937,9 @@ class GQLParser(Parser):
     class SimpleLinearQueryStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48447,7 +48947,9 @@ class GQLParser(Parser):
             if i is None:
                 return self.getTypedRuleContexts(GQLParser.SimpleQueryStatementContext)
             else:
-                return self.getTypedRuleContext(GQLParser.SimpleQueryStatementContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.SimpleQueryStatementContext, i
+                )
 
         def getRuleIndex(self):
             return GQLParser.RULE_simpleLinearQueryStatement
@@ -48467,7 +48969,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simpleLinearQueryStatement(self):
-        localctx = GQLParser.SimpleLinearQueryStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimpleLinearQueryStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 206, self.RULE_simpleLinearQueryStatement)
         self._la = 0  # Token type
         try:
@@ -48483,8 +48987,14 @@ class GQLParser(Parser):
                 _la = self._input.LA(1)
                 if not (
                     _la == 44
-                    or (((_la - 91) & ~0x3F) == 0 and ((1 << (_la - 91)) & 4506348406440449) != 0)
-                    or (((_la - 159) & ~0x3F) == 0 and ((1 << (_la - 159)) & 68719476747) != 0)
+                    or (
+                        ((_la - 91) & ~0x3F) == 0
+                        and ((1 << (_la - 91)) & 4506348406440449) != 0
+                    )
+                    or (
+                        ((_la - 159) & ~0x3F) == 0
+                        and ((1 << (_la - 159)) & 68719476747) != 0
+                    )
                 ):
                     break
 
@@ -48499,7 +49009,9 @@ class GQLParser(Parser):
     class SimpleQueryStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48556,7 +49068,9 @@ class GQLParser(Parser):
     class PrimitiveQueryStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48638,7 +49152,9 @@ class GQLParser(Parser):
     class MatchStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48696,7 +49212,9 @@ class GQLParser(Parser):
     class SimpleMatchStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48704,7 +49222,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.MATCH, 0)
 
         def graphPatternBindingTable(self):
-            return self.getTypedRuleContext(GQLParser.GraphPatternBindingTableContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.GraphPatternBindingTableContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_simpleMatchStatement
@@ -48743,7 +49263,9 @@ class GQLParser(Parser):
     class OptionalMatchStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48790,7 +49312,9 @@ class GQLParser(Parser):
     class OptionalOperandContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48873,7 +49397,9 @@ class GQLParser(Parser):
     class MatchStatementBlockContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48929,7 +49455,9 @@ class GQLParser(Parser):
     class CallQueryStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -48971,7 +49499,9 @@ class GQLParser(Parser):
     class FilterStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49185,7 +49715,9 @@ class GQLParser(Parser):
     class LetStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49193,7 +49725,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LET, 0)
 
         def letVariableDefinitionList(self):
-            return self.getTypedRuleContext(GQLParser.LetVariableDefinitionListContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.LetVariableDefinitionListContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_letStatement
@@ -49232,7 +49766,9 @@ class GQLParser(Parser):
     class LetVariableDefinitionListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49240,7 +49776,9 @@ class GQLParser(Parser):
             if i is None:
                 return self.getTypedRuleContexts(GQLParser.LetVariableDefinitionContext)
             else:
-                return self.getTypedRuleContext(GQLParser.LetVariableDefinitionContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.LetVariableDefinitionContext, i
+                )
 
         def COMMA(self, i: int = None):
             if i is None:
@@ -49266,7 +49804,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def letVariableDefinitionList(self):
-        localctx = GQLParser.LetVariableDefinitionListContext(self, self._ctx, self.state)
+        localctx = GQLParser.LetVariableDefinitionListContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 228, self.RULE_letVariableDefinitionList)
         self._la = 0  # Token type
         try:
@@ -49296,7 +49836,9 @@ class GQLParser(Parser):
     class LetVariableDefinitionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49413,7 +49955,9 @@ class GQLParser(Parser):
     class ForStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49471,7 +50015,9 @@ class GQLParser(Parser):
     class ForItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49518,7 +50064,9 @@ class GQLParser(Parser):
     class ForItemAliasContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49565,7 +50113,9 @@ class GQLParser(Parser):
     class ForItemSourceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49607,7 +50157,9 @@ class GQLParser(Parser):
     class ForOrdinalityOrOffsetContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49668,7 +50220,9 @@ class GQLParser(Parser):
     class OrderByAndPageStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49755,7 +50309,9 @@ class GQLParser(Parser):
     class PrimitiveResultStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49786,7 +50342,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def primitiveResultStatement(self):
-        localctx = GQLParser.PrimitiveResultStatementContext(self, self._ctx, self.state)
+        localctx = GQLParser.PrimitiveResultStatementContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 244, self.RULE_primitiveResultStatement)
         try:
             self.state = 1879
@@ -49823,7 +50381,9 @@ class GQLParser(Parser):
     class ReturnStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -49870,7 +50430,9 @@ class GQLParser(Parser):
     class ReturnStatementBodyContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -50100,7 +50662,9 @@ class GQLParser(Parser):
     class ReturnItemListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -50164,12 +50728,16 @@ class GQLParser(Parser):
     class ReturnItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def aggregatingValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.AggregatingValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.AggregatingValueExpressionContext, 0
+            )
 
         def returnItemAlias(self):
             return self.getTypedRuleContext(GQLParser.ReturnItemAliasContext, 0)
@@ -50216,7 +50784,9 @@ class GQLParser(Parser):
     class ReturnItemAliasContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -50263,7 +50833,9 @@ class GQLParser(Parser):
     class SelectStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -50557,7 +51129,9 @@ class GQLParser(Parser):
     class SelectItemListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -50621,12 +51195,16 @@ class GQLParser(Parser):
     class SelectItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def aggregatingValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.AggregatingValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.AggregatingValueExpressionContext, 0
+            )
 
         def selectItemAlias(self):
             return self.getTypedRuleContext(GQLParser.SelectItemAliasContext, 0)
@@ -50673,7 +51251,9 @@ class GQLParser(Parser):
     class SelectItemAliasContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -50720,7 +51300,9 @@ class GQLParser(Parser):
     class HavingClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -50767,7 +51349,9 @@ class GQLParser(Parser):
     class SelectStatementBodyContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -50778,7 +51362,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.SelectGraphMatchListContext, 0)
 
         def selectQuerySpecification(self):
-            return self.getTypedRuleContext(GQLParser.SelectQuerySpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SelectQuerySpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_selectStatementBody
@@ -50828,7 +51414,9 @@ class GQLParser(Parser):
     class SelectGraphMatchListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -50892,7 +51480,9 @@ class GQLParser(Parser):
     class SelectGraphMatchContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -50939,12 +51529,16 @@ class GQLParser(Parser):
     class SelectQuerySpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def nestedQuerySpecification(self):
-            return self.getTypedRuleContext(GQLParser.NestedQuerySpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NestedQuerySpecificationContext, 0
+            )
 
         def graphExpression(self):
             return self.getTypedRuleContext(GQLParser.GraphExpressionContext, 0)
@@ -50967,7 +51561,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def selectQuerySpecification(self):
-        localctx = GQLParser.SelectQuerySpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.SelectQuerySpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 272, self.RULE_selectQuerySpecification)
         try:
             self.state = 1976
@@ -50998,7 +51594,9 @@ class GQLParser(Parser):
     class CallProcedureStatementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51056,7 +51654,9 @@ class GQLParser(Parser):
     class ProcedureCallContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51171,12 +51771,16 @@ class GQLParser(Parser):
     class InlineProcedureCallContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def nestedProcedureSpecification(self):
-            return self.getTypedRuleContext(GQLParser.NestedProcedureSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NestedProcedureSpecificationContext, 0
+            )
 
         def variableScopeClause(self):
             return self.getTypedRuleContext(GQLParser.VariableScopeClauseContext, 0)
@@ -51224,7 +51828,9 @@ class GQLParser(Parser):
     class VariableScopeClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51235,7 +51841,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
 
         def bindingVariableReferenceList(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceListContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceListContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_variableScopeClause
@@ -51265,7 +51873,9 @@ class GQLParser(Parser):
             self.state = 1995
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if ((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 281474976710655) != 0:
+            if ((_la - 277) & ~0x3F) == 0 and (
+                (1 << (_la - 277)) & 281474976710655
+            ) != 0:
                 self.state = 1994
                 self.bindingVariableReferenceList()
 
@@ -51282,15 +51892,21 @@ class GQLParser(Parser):
     class BindingVariableReferenceListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def bindingVariableReference(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(GQLParser.BindingVariableReferenceContext)
+                return self.getTypedRuleContexts(
+                    GQLParser.BindingVariableReferenceContext
+                )
             else:
-                return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.BindingVariableReferenceContext, i
+                )
 
         def COMMA(self, i: int = None):
             if i is None:
@@ -51316,7 +51932,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def bindingVariableReferenceList(self):
-        localctx = GQLParser.BindingVariableReferenceListContext(self, self._ctx, self.state)
+        localctx = GQLParser.BindingVariableReferenceListContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 282, self.RULE_bindingVariableReferenceList)
         self._la = 0  # Token type
         try:
@@ -51346,7 +51964,9 @@ class GQLParser(Parser):
     class NamedProcedureCallContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51397,10 +52017,21 @@ class GQLParser(Parser):
             _la = self._input.LA(1)
             if (
                 (((_la) & ~0x3F) == 0 and ((1 << _la) & 8762849302180528028) != 0)
-                or (((_la - 64) & ~0x3F) == 0 and ((1 << (_la - 64)) & 34464073969) != 0)
-                or (((_la - 129) & ~0x3F) == 0 and ((1 << (_la - 129)) & -8011702113698201677) != 0)
-                or (((_la - 193) & ~0x3F) == 0 and ((1 << (_la - 193)) & 26393111092643) != 0)
-                or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 844424930131967) != 0)
+                or (
+                    ((_la - 64) & ~0x3F) == 0 and ((1 << (_la - 64)) & 34464073969) != 0
+                )
+                or (
+                    ((_la - 129) & ~0x3F) == 0
+                    and ((1 << (_la - 129)) & -8011702113698201677) != 0
+                )
+                or (
+                    ((_la - 193) & ~0x3F) == 0
+                    and ((1 << (_la - 193)) & 26393111092643) != 0
+                )
+                or (
+                    ((_la - 277) & ~0x3F) == 0
+                    and ((1 << (_la - 277)) & 844424930131967) != 0
+                )
                 or (((_la - 368) & ~0x3F) == 0 and ((1 << (_la - 368)) & 151) != 0)
             ):
                 self.state = 2009
@@ -51426,7 +52057,9 @@ class GQLParser(Parser):
     class ProcedureArgumentListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51490,7 +52123,9 @@ class GQLParser(Parser):
     class ProcedureArgumentContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51532,7 +52167,9 @@ class GQLParser(Parser):
     class AtSchemaClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51579,7 +52216,9 @@ class GQLParser(Parser):
     class UseGraphClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51626,7 +52265,9 @@ class GQLParser(Parser):
     class GraphPatternBindingTableContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51654,7 +52295,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def graphPatternBindingTable(self):
-        localctx = GQLParser.GraphPatternBindingTableContext(self, self._ctx, self.state)
+        localctx = GQLParser.GraphPatternBindingTableContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 294, self.RULE_graphPatternBindingTable)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -51678,7 +52321,9 @@ class GQLParser(Parser):
     class GraphPatternYieldClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51686,7 +52331,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.YIELD, 0)
 
         def graphPatternYieldItemList(self):
-            return self.getTypedRuleContext(GQLParser.GraphPatternYieldItemListContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.GraphPatternYieldItemListContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_graphPatternYieldClause
@@ -51725,7 +52372,9 @@ class GQLParser(Parser):
     class GraphPatternYieldItemListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51733,7 +52382,9 @@ class GQLParser(Parser):
             if i is None:
                 return self.getTypedRuleContexts(GQLParser.GraphPatternYieldItemContext)
             else:
-                return self.getTypedRuleContext(GQLParser.GraphPatternYieldItemContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.GraphPatternYieldItemContext, i
+                )
 
         def COMMA(self, i: int = None):
             if i is None:
@@ -51759,7 +52410,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def graphPatternYieldItemList(self):
-        localctx = GQLParser.GraphPatternYieldItemListContext(self, self._ctx, self.state)
+        localctx = GQLParser.GraphPatternYieldItemListContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 298, self.RULE_graphPatternYieldItemList)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -51789,12 +52442,16 @@ class GQLParser(Parser):
     class GraphPatternYieldItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def bindingVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_graphPatternYieldItem
@@ -51831,7 +52488,9 @@ class GQLParser(Parser):
     class GraphPatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51903,12 +52562,16 @@ class GQLParser(Parser):
     class MatchModeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def repeatableElementsMatchMode(self):
-            return self.getTypedRuleContext(GQLParser.RepeatableElementsMatchModeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.RepeatableElementsMatchModeContext, 0
+            )
 
         def differentEdgesMatchMode(self):
             return self.getTypedRuleContext(GQLParser.DifferentEdgesMatchModeContext, 0)
@@ -51961,7 +52624,9 @@ class GQLParser(Parser):
     class RepeatableElementsMatchModeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -51969,7 +52634,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.REPEATABLE, 0)
 
         def elementBindingsOrElements(self):
-            return self.getTypedRuleContext(GQLParser.ElementBindingsOrElementsContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementBindingsOrElementsContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_repeatableElementsMatchMode
@@ -51989,7 +52656,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def repeatableElementsMatchMode(self):
-        localctx = GQLParser.RepeatableElementsMatchModeContext(self, self._ctx, self.state)
+        localctx = GQLParser.RepeatableElementsMatchModeContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 306, self.RULE_repeatableElementsMatchMode)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -52008,7 +52677,9 @@ class GQLParser(Parser):
     class DifferentEdgesMatchModeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52055,7 +52726,9 @@ class GQLParser(Parser):
     class ElementBindingsOrElementsContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52086,7 +52759,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def elementBindingsOrElements(self):
-        localctx = GQLParser.ElementBindingsOrElementsContext(self, self._ctx, self.state)
+        localctx = GQLParser.ElementBindingsOrElementsContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 310, self.RULE_elementBindingsOrElements)
         try:
             self.state = 2074
@@ -52123,7 +52798,9 @@ class GQLParser(Parser):
     class EdgeBindingsOrEdgesContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52191,7 +52868,9 @@ class GQLParser(Parser):
     class PathPatternListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52255,7 +52934,9 @@ class GQLParser(Parser):
     class PathPatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52304,7 +52985,10 @@ class GQLParser(Parser):
             if (
                 _la == 22
                 or _la == 25
-                or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 9096740732929) != 0)
+                or (
+                    ((_la - 277) & ~0x3F) == 0
+                    and ((1 << (_la - 277)) & 9096740732929) != 0
+                )
             ):
                 self.state = 2094
                 self.pathPatternPrefix()
@@ -52322,7 +53006,9 @@ class GQLParser(Parser):
     class PathVariableDeclarationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52369,7 +53055,9 @@ class GQLParser(Parser):
     class KeepClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52416,7 +53104,9 @@ class GQLParser(Parser):
     class GraphPatternWhereClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52463,7 +53153,9 @@ class GQLParser(Parser):
     class InsertGraphPatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52505,7 +53197,9 @@ class GQLParser(Parser):
     class InsertPathPatternListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52569,7 +53263,9 @@ class GQLParser(Parser):
     class InsertPathPatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52633,7 +53329,9 @@ class GQLParser(Parser):
     class InsertNodePatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52644,7 +53342,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
 
         def insertElementPatternFiller(self):
-            return self.getTypedRuleContext(GQLParser.InsertElementPatternFillerContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.InsertElementPatternFillerContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_insertNodePattern
@@ -52676,7 +53376,10 @@ class GQLParser(Parser):
             _la = self._input.LA(1)
             if (
                 _la == 127
-                or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 281474976710655) != 0)
+                or (
+                    ((_la - 277) & ~0x3F) == 0
+                    and ((1 << (_la - 277)) & 281474976710655) != 0
+                )
                 or _la == 359
                 or _la == 368
             ):
@@ -52696,7 +53399,9 @@ class GQLParser(Parser):
     class InsertEdgePatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52762,7 +53467,9 @@ class GQLParser(Parser):
     class InsertEdgePointingLeftContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52773,7 +53480,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.RIGHT_BRACKET_MINUS, 0)
 
         def insertElementPatternFiller(self):
-            return self.getTypedRuleContext(GQLParser.InsertElementPatternFillerContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.InsertElementPatternFillerContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_insertEdgePointingLeft
@@ -52805,7 +53514,10 @@ class GQLParser(Parser):
             _la = self._input.LA(1)
             if (
                 _la == 127
-                or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 281474976710655) != 0)
+                or (
+                    ((_la - 277) & ~0x3F) == 0
+                    and ((1 << (_la - 277)) & 281474976710655) != 0
+                )
                 or _la == 359
                 or _la == 368
             ):
@@ -52825,7 +53537,9 @@ class GQLParser(Parser):
     class InsertEdgePointingRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52836,7 +53550,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.BRACKET_RIGHT_ARROW, 0)
 
         def insertElementPatternFiller(self):
-            return self.getTypedRuleContext(GQLParser.InsertElementPatternFillerContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.InsertElementPatternFillerContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_insertEdgePointingRight
@@ -52868,7 +53584,10 @@ class GQLParser(Parser):
             _la = self._input.LA(1)
             if (
                 _la == 127
-                or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 281474976710655) != 0)
+                or (
+                    ((_la - 277) & ~0x3F) == 0
+                    and ((1 << (_la - 277)) & 281474976710655) != 0
+                )
                 or _la == 359
                 or _la == 368
             ):
@@ -52888,7 +53607,9 @@ class GQLParser(Parser):
     class InsertEdgeUndirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -52899,7 +53620,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.RIGHT_BRACKET_TILDE, 0)
 
         def insertElementPatternFiller(self):
-            return self.getTypedRuleContext(GQLParser.InsertElementPatternFillerContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.InsertElementPatternFillerContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_insertEdgeUndirected
@@ -52931,7 +53654,10 @@ class GQLParser(Parser):
             _la = self._input.LA(1)
             if (
                 _la == 127
-                or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 281474976710655) != 0)
+                or (
+                    ((_la - 277) & ~0x3F) == 0
+                    and ((1 << (_la - 277)) & 281474976710655) != 0
+                )
                 or _la == 359
                 or _la == 368
             ):
@@ -52951,15 +53677,21 @@ class GQLParser(Parser):
     class InsertElementPatternFillerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def elementVariableDeclaration(self):
-            return self.getTypedRuleContext(GQLParser.ElementVariableDeclarationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementVariableDeclarationContext, 0
+            )
 
         def labelAndPropertySetSpecification(self):
-            return self.getTypedRuleContext(GQLParser.LabelAndPropertySetSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.LabelAndPropertySetSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_insertElementPatternFiller
@@ -52979,7 +53711,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def insertElementPatternFiller(self):
-        localctx = GQLParser.InsertElementPatternFillerContext(self, self._ctx, self.state)
+        localctx = GQLParser.InsertElementPatternFillerContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 340, self.RULE_insertElementPatternFiller)
         self._la = 0  # Token type
         try:
@@ -53004,7 +53738,9 @@ class GQLParser(Parser):
                 self.state = 2161
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if ((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 281474976710655) != 0:
+                if ((_la - 277) & ~0x3F) == 0 and (
+                    (1 << (_la - 277)) & 281474976710655
+                ) != 0:
                     self.state = 2160
                     self.elementVariableDeclaration()
 
@@ -53023,7 +53759,9 @@ class GQLParser(Parser):
     class LabelAndPropertySetSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53034,7 +53772,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.LabelSetSpecificationContext, 0)
 
         def elementPropertySpecification(self):
-            return self.getTypedRuleContext(GQLParser.ElementPropertySpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementPropertySpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_labelAndPropertySetSpecification
@@ -53054,7 +53794,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def labelAndPropertySetSpecification(self):
-        localctx = GQLParser.LabelAndPropertySetSpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.LabelAndPropertySetSpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 342, self.RULE_labelAndPropertySetSpecification)
         self._la = 0  # Token type
         try:
@@ -53102,7 +53844,9 @@ class GQLParser(Parser):
     class PathPatternPrefixContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53160,7 +53904,9 @@ class GQLParser(Parser):
     class PathModePrefixContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53212,7 +53958,9 @@ class GQLParser(Parser):
     class PathModeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53253,7 +54001,9 @@ class GQLParser(Parser):
             self.enterOuterAlt(localctx, 1)
             self.state = 2187
             _la = self._input.LA(1)
-            if not (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 9088150798337) != 0):
+            if not (
+                ((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 9088150798337) != 0
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -53269,7 +54019,9 @@ class GQLParser(Parser):
     class PathSearchPrefixContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53335,7 +54087,9 @@ class GQLParser(Parser):
     class AllPathSearchContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53397,7 +54151,9 @@ class GQLParser(Parser):
     class PathOrPathsContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53448,7 +54204,9 @@ class GQLParser(Parser):
     class AnyPathSearchContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53520,12 +54278,16 @@ class GQLParser(Parser):
     class NumberOfPathsContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def nonNegativeIntegerSpecification(self):
-            return self.getTypedRuleContext(GQLParser.NonNegativeIntegerSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NonNegativeIntegerSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_numberOfPaths
@@ -53562,7 +54324,9 @@ class GQLParser(Parser):
     class ShortestPathSearchContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53573,10 +54337,14 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.AnyShortestPathSearchContext, 0)
 
         def countedShortestPathSearch(self):
-            return self.getTypedRuleContext(GQLParser.CountedShortestPathSearchContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CountedShortestPathSearchContext, 0
+            )
 
         def countedShortestGroupSearch(self):
-            return self.getTypedRuleContext(GQLParser.CountedShortestGroupSearchContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CountedShortestGroupSearchContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_shortestPathSearch
@@ -53637,7 +54405,9 @@ class GQLParser(Parser):
     class AllShortestPathSearchContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53704,7 +54474,9 @@ class GQLParser(Parser):
     class AnyShortestPathSearchContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53771,7 +54543,9 @@ class GQLParser(Parser):
     class CountedShortestPathSearchContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53805,7 +54579,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def countedShortestPathSearch(self):
-        localctx = GQLParser.CountedShortestPathSearchContext(self, self._ctx, self.state)
+        localctx = GQLParser.CountedShortestPathSearchContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 366, self.RULE_countedShortestPathSearch)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -53838,7 +54614,9 @@ class GQLParser(Parser):
     class CountedShortestGroupSearchContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -53878,7 +54656,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def countedShortestGroupSearch(self):
-        localctx = GQLParser.CountedShortestGroupSearchContext(self, self._ctx, self.state)
+        localctx = GQLParser.CountedShortestGroupSearchContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 368, self.RULE_countedShortestGroupSearch)
         self._la = 0  # Token type
         try:
@@ -53924,12 +54704,16 @@ class GQLParser(Parser):
     class NumberOfGroupsContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def nonNegativeIntegerSpecification(self):
-            return self.getTypedRuleContext(GQLParser.NonNegativeIntegerSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NonNegativeIntegerSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_numberOfGroups
@@ -53966,7 +54750,9 @@ class GQLParser(Parser):
     class PathPatternExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54137,7 +54923,9 @@ class GQLParser(Parser):
     class PathTermContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54194,7 +54982,9 @@ class GQLParser(Parser):
     class PathFactorContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54325,7 +55115,9 @@ class GQLParser(Parser):
     class PathPrimaryContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54343,7 +55135,9 @@ class GQLParser(Parser):
             self.copyFrom(ctx)
 
         def parenthesizedPathPatternExpression(self):
-            return self.getTypedRuleContext(GQLParser.ParenthesizedPathPatternExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ParenthesizedPathPatternExpressionContext, 0
+            )
 
         def enterRule(self, listener: ParseTreeListener):
             if hasattr(listener, "enterPpParenthesizedPathPatternExpression"):
@@ -54391,7 +55185,9 @@ class GQLParser(Parser):
             self.copyFrom(ctx)
 
         def simplifiedPathPatternExpression(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedPathPatternExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedPathPatternExpressionContext, 0
+            )
 
         def enterRule(self, listener: ParseTreeListener):
             if hasattr(listener, "enterPpSimplifiedPathPatternExpression"):
@@ -54422,14 +55218,18 @@ class GQLParser(Parser):
                 pass
 
             elif la_ == 2:
-                localctx = GQLParser.PpParenthesizedPathPatternExpressionContext(self, localctx)
+                localctx = GQLParser.PpParenthesizedPathPatternExpressionContext(
+                    self, localctx
+                )
                 self.enterOuterAlt(localctx, 2)
                 self.state = 2291
                 self.parenthesizedPathPatternExpression()
                 pass
 
             elif la_ == 3:
-                localctx = GQLParser.PpSimplifiedPathPatternExpressionContext(self, localctx)
+                localctx = GQLParser.PpSimplifiedPathPatternExpressionContext(
+                    self, localctx
+                )
                 self.enterOuterAlt(localctx, 3)
                 self.state = 2292
                 self.simplifiedPathPatternExpression()
@@ -54446,7 +55246,9 @@ class GQLParser(Parser):
     class ElementPatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54504,7 +55306,9 @@ class GQLParser(Parser):
     class NodePatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54556,12 +55360,16 @@ class GQLParser(Parser):
     class ElementPatternFillerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def elementVariableDeclaration(self):
-            return self.getTypedRuleContext(GQLParser.ElementVariableDeclarationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementVariableDeclarationContext, 0
+            )
 
         def isLabelExpression(self):
             return self.getTypedRuleContext(GQLParser.IsLabelExpressionContext, 0)
@@ -54595,7 +55403,9 @@ class GQLParser(Parser):
             self.state = 2304
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if ((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 281474976710655) != 0:
+            if ((_la - 277) & ~0x3F) == 0 and (
+                (1 << (_la - 277)) & 281474976710655
+            ) != 0:
                 self.state = 2303
                 self.elementVariableDeclaration()
 
@@ -54624,7 +55434,9 @@ class GQLParser(Parser):
     class ElementVariableDeclarationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54649,7 +55461,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def elementVariableDeclaration(self):
-        localctx = GQLParser.ElementVariableDeclarationContext(self, self._ctx, self.state)
+        localctx = GQLParser.ElementVariableDeclarationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 386, self.RULE_elementVariableDeclaration)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -54666,7 +55480,9 @@ class GQLParser(Parser):
     class IsLabelExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54713,7 +55529,9 @@ class GQLParser(Parser):
     class IsOrColonContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54764,15 +55582,21 @@ class GQLParser(Parser):
     class ElementPatternPredicateContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def elementPatternWhereClause(self):
-            return self.getTypedRuleContext(GQLParser.ElementPatternWhereClauseContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementPatternWhereClauseContext, 0
+            )
 
         def elementPropertySpecification(self):
-            return self.getTypedRuleContext(GQLParser.ElementPropertySpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementPropertySpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_elementPatternPredicate
@@ -54822,7 +55646,9 @@ class GQLParser(Parser):
     class ElementPatternWhereClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54850,7 +55676,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def elementPatternWhereClause(self):
-        localctx = GQLParser.ElementPatternWhereClauseContext(self, self._ctx, self.state)
+        localctx = GQLParser.ElementPatternWhereClauseContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 394, self.RULE_elementPatternWhereClause)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -54869,7 +55697,9 @@ class GQLParser(Parser):
     class ElementPropertySpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54877,7 +55707,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_BRACE, 0)
 
         def propertyKeyValuePairList(self):
-            return self.getTypedRuleContext(GQLParser.PropertyKeyValuePairListContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PropertyKeyValuePairListContext, 0
+            )
 
         def RIGHT_BRACE(self):
             return self.getToken(GQLParser.RIGHT_BRACE, 0)
@@ -54900,7 +55732,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def elementPropertySpecification(self):
-        localctx = GQLParser.ElementPropertySpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.ElementPropertySpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 396, self.RULE_elementPropertySpecification)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -54921,7 +55755,9 @@ class GQLParser(Parser):
     class PropertyKeyValuePairListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -54929,7 +55765,9 @@ class GQLParser(Parser):
             if i is None:
                 return self.getTypedRuleContexts(GQLParser.PropertyKeyValuePairContext)
             else:
-                return self.getTypedRuleContext(GQLParser.PropertyKeyValuePairContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.PropertyKeyValuePairContext, i
+                )
 
         def COMMA(self, i: int = None):
             if i is None:
@@ -54955,7 +55793,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def propertyKeyValuePairList(self):
-        localctx = GQLParser.PropertyKeyValuePairListContext(self, self._ctx, self.state)
+        localctx = GQLParser.PropertyKeyValuePairListContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 398, self.RULE_propertyKeyValuePairList)
         self._la = 0  # Token type
         try:
@@ -54985,7 +55825,9 @@ class GQLParser(Parser):
     class PropertyKeyValuePairContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55037,7 +55879,9 @@ class GQLParser(Parser):
     class EdgePatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55095,7 +55939,9 @@ class GQLParser(Parser):
     class FullEdgePatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55109,10 +55955,14 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.FullEdgePointingRightContext, 0)
 
         def fullEdgeLeftOrUndirected(self):
-            return self.getTypedRuleContext(GQLParser.FullEdgeLeftOrUndirectedContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.FullEdgeLeftOrUndirectedContext, 0
+            )
 
         def fullEdgeUndirectedOrRight(self):
-            return self.getTypedRuleContext(GQLParser.FullEdgeUndirectedOrRightContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.FullEdgeUndirectedOrRightContext, 0
+            )
 
         def fullEdgeLeftOrRight(self):
             return self.getTypedRuleContext(GQLParser.FullEdgeLeftOrRightContext, 0)
@@ -55197,7 +56047,9 @@ class GQLParser(Parser):
     class FullEdgePointingLeftContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55249,7 +56101,9 @@ class GQLParser(Parser):
     class FullEdgeUndirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55301,7 +56155,9 @@ class GQLParser(Parser):
     class FullEdgePointingRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55353,7 +56209,9 @@ class GQLParser(Parser):
     class FullEdgeLeftOrUndirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55384,7 +56242,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def fullEdgeLeftOrUndirected(self):
-        localctx = GQLParser.FullEdgeLeftOrUndirectedContext(self, self._ctx, self.state)
+        localctx = GQLParser.FullEdgeLeftOrUndirectedContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 412, self.RULE_fullEdgeLeftOrUndirected)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -55405,7 +56265,9 @@ class GQLParser(Parser):
     class FullEdgeUndirectedOrRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55436,7 +56298,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def fullEdgeUndirectedOrRight(self):
-        localctx = GQLParser.FullEdgeUndirectedOrRightContext(self, self._ctx, self.state)
+        localctx = GQLParser.FullEdgeUndirectedOrRightContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 414, self.RULE_fullEdgeUndirectedOrRight)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -55457,7 +56321,9 @@ class GQLParser(Parser):
     class FullEdgeLeftOrRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55509,7 +56375,9 @@ class GQLParser(Parser):
     class FullEdgeAnyDirectionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55561,7 +56429,9 @@ class GQLParser(Parser):
     class AbbreviatedEdgePatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55611,7 +56481,10 @@ class GQLParser(Parser):
             self.enterOuterAlt(localctx, 1)
             self.state = 2383
             _la = self._input.LA(1)
-            if not (((_la - 335) & ~0x3F) == 0 and ((1 << (_la - 335)) & 281612416714771) != 0):
+            if not (
+                ((_la - 335) & ~0x3F) == 0
+                and ((1 << (_la - 335)) & 281612416714771) != 0
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -55627,7 +56500,9 @@ class GQLParser(Parser):
     class ParenthesizedPathPatternExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55641,13 +56516,17 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
 
         def subpathVariableDeclaration(self):
-            return self.getTypedRuleContext(GQLParser.SubpathVariableDeclarationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SubpathVariableDeclarationContext, 0
+            )
 
         def pathModePrefix(self):
             return self.getTypedRuleContext(GQLParser.PathModePrefixContext, 0)
 
         def parenthesizedPathPatternWhereClause(self):
-            return self.getTypedRuleContext(GQLParser.ParenthesizedPathPatternWhereClauseContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ParenthesizedPathPatternWhereClauseContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_parenthesizedPathPatternExpression
@@ -55667,7 +56546,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def parenthesizedPathPatternExpression(self):
-        localctx = GQLParser.ParenthesizedPathPatternExpressionContext(self, self._ctx, self.state)
+        localctx = GQLParser.ParenthesizedPathPatternExpressionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 422, self.RULE_parenthesizedPathPatternExpression)
         self._la = 0  # Token type
         try:
@@ -55710,7 +56591,9 @@ class GQLParser(Parser):
     class SubpathVariableDeclarationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55738,7 +56621,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def subpathVariableDeclaration(self):
-        localctx = GQLParser.SubpathVariableDeclarationContext(self, self._ctx, self.state)
+        localctx = GQLParser.SubpathVariableDeclarationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 424, self.RULE_subpathVariableDeclaration)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -55757,7 +56642,9 @@ class GQLParser(Parser):
     class ParenthesizedPathPatternWhereClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -55785,7 +56672,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def parenthesizedPathPatternWhereClause(self):
-        localctx = GQLParser.ParenthesizedPathPatternWhereClauseContext(self, self._ctx, self.state)
+        localctx = GQLParser.ParenthesizedPathPatternWhereClauseContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 426, self.RULE_parenthesizedPathPatternWhereClause)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -55804,7 +56693,9 @@ class GQLParser(Parser):
     class LabelExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56094,7 +56985,10 @@ class GQLParser(Parser):
                     la_ = self._interp.adaptivePredict(self._input, 206, self._ctx)
                     if la_ == 1:
                         localctx = GQLParser.LabelExpressionConjunctionContext(
-                            self, GQLParser.LabelExpressionContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.LabelExpressionContext(
+                                self, _parentctx, _parentState
+                            ),
                         )
                         self.pushNewRecursionContext(
                             localctx, _startState, self.RULE_labelExpression
@@ -56103,7 +56997,9 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 5)"
+                            )
                         self.state = 2416
                         self.match(GQLParser.AMPERSAND)
                         self.state = 2417
@@ -56112,7 +57008,10 @@ class GQLParser(Parser):
 
                     elif la_ == 2:
                         localctx = GQLParser.LabelExpressionDisjunctionContext(
-                            self, GQLParser.LabelExpressionContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.LabelExpressionContext(
+                                self, _parentctx, _parentState
+                            ),
                         )
                         self.pushNewRecursionContext(
                             localctx, _startState, self.RULE_labelExpression
@@ -56121,7 +57020,9 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 4)"
+                            )
                         self.state = 2419
                         self.match(GQLParser.VERTICAL_BAR)
                         self.state = 2420
@@ -56143,12 +57044,16 @@ class GQLParser(Parser):
     class PathVariableReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def bindingVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_pathVariableReference
@@ -56185,12 +57090,16 @@ class GQLParser(Parser):
     class ElementVariableReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def bindingVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_elementVariableReference
@@ -56210,7 +57119,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def elementVariableReference(self):
-        localctx = GQLParser.ElementVariableReferenceContext(self, self._ctx, self.state)
+        localctx = GQLParser.ElementVariableReferenceContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 432, self.RULE_elementVariableReference)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -56227,7 +57138,9 @@ class GQLParser(Parser):
     class GraphPatternQuantifierContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56302,7 +57215,9 @@ class GQLParser(Parser):
     class FixedQuantifierContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56354,7 +57269,9 @@ class GQLParser(Parser):
     class GeneralQuantifierContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56427,7 +57344,9 @@ class GQLParser(Parser):
     class LowerBoundContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56469,7 +57388,9 @@ class GQLParser(Parser):
     class UpperBoundContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56511,18 +57432,26 @@ class GQLParser(Parser):
     class SimplifiedPathPatternExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def simplifiedDefaultingLeft(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedDefaultingLeftContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedDefaultingLeftContext, 0
+            )
 
         def simplifiedDefaultingUndirected(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedDefaultingUndirectedContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedDefaultingUndirectedContext, 0
+            )
 
         def simplifiedDefaultingRight(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedDefaultingRightContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedDefaultingRightContext, 0
+            )
 
         def simplifiedDefaultingLeftOrUndirected(self):
             return self.getTypedRuleContext(
@@ -56535,10 +57464,14 @@ class GQLParser(Parser):
             )
 
         def simplifiedDefaultingLeftOrRight(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedDefaultingLeftOrRightContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedDefaultingLeftOrRightContext, 0
+            )
 
         def simplifiedDefaultingAnyDirection(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedDefaultingAnyDirectionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedDefaultingAnyDirectionContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_simplifiedPathPatternExpression
@@ -56558,7 +57491,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedPathPatternExpression(self):
-        localctx = GQLParser.SimplifiedPathPatternExpressionContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedPathPatternExpressionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 444, self.RULE_simplifiedPathPatternExpression)
         try:
             self.state = 2461
@@ -56617,7 +57552,9 @@ class GQLParser(Parser):
     class SimplifiedDefaultingLeftContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56648,7 +57585,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedDefaultingLeft(self):
-        localctx = GQLParser.SimplifiedDefaultingLeftContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedDefaultingLeftContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 446, self.RULE_simplifiedDefaultingLeft)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -56669,7 +57608,9 @@ class GQLParser(Parser):
     class SimplifiedDefaultingUndirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56700,7 +57641,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedDefaultingUndirected(self):
-        localctx = GQLParser.SimplifiedDefaultingUndirectedContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedDefaultingUndirectedContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 448, self.RULE_simplifiedDefaultingUndirected)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -56721,7 +57664,9 @@ class GQLParser(Parser):
     class SimplifiedDefaultingRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56752,7 +57697,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedDefaultingRight(self):
-        localctx = GQLParser.SimplifiedDefaultingRightContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedDefaultingRightContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 450, self.RULE_simplifiedDefaultingRight)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -56773,7 +57720,9 @@ class GQLParser(Parser):
     class SimplifiedDefaultingLeftOrUndirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56827,7 +57776,9 @@ class GQLParser(Parser):
     class SimplifiedDefaultingUndirectedOrRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56881,7 +57832,9 @@ class GQLParser(Parser):
     class SimplifiedDefaultingLeftOrRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56912,7 +57865,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedDefaultingLeftOrRight(self):
-        localctx = GQLParser.SimplifiedDefaultingLeftOrRightContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedDefaultingLeftOrRightContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 456, self.RULE_simplifiedDefaultingLeftOrRight)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -56933,7 +57888,9 @@ class GQLParser(Parser):
     class SimplifiedDefaultingAnyDirectionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56964,7 +57921,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedDefaultingAnyDirection(self):
-        localctx = GQLParser.SimplifiedDefaultingAnyDirectionContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedDefaultingAnyDirectionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 458, self.RULE_simplifiedDefaultingAnyDirection)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -56985,7 +57944,9 @@ class GQLParser(Parser):
     class SimplifiedContentsContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -56996,7 +57957,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.SimplifiedPathUnionContext, 0)
 
         def simplifiedMultisetAlternation(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedMultisetAlternationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedMultisetAlternationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_simplifiedContents
@@ -57051,7 +58014,9 @@ class GQLParser(Parser):
     class SimplifiedPathUnionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57119,7 +58084,9 @@ class GQLParser(Parser):
     class SimplifiedMultisetAlternationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57153,7 +58120,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedMultisetAlternation(self):
-        localctx = GQLParser.SimplifiedMultisetAlternationContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedMultisetAlternationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 464, self.RULE_simplifiedMultisetAlternation)
         self._la = 0  # Token type
         try:
@@ -57187,7 +58156,9 @@ class GQLParser(Parser):
     class SimplifiedTermContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57273,14 +58244,19 @@ class GQLParser(Parser):
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
                     localctx = GQLParser.SimplifiedConcatenationLabelContext(
-                        self, GQLParser.SimplifiedTermContext(self, _parentctx, _parentState)
+                        self,
+                        GQLParser.SimplifiedTermContext(self, _parentctx, _parentState),
                     )
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_simplifiedTerm)
+                    self.pushNewRecursionContext(
+                        localctx, _startState, self.RULE_simplifiedTerm
+                    )
                     self.state = 2519
                     if not self.precpred(self._ctx, 1):
                         from antlr4.error.Errors import FailedPredicateException
 
-                        raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
+                        raise FailedPredicateException(
+                            self, "self.precpred(self._ctx, 1)"
+                        )
                     self.state = 2520
                     self.simplifiedFactorLow(0)
                 self.state = 2525
@@ -57298,7 +58274,9 @@ class GQLParser(Parser):
     class SimplifiedFactorLowContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57387,7 +58365,10 @@ class GQLParser(Parser):
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
                     localctx = GQLParser.SimplifiedConjunctionLabelContext(
-                        self, GQLParser.SimplifiedFactorLowContext(self, _parentctx, _parentState)
+                        self,
+                        GQLParser.SimplifiedFactorLowContext(
+                            self, _parentctx, _parentState
+                        ),
                     )
                     self.pushNewRecursionContext(
                         localctx, _startState, self.RULE_simplifiedFactorLow
@@ -57396,7 +58377,9 @@ class GQLParser(Parser):
                     if not self.precpred(self._ctx, 1):
                         from antlr4.error.Errors import FailedPredicateException
 
-                        raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
+                        raise FailedPredicateException(
+                            self, "self.precpred(self._ctx, 1)"
+                        )
                     self.state = 2530
                     self.match(GQLParser.AMPERSAND)
                     self.state = 2531
@@ -57416,7 +58399,9 @@ class GQLParser(Parser):
     class SimplifiedFactorHighContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57482,7 +58467,9 @@ class GQLParser(Parser):
     class SimplifiedQuantifiedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57529,7 +58516,9 @@ class GQLParser(Parser):
     class SimplifiedQuestionedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57576,12 +58565,16 @@ class GQLParser(Parser):
     class SimplifiedTertiaryContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def simplifiedDirectionOverride(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedDirectionOverrideContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedDirectionOverrideContext, 0
+            )
 
         def simplifiedSecondary(self):
             return self.getTypedRuleContext(GQLParser.SimplifiedSecondaryContext, 0)
@@ -57633,7 +58626,9 @@ class GQLParser(Parser):
     class SimplifiedDirectionOverrideContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57641,22 +58636,32 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.SimplifiedOverrideLeftContext, 0)
 
         def simplifiedOverrideUndirected(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedOverrideUndirectedContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedOverrideUndirectedContext, 0
+            )
 
         def simplifiedOverrideRight(self):
             return self.getTypedRuleContext(GQLParser.SimplifiedOverrideRightContext, 0)
 
         def simplifiedOverrideLeftOrUndirected(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedOverrideLeftOrUndirectedContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedOverrideLeftOrUndirectedContext, 0
+            )
 
         def simplifiedOverrideUndirectedOrRight(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedOverrideUndirectedOrRightContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedOverrideUndirectedOrRightContext, 0
+            )
 
         def simplifiedOverrideLeftOrRight(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedOverrideLeftOrRightContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedOverrideLeftOrRightContext, 0
+            )
 
         def simplifiedOverrideAnyDirection(self):
-            return self.getTypedRuleContext(GQLParser.SimplifiedOverrideAnyDirectionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SimplifiedOverrideAnyDirectionContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_simplifiedDirectionOverride
@@ -57676,7 +58681,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedDirectionOverride(self):
-        localctx = GQLParser.SimplifiedDirectionOverrideContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedDirectionOverrideContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 478, self.RULE_simplifiedDirectionOverride)
         try:
             self.state = 2559
@@ -57735,7 +58742,9 @@ class GQLParser(Parser):
     class SimplifiedOverrideLeftContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57782,7 +58791,9 @@ class GQLParser(Parser):
     class SimplifiedOverrideUndirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57810,7 +58821,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedOverrideUndirected(self):
-        localctx = GQLParser.SimplifiedOverrideUndirectedContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedOverrideUndirectedContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 482, self.RULE_simplifiedOverrideUndirected)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -57829,7 +58842,9 @@ class GQLParser(Parser):
     class SimplifiedOverrideRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57876,7 +58891,9 @@ class GQLParser(Parser):
     class SimplifiedOverrideLeftOrUndirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57904,7 +58921,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedOverrideLeftOrUndirected(self):
-        localctx = GQLParser.SimplifiedOverrideLeftOrUndirectedContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedOverrideLeftOrUndirectedContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 486, self.RULE_simplifiedOverrideLeftOrUndirected)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -57923,7 +58942,9 @@ class GQLParser(Parser):
     class SimplifiedOverrideUndirectedOrRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -57954,7 +58975,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedOverrideUndirectedOrRight(self):
-        localctx = GQLParser.SimplifiedOverrideUndirectedOrRightContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedOverrideUndirectedOrRightContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 488, self.RULE_simplifiedOverrideUndirectedOrRight)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -57975,7 +58998,9 @@ class GQLParser(Parser):
     class SimplifiedOverrideLeftOrRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58006,7 +59031,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedOverrideLeftOrRight(self):
-        localctx = GQLParser.SimplifiedOverrideLeftOrRightContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedOverrideLeftOrRightContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 490, self.RULE_simplifiedOverrideLeftOrRight)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -58027,7 +59054,9 @@ class GQLParser(Parser):
     class SimplifiedOverrideAnyDirectionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58055,7 +59084,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def simplifiedOverrideAnyDirection(self):
-        localctx = GQLParser.SimplifiedOverrideAnyDirectionContext(self, self._ctx, self.state)
+        localctx = GQLParser.SimplifiedOverrideAnyDirectionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 492, self.RULE_simplifiedOverrideAnyDirection)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -58074,7 +59105,9 @@ class GQLParser(Parser):
     class SimplifiedSecondaryContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58184,7 +59217,9 @@ class GQLParser(Parser):
     class SimplifiedNegationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58231,7 +59266,9 @@ class GQLParser(Parser):
     class SimplifiedPrimaryContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58350,7 +59387,9 @@ class GQLParser(Parser):
     class WhereClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58397,7 +59436,9 @@ class GQLParser(Parser):
     class YieldClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58444,7 +59485,9 @@ class GQLParser(Parser):
     class YieldItemListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58508,7 +59551,9 @@ class GQLParser(Parser):
     class YieldItemContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58561,7 +59606,9 @@ class GQLParser(Parser):
     class YieldItemNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58603,7 +59650,9 @@ class GQLParser(Parser):
     class YieldItemAliasContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58650,7 +59699,9 @@ class GQLParser(Parser):
     class GroupByClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58702,7 +59753,9 @@ class GQLParser(Parser):
     class GroupingElementListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58831,12 +59884,16 @@ class GQLParser(Parser):
     class GroupingElementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def bindingVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_groupingElement
@@ -58873,7 +59930,9 @@ class GQLParser(Parser):
     class EmptyGroupingSetContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58920,7 +59979,9 @@ class GQLParser(Parser):
     class OrderByClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -58972,7 +60033,9 @@ class GQLParser(Parser):
     class SortSpecificationListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59036,7 +60099,9 @@ class GQLParser(Parser):
     class SortSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59098,12 +60163,16 @@ class GQLParser(Parser):
     class SortKeyContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def aggregatingValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.AggregatingValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.AggregatingValueExpressionContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_sortKey
@@ -59140,7 +60209,9 @@ class GQLParser(Parser):
     class OrderingSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59181,7 +60252,10 @@ class GQLParser(Parser):
             self.enterOuterAlt(localctx, 1)
             self.state = 2662
             _la = self._input.LA(1)
-            if not (((_la - 28) & ~0x3F) == 0 and ((1 << (_la - 28)) & 1688849860263939) != 0):
+            if not (
+                ((_la - 28) & ~0x3F) == 0
+                and ((1 << (_la - 28)) & 1688849860263939) != 0
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -59197,7 +60271,9 @@ class GQLParser(Parser):
     class NullOrderingContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59261,7 +60337,9 @@ class GQLParser(Parser):
     class LimitClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59269,7 +60347,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LIMIT, 0)
 
         def nonNegativeIntegerSpecification(self):
-            return self.getTypedRuleContext(GQLParser.NonNegativeIntegerSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NonNegativeIntegerSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_limitClause
@@ -59308,7 +60388,9 @@ class GQLParser(Parser):
     class OffsetClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59316,7 +60398,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.OffsetSynonymContext, 0)
 
         def nonNegativeIntegerSpecification(self):
-            return self.getTypedRuleContext(GQLParser.NonNegativeIntegerSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NonNegativeIntegerSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_offsetClause
@@ -59355,7 +60439,9 @@ class GQLParser(Parser):
     class OffsetSynonymContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59406,18 +60492,26 @@ class GQLParser(Parser):
     class SchemaReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def absoluteCatalogSchemaReference(self):
-            return self.getTypedRuleContext(GQLParser.AbsoluteCatalogSchemaReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.AbsoluteCatalogSchemaReferenceContext, 0
+            )
 
         def relativeCatalogSchemaReference(self):
-            return self.getTypedRuleContext(GQLParser.RelativeCatalogSchemaReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.RelativeCatalogSchemaReferenceContext, 0
+            )
 
         def referenceParameterSpecification(self):
-            return self.getTypedRuleContext(GQLParser.ReferenceParameterSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ReferenceParameterSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_schemaReference
@@ -59472,7 +60566,9 @@ class GQLParser(Parser):
     class AbsoluteCatalogSchemaReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59503,7 +60599,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def absoluteCatalogSchemaReference(self):
-        localctx = GQLParser.AbsoluteCatalogSchemaReferenceContext(self, self._ctx, self.state)
+        localctx = GQLParser.AbsoluteCatalogSchemaReferenceContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 540, self.RULE_absoluteCatalogSchemaReference)
         try:
             self.state = 2687
@@ -59534,7 +60632,9 @@ class GQLParser(Parser):
     class CatalogSchemaParentAndNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59562,7 +60662,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def catalogSchemaParentAndName(self):
-        localctx = GQLParser.CatalogSchemaParentAndNameContext(self, self._ctx, self.state)
+        localctx = GQLParser.CatalogSchemaParentAndNameContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 542, self.RULE_catalogSchemaParentAndName)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -59581,12 +60683,16 @@ class GQLParser(Parser):
     class RelativeCatalogSchemaReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def predefinedSchemaReference(self):
-            return self.getTypedRuleContext(GQLParser.PredefinedSchemaReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PredefinedSchemaReferenceContext, 0
+            )
 
         def relativeDirectoryPath(self):
             return self.getTypedRuleContext(GQLParser.RelativeDirectoryPathContext, 0)
@@ -59612,7 +60718,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def relativeCatalogSchemaReference(self):
-        localctx = GQLParser.RelativeCatalogSchemaReferenceContext(self, self._ctx, self.state)
+        localctx = GQLParser.RelativeCatalogSchemaReferenceContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 544, self.RULE_relativeCatalogSchemaReference)
         try:
             self.state = 2696
@@ -59644,7 +60752,9 @@ class GQLParser(Parser):
     class PredefinedSchemaReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59675,7 +60785,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def predefinedSchemaReference(self):
-        localctx = GQLParser.PredefinedSchemaReferenceContext(self, self._ctx, self.state)
+        localctx = GQLParser.PredefinedSchemaReferenceContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 546, self.RULE_predefinedSchemaReference)
         self._la = 0  # Token type
         try:
@@ -59698,7 +60810,9 @@ class GQLParser(Parser):
     class AbsoluteDirectoryPathContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59750,7 +60864,9 @@ class GQLParser(Parser):
     class RelativeDirectoryPathContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59826,7 +60942,9 @@ class GQLParser(Parser):
     class SimpleDirectoryPathContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59891,12 +61009,16 @@ class GQLParser(Parser):
     class GraphReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def catalogObjectParentReference(self):
-            return self.getTypedRuleContext(GQLParser.CatalogObjectParentReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogObjectParentReferenceContext, 0
+            )
 
         def graphName(self):
             return self.getTypedRuleContext(GQLParser.GraphNameContext, 0)
@@ -59908,7 +61030,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.HomeGraphContext, 0)
 
         def referenceParameterSpecification(self):
-            return self.getTypedRuleContext(GQLParser.ReferenceParameterSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ReferenceParameterSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_graphReference
@@ -59971,7 +61095,9 @@ class GQLParser(Parser):
     class CatalogGraphParentAndNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -59979,7 +61105,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.GraphNameContext, 0)
 
         def catalogObjectParentReference(self):
-            return self.getTypedRuleContext(GQLParser.CatalogObjectParentReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogObjectParentReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_catalogGraphParentAndName
@@ -59999,7 +61127,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def catalogGraphParentAndName(self):
-        localctx = GQLParser.CatalogGraphParentAndNameContext(self, self._ctx, self.state)
+        localctx = GQLParser.CatalogGraphParentAndNameContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 556, self.RULE_catalogGraphParentAndName)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -60023,7 +61153,9 @@ class GQLParser(Parser):
     class HomeGraphContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -60074,15 +61206,21 @@ class GQLParser(Parser):
     class GraphTypeReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def catalogGraphTypeParentAndName(self):
-            return self.getTypedRuleContext(GQLParser.CatalogGraphTypeParentAndNameContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogGraphTypeParentAndNameContext, 0
+            )
 
         def referenceParameterSpecification(self):
-            return self.getTypedRuleContext(GQLParser.ReferenceParameterSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ReferenceParameterSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_graphTypeReference
@@ -60131,7 +61269,9 @@ class GQLParser(Parser):
     class CatalogGraphTypeParentAndNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -60139,7 +61279,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.GraphTypeNameContext, 0)
 
         def catalogObjectParentReference(self):
-            return self.getTypedRuleContext(GQLParser.CatalogObjectParentReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogObjectParentReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_catalogGraphTypeParentAndName
@@ -60159,7 +61301,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def catalogGraphTypeParentAndName(self):
-        localctx = GQLParser.CatalogGraphTypeParentAndNameContext(self, self._ctx, self.state)
+        localctx = GQLParser.CatalogGraphTypeParentAndNameContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 562, self.RULE_catalogGraphTypeParentAndName)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -60183,21 +61327,29 @@ class GQLParser(Parser):
     class BindingTableReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def catalogObjectParentReference(self):
-            return self.getTypedRuleContext(GQLParser.CatalogObjectParentReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogObjectParentReferenceContext, 0
+            )
 
         def bindingTableName(self):
             return self.getTypedRuleContext(GQLParser.BindingTableNameContext, 0)
 
         def delimitedBindingTableName(self):
-            return self.getTypedRuleContext(GQLParser.DelimitedBindingTableNameContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DelimitedBindingTableNameContext, 0
+            )
 
         def referenceParameterSpecification(self):
-            return self.getTypedRuleContext(GQLParser.ReferenceParameterSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ReferenceParameterSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_bindingTableReference
@@ -60254,15 +61406,21 @@ class GQLParser(Parser):
     class ProcedureReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def catalogProcedureParentAndName(self):
-            return self.getTypedRuleContext(GQLParser.CatalogProcedureParentAndNameContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogProcedureParentAndNameContext, 0
+            )
 
         def referenceParameterSpecification(self):
-            return self.getTypedRuleContext(GQLParser.ReferenceParameterSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ReferenceParameterSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_procedureReference
@@ -60311,7 +61469,9 @@ class GQLParser(Parser):
     class CatalogProcedureParentAndNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -60319,7 +61479,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.ProcedureNameContext, 0)
 
         def catalogObjectParentReference(self):
-            return self.getTypedRuleContext(GQLParser.CatalogObjectParentReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CatalogObjectParentReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_catalogProcedureParentAndName
@@ -60339,7 +61501,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def catalogProcedureParentAndName(self):
-        localctx = GQLParser.CatalogProcedureParentAndNameContext(self, self._ctx, self.state)
+        localctx = GQLParser.CatalogProcedureParentAndNameContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 568, self.RULE_catalogProcedureParentAndName)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -60363,7 +61527,9 @@ class GQLParser(Parser):
     class CatalogObjectParentReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -60403,7 +61569,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def catalogObjectParentReference(self):
-        localctx = GQLParser.CatalogObjectParentReferenceContext(self, self._ctx, self.state)
+        localctx = GQLParser.CatalogObjectParentReferenceContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 570, self.RULE_catalogObjectParentReference)
         self._la = 0  # Token type
         try:
@@ -60519,7 +61687,9 @@ class GQLParser(Parser):
     class ReferenceParameterSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -60544,7 +61714,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def referenceParameterSpecification(self):
-        localctx = GQLParser.ReferenceParameterSpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.ReferenceParameterSpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 572, self.RULE_referenceParameterSpecification)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -60561,7 +61733,9 @@ class GQLParser(Parser):
     class NestedGraphTypeSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -60569,7 +61743,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_BRACE, 0)
 
         def graphTypeSpecificationBody(self):
-            return self.getTypedRuleContext(GQLParser.GraphTypeSpecificationBodyContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.GraphTypeSpecificationBodyContext, 0
+            )
 
         def RIGHT_BRACE(self):
             return self.getToken(GQLParser.RIGHT_BRACE, 0)
@@ -60592,7 +61768,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def nestedGraphTypeSpecification(self):
-        localctx = GQLParser.NestedGraphTypeSpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.NestedGraphTypeSpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 574, self.RULE_nestedGraphTypeSpecification)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -60613,7 +61791,9 @@ class GQLParser(Parser):
     class GraphTypeSpecificationBodyContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -60638,7 +61818,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def graphTypeSpecificationBody(self):
-        localctx = GQLParser.GraphTypeSpecificationBodyContext(self, self._ctx, self.state)
+        localctx = GQLParser.GraphTypeSpecificationBodyContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 576, self.RULE_graphTypeSpecificationBody)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -60655,15 +61837,21 @@ class GQLParser(Parser):
     class ElementTypeListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def elementTypeSpecification(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(GQLParser.ElementTypeSpecificationContext)
+                return self.getTypedRuleContexts(
+                    GQLParser.ElementTypeSpecificationContext
+                )
             else:
-                return self.getTypedRuleContext(GQLParser.ElementTypeSpecificationContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.ElementTypeSpecificationContext, i
+                )
 
         def COMMA(self, i: int = None):
             if i is None:
@@ -60719,7 +61907,9 @@ class GQLParser(Parser):
     class ElementTypeSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -60747,7 +61937,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def elementTypeSpecification(self):
-        localctx = GQLParser.ElementTypeSpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.ElementTypeSpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 580, self.RULE_elementTypeSpecification)
         try:
             self.state = 2802
@@ -60776,7 +61968,9 @@ class GQLParser(Parser):
     class NodeTypeSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -60833,7 +62027,9 @@ class GQLParser(Parser):
     class NodeTypePatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -60909,7 +62105,14 @@ class GQLParser(Parser):
             self.state = 2821
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la == 1 or _la == 127 or _la == 292 or _la == 294 or _la == 359 or _la == 368:
+            if (
+                _la == 1
+                or _la == 127
+                or _la == 292
+                or _la == 294
+                or _la == 359
+                or _la == 368
+            ):
                 self.state = 2820
                 self.nodeTypeFiller()
 
@@ -60926,7 +62129,9 @@ class GQLParser(Parser):
     class NodeTypePhraseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -60998,7 +62203,9 @@ class GQLParser(Parser):
     class NodeTypePhraseFillerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61062,7 +62269,9 @@ class GQLParser(Parser):
     class NodeTypeFillerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61126,7 +62335,9 @@ class GQLParser(Parser):
     class LocalNodeTypeAliasContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61168,7 +62379,9 @@ class GQLParser(Parser):
     class NodeTypeImpliedContentContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61233,7 +62446,9 @@ class GQLParser(Parser):
     class NodeTypeKeyLabelSetContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61286,7 +62501,9 @@ class GQLParser(Parser):
     class NodeTypeLabelSetContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61328,12 +62545,16 @@ class GQLParser(Parser):
     class NodeTypePropertyTypesContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def propertyTypesSpecification(self):
-            return self.getTypedRuleContext(GQLParser.PropertyTypesSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PropertyTypesSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_nodeTypePropertyTypes
@@ -61370,7 +62591,9 @@ class GQLParser(Parser):
     class EdgeTypeSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61427,7 +62650,9 @@ class GQLParser(Parser):
     class EdgeTypePatternContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61435,7 +62660,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.EdgeTypePatternDirectedContext, 0)
 
         def edgeTypePatternUndirected(self):
-            return self.getTypedRuleContext(GQLParser.EdgeTypePatternUndirectedContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.EdgeTypePatternUndirectedContext, 0
+            )
 
         def edgeSynonym(self):
             return self.getTypedRuleContext(GQLParser.EdgeSynonymContext, 0)
@@ -61519,7 +62746,9 @@ class GQLParser(Parser):
     class EdgeTypePhraseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61586,7 +62815,9 @@ class GQLParser(Parser):
     class EdgeTypePhraseFillerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61628,7 +62859,14 @@ class GQLParser(Parser):
                 self.state = 2895
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la == 1 or _la == 127 or _la == 292 or _la == 294 or _la == 359 or _la == 368:
+                if (
+                    _la == 1
+                    or _la == 127
+                    or _la == 292
+                    or _la == 294
+                    or _la == 359
+                    or _la == 368
+                ):
                     self.state = 2894
                     self.edgeTypeFiller()
 
@@ -61651,7 +62889,9 @@ class GQLParser(Parser):
     class EdgeTypeFillerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61716,7 +62956,9 @@ class GQLParser(Parser):
     class EdgeTypeImpliedContentContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61781,7 +63023,9 @@ class GQLParser(Parser):
     class EdgeTypeKeyLabelSetContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61834,7 +63078,9 @@ class GQLParser(Parser):
     class EdgeTypeLabelSetContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61876,12 +63122,16 @@ class GQLParser(Parser):
     class EdgeTypePropertyTypesContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def propertyTypesSpecification(self):
-            return self.getTypedRuleContext(GQLParser.PropertyTypesSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PropertyTypesSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_edgeTypePropertyTypes
@@ -61918,15 +63168,21 @@ class GQLParser(Parser):
     class EdgeTypePatternDirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def edgeTypePatternPointingRight(self):
-            return self.getTypedRuleContext(GQLParser.EdgeTypePatternPointingRightContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.EdgeTypePatternPointingRightContext, 0
+            )
 
         def edgeTypePatternPointingLeft(self):
-            return self.getTypedRuleContext(GQLParser.EdgeTypePatternPointingLeftContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.EdgeTypePatternPointingLeftContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_edgeTypePatternDirected
@@ -61975,7 +63231,9 @@ class GQLParser(Parser):
     class EdgeTypePatternPointingRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -61986,7 +63244,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.ArcTypePointingRightContext, 0)
 
         def destinationNodeTypeReference(self):
-            return self.getTypedRuleContext(GQLParser.DestinationNodeTypeReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DestinationNodeTypeReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_edgeTypePatternPointingRight
@@ -62006,7 +63266,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def edgeTypePatternPointingRight(self):
-        localctx = GQLParser.EdgeTypePatternPointingRightContext(self, self._ctx, self.state)
+        localctx = GQLParser.EdgeTypePatternPointingRightContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 622, self.RULE_edgeTypePatternPointingRight)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -62027,12 +63289,16 @@ class GQLParser(Parser):
     class EdgeTypePatternPointingLeftContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def destinationNodeTypeReference(self):
-            return self.getTypedRuleContext(GQLParser.DestinationNodeTypeReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DestinationNodeTypeReferenceContext, 0
+            )
 
         def arcTypePointingLeft(self):
             return self.getTypedRuleContext(GQLParser.ArcTypePointingLeftContext, 0)
@@ -62058,7 +63324,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def edgeTypePatternPointingLeft(self):
-        localctx = GQLParser.EdgeTypePatternPointingLeftContext(self, self._ctx, self.state)
+        localctx = GQLParser.EdgeTypePatternPointingLeftContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 624, self.RULE_edgeTypePatternPointingLeft)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -62079,7 +63347,9 @@ class GQLParser(Parser):
     class EdgeTypePatternUndirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62090,7 +63360,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.ArcTypeUndirectedContext, 0)
 
         def destinationNodeTypeReference(self):
-            return self.getTypedRuleContext(GQLParser.DestinationNodeTypeReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DestinationNodeTypeReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_edgeTypePatternUndirected
@@ -62110,7 +63382,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def edgeTypePatternUndirected(self):
-        localctx = GQLParser.EdgeTypePatternUndirectedContext(self, self._ctx, self.state)
+        localctx = GQLParser.EdgeTypePatternUndirectedContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 626, self.RULE_edgeTypePatternUndirected)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -62131,7 +63405,9 @@ class GQLParser(Parser):
     class ArcTypePointingRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62183,7 +63459,9 @@ class GQLParser(Parser):
     class ArcTypePointingLeftContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62235,7 +63513,9 @@ class GQLParser(Parser):
     class ArcTypeUndirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62287,7 +63567,9 @@ class GQLParser(Parser):
     class SourceNodeTypeReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62345,7 +63627,14 @@ class GQLParser(Parser):
                 self.state = 2957
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la == 1 or _la == 127 or _la == 292 or _la == 294 or _la == 359 or _la == 368:
+                if (
+                    _la == 1
+                    or _la == 127
+                    or _la == 292
+                    or _la == 294
+                    or _la == 359
+                    or _la == 368
+                ):
                     self.state = 2956
                     self.nodeTypeFiller()
 
@@ -62364,7 +63653,9 @@ class GQLParser(Parser):
     class DestinationNodeTypeReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62372,7 +63663,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def destinationNodeTypeAlias(self):
-            return self.getTypedRuleContext(GQLParser.DestinationNodeTypeAliasContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DestinationNodeTypeAliasContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -62398,7 +63691,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def destinationNodeTypeReference(self):
-        localctx = GQLParser.DestinationNodeTypeReferenceContext(self, self._ctx, self.state)
+        localctx = GQLParser.DestinationNodeTypeReferenceContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 636, self.RULE_destinationNodeTypeReference)
         self._la = 0  # Token type
         try:
@@ -62422,7 +63717,14 @@ class GQLParser(Parser):
                 self.state = 2968
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la == 1 or _la == 127 or _la == 292 or _la == 294 or _la == 359 or _la == 368:
+                if (
+                    _la == 1
+                    or _la == 127
+                    or _la == 292
+                    or _la == 294
+                    or _la == 359
+                    or _la == 368
+                ):
                     self.state = 2967
                     self.nodeTypeFiller()
 
@@ -62441,7 +63743,9 @@ class GQLParser(Parser):
     class EdgeKindContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62492,7 +63796,9 @@ class GQLParser(Parser):
     class EndpointPairPhraseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62539,7 +63845,9 @@ class GQLParser(Parser):
     class EndpointPairContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62596,15 +63904,21 @@ class GQLParser(Parser):
     class EndpointPairDirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def endpointPairPointingRight(self):
-            return self.getTypedRuleContext(GQLParser.EndpointPairPointingRightContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.EndpointPairPointingRightContext, 0
+            )
 
         def endpointPairPointingLeft(self):
-            return self.getTypedRuleContext(GQLParser.EndpointPairPointingLeftContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.EndpointPairPointingLeftContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_endpointPairDirected
@@ -62653,7 +63967,9 @@ class GQLParser(Parser):
     class EndpointPairPointingRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62667,7 +63983,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.ConnectorPointingRightContext, 0)
 
         def destinationNodeTypeAlias(self):
-            return self.getTypedRuleContext(GQLParser.DestinationNodeTypeAliasContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DestinationNodeTypeAliasContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -62690,7 +64008,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def endpointPairPointingRight(self):
-        localctx = GQLParser.EndpointPairPointingRightContext(self, self._ctx, self.state)
+        localctx = GQLParser.EndpointPairPointingRightContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 646, self.RULE_endpointPairPointingRight)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -62715,7 +64035,9 @@ class GQLParser(Parser):
     class EndpointPairPointingLeftContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62723,7 +64045,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def destinationNodeTypeAlias(self):
-            return self.getTypedRuleContext(GQLParser.DestinationNodeTypeAliasContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DestinationNodeTypeAliasContext, 0
+            )
 
         def LEFT_ARROW(self):
             return self.getToken(GQLParser.LEFT_ARROW, 0)
@@ -62752,7 +64076,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def endpointPairPointingLeft(self):
-        localctx = GQLParser.EndpointPairPointingLeftContext(self, self._ctx, self.state)
+        localctx = GQLParser.EndpointPairPointingLeftContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 648, self.RULE_endpointPairPointingLeft)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -62777,7 +64103,9 @@ class GQLParser(Parser):
     class EndpointPairUndirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62791,7 +64119,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.ConnectorUndirectedContext, 0)
 
         def destinationNodeTypeAlias(self):
-            return self.getTypedRuleContext(GQLParser.DestinationNodeTypeAliasContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DestinationNodeTypeAliasContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -62839,7 +64169,9 @@ class GQLParser(Parser):
     class ConnectorPointingRightContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62890,7 +64222,9 @@ class GQLParser(Parser):
     class ConnectorUndirectedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62941,7 +64275,9 @@ class GQLParser(Parser):
     class SourceNodeTypeAliasContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -62983,7 +64319,9 @@ class GQLParser(Parser):
     class DestinationNodeTypeAliasContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -63008,7 +64346,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def destinationNodeTypeAlias(self):
-        localctx = GQLParser.DestinationNodeTypeAliasContext(self, self._ctx, self.state)
+        localctx = GQLParser.DestinationNodeTypeAliasContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 658, self.RULE_destinationNodeTypeAlias)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -63025,7 +64365,9 @@ class GQLParser(Parser):
     class LabelSetPhraseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -63103,7 +64445,9 @@ class GQLParser(Parser):
     class LabelSetSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -63167,7 +64511,9 @@ class GQLParser(Parser):
     class PropertyTypesSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -63198,7 +64544,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def propertyTypesSpecification(self):
-        localctx = GQLParser.PropertyTypesSpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.PropertyTypesSpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 664, self.RULE_propertyTypesSpecification)
         self._la = 0  # Token type
         try:
@@ -63211,7 +64559,10 @@ class GQLParser(Parser):
             if (
                 _la == 4
                 or _la == 5
-                or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 281474976710655) != 0)
+                or (
+                    ((_la - 277) & ~0x3F) == 0
+                    and ((1 << (_la - 277)) & 281474976710655) != 0
+                )
             ):
                 self.state = 3030
                 self.propertyTypeList()
@@ -63229,7 +64580,9 @@ class GQLParser(Parser):
     class PropertyTypeListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -63293,7 +64646,9 @@ class GQLParser(Parser):
     class PropertyTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -63351,7 +64706,9 @@ class GQLParser(Parser):
     class PropertyValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -63393,7 +64750,9 @@ class GQLParser(Parser):
     class BindingTableTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -63451,7 +64810,9 @@ class GQLParser(Parser):
     class ValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -63462,7 +64823,9 @@ class GQLParser(Parser):
             super().copyFrom(ctx)
 
     class DynamicPropertyValueTypeLabelContext(ValueTypeContext):
-        def __init__(self, parser, ctx: ParserRuleContext):  # actually a GQLParser.ValueTypeContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a GQLParser.ValueTypeContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -63493,7 +64856,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     class ClosedDynamicUnionTypeAtl1Context(ValueTypeContext):
-        def __init__(self, parser, ctx: ParserRuleContext):  # actually a GQLParser.ValueTypeContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a GQLParser.ValueTypeContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -63536,7 +64901,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     class ClosedDynamicUnionTypeAtl2Context(ValueTypeContext):
-        def __init__(self, parser, ctx: ParserRuleContext):  # actually a GQLParser.ValueTypeContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a GQLParser.ValueTypeContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -63564,7 +64931,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     class PathValueTypeLabelContext(ValueTypeContext):
-        def __init__(self, parser, ctx: ParserRuleContext):  # actually a GQLParser.ValueTypeContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a GQLParser.ValueTypeContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -63586,7 +64955,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     class ListValueTypeAlt3Context(ValueTypeContext):
-        def __init__(self, parser, ctx: ParserRuleContext):  # actually a GQLParser.ValueTypeContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a GQLParser.ValueTypeContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -63620,7 +64991,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     class ListValueTypeAlt2Context(ValueTypeContext):
-        def __init__(self, parser, ctx: ParserRuleContext):  # actually a GQLParser.ValueTypeContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a GQLParser.ValueTypeContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -63657,7 +65030,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     class ListValueTypeAlt1Context(ValueTypeContext):
-        def __init__(self, parser, ctx: ParserRuleContext):  # actually a GQLParser.ValueTypeContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a GQLParser.ValueTypeContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -63700,7 +65075,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     class PredefinedTypeLabelContext(ValueTypeContext):
-        def __init__(self, parser, ctx: ParserRuleContext):  # actually a GQLParser.ValueTypeContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a GQLParser.ValueTypeContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -63722,7 +65099,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     class RecordTypeLabelContext(ValueTypeContext):
-        def __init__(self, parser, ctx: ParserRuleContext):  # actually a GQLParser.ValueTypeContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a GQLParser.ValueTypeContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -63744,7 +65123,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     class OpenDynamicUnionTypeLabelContext(ValueTypeContext):
-        def __init__(self, parser, ctx: ParserRuleContext):  # actually a GQLParser.ValueTypeContext
+        def __init__(
+            self, parser, ctx: ParserRuleContext
+        ):  # actually a GQLParser.ValueTypeContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
@@ -63890,7 +65271,9 @@ class GQLParser(Parser):
                 pass
 
             elif la_ == 7:
-                localctx = GQLParser.DynamicPropertyValueTypeLabelContext(self, localctx)
+                localctx = GQLParser.DynamicPropertyValueTypeLabelContext(
+                    self, localctx
+                )
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 3092
@@ -63960,14 +65343,19 @@ class GQLParser(Parser):
                     la_ = self._interp.adaptivePredict(self._input, 301, self._ctx)
                     if la_ == 1:
                         localctx = GQLParser.ClosedDynamicUnionTypeAtl2Context(
-                            self, GQLParser.ValueTypeContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.ValueTypeContext(self, _parentctx, _parentState),
                         )
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_valueType)
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_valueType
+                        )
                         self.state = 3116
                         if not self.precpred(self._ctx, 1):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 1)"
+                            )
                         self.state = 3117
                         self.match(GQLParser.VERTICAL_BAR)
                         self.state = 3118
@@ -63976,14 +65364,19 @@ class GQLParser(Parser):
 
                     elif la_ == 2:
                         localctx = GQLParser.ListValueTypeAlt2Context(
-                            self, GQLParser.ValueTypeContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.ValueTypeContext(self, _parentctx, _parentState),
                         )
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_valueType)
+                        self.pushNewRecursionContext(
+                            localctx, _startState, self.RULE_valueType
+                        )
                         self.state = 3119
                         if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 7)"
+                            )
                         self.state = 3120
                         self.listValueTypeName()
                         self.state = 3125
@@ -64021,7 +65414,9 @@ class GQLParser(Parser):
     class TypedContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -64072,7 +65467,9 @@ class GQLParser(Parser):
     class PredefinedTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -64210,7 +65607,9 @@ class GQLParser(Parser):
     class BooleanTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -64271,7 +65670,9 @@ class GQLParser(Parser):
     class CharacterStringTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -64421,7 +65822,9 @@ class GQLParser(Parser):
     class ByteStringTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -64571,7 +65974,9 @@ class GQLParser(Parser):
     class MinLengthContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -64613,7 +66018,9 @@ class GQLParser(Parser):
     class MaxLengthContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -64655,7 +66062,9 @@ class GQLParser(Parser):
     class FixedLengthContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -64697,7 +66106,9 @@ class GQLParser(Parser):
     class NumericTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -64787,7 +66198,9 @@ class GQLParser(Parser):
     class ExactNumericTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -64875,15 +66288,21 @@ class GQLParser(Parser):
     class BinaryExactNumericTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def signedBinaryExactNumericType(self):
-            return self.getTypedRuleContext(GQLParser.SignedBinaryExactNumericTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SignedBinaryExactNumericTypeContext, 0
+            )
 
         def unsignedBinaryExactNumericType(self):
-            return self.getTypedRuleContext(GQLParser.UnsignedBinaryExactNumericTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.UnsignedBinaryExactNumericTypeContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_binaryExactNumericType
@@ -64953,7 +66372,9 @@ class GQLParser(Parser):
     class SignedBinaryExactNumericTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -64997,7 +66418,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.BIGINT, 0)
 
         def verboseBinaryExactNumericType(self):
-            return self.getTypedRuleContext(GQLParser.VerboseBinaryExactNumericTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.VerboseBinaryExactNumericTypeContext, 0
+            )
 
         def SIGNED(self):
             return self.getToken(GQLParser.SIGNED, 0)
@@ -65020,7 +66443,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def signedBinaryExactNumericType(self):
-        localctx = GQLParser.SignedBinaryExactNumericTypeContext(self, self._ctx, self.state)
+        localctx = GQLParser.SignedBinaryExactNumericTypeContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 698, self.RULE_signedBinaryExactNumericType)
         self._la = 0  # Token type
         try:
@@ -65172,7 +66597,9 @@ class GQLParser(Parser):
     class UnsignedBinaryExactNumericTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -65219,7 +66646,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.UNSIGNED, 0)
 
         def verboseBinaryExactNumericType(self):
-            return self.getTypedRuleContext(GQLParser.VerboseBinaryExactNumericTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.VerboseBinaryExactNumericTypeContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_unsignedBinaryExactNumericType
@@ -65239,7 +66668,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def unsignedBinaryExactNumericType(self):
-        localctx = GQLParser.UnsignedBinaryExactNumericTypeContext(self, self._ctx, self.state)
+        localctx = GQLParser.UnsignedBinaryExactNumericTypeContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 700, self.RULE_unsignedBinaryExactNumericType)
         try:
             self.state = 3334
@@ -65385,7 +66816,9 @@ class GQLParser(Parser):
     class VerboseBinaryExactNumericTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -65446,7 +66879,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def verboseBinaryExactNumericType(self):
-        localctx = GQLParser.VerboseBinaryExactNumericTypeContext(self, self._ctx, self.state)
+        localctx = GQLParser.VerboseBinaryExactNumericTypeContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 702, self.RULE_verboseBinaryExactNumericType)
         try:
             self.state = 3380
@@ -65589,7 +67024,9 @@ class GQLParser(Parser):
     class DecimalExactNumericTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -65684,7 +67121,9 @@ class GQLParser(Parser):
     class PrecisionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -65726,7 +67165,9 @@ class GQLParser(Parser):
     class ScaleContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -65768,7 +67209,9 @@ class GQLParser(Parser):
     class ApproximateNumericTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -65979,7 +67422,9 @@ class GQLParser(Parser):
     class TemporalTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66037,7 +67482,9 @@ class GQLParser(Parser):
     class TemporalInstantTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66121,7 +67568,9 @@ class GQLParser(Parser):
     class DatetimeTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66216,7 +67665,9 @@ class GQLParser(Parser):
     class LocaldatetimeTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66316,7 +67767,9 @@ class GQLParser(Parser):
     class DateTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66368,7 +67821,9 @@ class GQLParser(Parser):
     class TimeTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66460,7 +67915,9 @@ class GQLParser(Parser):
     class LocaltimeTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66552,7 +68009,9 @@ class GQLParser(Parser):
     class TemporalDurationTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66563,7 +68022,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def temporalDurationQualifier(self):
-            return self.getTypedRuleContext(GQLParser.TemporalDurationQualifierContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.TemporalDurationQualifierContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -66619,7 +68080,9 @@ class GQLParser(Parser):
     class TemporalDurationQualifierContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66656,7 +68119,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def temporalDurationQualifier(self):
-        localctx = GQLParser.TemporalDurationQualifierContext(self, self._ctx, self.state)
+        localctx = GQLParser.TemporalDurationQualifierContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 728, self.RULE_temporalDurationQualifier)
         try:
             self.state = 3532
@@ -66694,7 +68159,9 @@ class GQLParser(Parser):
     class ReferenceValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66702,7 +68169,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.GraphReferenceValueTypeContext, 0)
 
         def bindingTableReferenceValueType(self):
-            return self.getTypedRuleContext(GQLParser.BindingTableReferenceValueTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingTableReferenceValueTypeContext, 0
+            )
 
         def nodeReferenceValueType(self):
             return self.getTypedRuleContext(GQLParser.NodeReferenceValueTypeContext, 0)
@@ -66769,7 +68238,9 @@ class GQLParser(Parser):
     class ImmaterialValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66826,7 +68297,9 @@ class GQLParser(Parser):
     class NullTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66868,7 +68341,9 @@ class GQLParser(Parser):
     class EmptyTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66931,15 +68406,21 @@ class GQLParser(Parser):
     class GraphReferenceValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def openGraphReferenceValueType(self):
-            return self.getTypedRuleContext(GQLParser.OpenGraphReferenceValueTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.OpenGraphReferenceValueTypeContext, 0
+            )
 
         def closedGraphReferenceValueType(self):
-            return self.getTypedRuleContext(GQLParser.ClosedGraphReferenceValueTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ClosedGraphReferenceValueTypeContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_graphReferenceValueType
@@ -66989,7 +68470,9 @@ class GQLParser(Parser):
     class ClosedGraphReferenceValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -66997,7 +68480,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.GRAPH, 0)
 
         def nestedGraphTypeSpecification(self):
-            return self.getTypedRuleContext(GQLParser.NestedGraphTypeSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NestedGraphTypeSpecificationContext, 0
+            )
 
         def PROPERTY(self):
             return self.getToken(GQLParser.PROPERTY, 0)
@@ -67023,7 +68508,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def closedGraphReferenceValueType(self):
-        localctx = GQLParser.ClosedGraphReferenceValueTypeContext(self, self._ctx, self.state)
+        localctx = GQLParser.ClosedGraphReferenceValueTypeContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 740, self.RULE_closedGraphReferenceValueType)
         self._la = 0  # Token type
         try:
@@ -67057,7 +68544,9 @@ class GQLParser(Parser):
     class OpenGraphReferenceValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67091,7 +68580,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def openGraphReferenceValueType(self):
-        localctx = GQLParser.OpenGraphReferenceValueTypeContext(self, self._ctx, self.state)
+        localctx = GQLParser.OpenGraphReferenceValueTypeContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 742, self.RULE_openGraphReferenceValueType)
         self._la = 0  # Token type
         try:
@@ -67125,7 +68616,9 @@ class GQLParser(Parser):
     class BindingTableReferenceValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67153,7 +68646,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def bindingTableReferenceValueType(self):
-        localctx = GQLParser.BindingTableReferenceValueTypeContext(self, self._ctx, self.state)
+        localctx = GQLParser.BindingTableReferenceValueTypeContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 744, self.RULE_bindingTableReferenceValueType)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -67177,15 +68672,21 @@ class GQLParser(Parser):
     class NodeReferenceValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def openNodeReferenceValueType(self):
-            return self.getTypedRuleContext(GQLParser.OpenNodeReferenceValueTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.OpenNodeReferenceValueTypeContext, 0
+            )
 
         def closedNodeReferenceValueType(self):
-            return self.getTypedRuleContext(GQLParser.ClosedNodeReferenceValueTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ClosedNodeReferenceValueTypeContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_nodeReferenceValueType
@@ -67234,7 +68735,9 @@ class GQLParser(Parser):
     class ClosedNodeReferenceValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67262,7 +68765,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def closedNodeReferenceValueType(self):
-        localctx = GQLParser.ClosedNodeReferenceValueTypeContext(self, self._ctx, self.state)
+        localctx = GQLParser.ClosedNodeReferenceValueTypeContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 748, self.RULE_closedNodeReferenceValueType)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -67286,7 +68791,9 @@ class GQLParser(Parser):
     class OpenNodeReferenceValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67317,7 +68824,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def openNodeReferenceValueType(self):
-        localctx = GQLParser.OpenNodeReferenceValueTypeContext(self, self._ctx, self.state)
+        localctx = GQLParser.OpenNodeReferenceValueTypeContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 750, self.RULE_openNodeReferenceValueType)
         self._la = 0  # Token type
         try:
@@ -67349,15 +68858,21 @@ class GQLParser(Parser):
     class EdgeReferenceValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def openEdgeReferenceValueType(self):
-            return self.getTypedRuleContext(GQLParser.OpenEdgeReferenceValueTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.OpenEdgeReferenceValueTypeContext, 0
+            )
 
         def closedEdgeReferenceValueType(self):
-            return self.getTypedRuleContext(GQLParser.ClosedEdgeReferenceValueTypeContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ClosedEdgeReferenceValueTypeContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_edgeReferenceValueType
@@ -67406,7 +68921,9 @@ class GQLParser(Parser):
     class ClosedEdgeReferenceValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67434,7 +68951,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def closedEdgeReferenceValueType(self):
-        localctx = GQLParser.ClosedEdgeReferenceValueTypeContext(self, self._ctx, self.state)
+        localctx = GQLParser.ClosedEdgeReferenceValueTypeContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 754, self.RULE_closedEdgeReferenceValueType)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -67458,7 +68977,9 @@ class GQLParser(Parser):
     class OpenEdgeReferenceValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67489,7 +69010,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def openEdgeReferenceValueType(self):
-        localctx = GQLParser.OpenEdgeReferenceValueTypeContext(self, self._ctx, self.state)
+        localctx = GQLParser.OpenEdgeReferenceValueTypeContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 756, self.RULE_openEdgeReferenceValueType)
         self._la = 0  # Token type
         try:
@@ -67521,7 +69044,9 @@ class GQLParser(Parser):
     class PathValueTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67573,12 +69098,16 @@ class GQLParser(Parser):
     class ListValueTypeNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def listValueTypeNameSynonym(self):
-            return self.getTypedRuleContext(GQLParser.ListValueTypeNameSynonymContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ListValueTypeNameSynonymContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_listValueTypeName
@@ -67615,7 +69144,9 @@ class GQLParser(Parser):
     class ListValueTypeNameSynonymContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67643,7 +69174,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def listValueTypeNameSynonym(self):
-        localctx = GQLParser.ListValueTypeNameSynonymContext(self, self._ctx, self.state)
+        localctx = GQLParser.ListValueTypeNameSynonymContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 762, self.RULE_listValueTypeNameSynonym)
         self._la = 0  # Token type
         try:
@@ -67666,7 +69199,9 @@ class GQLParser(Parser):
     class RecordTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67758,7 +69293,9 @@ class GQLParser(Parser):
     class FieldTypesSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67802,7 +69339,10 @@ class GQLParser(Parser):
             if (
                 _la == 4
                 or _la == 5
-                or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 281474976710655) != 0)
+                or (
+                    ((_la - 277) & ~0x3F) == 0
+                    and ((1 << (_la - 277)) & 281474976710655) != 0
+                )
             ):
                 self.state = 3630
                 self.fieldTypeList()
@@ -67820,7 +69360,9 @@ class GQLParser(Parser):
     class FieldTypeListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67884,7 +69426,9 @@ class GQLParser(Parser):
     class NotNullContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67931,7 +69475,9 @@ class GQLParser(Parser):
     class FieldTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -67989,7 +69535,9 @@ class GQLParser(Parser):
     class SearchConditionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68031,7 +69579,9 @@ class GQLParser(Parser):
     class PredicateContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68051,7 +69601,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.LabeledPredicateContext, 0)
 
         def sourceDestinationPredicate(self):
-            return self.getTypedRuleContext(GQLParser.SourceDestinationPredicateContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SourceDestinationPredicateContext, 0
+            )
 
         def all_differentPredicate(self):
             return self.getTypedRuleContext(GQLParser.All_differentPredicateContext, 0)
@@ -68060,7 +69612,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.SamePredicateContext, 0)
 
         def property_existsPredicate(self):
-            return self.getTypedRuleContext(GQLParser.Property_existsPredicateContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.Property_existsPredicateContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_predicate
@@ -68151,7 +69705,9 @@ class GQLParser(Parser):
     class CompOpContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68198,7 +69754,9 @@ class GQLParser(Parser):
             self.enterOuterAlt(localctx, 1)
             self.state = 3665
             _la = self._input.LA(1)
-            if not (((_la - 334) & ~0x3F) == 0 and ((1 << (_la - 334)) & 142807664897) != 0):
+            if not (
+                ((_la - 334) & ~0x3F) == 0 and ((1 << (_la - 334)) & 142807664897) != 0
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -68214,7 +69772,9 @@ class GQLParser(Parser):
     class ExistsPredicateContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68240,7 +69800,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.MatchStatementBlockContext, 0)
 
         def nestedQuerySpecification(self):
-            return self.getTypedRuleContext(GQLParser.NestedQuerySpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NestedQuerySpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_existsPredicate
@@ -68321,7 +69883,9 @@ class GQLParser(Parser):
     class NullPredicateContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68368,7 +69932,9 @@ class GQLParser(Parser):
     class NullPredicatePart2Context(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68426,7 +69992,9 @@ class GQLParser(Parser):
     class ValueTypePredicateContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68473,7 +70041,9 @@ class GQLParser(Parser):
     class ValueTypePredicatePart2Context(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68536,7 +70106,9 @@ class GQLParser(Parser):
     class NormalizedPredicatePart2Context(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68570,7 +70142,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def normalizedPredicatePart2(self):
-        localctx = GQLParser.NormalizedPredicatePart2Context(self, self._ctx, self.state)
+        localctx = GQLParser.NormalizedPredicatePart2Context(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 790, self.RULE_normalizedPredicatePart2)
         self._la = 0  # Token type
         try:
@@ -68604,12 +70178,16 @@ class GQLParser(Parser):
     class DirectedPredicateContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def elementVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.ElementVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementVariableReferenceContext, 0
+            )
 
         def directedPredicatePart2(self):
             return self.getTypedRuleContext(GQLParser.DirectedPredicatePart2Context, 0)
@@ -68651,7 +70229,9 @@ class GQLParser(Parser):
     class DirectedPredicatePart2Context(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68709,12 +70289,16 @@ class GQLParser(Parser):
     class LabeledPredicateContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def elementVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.ElementVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementVariableReferenceContext, 0
+            )
 
         def labeledPredicatePart2(self):
             return self.getTypedRuleContext(GQLParser.LabeledPredicatePart2Context, 0)
@@ -68756,7 +70340,9 @@ class GQLParser(Parser):
     class LabeledPredicatePart2Context(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68803,7 +70389,9 @@ class GQLParser(Parser):
     class IsLabeledOrColonContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68877,7 +70465,9 @@ class GQLParser(Parser):
     class SourceDestinationPredicateContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -68888,7 +70478,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.SourcePredicatePart2Context, 0)
 
         def destinationPredicatePart2(self):
-            return self.getTypedRuleContext(GQLParser.DestinationPredicatePart2Context, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DestinationPredicatePart2Context, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_sourceDestinationPredicate
@@ -68908,7 +70500,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def sourceDestinationPredicate(self):
-        localctx = GQLParser.SourceDestinationPredicateContext(self, self._ctx, self.state)
+        localctx = GQLParser.SourceDestinationPredicateContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 802, self.RULE_sourceDestinationPredicate)
         try:
             self.state = 3744
@@ -68941,12 +70535,16 @@ class GQLParser(Parser):
     class NodeReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def elementVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.ElementVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementVariableReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_nodeReference
@@ -68983,7 +70581,9 @@ class GQLParser(Parser):
     class SourcePredicatePart2Context(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -69051,7 +70651,9 @@ class GQLParser(Parser):
     class DestinationPredicatePart2Context(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -69088,7 +70690,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def destinationPredicatePart2(self):
-        localctx = GQLParser.DestinationPredicatePart2Context(self, self._ctx, self.state)
+        localctx = GQLParser.DestinationPredicatePart2Context(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 808, self.RULE_destinationPredicatePart2)
         self._la = 0  # Token type
         try:
@@ -69119,12 +70723,16 @@ class GQLParser(Parser):
     class EdgeReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def elementVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.ElementVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementVariableReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_edgeReference
@@ -69161,7 +70769,9 @@ class GQLParser(Parser):
     class All_differentPredicateContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -69173,9 +70783,13 @@ class GQLParser(Parser):
 
         def elementVariableReference(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(GQLParser.ElementVariableReferenceContext)
+                return self.getTypedRuleContexts(
+                    GQLParser.ElementVariableReferenceContext
+                )
             else:
-                return self.getTypedRuleContext(GQLParser.ElementVariableReferenceContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.ElementVariableReferenceContext, i
+                )
 
         def COMMA(self, i: int = None):
             if i is None:
@@ -69244,7 +70858,9 @@ class GQLParser(Parser):
     class SamePredicateContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -69256,9 +70872,13 @@ class GQLParser(Parser):
 
         def elementVariableReference(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(GQLParser.ElementVariableReferenceContext)
+                return self.getTypedRuleContexts(
+                    GQLParser.ElementVariableReferenceContext
+                )
             else:
-                return self.getTypedRuleContext(GQLParser.ElementVariableReferenceContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.ElementVariableReferenceContext, i
+                )
 
         def COMMA(self, i: int = None):
             if i is None:
@@ -69327,7 +70947,9 @@ class GQLParser(Parser):
     class Property_existsPredicateContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -69338,7 +70960,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def elementVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.ElementVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementVariableReferenceContext, 0
+            )
 
         def COMMA(self):
             return self.getToken(GQLParser.COMMA, 0)
@@ -69367,7 +70991,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def property_existsPredicate(self):
-        localctx = GQLParser.Property_existsPredicateContext(self, self._ctx, self.state)
+        localctx = GQLParser.Property_existsPredicateContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 816, self.RULE_property_existsPredicate)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -69394,7 +71020,9 @@ class GQLParser(Parser):
     class ValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -69603,7 +71231,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.ValueExpressionContext, 0)
 
         def normalizedPredicatePart2(self):
-            return self.getTypedRuleContext(GQLParser.NormalizedPredicatePart2Context, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NormalizedPredicatePart2Context, 0
+            )
 
         def enterRule(self, listener: ParseTreeListener):
             if hasattr(listener, "enterNormalizedPredicateExprAlt"):
@@ -69958,7 +71588,10 @@ class GQLParser(Parser):
                     la_ = self._interp.adaptivePredict(self._input, 435, self._ctx)
                     if la_ == 1:
                         localctx = GQLParser.MultDivExprAltContext(
-                            self, GQLParser.ValueExpressionContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.ValueExpressionContext(
+                                self, _parentctx, _parentState
+                            ),
                         )
                         self.pushNewRecursionContext(
                             localctx, _startState, self.RULE_valueExpression
@@ -69967,7 +71600,9 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 14):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 14)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 14)"
+                            )
                         self.state = 3822
                         localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
@@ -69982,7 +71617,10 @@ class GQLParser(Parser):
 
                     elif la_ == 2:
                         localctx = GQLParser.AddSubtractExprAltContext(
-                            self, GQLParser.ValueExpressionContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.ValueExpressionContext(
+                                self, _parentctx, _parentState
+                            ),
                         )
                         self.pushNewRecursionContext(
                             localctx, _startState, self.RULE_valueExpression
@@ -69991,7 +71629,9 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 13):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 13)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 13)"
+                            )
                         self.state = 3825
                         localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
@@ -70006,7 +71646,10 @@ class GQLParser(Parser):
 
                     elif la_ == 3:
                         localctx = GQLParser.ConcatenationExprAltContext(
-                            self, GQLParser.ValueExpressionContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.ValueExpressionContext(
+                                self, _parentctx, _parentState
+                            ),
                         )
                         self.pushNewRecursionContext(
                             localctx, _startState, self.RULE_valueExpression
@@ -70015,7 +71658,9 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 12):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 12)"
+                            )
                         self.state = 3828
                         self.match(GQLParser.CONCATENATION_OPERATOR)
                         self.state = 3829
@@ -70024,7 +71669,10 @@ class GQLParser(Parser):
 
                     elif la_ == 4:
                         localctx = GQLParser.ComparisonExprAltContext(
-                            self, GQLParser.ValueExpressionContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.ValueExpressionContext(
+                                self, _parentctx, _parentState
+                            ),
                         )
                         self.pushNewRecursionContext(
                             localctx, _startState, self.RULE_valueExpression
@@ -70033,7 +71681,9 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 11):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 11)"
+                            )
                         self.state = 3831
                         self.compOp()
                         self.state = 3832
@@ -70042,7 +71692,10 @@ class GQLParser(Parser):
 
                     elif la_ == 5:
                         localctx = GQLParser.ConjunctiveExprAltContext(
-                            self, GQLParser.ValueExpressionContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.ValueExpressionContext(
+                                self, _parentctx, _parentState
+                            ),
                         )
                         self.pushNewRecursionContext(
                             localctx, _startState, self.RULE_valueExpression
@@ -70051,7 +71704,9 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 6)"
+                            )
                         self.state = 3835
                         self.match(GQLParser.AND)
                         self.state = 3836
@@ -70060,7 +71715,10 @@ class GQLParser(Parser):
 
                     elif la_ == 6:
                         localctx = GQLParser.DisjunctiveExprAltContext(
-                            self, GQLParser.ValueExpressionContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.ValueExpressionContext(
+                                self, _parentctx, _parentState
+                            ),
                         )
                         self.pushNewRecursionContext(
                             localctx, _startState, self.RULE_valueExpression
@@ -70069,7 +71727,9 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 5):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 5)"
+                            )
                         self.state = 3838
                         localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
@@ -70084,7 +71744,10 @@ class GQLParser(Parser):
 
                     elif la_ == 7:
                         localctx = GQLParser.NormalizedPredicateExprAltContext(
-                            self, GQLParser.ValueExpressionContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.ValueExpressionContext(
+                                self, _parentctx, _parentState
+                            ),
                         )
                         self.pushNewRecursionContext(
                             localctx, _startState, self.RULE_valueExpression
@@ -70093,14 +71756,19 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 9):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 9)"
+                            )
                         self.state = 3841
                         self.normalizedPredicatePart2()
                         pass
 
                     elif la_ == 8:
                         localctx = GQLParser.IsNotExprAltContext(
-                            self, GQLParser.ValueExpressionContext(self, _parentctx, _parentState)
+                            self,
+                            GQLParser.ValueExpressionContext(
+                                self, _parentctx, _parentState
+                            ),
                         )
                         self.pushNewRecursionContext(
                             localctx, _startState, self.RULE_valueExpression
@@ -70109,7 +71777,9 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 7)"
+                            )
                         self.state = 3843
                         self.match(GQLParser.IS)
                         self.state = 3845
@@ -70138,7 +71808,9 @@ class GQLParser(Parser):
     class ValueFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -70155,7 +71827,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.DurationValueFunctionContext, 0)
 
         def characterOrByteStringFunction(self):
-            return self.getTypedRuleContext(GQLParser.CharacterOrByteStringFunctionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CharacterOrByteStringFunctionContext, 0
+            )
 
         def listValueFunction(self):
             return self.getTypedRuleContext(GQLParser.ListValueFunctionContext, 0)
@@ -70231,7 +71905,9 @@ class GQLParser(Parser):
     class BooleanValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -70273,24 +71949,34 @@ class GQLParser(Parser):
     class CharacterOrByteStringFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def subCharacterOrByteString(self):
-            return self.getTypedRuleContext(GQLParser.SubCharacterOrByteStringContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.SubCharacterOrByteStringContext, 0
+            )
 
         def trimSingleCharacterOrByteString(self):
-            return self.getTypedRuleContext(GQLParser.TrimSingleCharacterOrByteStringContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.TrimSingleCharacterOrByteStringContext, 0
+            )
 
         def foldCharacterString(self):
             return self.getTypedRuleContext(GQLParser.FoldCharacterStringContext, 0)
 
         def trimMultiCharacterCharacterString(self):
-            return self.getTypedRuleContext(GQLParser.TrimMultiCharacterCharacterStringContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.TrimMultiCharacterCharacterStringContext, 0
+            )
 
         def normalizeCharacterString(self):
-            return self.getTypedRuleContext(GQLParser.NormalizeCharacterStringContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NormalizeCharacterStringContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_characterOrByteStringFunction
@@ -70310,7 +71996,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def characterOrByteStringFunction(self):
-        localctx = GQLParser.CharacterOrByteStringFunctionContext(self, self._ctx, self.state)
+        localctx = GQLParser.CharacterOrByteStringFunctionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 824, self.RULE_characterOrByteStringFunction)
         try:
             self.state = 3868
@@ -70355,7 +72043,9 @@ class GQLParser(Parser):
     class SubCharacterOrByteStringContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -70398,7 +72088,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def subCharacterOrByteString(self):
-        localctx = GQLParser.SubCharacterOrByteStringContext(self, self._ctx, self.state)
+        localctx = GQLParser.SubCharacterOrByteStringContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 826, self.RULE_subCharacterOrByteString)
         self._la = 0  # Token type
         try:
@@ -70431,7 +72123,9 @@ class GQLParser(Parser):
     class TrimSingleCharacterOrByteStringContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -70465,7 +72159,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def trimSingleCharacterOrByteString(self):
-        localctx = GQLParser.TrimSingleCharacterOrByteStringContext(self, self._ctx, self.state)
+        localctx = GQLParser.TrimSingleCharacterOrByteStringContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 828, self.RULE_trimSingleCharacterOrByteString)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -70488,7 +72184,9 @@ class GQLParser(Parser):
     class FoldCharacterStringContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -70554,7 +72252,9 @@ class GQLParser(Parser):
     class TrimMultiCharacterCharacterStringContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -70600,7 +72300,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def trimMultiCharacterCharacterString(self):
-        localctx = GQLParser.TrimMultiCharacterCharacterStringContext(self, self._ctx, self.state)
+        localctx = GQLParser.TrimMultiCharacterCharacterStringContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 832, self.RULE_trimMultiCharacterCharacterString)
         self._la = 0  # Token type
         try:
@@ -70638,7 +72340,9 @@ class GQLParser(Parser):
     class NormalizeCharacterStringContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -70678,7 +72382,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def normalizeCharacterString(self):
-        localctx = GQLParser.NormalizeCharacterStringContext(self, self._ctx, self.state)
+        localctx = GQLParser.NormalizeCharacterStringContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 834, self.RULE_normalizeCharacterString)
         self._la = 0  # Token type
         try:
@@ -70711,7 +72417,9 @@ class GQLParser(Parser):
     class NodeReferenceValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -70736,7 +72444,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def nodeReferenceValueExpression(self):
-        localctx = GQLParser.NodeReferenceValueExpressionContext(self, self._ctx, self.state)
+        localctx = GQLParser.NodeReferenceValueExpressionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 836, self.RULE_nodeReferenceValueExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -70753,7 +72463,9 @@ class GQLParser(Parser):
     class EdgeReferenceValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -70778,7 +72490,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def edgeReferenceValueExpression(self):
-        localctx = GQLParser.EdgeReferenceValueExpressionContext(self, self._ctx, self.state)
+        localctx = GQLParser.EdgeReferenceValueExpressionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 838, self.RULE_edgeReferenceValueExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -70795,7 +72509,9 @@ class GQLParser(Parser):
     class AggregatingValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -70820,7 +72536,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def aggregatingValueExpression(self):
-        localctx = GQLParser.AggregatingValueExpressionContext(self, self._ctx, self.state)
+        localctx = GQLParser.AggregatingValueExpressionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 840, self.RULE_aggregatingValueExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -70837,18 +72555,24 @@ class GQLParser(Parser):
     class ValueExpressionPrimaryContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def parenthesizedValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.ParenthesizedValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ParenthesizedValueExpressionContext, 0
+            )
 
         def aggregateFunction(self):
             return self.getTypedRuleContext(GQLParser.AggregateFunctionContext, 0)
 
         def unsignedValueSpecification(self):
-            return self.getTypedRuleContext(GQLParser.UnsignedValueSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.UnsignedValueSpecificationContext, 0
+            )
 
         def pathValueConstructor(self):
             return self.getTypedRuleContext(GQLParser.PathValueConstructorContext, 0)
@@ -70869,7 +72593,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.LetValueExpressionContext, 0)
 
         def bindingVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceContext, 0
+            )
 
         def valueExpressionPrimary(self):
             return self.getTypedRuleContext(GQLParser.ValueExpressionPrimaryContext, 0)
@@ -70900,7 +72626,9 @@ class GQLParser(Parser):
     def valueExpressionPrimary(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = GQLParser.ValueExpressionPrimaryContext(self, self._ctx, _parentState)
+        localctx = GQLParser.ValueExpressionPrimaryContext(
+            self, self._ctx, _parentState
+        )
         _prevctx = localctx
         _startState = 842
         self.enterRecursionRule(localctx, 842, self.RULE_valueExpressionPrimary, _p)
@@ -71050,7 +72778,9 @@ class GQLParser(Parser):
                     if not self.precpred(self._ctx, 7):
                         from antlr4.error.Errors import FailedPredicateException
 
-                        raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
+                        raise FailedPredicateException(
+                            self, "self.precpred(self._ctx, 7)"
+                        )
                     self.state = 3925
                     self.match(GQLParser.PERIOD)
                     self.state = 3926
@@ -71070,7 +72800,9 @@ class GQLParser(Parser):
     class ParenthesizedValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71101,7 +72833,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def parenthesizedValueExpression(self):
-        localctx = GQLParser.ParenthesizedValueExpressionContext(self, self._ctx, self.state)
+        localctx = GQLParser.ParenthesizedValueExpressionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 844, self.RULE_parenthesizedValueExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -71122,7 +72856,9 @@ class GQLParser(Parser):
     class NonParenthesizedValueExpressionPrimaryContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71132,7 +72868,9 @@ class GQLParser(Parser):
             )
 
         def bindingVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.BindingVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.BindingVariableReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_nonParenthesizedValueExpressionPrimary
@@ -71183,7 +72921,9 @@ class GQLParser(Parser):
     class NonParenthesizedValueExpressionPrimarySpecialCaseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71191,7 +72931,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.AggregateFunctionContext, 0)
 
         def unsignedValueSpecification(self):
-            return self.getTypedRuleContext(GQLParser.UnsignedValueSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.UnsignedValueSpecificationContext, 0
+            )
 
         def pathValueConstructor(self):
             return self.getTypedRuleContext(GQLParser.PathValueConstructorContext, 0)
@@ -71224,16 +72966,24 @@ class GQLParser(Parser):
             return GQLParser.RULE_nonParenthesizedValueExpressionPrimarySpecialCase
 
         def enterRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "enterNonParenthesizedValueExpressionPrimarySpecialCase"):
+            if hasattr(
+                listener, "enterNonParenthesizedValueExpressionPrimarySpecialCase"
+            ):
                 listener.enterNonParenthesizedValueExpressionPrimarySpecialCase(self)
 
         def exitRule(self, listener: ParseTreeListener):
-            if hasattr(listener, "exitNonParenthesizedValueExpressionPrimarySpecialCase"):
+            if hasattr(
+                listener, "exitNonParenthesizedValueExpressionPrimarySpecialCase"
+            ):
                 listener.exitNonParenthesizedValueExpressionPrimarySpecialCase(self)
 
         def accept(self, visitor: ParseTreeVisitor):
-            if hasattr(visitor, "visitNonParenthesizedValueExpressionPrimarySpecialCase"):
-                return visitor.visitNonParenthesizedValueExpressionPrimarySpecialCase(self)
+            if hasattr(
+                visitor, "visitNonParenthesizedValueExpressionPrimarySpecialCase"
+            ):
+                return visitor.visitNonParenthesizedValueExpressionPrimarySpecialCase(
+                    self
+                )
             else:
                 return visitor.visitChildren(self)
 
@@ -71241,7 +72991,9 @@ class GQLParser(Parser):
         localctx = GQLParser.NonParenthesizedValueExpressionPrimarySpecialCaseContext(
             self, self._ctx, self.state
         )
-        self.enterRule(localctx, 848, self.RULE_nonParenthesizedValueExpressionPrimarySpecialCase)
+        self.enterRule(
+            localctx, 848, self.RULE_nonParenthesizedValueExpressionPrimarySpecialCase
+        )
         try:
             self.state = 3952
             self._errHandler.sync(self)
@@ -71315,7 +73067,9 @@ class GQLParser(Parser):
     class UnsignedValueSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71323,7 +73077,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.UnsignedLiteralContext, 0)
 
         def generalValueSpecification(self):
-            return self.getTypedRuleContext(GQLParser.GeneralValueSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.GeneralValueSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_unsignedValueSpecification
@@ -71343,7 +73099,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def unsignedValueSpecification(self):
-        localctx = GQLParser.UnsignedValueSpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.UnsignedValueSpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 850, self.RULE_unsignedValueSpecification)
         try:
             self.state = 3956
@@ -71401,7 +73159,9 @@ class GQLParser(Parser):
     class NonNegativeIntegerSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71409,7 +73169,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.UnsignedIntegerContext, 0)
 
         def dynamicParameterSpecification(self):
-            return self.getTypedRuleContext(GQLParser.DynamicParameterSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DynamicParameterSpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_nonNegativeIntegerSpecification
@@ -71429,7 +73191,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def nonNegativeIntegerSpecification(self):
-        localctx = GQLParser.NonNegativeIntegerSpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.NonNegativeIntegerSpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 852, self.RULE_nonNegativeIntegerSpecification)
         try:
             self.state = 3960
@@ -71459,12 +73223,16 @@ class GQLParser(Parser):
     class GeneralValueSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def dynamicParameterSpecification(self):
-            return self.getTypedRuleContext(GQLParser.DynamicParameterSpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DynamicParameterSpecificationContext, 0
+            )
 
         def SESSION_USER(self):
             return self.getToken(GQLParser.SESSION_USER, 0)
@@ -71487,7 +73255,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def generalValueSpecification(self):
-        localctx = GQLParser.GeneralValueSpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.GeneralValueSpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 854, self.RULE_generalValueSpecification)
         try:
             self.state = 3964
@@ -71517,7 +73287,9 @@ class GQLParser(Parser):
     class DynamicParameterSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71542,7 +73314,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def dynamicParameterSpecification(self):
-        localctx = GQLParser.DynamicParameterSpecificationContext(self, self._ctx, self.state)
+        localctx = GQLParser.DynamicParameterSpecificationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 856, self.RULE_dynamicParameterSpecification)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -71559,7 +73333,9 @@ class GQLParser(Parser):
     class LetValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71567,7 +73343,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LET, 0)
 
         def letVariableDefinitionList(self):
-            return self.getTypedRuleContext(GQLParser.LetVariableDefinitionListContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.LetVariableDefinitionListContext, 0
+            )
 
         def IN(self):
             return self.getToken(GQLParser.IN, 0)
@@ -71621,7 +73399,9 @@ class GQLParser(Parser):
     class ValueQueryExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71629,7 +73409,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.VALUE, 0)
 
         def nestedQuerySpecification(self):
-            return self.getTypedRuleContext(GQLParser.NestedQuerySpecificationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NestedQuerySpecificationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_valueQueryExpression
@@ -71668,7 +73450,9 @@ class GQLParser(Parser):
     class CaseExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71726,7 +73510,9 @@ class GQLParser(Parser):
     class CaseAbbreviationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71833,7 +73619,9 @@ class GQLParser(Parser):
     class CaseSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71890,7 +73678,9 @@ class GQLParser(Parser):
     class SimpleCaseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -71971,7 +73761,9 @@ class GQLParser(Parser):
     class SearchedCaseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72047,7 +73839,9 @@ class GQLParser(Parser):
     class SimpleWhenClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72104,7 +73898,9 @@ class GQLParser(Parser):
     class SearchedWhenClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72161,7 +73957,9 @@ class GQLParser(Parser):
     class ElseClauseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72208,7 +74006,9 @@ class GQLParser(Parser):
     class CaseOperandContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72218,7 +74018,9 @@ class GQLParser(Parser):
             )
 
         def elementVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.ElementVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementVariableReferenceContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_caseOperand
@@ -72267,7 +74069,9 @@ class GQLParser(Parser):
     class WhenOperandListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72331,7 +74135,9 @@ class GQLParser(Parser):
     class WhenOperandContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72353,7 +74159,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.ValueTypePredicatePart2Context, 0)
 
         def normalizedPredicatePart2(self):
-            return self.getTypedRuleContext(GQLParser.NormalizedPredicatePart2Context, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NormalizedPredicatePart2Context, 0
+            )
 
         def directedPredicatePart2(self):
             return self.getTypedRuleContext(GQLParser.DirectedPredicatePart2Context, 0)
@@ -72365,7 +74173,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.SourcePredicatePart2Context, 0)
 
         def destinationPredicatePart2(self):
-            return self.getTypedRuleContext(GQLParser.DestinationPredicatePart2Context, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DestinationPredicatePart2Context, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_whenOperand
@@ -72458,7 +74268,9 @@ class GQLParser(Parser):
     class ResultContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72515,7 +74327,9 @@ class GQLParser(Parser):
     class ResultExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72557,7 +74371,9 @@ class GQLParser(Parser):
     class CastSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72624,7 +74440,9 @@ class GQLParser(Parser):
     class CastOperandContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72681,7 +74499,9 @@ class GQLParser(Parser):
     class CastTargetContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72723,7 +74543,9 @@ class GQLParser(Parser):
     class AggregateFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72804,7 +74626,9 @@ class GQLParser(Parser):
     class GeneralSetFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72872,7 +74696,9 @@ class GQLParser(Parser):
     class BinarySetFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72883,13 +74709,17 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def dependentValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.DependentValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DependentValueExpressionContext, 0
+            )
 
         def COMMA(self):
             return self.getToken(GQLParser.COMMA, 0)
 
         def independentValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.IndependentValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.IndependentValueExpressionContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -72939,7 +74769,9 @@ class GQLParser(Parser):
     class GeneralSetFunctionTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -72994,7 +74826,10 @@ class GQLParser(Parser):
             _la = self._input.LA(1)
             if not (
                 (((_la) & ~0x3F) == 0 and ((1 << _la) & 4683743621055250432) != 0)
-                or (((_la - 144) & ~0x3F) == 0 and ((1 << (_la - 144)) & 792633534417207299) != 0)
+                or (
+                    ((_la - 144) & ~0x3F) == 0
+                    and ((1 << (_la - 144)) & 792633534417207299) != 0
+                )
             ):
                 self._errHandler.recoverInline(self)
             else:
@@ -73011,7 +74846,9 @@ class GQLParser(Parser):
     class SetQuantifierContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73062,7 +74899,9 @@ class GQLParser(Parser):
     class BinarySetFunctionTypeContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73113,7 +74952,9 @@ class GQLParser(Parser):
     class DependentValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73141,7 +74982,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def dependentValueExpression(self):
-        localctx = GQLParser.DependentValueExpressionContext(self, self._ctx, self.state)
+        localctx = GQLParser.DependentValueExpressionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 906, self.RULE_dependentValueExpression)
         self._la = 0  # Token type
         try:
@@ -73166,7 +75009,9 @@ class GQLParser(Parser):
     class IndependentValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73191,7 +75036,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def independentValueExpression(self):
-        localctx = GQLParser.IndependentValueExpressionContext(self, self._ctx, self.state)
+        localctx = GQLParser.IndependentValueExpressionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 908, self.RULE_independentValueExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -73208,7 +75055,9 @@ class GQLParser(Parser):
     class Element_idFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73219,7 +75068,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def elementVariableReference(self):
-            return self.getTypedRuleContext(GQLParser.ElementVariableReferenceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ElementVariableReferenceContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -73265,7 +75116,9 @@ class GQLParser(Parser):
     class BindingVariableReferenceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73290,7 +75143,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def bindingVariableReference(self):
-        localctx = GQLParser.BindingVariableReferenceContext(self, self._ctx, self.state)
+        localctx = GQLParser.BindingVariableReferenceContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 912, self.RULE_bindingVariableReference)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -73307,7 +75162,9 @@ class GQLParser(Parser):
     class PathValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73349,12 +75206,16 @@ class GQLParser(Parser):
     class PathValueConstructorContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def pathValueConstructorByEnumeration(self):
-            return self.getTypedRuleContext(GQLParser.PathValueConstructorByEnumerationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.PathValueConstructorByEnumerationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_pathValueConstructor
@@ -73391,7 +75252,9 @@ class GQLParser(Parser):
     class PathValueConstructorByEnumerationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73425,7 +75288,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def pathValueConstructorByEnumeration(self):
-        localctx = GQLParser.PathValueConstructorByEnumerationContext(self, self._ctx, self.state)
+        localctx = GQLParser.PathValueConstructorByEnumerationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 918, self.RULE_pathValueConstructorByEnumeration)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -73448,7 +75313,9 @@ class GQLParser(Parser):
     class PathElementListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73507,12 +75374,16 @@ class GQLParser(Parser):
     class PathElementListStartContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def nodeReferenceValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.NodeReferenceValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NodeReferenceValueExpressionContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_pathElementListStart
@@ -73549,7 +75420,9 @@ class GQLParser(Parser):
     class PathElementListStepContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73560,10 +75433,14 @@ class GQLParser(Parser):
                 return self.getToken(GQLParser.COMMA, i)
 
         def edgeReferenceValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.EdgeReferenceValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.EdgeReferenceValueExpressionContext, 0
+            )
 
         def nodeReferenceValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.NodeReferenceValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NodeReferenceValueExpressionContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_pathElementListStep
@@ -73606,7 +75483,9 @@ class GQLParser(Parser):
     class ListValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73648,7 +75527,9 @@ class GQLParser(Parser):
     class ListValueFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73706,7 +75587,9 @@ class GQLParser(Parser):
     class TrimListFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73773,7 +75656,9 @@ class GQLParser(Parser):
     class ElementsFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73830,12 +75715,16 @@ class GQLParser(Parser):
     class ListValueConstructorContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def listValueConstructorByEnumeration(self):
-            return self.getTypedRuleContext(GQLParser.ListValueConstructorByEnumerationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ListValueConstructorByEnumerationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_listValueConstructor
@@ -73872,7 +75761,9 @@ class GQLParser(Parser):
     class ListValueConstructorByEnumerationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -73906,7 +75797,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def listValueConstructorByEnumeration(self):
-        localctx = GQLParser.ListValueConstructorByEnumerationContext(self, self._ctx, self.state)
+        localctx = GQLParser.ListValueConstructorByEnumerationContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 936, self.RULE_listValueConstructorByEnumeration)
         self._la = 0  # Token type
         try:
@@ -73925,10 +75818,21 @@ class GQLParser(Parser):
             _la = self._input.LA(1)
             if (
                 (((_la) & ~0x3F) == 0 and ((1 << _la) & 8762849302180528028) != 0)
-                or (((_la - 64) & ~0x3F) == 0 and ((1 << (_la - 64)) & 34464073969) != 0)
-                or (((_la - 129) & ~0x3F) == 0 and ((1 << (_la - 129)) & -8011702113698201677) != 0)
-                or (((_la - 193) & ~0x3F) == 0 and ((1 << (_la - 193)) & 26393111092643) != 0)
-                or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 844424930131967) != 0)
+                or (
+                    ((_la - 64) & ~0x3F) == 0 and ((1 << (_la - 64)) & 34464073969) != 0
+                )
+                or (
+                    ((_la - 129) & ~0x3F) == 0
+                    and ((1 << (_la - 129)) & -8011702113698201677) != 0
+                )
+                or (
+                    ((_la - 193) & ~0x3F) == 0
+                    and ((1 << (_la - 193)) & 26393111092643) != 0
+                )
+                or (
+                    ((_la - 277) & ~0x3F) == 0
+                    and ((1 << (_la - 277)) & 844424930131967) != 0
+                )
                 or (((_la - 368) & ~0x3F) == 0 and ((1 << (_la - 368)) & 151) != 0)
             ):
                 self.state = 4175
@@ -73947,7 +75851,9 @@ class GQLParser(Parser):
     class ListElementListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74011,7 +75917,9 @@ class GQLParser(Parser):
     class ListElementContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74053,7 +75961,9 @@ class GQLParser(Parser):
     class RecordConstructorContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74106,7 +76016,9 @@ class GQLParser(Parser):
     class FieldsSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74150,7 +76062,10 @@ class GQLParser(Parser):
             if (
                 _la == 4
                 or _la == 5
-                or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 281474976710655) != 0)
+                or (
+                    ((_la - 277) & ~0x3F) == 0
+                    and ((1 << (_la - 277)) & 281474976710655) != 0
+                )
             ):
                 self.state = 4196
                 self.fieldList()
@@ -74168,7 +76083,9 @@ class GQLParser(Parser):
     class FieldListContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74232,7 +76149,9 @@ class GQLParser(Parser):
     class FieldContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74284,7 +76203,9 @@ class GQLParser(Parser):
     class TruthValueContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74326,7 +76247,9 @@ class GQLParser(Parser):
     class NumericValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
             self.sign = None  # Token
@@ -74334,9 +76257,13 @@ class GQLParser(Parser):
 
         def numericValueExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(GQLParser.NumericValueExpressionContext)
+                return self.getTypedRuleContexts(
+                    GQLParser.NumericValueExpressionContext
+                )
             else:
-                return self.getTypedRuleContext(GQLParser.NumericValueExpressionContext, i)
+                return self.getTypedRuleContext(
+                    GQLParser.NumericValueExpressionContext, i
+                )
 
         def PLUS_SIGN(self):
             return self.getToken(GQLParser.PLUS_SIGN, 0)
@@ -74376,7 +76303,9 @@ class GQLParser(Parser):
     def numericValueExpression(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = GQLParser.NumericValueExpressionContext(self, self._ctx, _parentState)
+        localctx = GQLParser.NumericValueExpressionContext(
+            self, self._ctx, _parentState
+        )
         _prevctx = localctx
         _startState = 952
         self.enterRecursionRule(localctx, 952, self.RULE_numericValueExpression, _p)
@@ -74560,7 +76489,9 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 4):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 4)"
+                            )
                         self.state = 4223
                         localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
@@ -74584,7 +76515,9 @@ class GQLParser(Parser):
                         if not self.precpred(self._ctx, 3):
                             from antlr4.error.Errors import FailedPredicateException
 
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
+                            raise FailedPredicateException(
+                                self, "self.precpred(self._ctx, 3)"
+                            )
                         self.state = 4226
                         localctx.operator = self._input.LT(1)
                         _la = self._input.LA(1)
@@ -74612,7 +76545,9 @@ class GQLParser(Parser):
     class NumericValueFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74632,7 +76567,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.TrigonometricFunctionContext, 0)
 
         def generalLogarithmFunction(self):
-            return self.getTypedRuleContext(GQLParser.GeneralLogarithmFunctionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.GeneralLogarithmFunctionContext, 0
+            )
 
         def commonLogarithm(self):
             return self.getTypedRuleContext(GQLParser.CommonLogarithmContext, 0)
@@ -74758,7 +76695,9 @@ class GQLParser(Parser):
     class LengthExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74824,7 +76763,9 @@ class GQLParser(Parser):
     class CardinalityExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74835,7 +76776,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def cardinalityExpressionArgument(self):
-            return self.getTypedRuleContext(GQLParser.CardinalityExpressionArgumentContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CardinalityExpressionArgumentContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -74906,7 +76849,9 @@ class GQLParser(Parser):
     class CardinalityExpressionArgumentContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74931,7 +76876,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def cardinalityExpressionArgument(self):
-        localctx = GQLParser.CardinalityExpressionArgumentContext(self, self._ctx, self.state)
+        localctx = GQLParser.CardinalityExpressionArgumentContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 960, self.RULE_cardinalityExpressionArgument)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -74948,7 +76895,9 @@ class GQLParser(Parser):
     class CharLengthExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -74956,7 +76905,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def characterStringValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.CharacterStringValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.CharacterStringValueExpressionContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -75014,7 +76965,9 @@ class GQLParser(Parser):
     class ByteLengthExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75022,7 +76975,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def byteStringValueExpression(self):
-            return self.getTypedRuleContext(GQLParser.ByteStringValueExpressionContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ByteStringValueExpressionContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -75080,7 +77035,9 @@ class GQLParser(Parser):
     class PathLengthExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75137,7 +77094,9 @@ class GQLParser(Parser):
     class AbsoluteValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75194,7 +77153,9 @@ class GQLParser(Parser):
     class ModulusExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75205,13 +77166,17 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def numericValueExpressionDividend(self):
-            return self.getTypedRuleContext(GQLParser.NumericValueExpressionDividendContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NumericValueExpressionDividendContext, 0
+            )
 
         def COMMA(self):
             return self.getToken(GQLParser.COMMA, 0)
 
         def numericValueExpressionDivisor(self):
-            return self.getTypedRuleContext(GQLParser.NumericValueExpressionDivisorContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NumericValueExpressionDivisorContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -75261,7 +77226,9 @@ class GQLParser(Parser):
     class NumericValueExpressionDividendContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75286,7 +77253,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def numericValueExpressionDividend(self):
-        localctx = GQLParser.NumericValueExpressionDividendContext(self, self._ctx, self.state)
+        localctx = GQLParser.NumericValueExpressionDividendContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 972, self.RULE_numericValueExpressionDividend)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -75303,7 +77272,9 @@ class GQLParser(Parser):
     class NumericValueExpressionDivisorContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75328,7 +77299,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def numericValueExpressionDivisor(self):
-        localctx = GQLParser.NumericValueExpressionDivisorContext(self, self._ctx, self.state)
+        localctx = GQLParser.NumericValueExpressionDivisorContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 974, self.RULE_numericValueExpressionDivisor)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -75345,12 +77318,16 @@ class GQLParser(Parser):
     class TrigonometricFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def trigonometricFunctionName(self):
-            return self.getTypedRuleContext(GQLParser.TrigonometricFunctionNameContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.TrigonometricFunctionNameContext, 0
+            )
 
         def LEFT_PAREN(self):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
@@ -75402,7 +77379,9 @@ class GQLParser(Parser):
     class TrigonometricFunctionNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75460,7 +77439,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def trigonometricFunctionName(self):
-        localctx = GQLParser.TrigonometricFunctionNameContext(self, self._ctx, self.state)
+        localctx = GQLParser.TrigonometricFunctionNameContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 978, self.RULE_trigonometricFunctionName)
         self._la = 0  # Token type
         try:
@@ -75468,8 +77449,14 @@ class GQLParser(Parser):
             self.state = 4303
             _la = self._input.LA(1)
             if not (
-                (((_la - 21) & ~0x3F) == 0 and ((1 << (_la - 21)) & 18016322654833153) != 0)
-                or (((_la - 174) & ~0x3F) == 0 and ((1 << (_la - 174)) & 3222011905) != 0)
+                (
+                    ((_la - 21) & ~0x3F) == 0
+                    and ((1 << (_la - 21)) & 18016322654833153) != 0
+                )
+                or (
+                    ((_la - 174) & ~0x3F) == 0
+                    and ((1 << (_la - 174)) & 3222011905) != 0
+                )
             ):
                 self._errHandler.recoverInline(self)
             else:
@@ -75486,7 +77473,9 @@ class GQLParser(Parser):
     class GeneralLogarithmFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75503,7 +77492,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.COMMA, 0)
 
         def generalLogarithmArgument(self):
-            return self.getTypedRuleContext(GQLParser.GeneralLogarithmArgumentContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.GeneralLogarithmArgumentContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -75526,7 +77517,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def generalLogarithmFunction(self):
-        localctx = GQLParser.GeneralLogarithmFunctionContext(self, self._ctx, self.state)
+        localctx = GQLParser.GeneralLogarithmFunctionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 980, self.RULE_generalLogarithmFunction)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -75553,7 +77546,9 @@ class GQLParser(Parser):
     class GeneralLogarithmBaseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75595,7 +77590,9 @@ class GQLParser(Parser):
     class GeneralLogarithmArgumentContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75620,7 +77617,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def generalLogarithmArgument(self):
-        localctx = GQLParser.GeneralLogarithmArgumentContext(self, self._ctx, self.state)
+        localctx = GQLParser.GeneralLogarithmArgumentContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 984, self.RULE_generalLogarithmArgument)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -75637,7 +77636,9 @@ class GQLParser(Parser):
     class CommonLogarithmContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75694,7 +77695,9 @@ class GQLParser(Parser):
     class NaturalLogarithmContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75751,7 +77754,9 @@ class GQLParser(Parser):
     class ExponentialFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75808,7 +77813,9 @@ class GQLParser(Parser):
     class PowerFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75819,13 +77826,17 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def numericValueExpressionBase(self):
-            return self.getTypedRuleContext(GQLParser.NumericValueExpressionBaseContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NumericValueExpressionBaseContext, 0
+            )
 
         def COMMA(self):
             return self.getToken(GQLParser.COMMA, 0)
 
         def numericValueExpressionExponent(self):
-            return self.getTypedRuleContext(GQLParser.NumericValueExpressionExponentContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.NumericValueExpressionExponentContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -75875,7 +77886,9 @@ class GQLParser(Parser):
     class NumericValueExpressionBaseContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75900,7 +77913,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def numericValueExpressionBase(self):
-        localctx = GQLParser.NumericValueExpressionBaseContext(self, self._ctx, self.state)
+        localctx = GQLParser.NumericValueExpressionBaseContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 994, self.RULE_numericValueExpressionBase)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -75917,7 +77932,9 @@ class GQLParser(Parser):
     class NumericValueExpressionExponentContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -75942,7 +77959,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def numericValueExpressionExponent(self):
-        localctx = GQLParser.NumericValueExpressionExponentContext(self, self._ctx, self.state)
+        localctx = GQLParser.NumericValueExpressionExponentContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 996, self.RULE_numericValueExpressionExponent)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -75959,7 +77978,9 @@ class GQLParser(Parser):
     class SquareRootContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76016,7 +78037,9 @@ class GQLParser(Parser):
     class FloorFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76073,7 +78096,9 @@ class GQLParser(Parser):
     class CeilingFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76139,7 +78164,9 @@ class GQLParser(Parser):
     class CharacterStringValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76164,7 +78191,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def characterStringValueExpression(self):
-        localctx = GQLParser.CharacterStringValueExpressionContext(self, self._ctx, self.state)
+        localctx = GQLParser.CharacterStringValueExpressionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1004, self.RULE_characterStringValueExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -76181,7 +78210,9 @@ class GQLParser(Parser):
     class ByteStringValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76206,7 +78237,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def byteStringValueExpression(self):
-        localctx = GQLParser.ByteStringValueExpressionContext(self, self._ctx, self.state)
+        localctx = GQLParser.ByteStringValueExpressionContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1006, self.RULE_byteStringValueExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -76223,12 +78256,16 @@ class GQLParser(Parser):
     class TrimOperandsContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def trimCharacterOrByteStringSource(self):
-            return self.getTypedRuleContext(GQLParser.TrimCharacterOrByteStringSourceContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.TrimCharacterOrByteStringSourceContext, 0
+            )
 
         def FROM(self):
             return self.getToken(GQLParser.FROM, 0)
@@ -76237,7 +78274,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.TrimSpecificationContext, 0)
 
         def trimCharacterOrByteString(self):
-            return self.getTypedRuleContext(GQLParser.TrimCharacterOrByteStringContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.TrimCharacterOrByteStringContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_trimOperands
@@ -76278,13 +78317,22 @@ class GQLParser(Parser):
                 _la = self._input.LA(1)
                 if (
                     (((_la) & ~0x3F) == 0 and ((1 << _la) & 8762849302180528028) != 0)
-                    or (((_la - 64) & ~0x3F) == 0 and ((1 << (_la - 64)) & 34464073969) != 0)
+                    or (
+                        ((_la - 64) & ~0x3F) == 0
+                        and ((1 << (_la - 64)) & 34464073969) != 0
+                    )
                     or (
                         ((_la - 129) & ~0x3F) == 0
                         and ((1 << (_la - 129)) & -8011702113698201677) != 0
                     )
-                    or (((_la - 193) & ~0x3F) == 0 and ((1 << (_la - 193)) & 26393111092643) != 0)
-                    or (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 844424930131967) != 0)
+                    or (
+                        ((_la - 193) & ~0x3F) == 0
+                        and ((1 << (_la - 193)) & 26393111092643) != 0
+                    )
+                    or (
+                        ((_la - 277) & ~0x3F) == 0
+                        and ((1 << (_la - 277)) & 844424930131967) != 0
+                    )
                     or (((_la - 368) & ~0x3F) == 0 and ((1 << (_la - 368)) & 151) != 0)
                 ):
                     self.state = 4364
@@ -76306,7 +78354,9 @@ class GQLParser(Parser):
     class TrimCharacterOrByteStringSourceContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76331,7 +78381,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def trimCharacterOrByteStringSource(self):
-        localctx = GQLParser.TrimCharacterOrByteStringSourceContext(self, self._ctx, self.state)
+        localctx = GQLParser.TrimCharacterOrByteStringSourceContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1010, self.RULE_trimCharacterOrByteStringSource)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -76348,7 +78400,9 @@ class GQLParser(Parser):
     class TrimSpecificationContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76402,7 +78456,9 @@ class GQLParser(Parser):
     class TrimCharacterOrByteStringContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76427,7 +78483,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def trimCharacterOrByteString(self):
-        localctx = GQLParser.TrimCharacterOrByteStringContext(self, self._ctx, self.state)
+        localctx = GQLParser.TrimCharacterOrByteStringContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1014, self.RULE_trimCharacterOrByteString)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -76444,7 +78502,9 @@ class GQLParser(Parser):
     class NormalFormContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76501,7 +78561,9 @@ class GQLParser(Parser):
     class StringLengthContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76543,7 +78605,9 @@ class GQLParser(Parser):
     class DatetimeValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76585,7 +78649,9 @@ class GQLParser(Parser):
     class DatetimeValueFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76667,7 +78733,9 @@ class GQLParser(Parser):
     class DateFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76746,7 +78814,9 @@ class GQLParser(Parser):
     class TimeFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76825,7 +78895,9 @@ class GQLParser(Parser):
     class LocaltimeFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76893,7 +78965,9 @@ class GQLParser(Parser):
     class DatetimeFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76910,7 +78984,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
 
         def datetimeFunctionParameters(self):
-            return self.getTypedRuleContext(GQLParser.DatetimeFunctionParametersContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DatetimeFunctionParametersContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_datetimeFunction
@@ -76972,7 +79048,9 @@ class GQLParser(Parser):
     class LocaldatetimeFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -76989,7 +79067,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
 
         def datetimeFunctionParameters(self):
-            return self.getTypedRuleContext(GQLParser.DatetimeFunctionParametersContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DatetimeFunctionParametersContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_localdatetimeFunction
@@ -77051,7 +79131,9 @@ class GQLParser(Parser):
     class DateFunctionParametersContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77109,7 +79191,9 @@ class GQLParser(Parser):
     class TimeFunctionParametersContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77167,7 +79251,9 @@ class GQLParser(Parser):
     class DatetimeFunctionParametersContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77195,7 +79281,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def datetimeFunctionParameters(self):
-        localctx = GQLParser.DatetimeFunctionParametersContext(self, self._ctx, self.state)
+        localctx = GQLParser.DatetimeFunctionParametersContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1038, self.RULE_datetimeFunctionParameters)
         try:
             self.state = 4445
@@ -77225,7 +79313,9 @@ class GQLParser(Parser):
     class DurationValueExpressionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77267,7 +79357,9 @@ class GQLParser(Parser):
     class DatetimeSubtractionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77278,13 +79370,17 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def datetimeSubtractionParameters(self):
-            return self.getTypedRuleContext(GQLParser.DatetimeSubtractionParametersContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DatetimeSubtractionParametersContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
 
         def temporalDurationQualifier(self):
-            return self.getTypedRuleContext(GQLParser.TemporalDurationQualifierContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.TemporalDurationQualifierContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_datetimeSubtraction
@@ -77334,18 +79430,24 @@ class GQLParser(Parser):
     class DatetimeSubtractionParametersContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def datetimeValueExpression1(self):
-            return self.getTypedRuleContext(GQLParser.DatetimeValueExpression1Context, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DatetimeValueExpression1Context, 0
+            )
 
         def COMMA(self):
             return self.getToken(GQLParser.COMMA, 0)
 
         def datetimeValueExpression2(self):
-            return self.getTypedRuleContext(GQLParser.DatetimeValueExpression2Context, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DatetimeValueExpression2Context, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_datetimeSubtractionParameters
@@ -77365,7 +79467,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def datetimeSubtractionParameters(self):
-        localctx = GQLParser.DatetimeSubtractionParametersContext(self, self._ctx, self.state)
+        localctx = GQLParser.DatetimeSubtractionParametersContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1044, self.RULE_datetimeSubtractionParameters)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -77386,7 +79490,9 @@ class GQLParser(Parser):
     class DatetimeValueExpression1Context(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77411,7 +79517,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def datetimeValueExpression1(self):
-        localctx = GQLParser.DatetimeValueExpression1Context(self, self._ctx, self.state)
+        localctx = GQLParser.DatetimeValueExpression1Context(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1046, self.RULE_datetimeValueExpression1)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -77428,7 +79536,9 @@ class GQLParser(Parser):
     class DatetimeValueExpression2Context(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77453,7 +79563,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def datetimeValueExpression2(self):
-        localctx = GQLParser.DatetimeValueExpression2Context(self, self._ctx, self.state)
+        localctx = GQLParser.DatetimeValueExpression2Context(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1048, self.RULE_datetimeValueExpression2)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -77470,7 +79582,9 @@ class GQLParser(Parser):
     class DurationValueFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77528,7 +79642,9 @@ class GQLParser(Parser):
     class DurationFunctionContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77539,7 +79655,9 @@ class GQLParser(Parser):
             return self.getToken(GQLParser.LEFT_PAREN, 0)
 
         def durationFunctionParameters(self):
-            return self.getTypedRuleContext(GQLParser.DurationFunctionParametersContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DurationFunctionParametersContext, 0
+            )
 
         def RIGHT_PAREN(self):
             return self.getToken(GQLParser.RIGHT_PAREN, 0)
@@ -77585,7 +79703,9 @@ class GQLParser(Parser):
     class DurationFunctionParametersContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77613,7 +79733,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def durationFunctionParameters(self):
-        localctx = GQLParser.DurationFunctionParametersContext(self, self._ctx, self.state)
+        localctx = GQLParser.DurationFunctionParametersContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1054, self.RULE_durationFunctionParameters)
         try:
             self.state = 4475
@@ -77643,7 +79765,9 @@ class GQLParser(Parser):
     class ObjectNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77685,7 +79809,9 @@ class GQLParser(Parser):
     class ObjectNameOrBindingVariableContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77710,7 +79836,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def objectNameOrBindingVariable(self):
-        localctx = GQLParser.ObjectNameOrBindingVariableContext(self, self._ctx, self.state)
+        localctx = GQLParser.ObjectNameOrBindingVariableContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1058, self.RULE_objectNameOrBindingVariable)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -77727,7 +79855,9 @@ class GQLParser(Parser):
     class DirectoryNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77769,7 +79899,9 @@ class GQLParser(Parser):
     class SchemaNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77811,7 +79943,9 @@ class GQLParser(Parser):
     class GraphNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77918,7 +80052,9 @@ class GQLParser(Parser):
     class DelimitedGraphNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -77969,7 +80105,9 @@ class GQLParser(Parser):
     class GraphTypeNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78011,7 +80149,9 @@ class GQLParser(Parser):
     class NodeTypeNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78053,7 +80193,9 @@ class GQLParser(Parser):
     class EdgeTypeNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78095,7 +80237,9 @@ class GQLParser(Parser):
     class BindingTableNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78103,7 +80247,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.RegularIdentifierContext, 0)
 
         def delimitedBindingTableName(self):
-            return self.getTypedRuleContext(GQLParser.DelimitedBindingTableNameContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.DelimitedBindingTableNameContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_bindingTableName
@@ -78202,7 +80348,9 @@ class GQLParser(Parser):
     class DelimitedBindingTableNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78230,7 +80378,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def delimitedBindingTableName(self):
-        localctx = GQLParser.DelimitedBindingTableNameContext(self, self._ctx, self.state)
+        localctx = GQLParser.DelimitedBindingTableNameContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1076, self.RULE_delimitedBindingTableName)
         self._la = 0  # Token type
         try:
@@ -78253,7 +80403,9 @@ class GQLParser(Parser):
     class ProcedureNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78295,7 +80447,9 @@ class GQLParser(Parser):
     class LabelNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78337,7 +80491,9 @@ class GQLParser(Parser):
     class PropertyNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78379,7 +80535,9 @@ class GQLParser(Parser):
     class FieldNameContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78421,7 +80579,9 @@ class GQLParser(Parser):
     class ElementVariableContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78463,7 +80623,9 @@ class GQLParser(Parser):
     class PathVariableContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78505,7 +80667,9 @@ class GQLParser(Parser):
     class SubpathVariableContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78547,7 +80711,9 @@ class GQLParser(Parser):
     class BindingVariableContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78589,7 +80755,9 @@ class GQLParser(Parser):
     class UnsignedLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78628,7 +80796,23 @@ class GQLParser(Parser):
                 self.state = 4519
                 self.unsignedNumericLiteral()
                 pass
-            elif token in [2, 3, 4, 7, 26, 70, 71, 83, 133, 154, 176, 207, 208, 368, 369]:
+            elif token in [
+                2,
+                3,
+                4,
+                7,
+                26,
+                70,
+                71,
+                83,
+                133,
+                154,
+                176,
+                207,
+                208,
+                368,
+                369,
+            ]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 4520
                 self.generalLiteral()
@@ -78647,7 +80831,9 @@ class GQLParser(Parser):
     class GeneralLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78753,7 +80939,9 @@ class GQLParser(Parser):
     class TemporalLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78819,7 +81007,9 @@ class GQLParser(Parser):
     class DateLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78866,7 +81056,9 @@ class GQLParser(Parser):
     class TimeLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78913,7 +81105,9 @@ class GQLParser(Parser):
     class DatetimeLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -78969,12 +81163,16 @@ class GQLParser(Parser):
     class ListLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def listValueConstructorByEnumeration(self):
-            return self.getTypedRuleContext(GQLParser.ListValueConstructorByEnumerationContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ListValueConstructorByEnumerationContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_listLiteral
@@ -79011,7 +81209,9 @@ class GQLParser(Parser):
     class RecordLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79053,7 +81253,9 @@ class GQLParser(Parser):
     class IdentifierContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79168,7 +81370,9 @@ class GQLParser(Parser):
     class RegularIdentifierContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79274,7 +81478,9 @@ class GQLParser(Parser):
     class TimeZoneStringContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79316,7 +81522,9 @@ class GQLParser(Parser):
     class CharacterStringLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79367,7 +81575,9 @@ class GQLParser(Parser):
     class UnsignedNumericLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79375,7 +81585,9 @@ class GQLParser(Parser):
             return self.getTypedRuleContext(GQLParser.ExactNumericLiteralContext, 0)
 
         def approximateNumericLiteral(self):
-            return self.getTypedRuleContext(GQLParser.ApproximateNumericLiteralContext, 0)
+            return self.getTypedRuleContext(
+                GQLParser.ApproximateNumericLiteralContext, 0
+            )
 
         def getRuleIndex(self):
             return GQLParser.RULE_unsignedNumericLiteral
@@ -79425,25 +81637,33 @@ class GQLParser(Parser):
     class ExactNumericLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def UNSIGNED_DECIMAL_IN_SCIENTIFIC_NOTATION_WITH_EXACT_NUMBER_SUFFIX(self):
             return self.getToken(
-                GQLParser.UNSIGNED_DECIMAL_IN_SCIENTIFIC_NOTATION_WITH_EXACT_NUMBER_SUFFIX, 0
+                GQLParser.UNSIGNED_DECIMAL_IN_SCIENTIFIC_NOTATION_WITH_EXACT_NUMBER_SUFFIX,
+                0,
             )
 
         def UNSIGNED_DECIMAL_IN_COMMON_NOTATION_WITH_EXACT_NUMBER_SUFFIX(self):
             return self.getToken(
-                GQLParser.UNSIGNED_DECIMAL_IN_COMMON_NOTATION_WITH_EXACT_NUMBER_SUFFIX, 0
+                GQLParser.UNSIGNED_DECIMAL_IN_COMMON_NOTATION_WITH_EXACT_NUMBER_SUFFIX,
+                0,
             )
 
         def UNSIGNED_DECIMAL_IN_COMMON_NOTATION_WITHOUT_SUFFIX(self):
-            return self.getToken(GQLParser.UNSIGNED_DECIMAL_IN_COMMON_NOTATION_WITHOUT_SUFFIX, 0)
+            return self.getToken(
+                GQLParser.UNSIGNED_DECIMAL_IN_COMMON_NOTATION_WITHOUT_SUFFIX, 0
+            )
 
         def UNSIGNED_DECIMAL_INTEGER_WITH_EXACT_NUMBER_SUFFIX(self):
-            return self.getToken(GQLParser.UNSIGNED_DECIMAL_INTEGER_WITH_EXACT_NUMBER_SUFFIX, 0)
+            return self.getToken(
+                GQLParser.UNSIGNED_DECIMAL_INTEGER_WITH_EXACT_NUMBER_SUFFIX, 0
+            )
 
         def unsignedInteger(self):
             return self.getTypedRuleContext(GQLParser.UnsignedIntegerContext, 0)
@@ -79482,7 +81702,9 @@ class GQLParser(Parser):
             elif token in [11]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 4569
-                self.match(GQLParser.UNSIGNED_DECIMAL_IN_COMMON_NOTATION_WITH_EXACT_NUMBER_SUFFIX)
+                self.match(
+                    GQLParser.UNSIGNED_DECIMAL_IN_COMMON_NOTATION_WITH_EXACT_NUMBER_SUFFIX
+                )
                 pass
             elif token in [12]:
                 self.enterOuterAlt(localctx, 3)
@@ -79513,13 +81735,18 @@ class GQLParser(Parser):
     class ApproximateNumericLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def UNSIGNED_DECIMAL_IN_SCIENTIFIC_NOTATION_WITH_APPROXIMATE_NUMBER_SUFFIX(self):
+        def UNSIGNED_DECIMAL_IN_SCIENTIFIC_NOTATION_WITH_APPROXIMATE_NUMBER_SUFFIX(
+            self,
+        ):
             return self.getToken(
-                GQLParser.UNSIGNED_DECIMAL_IN_SCIENTIFIC_NOTATION_WITH_APPROXIMATE_NUMBER_SUFFIX, 0
+                GQLParser.UNSIGNED_DECIMAL_IN_SCIENTIFIC_NOTATION_WITH_APPROXIMATE_NUMBER_SUFFIX,
+                0,
             )
 
         def UNSIGNED_DECIMAL_IN_SCIENTIFIC_NOTATION_WITHOUT_SUFFIX(self):
@@ -79529,7 +81756,8 @@ class GQLParser(Parser):
 
         def UNSIGNED_DECIMAL_IN_COMMON_NOTATION_WITH_APPROXIMATE_NUMBER_SUFFIX(self):
             return self.getToken(
-                GQLParser.UNSIGNED_DECIMAL_IN_COMMON_NOTATION_WITH_APPROXIMATE_NUMBER_SUFFIX, 0
+                GQLParser.UNSIGNED_DECIMAL_IN_COMMON_NOTATION_WITH_APPROXIMATE_NUMBER_SUFFIX,
+                0,
             )
 
         def UNSIGNED_DECIMAL_INTEGER_WITH_APPROXIMATE_NUMBER_SUFFIX(self):
@@ -79555,7 +81783,9 @@ class GQLParser(Parser):
                 return visitor.visitChildren(self)
 
     def approximateNumericLiteral(self):
-        localctx = GQLParser.ApproximateNumericLiteralContext(self, self._ctx, self.state)
+        localctx = GQLParser.ApproximateNumericLiteralContext(
+            self, self._ctx, self.state
+        )
         self.enterRule(localctx, 1122, self.RULE_approximateNumericLiteral)
         self._la = 0  # Token type
         try:
@@ -79578,7 +81808,9 @@ class GQLParser(Parser):
     class UnsignedIntegerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79635,7 +81867,9 @@ class GQLParser(Parser):
     class UnsignedDecimalIntegerContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79677,7 +81911,9 @@ class GQLParser(Parser):
     class NullLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79719,7 +81955,9 @@ class GQLParser(Parser):
     class DateStringContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79761,7 +81999,9 @@ class GQLParser(Parser):
     class TimeStringContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79803,7 +82043,9 @@ class GQLParser(Parser):
     class DatetimeStringContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79845,7 +82087,9 @@ class GQLParser(Parser):
     class DurationLiteralContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79892,7 +82136,9 @@ class GQLParser(Parser):
     class DurationStringContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79934,7 +82180,9 @@ class GQLParser(Parser):
     class NodeSynonymContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -79985,7 +82233,9 @@ class GQLParser(Parser):
     class EdgesSynonymContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -80036,7 +82286,9 @@ class GQLParser(Parser):
     class EdgeSynonymContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -80087,7 +82339,9 @@ class GQLParser(Parser):
     class NonReservedWordsContext(ParserRuleContext):
         __slots__ = "parser"
 
-        def __init__(self, parser, parent: ParserRuleContext = None, invokingState: int = -1):
+        def __init__(
+            self, parser, parent: ParserRuleContext = None, invokingState: int = -1
+        ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -80257,7 +82511,10 @@ class GQLParser(Parser):
             self.enterOuterAlt(localctx, 1)
             self.state = 4600
             _la = self._input.LA(1)
-            if not (((_la - 277) & ~0x3F) == 0 and ((1 << (_la - 277)) & 140737488355327) != 0):
+            if not (
+                ((_la - 277) & ~0x3F) == 0
+                and ((1 << (_la - 277)) & 140737488355327) != 0
+            ):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -80304,7 +82561,9 @@ class GQLParser(Parser):
         if predIndex == 3:
             return self.precpred(self._ctx, 1)
 
-    def simplifiedFactorLow_sempred(self, localctx: SimplifiedFactorLowContext, predIndex: int):
+    def simplifiedFactorLow_sempred(
+        self, localctx: SimplifiedFactorLowContext, predIndex: int
+    ):
         if predIndex == 4:
             return self.precpred(self._ctx, 1)
 

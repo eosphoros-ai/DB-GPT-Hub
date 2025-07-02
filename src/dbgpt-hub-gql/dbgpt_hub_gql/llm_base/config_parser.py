@@ -62,9 +62,7 @@ def _parse_args(
         return parser.parse_args_into_dataclasses()
 
 
-def parse_train_args(
-    args: Optional[Dict[str, Any]] = None
-) -> Tuple[
+def parse_train_args(args: Optional[Dict[str, Any]] = None) -> Tuple[
     ModelArguments,
     DataArguments,
     Seq2SeqTrainingArguments,
@@ -84,7 +82,7 @@ def parse_train_args(
 
 
 def parse_infer_args(
-    args: Optional[Dict[str, Any]] = None
+    args: Optional[Dict[str, Any]] = None,
 ) -> Tuple[ModelArguments, DataArguments, FinetuningArguments, GeneratingArguments]:
     parser = HfArgumentParser(
         (ModelArguments, DataArguments, FinetuningArguments, GeneratingArguments)
@@ -235,7 +233,7 @@ def get_train_args(
 
 
 def get_infer_args(
-    args: Optional[Dict[str, Any]] = None
+    args: Optional[Dict[str, Any]] = None,
 ) -> Tuple[ModelArguments, DataArguments, FinetuningArguments, GeneratingArguments]:
     model_args, data_args, finetuning_args, generating_args = parse_infer_args(args)
 

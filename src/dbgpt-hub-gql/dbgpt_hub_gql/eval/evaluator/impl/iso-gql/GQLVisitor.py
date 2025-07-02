@@ -43,7 +43,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#sessionSetTimeZoneClause.
-    def visitSessionSetTimeZoneClause(self, ctx: GQLParser.SessionSetTimeZoneClauseContext):
+    def visitSessionSetTimeZoneClause(
+        self, ctx: GQLParser.SessionSetTimeZoneClauseContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#setTimeZoneValue.
@@ -51,7 +53,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#sessionSetParameterClause.
-    def visitSessionSetParameterClause(self, ctx: GQLParser.SessionSetParameterClauseContext):
+    def visitSessionSetParameterClause(
+        self, ctx: GQLParser.SessionSetParameterClauseContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#sessionSetGraphParameterClause.
@@ -73,7 +77,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#sessionSetParameterName.
-    def visitSessionSetParameterName(self, ctx: GQLParser.SessionSetParameterNameContext):
+    def visitSessionSetParameterName(
+        self, ctx: GQLParser.SessionSetParameterNameContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#sessionResetCommand.
@@ -95,11 +101,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#startTransactionCommand.
-    def visitStartTransactionCommand(self, ctx: GQLParser.StartTransactionCommandContext):
+    def visitStartTransactionCommand(
+        self, ctx: GQLParser.StartTransactionCommandContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#transactionCharacteristics.
-    def visitTransactionCharacteristics(self, ctx: GQLParser.TransactionCharacteristicsContext):
+    def visitTransactionCharacteristics(
+        self, ctx: GQLParser.TransactionCharacteristicsContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#transactionMode.
@@ -119,7 +129,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#nestedProcedureSpecification.
-    def visitNestedProcedureSpecification(self, ctx: GQLParser.NestedProcedureSpecificationContext):
+    def visitNestedProcedureSpecification(
+        self, ctx: GQLParser.NestedProcedureSpecificationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#procedureSpecification.
@@ -133,7 +145,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#nestedQuerySpecification.
-    def visitNestedQuerySpecification(self, ctx: GQLParser.NestedQuerySpecificationContext):
+    def visitNestedQuerySpecification(
+        self, ctx: GQLParser.NestedQuerySpecificationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#procedureBody.
@@ -147,7 +161,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#bindingVariableDefinition.
-    def visitBindingVariableDefinition(self, ctx: GQLParser.BindingVariableDefinitionContext):
+    def visitBindingVariableDefinition(
+        self, ctx: GQLParser.BindingVariableDefinitionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#statementBlock.
@@ -163,11 +179,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#graphVariableDefinition.
-    def visitGraphVariableDefinition(self, ctx: GQLParser.GraphVariableDefinitionContext):
+    def visitGraphVariableDefinition(
+        self, ctx: GQLParser.GraphVariableDefinitionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#optTypedGraphInitializer.
-    def visitOptTypedGraphInitializer(self, ctx: GQLParser.OptTypedGraphInitializerContext):
+    def visitOptTypedGraphInitializer(
+        self, ctx: GQLParser.OptTypedGraphInitializerContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#graphInitializer.
@@ -187,15 +207,21 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#bindingTableInitializer.
-    def visitBindingTableInitializer(self, ctx: GQLParser.BindingTableInitializerContext):
+    def visitBindingTableInitializer(
+        self, ctx: GQLParser.BindingTableInitializerContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#valueVariableDefinition.
-    def visitValueVariableDefinition(self, ctx: GQLParser.ValueVariableDefinitionContext):
+    def visitValueVariableDefinition(
+        self, ctx: GQLParser.ValueVariableDefinitionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#optTypedValueInitializer.
-    def visitOptTypedValueInitializer(self, ctx: GQLParser.OptTypedValueInitializerContext):
+    def visitOptTypedValueInitializer(
+        self, ctx: GQLParser.OptTypedValueInitializerContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#valueInitializer.
@@ -221,7 +247,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#objectExpressionPrimary.
-    def visitObjectExpressionPrimary(self, ctx: GQLParser.ObjectExpressionPrimaryContext):
+    def visitObjectExpressionPrimary(
+        self, ctx: GQLParser.ObjectExpressionPrimaryContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#linearCatalogModifyingStatement.
@@ -275,7 +303,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#createGraphTypeStatement.
-    def visitCreateGraphTypeStatement(self, ctx: GQLParser.CreateGraphTypeStatementContext):
+    def visitCreateGraphTypeStatement(
+        self, ctx: GQLParser.CreateGraphTypeStatementContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#graphTypeSource.
@@ -297,7 +327,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#linearDataModifyingStatement.
-    def visitLinearDataModifyingStatement(self, ctx: GQLParser.LinearDataModifyingStatementContext):
+    def visitLinearDataModifyingStatement(
+        self, ctx: GQLParser.LinearDataModifyingStatementContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#focusedLinearDataModifyingStatement.
@@ -337,11 +369,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simpleDataAccessingStatement.
-    def visitSimpleDataAccessingStatement(self, ctx: GQLParser.SimpleDataAccessingStatementContext):
+    def visitSimpleDataAccessingStatement(
+        self, ctx: GQLParser.SimpleDataAccessingStatementContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simpleDataModifyingStatement.
-    def visitSimpleDataModifyingStatement(self, ctx: GQLParser.SimpleDataModifyingStatementContext):
+    def visitSimpleDataModifyingStatement(
+        self, ctx: GQLParser.SimpleDataModifyingStatementContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#primitiveDataModifyingStatement.
@@ -417,11 +453,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#compositeQueryStatement.
-    def visitCompositeQueryStatement(self, ctx: GQLParser.CompositeQueryStatementContext):
+    def visitCompositeQueryStatement(
+        self, ctx: GQLParser.CompositeQueryStatementContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#compositeQueryExpression.
-    def visitCompositeQueryExpression(self, ctx: GQLParser.CompositeQueryExpressionContext):
+    def visitCompositeQueryExpression(
+        self, ctx: GQLParser.CompositeQueryExpressionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#queryConjunction.
@@ -441,7 +481,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#focusedLinearQueryStatement.
-    def visitFocusedLinearQueryStatement(self, ctx: GQLParser.FocusedLinearQueryStatementContext):
+    def visitFocusedLinearQueryStatement(
+        self, ctx: GQLParser.FocusedLinearQueryStatementContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#focusedLinearQueryStatementPart.
@@ -469,11 +511,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#ambientLinearQueryStatement.
-    def visitAmbientLinearQueryStatement(self, ctx: GQLParser.AmbientLinearQueryStatementContext):
+    def visitAmbientLinearQueryStatement(
+        self, ctx: GQLParser.AmbientLinearQueryStatementContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simpleLinearQueryStatement.
-    def visitSimpleLinearQueryStatement(self, ctx: GQLParser.SimpleLinearQueryStatementContext):
+    def visitSimpleLinearQueryStatement(
+        self, ctx: GQLParser.SimpleLinearQueryStatementContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simpleQueryStatement.
@@ -481,7 +527,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#primitiveQueryStatement.
-    def visitPrimitiveQueryStatement(self, ctx: GQLParser.PrimitiveQueryStatementContext):
+    def visitPrimitiveQueryStatement(
+        self, ctx: GQLParser.PrimitiveQueryStatementContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#matchStatement.
@@ -517,7 +565,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#letVariableDefinitionList.
-    def visitLetVariableDefinitionList(self, ctx: GQLParser.LetVariableDefinitionListContext):
+    def visitLetVariableDefinitionList(
+        self, ctx: GQLParser.LetVariableDefinitionListContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#letVariableDefinition.
@@ -545,11 +595,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#orderByAndPageStatement.
-    def visitOrderByAndPageStatement(self, ctx: GQLParser.OrderByAndPageStatementContext):
+    def visitOrderByAndPageStatement(
+        self, ctx: GQLParser.OrderByAndPageStatementContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#primitiveResultStatement.
-    def visitPrimitiveResultStatement(self, ctx: GQLParser.PrimitiveResultStatementContext):
+    def visitPrimitiveResultStatement(
+        self, ctx: GQLParser.PrimitiveResultStatementContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#returnStatement.
@@ -605,7 +659,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#selectQuerySpecification.
-    def visitSelectQuerySpecification(self, ctx: GQLParser.SelectQuerySpecificationContext):
+    def visitSelectQuerySpecification(
+        self, ctx: GQLParser.SelectQuerySpecificationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#callProcedureStatement.
@@ -625,7 +681,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#bindingVariableReferenceList.
-    def visitBindingVariableReferenceList(self, ctx: GQLParser.BindingVariableReferenceListContext):
+    def visitBindingVariableReferenceList(
+        self, ctx: GQLParser.BindingVariableReferenceListContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#namedProcedureCall.
@@ -649,15 +707,21 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#graphPatternBindingTable.
-    def visitGraphPatternBindingTable(self, ctx: GQLParser.GraphPatternBindingTableContext):
+    def visitGraphPatternBindingTable(
+        self, ctx: GQLParser.GraphPatternBindingTableContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#graphPatternYieldClause.
-    def visitGraphPatternYieldClause(self, ctx: GQLParser.GraphPatternYieldClauseContext):
+    def visitGraphPatternYieldClause(
+        self, ctx: GQLParser.GraphPatternYieldClauseContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#graphPatternYieldItemList.
-    def visitGraphPatternYieldItemList(self, ctx: GQLParser.GraphPatternYieldItemListContext):
+    def visitGraphPatternYieldItemList(
+        self, ctx: GQLParser.GraphPatternYieldItemListContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#graphPatternYieldItem.
@@ -673,15 +737,21 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#repeatableElementsMatchMode.
-    def visitRepeatableElementsMatchMode(self, ctx: GQLParser.RepeatableElementsMatchModeContext):
+    def visitRepeatableElementsMatchMode(
+        self, ctx: GQLParser.RepeatableElementsMatchModeContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#differentEdgesMatchMode.
-    def visitDifferentEdgesMatchMode(self, ctx: GQLParser.DifferentEdgesMatchModeContext):
+    def visitDifferentEdgesMatchMode(
+        self, ctx: GQLParser.DifferentEdgesMatchModeContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#elementBindingsOrElements.
-    def visitElementBindingsOrElements(self, ctx: GQLParser.ElementBindingsOrElementsContext):
+    def visitElementBindingsOrElements(
+        self, ctx: GQLParser.ElementBindingsOrElementsContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#edgeBindingsOrEdges.
@@ -697,7 +767,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#pathVariableDeclaration.
-    def visitPathVariableDeclaration(self, ctx: GQLParser.PathVariableDeclarationContext):
+    def visitPathVariableDeclaration(
+        self, ctx: GQLParser.PathVariableDeclarationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#keepClause.
@@ -705,7 +777,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#graphPatternWhereClause.
-    def visitGraphPatternWhereClause(self, ctx: GQLParser.GraphPatternWhereClauseContext):
+    def visitGraphPatternWhereClause(
+        self, ctx: GQLParser.GraphPatternWhereClauseContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#insertGraphPattern.
@@ -733,7 +807,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#insertEdgePointingRight.
-    def visitInsertEdgePointingRight(self, ctx: GQLParser.InsertEdgePointingRightContext):
+    def visitInsertEdgePointingRight(
+        self, ctx: GQLParser.InsertEdgePointingRightContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#insertEdgeUndirected.
@@ -741,7 +817,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#insertElementPatternFiller.
-    def visitInsertElementPatternFiller(self, ctx: GQLParser.InsertElementPatternFillerContext):
+    def visitInsertElementPatternFiller(
+        self, ctx: GQLParser.InsertElementPatternFillerContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#labelAndPropertySetSpecification.
@@ -795,11 +873,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#countedShortestPathSearch.
-    def visitCountedShortestPathSearch(self, ctx: GQLParser.CountedShortestPathSearchContext):
+    def visitCountedShortestPathSearch(
+        self, ctx: GQLParser.CountedShortestPathSearchContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#countedShortestGroupSearch.
-    def visitCountedShortestGroupSearch(self, ctx: GQLParser.CountedShortestGroupSearchContext):
+    def visitCountedShortestGroupSearch(
+        self, ctx: GQLParser.CountedShortestGroupSearchContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#numberOfGroups.
@@ -827,11 +909,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#pfQuantifiedPathPrimary.
-    def visitPfQuantifiedPathPrimary(self, ctx: GQLParser.PfQuantifiedPathPrimaryContext):
+    def visitPfQuantifiedPathPrimary(
+        self, ctx: GQLParser.PfQuantifiedPathPrimaryContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#pfQuestionedPathPrimary.
-    def visitPfQuestionedPathPrimary(self, ctx: GQLParser.PfQuestionedPathPrimaryContext):
+    def visitPfQuestionedPathPrimary(
+        self, ctx: GQLParser.PfQuestionedPathPrimaryContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#ppElementPattern.
@@ -863,7 +949,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#elementVariableDeclaration.
-    def visitElementVariableDeclaration(self, ctx: GQLParser.ElementVariableDeclarationContext):
+    def visitElementVariableDeclaration(
+        self, ctx: GQLParser.ElementVariableDeclarationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#isLabelExpression.
@@ -875,19 +963,27 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#elementPatternPredicate.
-    def visitElementPatternPredicate(self, ctx: GQLParser.ElementPatternPredicateContext):
+    def visitElementPatternPredicate(
+        self, ctx: GQLParser.ElementPatternPredicateContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#elementPatternWhereClause.
-    def visitElementPatternWhereClause(self, ctx: GQLParser.ElementPatternWhereClauseContext):
+    def visitElementPatternWhereClause(
+        self, ctx: GQLParser.ElementPatternWhereClauseContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#elementPropertySpecification.
-    def visitElementPropertySpecification(self, ctx: GQLParser.ElementPropertySpecificationContext):
+    def visitElementPropertySpecification(
+        self, ctx: GQLParser.ElementPropertySpecificationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#propertyKeyValuePairList.
-    def visitPropertyKeyValuePairList(self, ctx: GQLParser.PropertyKeyValuePairListContext):
+    def visitPropertyKeyValuePairList(
+        self, ctx: GQLParser.PropertyKeyValuePairListContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#propertyKeyValuePair.
@@ -915,11 +1011,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#fullEdgeLeftOrUndirected.
-    def visitFullEdgeLeftOrUndirected(self, ctx: GQLParser.FullEdgeLeftOrUndirectedContext):
+    def visitFullEdgeLeftOrUndirected(
+        self, ctx: GQLParser.FullEdgeLeftOrUndirectedContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#fullEdgeUndirectedOrRight.
-    def visitFullEdgeUndirectedOrRight(self, ctx: GQLParser.FullEdgeUndirectedOrRightContext):
+    def visitFullEdgeUndirectedOrRight(
+        self, ctx: GQLParser.FullEdgeUndirectedOrRightContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#fullEdgeLeftOrRight.
@@ -941,7 +1041,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#subpathVariableDeclaration.
-    def visitSubpathVariableDeclaration(self, ctx: GQLParser.SubpathVariableDeclarationContext):
+    def visitSubpathVariableDeclaration(
+        self, ctx: GQLParser.SubpathVariableDeclarationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#parenthesizedPathPatternWhereClause.
@@ -951,23 +1053,33 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#labelExpressionNegation.
-    def visitLabelExpressionNegation(self, ctx: GQLParser.LabelExpressionNegationContext):
+    def visitLabelExpressionNegation(
+        self, ctx: GQLParser.LabelExpressionNegationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#labelExpressionDisjunction.
-    def visitLabelExpressionDisjunction(self, ctx: GQLParser.LabelExpressionDisjunctionContext):
+    def visitLabelExpressionDisjunction(
+        self, ctx: GQLParser.LabelExpressionDisjunctionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#labelExpressionParenthesized.
-    def visitLabelExpressionParenthesized(self, ctx: GQLParser.LabelExpressionParenthesizedContext):
+    def visitLabelExpressionParenthesized(
+        self, ctx: GQLParser.LabelExpressionParenthesizedContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#labelExpressionWildcard.
-    def visitLabelExpressionWildcard(self, ctx: GQLParser.LabelExpressionWildcardContext):
+    def visitLabelExpressionWildcard(
+        self, ctx: GQLParser.LabelExpressionWildcardContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#labelExpressionConjunction.
-    def visitLabelExpressionConjunction(self, ctx: GQLParser.LabelExpressionConjunctionContext):
+    def visitLabelExpressionConjunction(
+        self, ctx: GQLParser.LabelExpressionConjunctionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#labelExpressionName.
@@ -979,7 +1091,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#elementVariableReference.
-    def visitElementVariableReference(self, ctx: GQLParser.ElementVariableReferenceContext):
+    def visitElementVariableReference(
+        self, ctx: GQLParser.ElementVariableReferenceContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#graphPatternQuantifier.
@@ -1009,7 +1123,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedDefaultingLeft.
-    def visitSimplifiedDefaultingLeft(self, ctx: GQLParser.SimplifiedDefaultingLeftContext):
+    def visitSimplifiedDefaultingLeft(
+        self, ctx: GQLParser.SimplifiedDefaultingLeftContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedDefaultingUndirected.
@@ -1019,7 +1135,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedDefaultingRight.
-    def visitSimplifiedDefaultingRight(self, ctx: GQLParser.SimplifiedDefaultingRightContext):
+    def visitSimplifiedDefaultingRight(
+        self, ctx: GQLParser.SimplifiedDefaultingRightContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedDefaultingLeftOrUndirected.
@@ -1061,19 +1179,27 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedFactorLowLabel.
-    def visitSimplifiedFactorLowLabel(self, ctx: GQLParser.SimplifiedFactorLowLabelContext):
+    def visitSimplifiedFactorLowLabel(
+        self, ctx: GQLParser.SimplifiedFactorLowLabelContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedConcatenationLabel.
-    def visitSimplifiedConcatenationLabel(self, ctx: GQLParser.SimplifiedConcatenationLabelContext):
+    def visitSimplifiedConcatenationLabel(
+        self, ctx: GQLParser.SimplifiedConcatenationLabelContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedConjunctionLabel.
-    def visitSimplifiedConjunctionLabel(self, ctx: GQLParser.SimplifiedConjunctionLabelContext):
+    def visitSimplifiedConjunctionLabel(
+        self, ctx: GQLParser.SimplifiedConjunctionLabelContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedFactorHighLabel.
-    def visitSimplifiedFactorHighLabel(self, ctx: GQLParser.SimplifiedFactorHighLabelContext):
+    def visitSimplifiedFactorHighLabel(
+        self, ctx: GQLParser.SimplifiedFactorHighLabelContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedFactorHigh.
@@ -1093,7 +1219,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedDirectionOverride.
-    def visitSimplifiedDirectionOverride(self, ctx: GQLParser.SimplifiedDirectionOverrideContext):
+    def visitSimplifiedDirectionOverride(
+        self, ctx: GQLParser.SimplifiedDirectionOverrideContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedOverrideLeft.
@@ -1101,11 +1229,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedOverrideUndirected.
-    def visitSimplifiedOverrideUndirected(self, ctx: GQLParser.SimplifiedOverrideUndirectedContext):
+    def visitSimplifiedOverrideUndirected(
+        self, ctx: GQLParser.SimplifiedOverrideUndirectedContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedOverrideRight.
-    def visitSimplifiedOverrideRight(self, ctx: GQLParser.SimplifiedOverrideRightContext):
+    def visitSimplifiedOverrideRight(
+        self, ctx: GQLParser.SimplifiedOverrideRightContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#simplifiedOverrideLeftOrUndirected.
@@ -1231,7 +1363,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#catalogSchemaParentAndName.
-    def visitCatalogSchemaParentAndName(self, ctx: GQLParser.CatalogSchemaParentAndNameContext):
+    def visitCatalogSchemaParentAndName(
+        self, ctx: GQLParser.CatalogSchemaParentAndNameContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#relativeCatalogSchemaReference.
@@ -1241,7 +1375,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#predefinedSchemaReference.
-    def visitPredefinedSchemaReference(self, ctx: GQLParser.PredefinedSchemaReferenceContext):
+    def visitPredefinedSchemaReference(
+        self, ctx: GQLParser.PredefinedSchemaReferenceContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#absoluteDirectoryPath.
@@ -1261,7 +1397,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#catalogGraphParentAndName.
-    def visitCatalogGraphParentAndName(self, ctx: GQLParser.CatalogGraphParentAndNameContext):
+    def visitCatalogGraphParentAndName(
+        self, ctx: GQLParser.CatalogGraphParentAndNameContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#homeGraph.
@@ -1293,7 +1431,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#catalogObjectParentReference.
-    def visitCatalogObjectParentReference(self, ctx: GQLParser.CatalogObjectParentReferenceContext):
+    def visitCatalogObjectParentReference(
+        self, ctx: GQLParser.CatalogObjectParentReferenceContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#referenceParameterSpecification.
@@ -1303,11 +1443,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#nestedGraphTypeSpecification.
-    def visitNestedGraphTypeSpecification(self, ctx: GQLParser.NestedGraphTypeSpecificationContext):
+    def visitNestedGraphTypeSpecification(
+        self, ctx: GQLParser.NestedGraphTypeSpecificationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#graphTypeSpecificationBody.
-    def visitGraphTypeSpecificationBody(self, ctx: GQLParser.GraphTypeSpecificationBodyContext):
+    def visitGraphTypeSpecificationBody(
+        self, ctx: GQLParser.GraphTypeSpecificationBodyContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#elementTypeList.
@@ -1315,7 +1459,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#elementTypeSpecification.
-    def visitElementTypeSpecification(self, ctx: GQLParser.ElementTypeSpecificationContext):
+    def visitElementTypeSpecification(
+        self, ctx: GQLParser.ElementTypeSpecificationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#nodeTypeSpecification.
@@ -1395,19 +1541,27 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#edgeTypePatternDirected.
-    def visitEdgeTypePatternDirected(self, ctx: GQLParser.EdgeTypePatternDirectedContext):
+    def visitEdgeTypePatternDirected(
+        self, ctx: GQLParser.EdgeTypePatternDirectedContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#edgeTypePatternPointingRight.
-    def visitEdgeTypePatternPointingRight(self, ctx: GQLParser.EdgeTypePatternPointingRightContext):
+    def visitEdgeTypePatternPointingRight(
+        self, ctx: GQLParser.EdgeTypePatternPointingRightContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#edgeTypePatternPointingLeft.
-    def visitEdgeTypePatternPointingLeft(self, ctx: GQLParser.EdgeTypePatternPointingLeftContext):
+    def visitEdgeTypePatternPointingLeft(
+        self, ctx: GQLParser.EdgeTypePatternPointingLeftContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#edgeTypePatternUndirected.
-    def visitEdgeTypePatternUndirected(self, ctx: GQLParser.EdgeTypePatternUndirectedContext):
+    def visitEdgeTypePatternUndirected(
+        self, ctx: GQLParser.EdgeTypePatternUndirectedContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#arcTypePointingRight.
@@ -1423,11 +1577,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#sourceNodeTypeReference.
-    def visitSourceNodeTypeReference(self, ctx: GQLParser.SourceNodeTypeReferenceContext):
+    def visitSourceNodeTypeReference(
+        self, ctx: GQLParser.SourceNodeTypeReferenceContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#destinationNodeTypeReference.
-    def visitDestinationNodeTypeReference(self, ctx: GQLParser.DestinationNodeTypeReferenceContext):
+    def visitDestinationNodeTypeReference(
+        self, ctx: GQLParser.DestinationNodeTypeReferenceContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#edgeKind.
@@ -1447,11 +1605,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#endpointPairPointingRight.
-    def visitEndpointPairPointingRight(self, ctx: GQLParser.EndpointPairPointingRightContext):
+    def visitEndpointPairPointingRight(
+        self, ctx: GQLParser.EndpointPairPointingRightContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#endpointPairPointingLeft.
-    def visitEndpointPairPointingLeft(self, ctx: GQLParser.EndpointPairPointingLeftContext):
+    def visitEndpointPairPointingLeft(
+        self, ctx: GQLParser.EndpointPairPointingLeftContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#endpointPairUndirected.
@@ -1471,7 +1633,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#destinationNodeTypeAlias.
-    def visitDestinationNodeTypeAlias(self, ctx: GQLParser.DestinationNodeTypeAliasContext):
+    def visitDestinationNodeTypeAlias(
+        self, ctx: GQLParser.DestinationNodeTypeAliasContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#labelSetPhrase.
@@ -1483,7 +1647,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#propertyTypesSpecification.
-    def visitPropertyTypesSpecification(self, ctx: GQLParser.PropertyTypesSpecificationContext):
+    def visitPropertyTypesSpecification(
+        self, ctx: GQLParser.PropertyTypesSpecificationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#propertyTypeList.
@@ -1509,11 +1675,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#closedDynamicUnionTypeAtl1.
-    def visitClosedDynamicUnionTypeAtl1(self, ctx: GQLParser.ClosedDynamicUnionTypeAtl1Context):
+    def visitClosedDynamicUnionTypeAtl1(
+        self, ctx: GQLParser.ClosedDynamicUnionTypeAtl1Context
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#closedDynamicUnionTypeAtl2.
-    def visitClosedDynamicUnionTypeAtl2(self, ctx: GQLParser.ClosedDynamicUnionTypeAtl2Context):
+    def visitClosedDynamicUnionTypeAtl2(
+        self, ctx: GQLParser.ClosedDynamicUnionTypeAtl2Context
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#pathValueTypeLabel.
@@ -1541,7 +1711,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#openDynamicUnionTypeLabel.
-    def visitOpenDynamicUnionTypeLabel(self, ctx: GQLParser.OpenDynamicUnionTypeLabelContext):
+    def visitOpenDynamicUnionTypeLabel(
+        self, ctx: GQLParser.OpenDynamicUnionTypeLabelContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#typed.
@@ -1589,7 +1761,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#signedBinaryExactNumericType.
-    def visitSignedBinaryExactNumericType(self, ctx: GQLParser.SignedBinaryExactNumericTypeContext):
+    def visitSignedBinaryExactNumericType(
+        self, ctx: GQLParser.SignedBinaryExactNumericTypeContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#unsignedBinaryExactNumericType.
@@ -1605,7 +1779,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#decimalExactNumericType.
-    def visitDecimalExactNumericType(self, ctx: GQLParser.DecimalExactNumericTypeContext):
+    def visitDecimalExactNumericType(
+        self, ctx: GQLParser.DecimalExactNumericTypeContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#precision.
@@ -1653,7 +1829,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#temporalDurationQualifier.
-    def visitTemporalDurationQualifier(self, ctx: GQLParser.TemporalDurationQualifierContext):
+    def visitTemporalDurationQualifier(
+        self, ctx: GQLParser.TemporalDurationQualifierContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#referenceValueType.
@@ -1673,7 +1851,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#graphReferenceValueType.
-    def visitGraphReferenceValueType(self, ctx: GQLParser.GraphReferenceValueTypeContext):
+    def visitGraphReferenceValueType(
+        self, ctx: GQLParser.GraphReferenceValueTypeContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#closedGraphReferenceValueType.
@@ -1683,7 +1863,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#openGraphReferenceValueType.
-    def visitOpenGraphReferenceValueType(self, ctx: GQLParser.OpenGraphReferenceValueTypeContext):
+    def visitOpenGraphReferenceValueType(
+        self, ctx: GQLParser.OpenGraphReferenceValueTypeContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#bindingTableReferenceValueType.
@@ -1697,11 +1879,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#closedNodeReferenceValueType.
-    def visitClosedNodeReferenceValueType(self, ctx: GQLParser.ClosedNodeReferenceValueTypeContext):
+    def visitClosedNodeReferenceValueType(
+        self, ctx: GQLParser.ClosedNodeReferenceValueTypeContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#openNodeReferenceValueType.
-    def visitOpenNodeReferenceValueType(self, ctx: GQLParser.OpenNodeReferenceValueTypeContext):
+    def visitOpenNodeReferenceValueType(
+        self, ctx: GQLParser.OpenNodeReferenceValueTypeContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#edgeReferenceValueType.
@@ -1709,11 +1895,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#closedEdgeReferenceValueType.
-    def visitClosedEdgeReferenceValueType(self, ctx: GQLParser.ClosedEdgeReferenceValueTypeContext):
+    def visitClosedEdgeReferenceValueType(
+        self, ctx: GQLParser.ClosedEdgeReferenceValueTypeContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#openEdgeReferenceValueType.
-    def visitOpenEdgeReferenceValueType(self, ctx: GQLParser.OpenEdgeReferenceValueTypeContext):
+    def visitOpenEdgeReferenceValueType(
+        self, ctx: GQLParser.OpenEdgeReferenceValueTypeContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#pathValueType.
@@ -1725,7 +1915,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#listValueTypeNameSynonym.
-    def visitListValueTypeNameSynonym(self, ctx: GQLParser.ListValueTypeNameSynonymContext):
+    def visitListValueTypeNameSynonym(
+        self, ctx: GQLParser.ListValueTypeNameSynonymContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#recordType.
@@ -1733,7 +1925,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#fieldTypesSpecification.
-    def visitFieldTypesSpecification(self, ctx: GQLParser.FieldTypesSpecificationContext):
+    def visitFieldTypesSpecification(
+        self, ctx: GQLParser.FieldTypesSpecificationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#fieldTypeList.
@@ -1777,11 +1971,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#valueTypePredicatePart2.
-    def visitValueTypePredicatePart2(self, ctx: GQLParser.ValueTypePredicatePart2Context):
+    def visitValueTypePredicatePart2(
+        self, ctx: GQLParser.ValueTypePredicatePart2Context
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#normalizedPredicatePart2.
-    def visitNormalizedPredicatePart2(self, ctx: GQLParser.NormalizedPredicatePart2Context):
+    def visitNormalizedPredicatePart2(
+        self, ctx: GQLParser.NormalizedPredicatePart2Context
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#directedPredicate.
@@ -1805,7 +2003,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#sourceDestinationPredicate.
-    def visitSourceDestinationPredicate(self, ctx: GQLParser.SourceDestinationPredicateContext):
+    def visitSourceDestinationPredicate(
+        self, ctx: GQLParser.SourceDestinationPredicateContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#nodeReference.
@@ -1817,7 +2017,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#destinationPredicatePart2.
-    def visitDestinationPredicatePart2(self, ctx: GQLParser.DestinationPredicatePart2Context):
+    def visitDestinationPredicatePart2(
+        self, ctx: GQLParser.DestinationPredicatePart2Context
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#edgeReference.
@@ -1833,7 +2035,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#property_existsPredicate.
-    def visitProperty_existsPredicate(self, ctx: GQLParser.Property_existsPredicateContext):
+    def visitProperty_existsPredicate(
+        self, ctx: GQLParser.Property_existsPredicateContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#conjunctiveExprAlt.
@@ -1861,7 +2065,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#normalizedPredicateExprAlt.
-    def visitNormalizedPredicateExprAlt(self, ctx: GQLParser.NormalizedPredicateExprAltContext):
+    def visitNormalizedPredicateExprAlt(
+        self, ctx: GQLParser.NormalizedPredicateExprAltContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#notExprAlt.
@@ -1911,7 +2117,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#subCharacterOrByteString.
-    def visitSubCharacterOrByteString(self, ctx: GQLParser.SubCharacterOrByteStringContext):
+    def visitSubCharacterOrByteString(
+        self, ctx: GQLParser.SubCharacterOrByteStringContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#trimSingleCharacterOrByteString.
@@ -1931,19 +2139,27 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#normalizeCharacterString.
-    def visitNormalizeCharacterString(self, ctx: GQLParser.NormalizeCharacterStringContext):
+    def visitNormalizeCharacterString(
+        self, ctx: GQLParser.NormalizeCharacterStringContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#nodeReferenceValueExpression.
-    def visitNodeReferenceValueExpression(self, ctx: GQLParser.NodeReferenceValueExpressionContext):
+    def visitNodeReferenceValueExpression(
+        self, ctx: GQLParser.NodeReferenceValueExpressionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#edgeReferenceValueExpression.
-    def visitEdgeReferenceValueExpression(self, ctx: GQLParser.EdgeReferenceValueExpressionContext):
+    def visitEdgeReferenceValueExpression(
+        self, ctx: GQLParser.EdgeReferenceValueExpressionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#aggregatingValueExpression.
-    def visitAggregatingValueExpression(self, ctx: GQLParser.AggregatingValueExpressionContext):
+    def visitAggregatingValueExpression(
+        self, ctx: GQLParser.AggregatingValueExpressionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#valueExpressionPrimary.
@@ -1951,7 +2167,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#parenthesizedValueExpression.
-    def visitParenthesizedValueExpression(self, ctx: GQLParser.ParenthesizedValueExpressionContext):
+    def visitParenthesizedValueExpression(
+        self, ctx: GQLParser.ParenthesizedValueExpressionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#nonParenthesizedValueExpressionPrimary.
@@ -1967,7 +2185,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#unsignedValueSpecification.
-    def visitUnsignedValueSpecification(self, ctx: GQLParser.UnsignedValueSpecificationContext):
+    def visitUnsignedValueSpecification(
+        self, ctx: GQLParser.UnsignedValueSpecificationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#nonNegativeIntegerSpecification.
@@ -1977,7 +2197,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#generalValueSpecification.
-    def visitGeneralValueSpecification(self, ctx: GQLParser.GeneralValueSpecificationContext):
+    def visitGeneralValueSpecification(
+        self, ctx: GQLParser.GeneralValueSpecificationContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#dynamicParameterSpecification.
@@ -2083,11 +2305,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#dependentValueExpression.
-    def visitDependentValueExpression(self, ctx: GQLParser.DependentValueExpressionContext):
+    def visitDependentValueExpression(
+        self, ctx: GQLParser.DependentValueExpressionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#independentValueExpression.
-    def visitIndependentValueExpression(self, ctx: GQLParser.IndependentValueExpressionContext):
+    def visitIndependentValueExpression(
+        self, ctx: GQLParser.IndependentValueExpressionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#element_idFunction.
@@ -2095,7 +2321,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#bindingVariableReference.
-    def visitBindingVariableReference(self, ctx: GQLParser.BindingVariableReferenceContext):
+    def visitBindingVariableReference(
+        self, ctx: GQLParser.BindingVariableReferenceContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#pathValueExpression.
@@ -2213,7 +2441,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#absoluteValueExpression.
-    def visitAbsoluteValueExpression(self, ctx: GQLParser.AbsoluteValueExpressionContext):
+    def visitAbsoluteValueExpression(
+        self, ctx: GQLParser.AbsoluteValueExpressionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#modulusExpression.
@@ -2237,11 +2467,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#trigonometricFunctionName.
-    def visitTrigonometricFunctionName(self, ctx: GQLParser.TrigonometricFunctionNameContext):
+    def visitTrigonometricFunctionName(
+        self, ctx: GQLParser.TrigonometricFunctionNameContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#generalLogarithmFunction.
-    def visitGeneralLogarithmFunction(self, ctx: GQLParser.GeneralLogarithmFunctionContext):
+    def visitGeneralLogarithmFunction(
+        self, ctx: GQLParser.GeneralLogarithmFunctionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#generalLogarithmBase.
@@ -2249,7 +2483,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#generalLogarithmArgument.
-    def visitGeneralLogarithmArgument(self, ctx: GQLParser.GeneralLogarithmArgumentContext):
+    def visitGeneralLogarithmArgument(
+        self, ctx: GQLParser.GeneralLogarithmArgumentContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#commonLogarithm.
@@ -2269,7 +2505,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#numericValueExpressionBase.
-    def visitNumericValueExpressionBase(self, ctx: GQLParser.NumericValueExpressionBaseContext):
+    def visitNumericValueExpressionBase(
+        self, ctx: GQLParser.NumericValueExpressionBaseContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#numericValueExpressionExponent.
@@ -2297,7 +2535,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#byteStringValueExpression.
-    def visitByteStringValueExpression(self, ctx: GQLParser.ByteStringValueExpressionContext):
+    def visitByteStringValueExpression(
+        self, ctx: GQLParser.ByteStringValueExpressionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#trimOperands.
@@ -2315,7 +2555,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#trimCharacterOrByteString.
-    def visitTrimCharacterOrByteString(self, ctx: GQLParser.TrimCharacterOrByteStringContext):
+    def visitTrimCharacterOrByteString(
+        self, ctx: GQLParser.TrimCharacterOrByteStringContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#normalForm.
@@ -2327,7 +2569,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#datetimeValueExpression.
-    def visitDatetimeValueExpression(self, ctx: GQLParser.DatetimeValueExpressionContext):
+    def visitDatetimeValueExpression(
+        self, ctx: GQLParser.DatetimeValueExpressionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#datetimeValueFunction.
@@ -2363,11 +2607,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#datetimeFunctionParameters.
-    def visitDatetimeFunctionParameters(self, ctx: GQLParser.DatetimeFunctionParametersContext):
+    def visitDatetimeFunctionParameters(
+        self, ctx: GQLParser.DatetimeFunctionParametersContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#durationValueExpression.
-    def visitDurationValueExpression(self, ctx: GQLParser.DurationValueExpressionContext):
+    def visitDurationValueExpression(
+        self, ctx: GQLParser.DurationValueExpressionContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#datetimeSubtraction.
@@ -2381,11 +2629,15 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#datetimeValueExpression1.
-    def visitDatetimeValueExpression1(self, ctx: GQLParser.DatetimeValueExpression1Context):
+    def visitDatetimeValueExpression1(
+        self, ctx: GQLParser.DatetimeValueExpression1Context
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#datetimeValueExpression2.
-    def visitDatetimeValueExpression2(self, ctx: GQLParser.DatetimeValueExpression2Context):
+    def visitDatetimeValueExpression2(
+        self, ctx: GQLParser.DatetimeValueExpression2Context
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#durationValueFunction.
@@ -2397,7 +2649,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#durationFunctionParameters.
-    def visitDurationFunctionParameters(self, ctx: GQLParser.DurationFunctionParametersContext):
+    def visitDurationFunctionParameters(
+        self, ctx: GQLParser.DurationFunctionParametersContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#objectName.
@@ -2405,7 +2659,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#objectNameOrBindingVariable.
-    def visitObjectNameOrBindingVariable(self, ctx: GQLParser.ObjectNameOrBindingVariableContext):
+    def visitObjectNameOrBindingVariable(
+        self, ctx: GQLParser.ObjectNameOrBindingVariableContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#directoryName.
@@ -2441,7 +2697,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#delimitedBindingTableName.
-    def visitDelimitedBindingTableName(self, ctx: GQLParser.DelimitedBindingTableNameContext):
+    def visitDelimitedBindingTableName(
+        self, ctx: GQLParser.DelimitedBindingTableNameContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#procedureName.
@@ -2533,7 +2791,9 @@ class GQLVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#approximateNumericLiteral.
-    def visitApproximateNumericLiteral(self, ctx: GQLParser.ApproximateNumericLiteralContext):
+    def visitApproximateNumericLiteral(
+        self, ctx: GQLParser.ApproximateNumericLiteralContext
+    ):
         return self.visitChildren(ctx)
 
     # Visit a parse tree produced by GQLParser#unsignedInteger.

@@ -59,9 +59,9 @@ class ChatModel:
         generating_args = self.generating_args.to_dict()
         generating_args.update(
             dict(
-                do_sample=do_sample
-                if do_sample is not None
-                else generating_args["do_sample"],
+                do_sample=(
+                    do_sample if do_sample is not None else generating_args["do_sample"]
+                ),
                 temperature=temperature or generating_args["temperature"],
                 top_p=top_p or generating_args["top_p"],
                 top_k=top_k or generating_args["top_k"],

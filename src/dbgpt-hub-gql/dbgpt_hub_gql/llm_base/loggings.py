@@ -195,9 +195,11 @@ class LogCallback(TrainerCallback):
             reward=state.log_history[-1].get("reward", None),
             learning_rate=state.log_history[-1].get("learning_rate", None),
             epoch=state.log_history[-1].get("epoch", None),
-            percentage=round(self.cur_steps / self.max_steps * 100, 2)
-            if self.max_steps != 0
-            else 100,
+            percentage=(
+                round(self.cur_steps / self.max_steps * 100, 2)
+                if self.max_steps != 0
+                else 100
+            ),
             elapsed_time=self.elapsed_time,
             remaining_time=self.remaining_time,
         )

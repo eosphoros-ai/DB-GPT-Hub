@@ -74,11 +74,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#sessionSetTimeZoneClause.
-    def enterSessionSetTimeZoneClause(self, ctx: GQLParser.SessionSetTimeZoneClauseContext):
+    def enterSessionSetTimeZoneClause(
+        self, ctx: GQLParser.SessionSetTimeZoneClauseContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#sessionSetTimeZoneClause.
-    def exitSessionSetTimeZoneClause(self, ctx: GQLParser.SessionSetTimeZoneClauseContext):
+    def exitSessionSetTimeZoneClause(
+        self, ctx: GQLParser.SessionSetTimeZoneClauseContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#setTimeZoneValue.
@@ -90,11 +94,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#sessionSetParameterClause.
-    def enterSessionSetParameterClause(self, ctx: GQLParser.SessionSetParameterClauseContext):
+    def enterSessionSetParameterClause(
+        self, ctx: GQLParser.SessionSetParameterClauseContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#sessionSetParameterClause.
-    def exitSessionSetParameterClause(self, ctx: GQLParser.SessionSetParameterClauseContext):
+    def exitSessionSetParameterClause(
+        self, ctx: GQLParser.SessionSetParameterClauseContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#sessionSetGraphParameterClause.
@@ -134,11 +142,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#sessionSetParameterName.
-    def enterSessionSetParameterName(self, ctx: GQLParser.SessionSetParameterNameContext):
+    def enterSessionSetParameterName(
+        self, ctx: GQLParser.SessionSetParameterNameContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#sessionSetParameterName.
-    def exitSessionSetParameterName(self, ctx: GQLParser.SessionSetParameterNameContext):
+    def exitSessionSetParameterName(
+        self, ctx: GQLParser.SessionSetParameterNameContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#sessionResetCommand.
@@ -178,19 +190,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#startTransactionCommand.
-    def enterStartTransactionCommand(self, ctx: GQLParser.StartTransactionCommandContext):
+    def enterStartTransactionCommand(
+        self, ctx: GQLParser.StartTransactionCommandContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#startTransactionCommand.
-    def exitStartTransactionCommand(self, ctx: GQLParser.StartTransactionCommandContext):
+    def exitStartTransactionCommand(
+        self, ctx: GQLParser.StartTransactionCommandContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#transactionCharacteristics.
-    def enterTransactionCharacteristics(self, ctx: GQLParser.TransactionCharacteristicsContext):
+    def enterTransactionCharacteristics(
+        self, ctx: GQLParser.TransactionCharacteristicsContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#transactionCharacteristics.
-    def exitTransactionCharacteristics(self, ctx: GQLParser.TransactionCharacteristicsContext):
+    def exitTransactionCharacteristics(
+        self, ctx: GQLParser.TransactionCharacteristicsContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#transactionMode.
@@ -226,11 +246,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#nestedProcedureSpecification.
-    def enterNestedProcedureSpecification(self, ctx: GQLParser.NestedProcedureSpecificationContext):
+    def enterNestedProcedureSpecification(
+        self, ctx: GQLParser.NestedProcedureSpecificationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#nestedProcedureSpecification.
-    def exitNestedProcedureSpecification(self, ctx: GQLParser.NestedProcedureSpecificationContext):
+    def exitNestedProcedureSpecification(
+        self, ctx: GQLParser.NestedProcedureSpecificationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#procedureSpecification.
@@ -254,11 +278,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#nestedQuerySpecification.
-    def enterNestedQuerySpecification(self, ctx: GQLParser.NestedQuerySpecificationContext):
+    def enterNestedQuerySpecification(
+        self, ctx: GQLParser.NestedQuerySpecificationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#nestedQuerySpecification.
-    def exitNestedQuerySpecification(self, ctx: GQLParser.NestedQuerySpecificationContext):
+    def exitNestedQuerySpecification(
+        self, ctx: GQLParser.NestedQuerySpecificationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#procedureBody.
@@ -282,11 +310,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#bindingVariableDefinition.
-    def enterBindingVariableDefinition(self, ctx: GQLParser.BindingVariableDefinitionContext):
+    def enterBindingVariableDefinition(
+        self, ctx: GQLParser.BindingVariableDefinitionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#bindingVariableDefinition.
-    def exitBindingVariableDefinition(self, ctx: GQLParser.BindingVariableDefinitionContext):
+    def exitBindingVariableDefinition(
+        self, ctx: GQLParser.BindingVariableDefinitionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#statementBlock.
@@ -314,19 +346,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#graphVariableDefinition.
-    def enterGraphVariableDefinition(self, ctx: GQLParser.GraphVariableDefinitionContext):
+    def enterGraphVariableDefinition(
+        self, ctx: GQLParser.GraphVariableDefinitionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#graphVariableDefinition.
-    def exitGraphVariableDefinition(self, ctx: GQLParser.GraphVariableDefinitionContext):
+    def exitGraphVariableDefinition(
+        self, ctx: GQLParser.GraphVariableDefinitionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#optTypedGraphInitializer.
-    def enterOptTypedGraphInitializer(self, ctx: GQLParser.OptTypedGraphInitializerContext):
+    def enterOptTypedGraphInitializer(
+        self, ctx: GQLParser.OptTypedGraphInitializerContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#optTypedGraphInitializer.
-    def exitOptTypedGraphInitializer(self, ctx: GQLParser.OptTypedGraphInitializerContext):
+    def exitOptTypedGraphInitializer(
+        self, ctx: GQLParser.OptTypedGraphInitializerContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#graphInitializer.
@@ -362,27 +402,39 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#bindingTableInitializer.
-    def enterBindingTableInitializer(self, ctx: GQLParser.BindingTableInitializerContext):
+    def enterBindingTableInitializer(
+        self, ctx: GQLParser.BindingTableInitializerContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#bindingTableInitializer.
-    def exitBindingTableInitializer(self, ctx: GQLParser.BindingTableInitializerContext):
+    def exitBindingTableInitializer(
+        self, ctx: GQLParser.BindingTableInitializerContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#valueVariableDefinition.
-    def enterValueVariableDefinition(self, ctx: GQLParser.ValueVariableDefinitionContext):
+    def enterValueVariableDefinition(
+        self, ctx: GQLParser.ValueVariableDefinitionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#valueVariableDefinition.
-    def exitValueVariableDefinition(self, ctx: GQLParser.ValueVariableDefinitionContext):
+    def exitValueVariableDefinition(
+        self, ctx: GQLParser.ValueVariableDefinitionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#optTypedValueInitializer.
-    def enterOptTypedValueInitializer(self, ctx: GQLParser.OptTypedValueInitializerContext):
+    def enterOptTypedValueInitializer(
+        self, ctx: GQLParser.OptTypedValueInitializerContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#optTypedValueInitializer.
-    def exitOptTypedValueInitializer(self, ctx: GQLParser.OptTypedValueInitializerContext):
+    def exitOptTypedValueInitializer(
+        self, ctx: GQLParser.OptTypedValueInitializerContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#valueInitializer.
@@ -430,11 +482,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#objectExpressionPrimary.
-    def enterObjectExpressionPrimary(self, ctx: GQLParser.ObjectExpressionPrimaryContext):
+    def enterObjectExpressionPrimary(
+        self, ctx: GQLParser.ObjectExpressionPrimaryContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#objectExpressionPrimary.
-    def exitObjectExpressionPrimary(self, ctx: GQLParser.ObjectExpressionPrimaryContext):
+    def exitObjectExpressionPrimary(
+        self, ctx: GQLParser.ObjectExpressionPrimaryContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#linearCatalogModifyingStatement.
@@ -538,11 +594,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#createGraphTypeStatement.
-    def enterCreateGraphTypeStatement(self, ctx: GQLParser.CreateGraphTypeStatementContext):
+    def enterCreateGraphTypeStatement(
+        self, ctx: GQLParser.CreateGraphTypeStatementContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#createGraphTypeStatement.
-    def exitCreateGraphTypeStatement(self, ctx: GQLParser.CreateGraphTypeStatementContext):
+    def exitCreateGraphTypeStatement(
+        self, ctx: GQLParser.CreateGraphTypeStatementContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#graphTypeSource.
@@ -582,11 +642,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#linearDataModifyingStatement.
-    def enterLinearDataModifyingStatement(self, ctx: GQLParser.LinearDataModifyingStatementContext):
+    def enterLinearDataModifyingStatement(
+        self, ctx: GQLParser.LinearDataModifyingStatementContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#linearDataModifyingStatement.
-    def exitLinearDataModifyingStatement(self, ctx: GQLParser.LinearDataModifyingStatementContext):
+    def exitLinearDataModifyingStatement(
+        self, ctx: GQLParser.LinearDataModifyingStatementContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#focusedLinearDataModifyingStatement.
@@ -662,19 +726,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#simpleDataAccessingStatement.
-    def enterSimpleDataAccessingStatement(self, ctx: GQLParser.SimpleDataAccessingStatementContext):
+    def enterSimpleDataAccessingStatement(
+        self, ctx: GQLParser.SimpleDataAccessingStatementContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simpleDataAccessingStatement.
-    def exitSimpleDataAccessingStatement(self, ctx: GQLParser.SimpleDataAccessingStatementContext):
+    def exitSimpleDataAccessingStatement(
+        self, ctx: GQLParser.SimpleDataAccessingStatementContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simpleDataModifyingStatement.
-    def enterSimpleDataModifyingStatement(self, ctx: GQLParser.SimpleDataModifyingStatementContext):
+    def enterSimpleDataModifyingStatement(
+        self, ctx: GQLParser.SimpleDataModifyingStatementContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simpleDataModifyingStatement.
-    def exitSimpleDataModifyingStatement(self, ctx: GQLParser.SimpleDataModifyingStatementContext):
+    def exitSimpleDataModifyingStatement(
+        self, ctx: GQLParser.SimpleDataModifyingStatementContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#primitiveDataModifyingStatement.
@@ -822,19 +894,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#compositeQueryStatement.
-    def enterCompositeQueryStatement(self, ctx: GQLParser.CompositeQueryStatementContext):
+    def enterCompositeQueryStatement(
+        self, ctx: GQLParser.CompositeQueryStatementContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#compositeQueryStatement.
-    def exitCompositeQueryStatement(self, ctx: GQLParser.CompositeQueryStatementContext):
+    def exitCompositeQueryStatement(
+        self, ctx: GQLParser.CompositeQueryStatementContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#compositeQueryExpression.
-    def enterCompositeQueryExpression(self, ctx: GQLParser.CompositeQueryExpressionContext):
+    def enterCompositeQueryExpression(
+        self, ctx: GQLParser.CompositeQueryExpressionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#compositeQueryExpression.
-    def exitCompositeQueryExpression(self, ctx: GQLParser.CompositeQueryExpressionContext):
+    def exitCompositeQueryExpression(
+        self, ctx: GQLParser.CompositeQueryExpressionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#queryConjunction.
@@ -870,11 +950,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#focusedLinearQueryStatement.
-    def enterFocusedLinearQueryStatement(self, ctx: GQLParser.FocusedLinearQueryStatementContext):
+    def enterFocusedLinearQueryStatement(
+        self, ctx: GQLParser.FocusedLinearQueryStatementContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#focusedLinearQueryStatement.
-    def exitFocusedLinearQueryStatement(self, ctx: GQLParser.FocusedLinearQueryStatementContext):
+    def exitFocusedLinearQueryStatement(
+        self, ctx: GQLParser.FocusedLinearQueryStatementContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#focusedLinearQueryStatementPart.
@@ -926,19 +1010,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#ambientLinearQueryStatement.
-    def enterAmbientLinearQueryStatement(self, ctx: GQLParser.AmbientLinearQueryStatementContext):
+    def enterAmbientLinearQueryStatement(
+        self, ctx: GQLParser.AmbientLinearQueryStatementContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#ambientLinearQueryStatement.
-    def exitAmbientLinearQueryStatement(self, ctx: GQLParser.AmbientLinearQueryStatementContext):
+    def exitAmbientLinearQueryStatement(
+        self, ctx: GQLParser.AmbientLinearQueryStatementContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simpleLinearQueryStatement.
-    def enterSimpleLinearQueryStatement(self, ctx: GQLParser.SimpleLinearQueryStatementContext):
+    def enterSimpleLinearQueryStatement(
+        self, ctx: GQLParser.SimpleLinearQueryStatementContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simpleLinearQueryStatement.
-    def exitSimpleLinearQueryStatement(self, ctx: GQLParser.SimpleLinearQueryStatementContext):
+    def exitSimpleLinearQueryStatement(
+        self, ctx: GQLParser.SimpleLinearQueryStatementContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simpleQueryStatement.
@@ -950,11 +1042,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#primitiveQueryStatement.
-    def enterPrimitiveQueryStatement(self, ctx: GQLParser.PrimitiveQueryStatementContext):
+    def enterPrimitiveQueryStatement(
+        self, ctx: GQLParser.PrimitiveQueryStatementContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#primitiveQueryStatement.
-    def exitPrimitiveQueryStatement(self, ctx: GQLParser.PrimitiveQueryStatementContext):
+    def exitPrimitiveQueryStatement(
+        self, ctx: GQLParser.PrimitiveQueryStatementContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#matchStatement.
@@ -1022,11 +1118,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#letVariableDefinitionList.
-    def enterLetVariableDefinitionList(self, ctx: GQLParser.LetVariableDefinitionListContext):
+    def enterLetVariableDefinitionList(
+        self, ctx: GQLParser.LetVariableDefinitionListContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#letVariableDefinitionList.
-    def exitLetVariableDefinitionList(self, ctx: GQLParser.LetVariableDefinitionListContext):
+    def exitLetVariableDefinitionList(
+        self, ctx: GQLParser.LetVariableDefinitionListContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#letVariableDefinition.
@@ -1078,19 +1178,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#orderByAndPageStatement.
-    def enterOrderByAndPageStatement(self, ctx: GQLParser.OrderByAndPageStatementContext):
+    def enterOrderByAndPageStatement(
+        self, ctx: GQLParser.OrderByAndPageStatementContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#orderByAndPageStatement.
-    def exitOrderByAndPageStatement(self, ctx: GQLParser.OrderByAndPageStatementContext):
+    def exitOrderByAndPageStatement(
+        self, ctx: GQLParser.OrderByAndPageStatementContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#primitiveResultStatement.
-    def enterPrimitiveResultStatement(self, ctx: GQLParser.PrimitiveResultStatementContext):
+    def enterPrimitiveResultStatement(
+        self, ctx: GQLParser.PrimitiveResultStatementContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#primitiveResultStatement.
-    def exitPrimitiveResultStatement(self, ctx: GQLParser.PrimitiveResultStatementContext):
+    def exitPrimitiveResultStatement(
+        self, ctx: GQLParser.PrimitiveResultStatementContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#returnStatement.
@@ -1198,11 +1306,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#selectQuerySpecification.
-    def enterSelectQuerySpecification(self, ctx: GQLParser.SelectQuerySpecificationContext):
+    def enterSelectQuerySpecification(
+        self, ctx: GQLParser.SelectQuerySpecificationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#selectQuerySpecification.
-    def exitSelectQuerySpecification(self, ctx: GQLParser.SelectQuerySpecificationContext):
+    def exitSelectQuerySpecification(
+        self, ctx: GQLParser.SelectQuerySpecificationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#callProcedureStatement.
@@ -1238,11 +1350,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#bindingVariableReferenceList.
-    def enterBindingVariableReferenceList(self, ctx: GQLParser.BindingVariableReferenceListContext):
+    def enterBindingVariableReferenceList(
+        self, ctx: GQLParser.BindingVariableReferenceListContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#bindingVariableReferenceList.
-    def exitBindingVariableReferenceList(self, ctx: GQLParser.BindingVariableReferenceListContext):
+    def exitBindingVariableReferenceList(
+        self, ctx: GQLParser.BindingVariableReferenceListContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#namedProcedureCall.
@@ -1286,27 +1402,39 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#graphPatternBindingTable.
-    def enterGraphPatternBindingTable(self, ctx: GQLParser.GraphPatternBindingTableContext):
+    def enterGraphPatternBindingTable(
+        self, ctx: GQLParser.GraphPatternBindingTableContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#graphPatternBindingTable.
-    def exitGraphPatternBindingTable(self, ctx: GQLParser.GraphPatternBindingTableContext):
+    def exitGraphPatternBindingTable(
+        self, ctx: GQLParser.GraphPatternBindingTableContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#graphPatternYieldClause.
-    def enterGraphPatternYieldClause(self, ctx: GQLParser.GraphPatternYieldClauseContext):
+    def enterGraphPatternYieldClause(
+        self, ctx: GQLParser.GraphPatternYieldClauseContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#graphPatternYieldClause.
-    def exitGraphPatternYieldClause(self, ctx: GQLParser.GraphPatternYieldClauseContext):
+    def exitGraphPatternYieldClause(
+        self, ctx: GQLParser.GraphPatternYieldClauseContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#graphPatternYieldItemList.
-    def enterGraphPatternYieldItemList(self, ctx: GQLParser.GraphPatternYieldItemListContext):
+    def enterGraphPatternYieldItemList(
+        self, ctx: GQLParser.GraphPatternYieldItemListContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#graphPatternYieldItemList.
-    def exitGraphPatternYieldItemList(self, ctx: GQLParser.GraphPatternYieldItemListContext):
+    def exitGraphPatternYieldItemList(
+        self, ctx: GQLParser.GraphPatternYieldItemListContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#graphPatternYieldItem.
@@ -1334,27 +1462,39 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#repeatableElementsMatchMode.
-    def enterRepeatableElementsMatchMode(self, ctx: GQLParser.RepeatableElementsMatchModeContext):
+    def enterRepeatableElementsMatchMode(
+        self, ctx: GQLParser.RepeatableElementsMatchModeContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#repeatableElementsMatchMode.
-    def exitRepeatableElementsMatchMode(self, ctx: GQLParser.RepeatableElementsMatchModeContext):
+    def exitRepeatableElementsMatchMode(
+        self, ctx: GQLParser.RepeatableElementsMatchModeContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#differentEdgesMatchMode.
-    def enterDifferentEdgesMatchMode(self, ctx: GQLParser.DifferentEdgesMatchModeContext):
+    def enterDifferentEdgesMatchMode(
+        self, ctx: GQLParser.DifferentEdgesMatchModeContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#differentEdgesMatchMode.
-    def exitDifferentEdgesMatchMode(self, ctx: GQLParser.DifferentEdgesMatchModeContext):
+    def exitDifferentEdgesMatchMode(
+        self, ctx: GQLParser.DifferentEdgesMatchModeContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#elementBindingsOrElements.
-    def enterElementBindingsOrElements(self, ctx: GQLParser.ElementBindingsOrElementsContext):
+    def enterElementBindingsOrElements(
+        self, ctx: GQLParser.ElementBindingsOrElementsContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#elementBindingsOrElements.
-    def exitElementBindingsOrElements(self, ctx: GQLParser.ElementBindingsOrElementsContext):
+    def exitElementBindingsOrElements(
+        self, ctx: GQLParser.ElementBindingsOrElementsContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#edgeBindingsOrEdges.
@@ -1382,11 +1522,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#pathVariableDeclaration.
-    def enterPathVariableDeclaration(self, ctx: GQLParser.PathVariableDeclarationContext):
+    def enterPathVariableDeclaration(
+        self, ctx: GQLParser.PathVariableDeclarationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#pathVariableDeclaration.
-    def exitPathVariableDeclaration(self, ctx: GQLParser.PathVariableDeclarationContext):
+    def exitPathVariableDeclaration(
+        self, ctx: GQLParser.PathVariableDeclarationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#keepClause.
@@ -1398,11 +1542,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#graphPatternWhereClause.
-    def enterGraphPatternWhereClause(self, ctx: GQLParser.GraphPatternWhereClauseContext):
+    def enterGraphPatternWhereClause(
+        self, ctx: GQLParser.GraphPatternWhereClauseContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#graphPatternWhereClause.
-    def exitGraphPatternWhereClause(self, ctx: GQLParser.GraphPatternWhereClauseContext):
+    def exitGraphPatternWhereClause(
+        self, ctx: GQLParser.GraphPatternWhereClauseContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#insertGraphPattern.
@@ -1454,11 +1602,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#insertEdgePointingRight.
-    def enterInsertEdgePointingRight(self, ctx: GQLParser.InsertEdgePointingRightContext):
+    def enterInsertEdgePointingRight(
+        self, ctx: GQLParser.InsertEdgePointingRightContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#insertEdgePointingRight.
-    def exitInsertEdgePointingRight(self, ctx: GQLParser.InsertEdgePointingRightContext):
+    def exitInsertEdgePointingRight(
+        self, ctx: GQLParser.InsertEdgePointingRightContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#insertEdgeUndirected.
@@ -1470,11 +1622,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#insertElementPatternFiller.
-    def enterInsertElementPatternFiller(self, ctx: GQLParser.InsertElementPatternFillerContext):
+    def enterInsertElementPatternFiller(
+        self, ctx: GQLParser.InsertElementPatternFillerContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#insertElementPatternFiller.
-    def exitInsertElementPatternFiller(self, ctx: GQLParser.InsertElementPatternFillerContext):
+    def exitInsertElementPatternFiller(
+        self, ctx: GQLParser.InsertElementPatternFillerContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#labelAndPropertySetSpecification.
@@ -1578,19 +1734,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#countedShortestPathSearch.
-    def enterCountedShortestPathSearch(self, ctx: GQLParser.CountedShortestPathSearchContext):
+    def enterCountedShortestPathSearch(
+        self, ctx: GQLParser.CountedShortestPathSearchContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#countedShortestPathSearch.
-    def exitCountedShortestPathSearch(self, ctx: GQLParser.CountedShortestPathSearchContext):
+    def exitCountedShortestPathSearch(
+        self, ctx: GQLParser.CountedShortestPathSearchContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#countedShortestGroupSearch.
-    def enterCountedShortestGroupSearch(self, ctx: GQLParser.CountedShortestGroupSearchContext):
+    def enterCountedShortestGroupSearch(
+        self, ctx: GQLParser.CountedShortestGroupSearchContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#countedShortestGroupSearch.
-    def exitCountedShortestGroupSearch(self, ctx: GQLParser.CountedShortestGroupSearchContext):
+    def exitCountedShortestGroupSearch(
+        self, ctx: GQLParser.CountedShortestGroupSearchContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#numberOfGroups.
@@ -1642,19 +1806,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#pfQuantifiedPathPrimary.
-    def enterPfQuantifiedPathPrimary(self, ctx: GQLParser.PfQuantifiedPathPrimaryContext):
+    def enterPfQuantifiedPathPrimary(
+        self, ctx: GQLParser.PfQuantifiedPathPrimaryContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#pfQuantifiedPathPrimary.
-    def exitPfQuantifiedPathPrimary(self, ctx: GQLParser.PfQuantifiedPathPrimaryContext):
+    def exitPfQuantifiedPathPrimary(
+        self, ctx: GQLParser.PfQuantifiedPathPrimaryContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#pfQuestionedPathPrimary.
-    def enterPfQuestionedPathPrimary(self, ctx: GQLParser.PfQuestionedPathPrimaryContext):
+    def enterPfQuestionedPathPrimary(
+        self, ctx: GQLParser.PfQuestionedPathPrimaryContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#pfQuestionedPathPrimary.
-    def exitPfQuestionedPathPrimary(self, ctx: GQLParser.PfQuestionedPathPrimaryContext):
+    def exitPfQuestionedPathPrimary(
+        self, ctx: GQLParser.PfQuestionedPathPrimaryContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#ppElementPattern.
@@ -1714,11 +1886,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#elementVariableDeclaration.
-    def enterElementVariableDeclaration(self, ctx: GQLParser.ElementVariableDeclarationContext):
+    def enterElementVariableDeclaration(
+        self, ctx: GQLParser.ElementVariableDeclarationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#elementVariableDeclaration.
-    def exitElementVariableDeclaration(self, ctx: GQLParser.ElementVariableDeclarationContext):
+    def exitElementVariableDeclaration(
+        self, ctx: GQLParser.ElementVariableDeclarationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#isLabelExpression.
@@ -1738,35 +1914,51 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#elementPatternPredicate.
-    def enterElementPatternPredicate(self, ctx: GQLParser.ElementPatternPredicateContext):
+    def enterElementPatternPredicate(
+        self, ctx: GQLParser.ElementPatternPredicateContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#elementPatternPredicate.
-    def exitElementPatternPredicate(self, ctx: GQLParser.ElementPatternPredicateContext):
+    def exitElementPatternPredicate(
+        self, ctx: GQLParser.ElementPatternPredicateContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#elementPatternWhereClause.
-    def enterElementPatternWhereClause(self, ctx: GQLParser.ElementPatternWhereClauseContext):
+    def enterElementPatternWhereClause(
+        self, ctx: GQLParser.ElementPatternWhereClauseContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#elementPatternWhereClause.
-    def exitElementPatternWhereClause(self, ctx: GQLParser.ElementPatternWhereClauseContext):
+    def exitElementPatternWhereClause(
+        self, ctx: GQLParser.ElementPatternWhereClauseContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#elementPropertySpecification.
-    def enterElementPropertySpecification(self, ctx: GQLParser.ElementPropertySpecificationContext):
+    def enterElementPropertySpecification(
+        self, ctx: GQLParser.ElementPropertySpecificationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#elementPropertySpecification.
-    def exitElementPropertySpecification(self, ctx: GQLParser.ElementPropertySpecificationContext):
+    def exitElementPropertySpecification(
+        self, ctx: GQLParser.ElementPropertySpecificationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#propertyKeyValuePairList.
-    def enterPropertyKeyValuePairList(self, ctx: GQLParser.PropertyKeyValuePairListContext):
+    def enterPropertyKeyValuePairList(
+        self, ctx: GQLParser.PropertyKeyValuePairListContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#propertyKeyValuePairList.
-    def exitPropertyKeyValuePairList(self, ctx: GQLParser.PropertyKeyValuePairListContext):
+    def exitPropertyKeyValuePairList(
+        self, ctx: GQLParser.PropertyKeyValuePairListContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#propertyKeyValuePair.
@@ -1818,19 +2010,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#fullEdgeLeftOrUndirected.
-    def enterFullEdgeLeftOrUndirected(self, ctx: GQLParser.FullEdgeLeftOrUndirectedContext):
+    def enterFullEdgeLeftOrUndirected(
+        self, ctx: GQLParser.FullEdgeLeftOrUndirectedContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#fullEdgeLeftOrUndirected.
-    def exitFullEdgeLeftOrUndirected(self, ctx: GQLParser.FullEdgeLeftOrUndirectedContext):
+    def exitFullEdgeLeftOrUndirected(
+        self, ctx: GQLParser.FullEdgeLeftOrUndirectedContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#fullEdgeUndirectedOrRight.
-    def enterFullEdgeUndirectedOrRight(self, ctx: GQLParser.FullEdgeUndirectedOrRightContext):
+    def enterFullEdgeUndirectedOrRight(
+        self, ctx: GQLParser.FullEdgeUndirectedOrRightContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#fullEdgeUndirectedOrRight.
-    def exitFullEdgeUndirectedOrRight(self, ctx: GQLParser.FullEdgeUndirectedOrRightContext):
+    def exitFullEdgeUndirectedOrRight(
+        self, ctx: GQLParser.FullEdgeUndirectedOrRightContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#fullEdgeLeftOrRight.
@@ -1870,11 +2070,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#subpathVariableDeclaration.
-    def enterSubpathVariableDeclaration(self, ctx: GQLParser.SubpathVariableDeclarationContext):
+    def enterSubpathVariableDeclaration(
+        self, ctx: GQLParser.SubpathVariableDeclarationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#subpathVariableDeclaration.
-    def exitSubpathVariableDeclaration(self, ctx: GQLParser.SubpathVariableDeclarationContext):
+    def exitSubpathVariableDeclaration(
+        self, ctx: GQLParser.SubpathVariableDeclarationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#parenthesizedPathPatternWhereClause.
@@ -1890,43 +2094,63 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#labelExpressionNegation.
-    def enterLabelExpressionNegation(self, ctx: GQLParser.LabelExpressionNegationContext):
+    def enterLabelExpressionNegation(
+        self, ctx: GQLParser.LabelExpressionNegationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#labelExpressionNegation.
-    def exitLabelExpressionNegation(self, ctx: GQLParser.LabelExpressionNegationContext):
+    def exitLabelExpressionNegation(
+        self, ctx: GQLParser.LabelExpressionNegationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#labelExpressionDisjunction.
-    def enterLabelExpressionDisjunction(self, ctx: GQLParser.LabelExpressionDisjunctionContext):
+    def enterLabelExpressionDisjunction(
+        self, ctx: GQLParser.LabelExpressionDisjunctionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#labelExpressionDisjunction.
-    def exitLabelExpressionDisjunction(self, ctx: GQLParser.LabelExpressionDisjunctionContext):
+    def exitLabelExpressionDisjunction(
+        self, ctx: GQLParser.LabelExpressionDisjunctionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#labelExpressionParenthesized.
-    def enterLabelExpressionParenthesized(self, ctx: GQLParser.LabelExpressionParenthesizedContext):
+    def enterLabelExpressionParenthesized(
+        self, ctx: GQLParser.LabelExpressionParenthesizedContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#labelExpressionParenthesized.
-    def exitLabelExpressionParenthesized(self, ctx: GQLParser.LabelExpressionParenthesizedContext):
+    def exitLabelExpressionParenthesized(
+        self, ctx: GQLParser.LabelExpressionParenthesizedContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#labelExpressionWildcard.
-    def enterLabelExpressionWildcard(self, ctx: GQLParser.LabelExpressionWildcardContext):
+    def enterLabelExpressionWildcard(
+        self, ctx: GQLParser.LabelExpressionWildcardContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#labelExpressionWildcard.
-    def exitLabelExpressionWildcard(self, ctx: GQLParser.LabelExpressionWildcardContext):
+    def exitLabelExpressionWildcard(
+        self, ctx: GQLParser.LabelExpressionWildcardContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#labelExpressionConjunction.
-    def enterLabelExpressionConjunction(self, ctx: GQLParser.LabelExpressionConjunctionContext):
+    def enterLabelExpressionConjunction(
+        self, ctx: GQLParser.LabelExpressionConjunctionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#labelExpressionConjunction.
-    def exitLabelExpressionConjunction(self, ctx: GQLParser.LabelExpressionConjunctionContext):
+    def exitLabelExpressionConjunction(
+        self, ctx: GQLParser.LabelExpressionConjunctionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#labelExpressionName.
@@ -1946,11 +2170,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#elementVariableReference.
-    def enterElementVariableReference(self, ctx: GQLParser.ElementVariableReferenceContext):
+    def enterElementVariableReference(
+        self, ctx: GQLParser.ElementVariableReferenceContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#elementVariableReference.
-    def exitElementVariableReference(self, ctx: GQLParser.ElementVariableReferenceContext):
+    def exitElementVariableReference(
+        self, ctx: GQLParser.ElementVariableReferenceContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#graphPatternQuantifier.
@@ -2006,11 +2234,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedDefaultingLeft.
-    def enterSimplifiedDefaultingLeft(self, ctx: GQLParser.SimplifiedDefaultingLeftContext):
+    def enterSimplifiedDefaultingLeft(
+        self, ctx: GQLParser.SimplifiedDefaultingLeftContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simplifiedDefaultingLeft.
-    def exitSimplifiedDefaultingLeft(self, ctx: GQLParser.SimplifiedDefaultingLeftContext):
+    def exitSimplifiedDefaultingLeft(
+        self, ctx: GQLParser.SimplifiedDefaultingLeftContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedDefaultingUndirected.
@@ -2026,11 +2258,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedDefaultingRight.
-    def enterSimplifiedDefaultingRight(self, ctx: GQLParser.SimplifiedDefaultingRightContext):
+    def enterSimplifiedDefaultingRight(
+        self, ctx: GQLParser.SimplifiedDefaultingRightContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simplifiedDefaultingRight.
-    def exitSimplifiedDefaultingRight(self, ctx: GQLParser.SimplifiedDefaultingRightContext):
+    def exitSimplifiedDefaultingRight(
+        self, ctx: GQLParser.SimplifiedDefaultingRightContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedDefaultingLeftOrUndirected.
@@ -2110,35 +2346,51 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedFactorLowLabel.
-    def enterSimplifiedFactorLowLabel(self, ctx: GQLParser.SimplifiedFactorLowLabelContext):
+    def enterSimplifiedFactorLowLabel(
+        self, ctx: GQLParser.SimplifiedFactorLowLabelContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simplifiedFactorLowLabel.
-    def exitSimplifiedFactorLowLabel(self, ctx: GQLParser.SimplifiedFactorLowLabelContext):
+    def exitSimplifiedFactorLowLabel(
+        self, ctx: GQLParser.SimplifiedFactorLowLabelContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedConcatenationLabel.
-    def enterSimplifiedConcatenationLabel(self, ctx: GQLParser.SimplifiedConcatenationLabelContext):
+    def enterSimplifiedConcatenationLabel(
+        self, ctx: GQLParser.SimplifiedConcatenationLabelContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simplifiedConcatenationLabel.
-    def exitSimplifiedConcatenationLabel(self, ctx: GQLParser.SimplifiedConcatenationLabelContext):
+    def exitSimplifiedConcatenationLabel(
+        self, ctx: GQLParser.SimplifiedConcatenationLabelContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedConjunctionLabel.
-    def enterSimplifiedConjunctionLabel(self, ctx: GQLParser.SimplifiedConjunctionLabelContext):
+    def enterSimplifiedConjunctionLabel(
+        self, ctx: GQLParser.SimplifiedConjunctionLabelContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simplifiedConjunctionLabel.
-    def exitSimplifiedConjunctionLabel(self, ctx: GQLParser.SimplifiedConjunctionLabelContext):
+    def exitSimplifiedConjunctionLabel(
+        self, ctx: GQLParser.SimplifiedConjunctionLabelContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedFactorHighLabel.
-    def enterSimplifiedFactorHighLabel(self, ctx: GQLParser.SimplifiedFactorHighLabelContext):
+    def enterSimplifiedFactorHighLabel(
+        self, ctx: GQLParser.SimplifiedFactorHighLabelContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simplifiedFactorHighLabel.
-    def exitSimplifiedFactorHighLabel(self, ctx: GQLParser.SimplifiedFactorHighLabelContext):
+    def exitSimplifiedFactorHighLabel(
+        self, ctx: GQLParser.SimplifiedFactorHighLabelContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedFactorHigh.
@@ -2174,11 +2426,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedDirectionOverride.
-    def enterSimplifiedDirectionOverride(self, ctx: GQLParser.SimplifiedDirectionOverrideContext):
+    def enterSimplifiedDirectionOverride(
+        self, ctx: GQLParser.SimplifiedDirectionOverrideContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simplifiedDirectionOverride.
-    def exitSimplifiedDirectionOverride(self, ctx: GQLParser.SimplifiedDirectionOverrideContext):
+    def exitSimplifiedDirectionOverride(
+        self, ctx: GQLParser.SimplifiedDirectionOverrideContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedOverrideLeft.
@@ -2190,19 +2446,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedOverrideUndirected.
-    def enterSimplifiedOverrideUndirected(self, ctx: GQLParser.SimplifiedOverrideUndirectedContext):
+    def enterSimplifiedOverrideUndirected(
+        self, ctx: GQLParser.SimplifiedOverrideUndirectedContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simplifiedOverrideUndirected.
-    def exitSimplifiedOverrideUndirected(self, ctx: GQLParser.SimplifiedOverrideUndirectedContext):
+    def exitSimplifiedOverrideUndirected(
+        self, ctx: GQLParser.SimplifiedOverrideUndirectedContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedOverrideRight.
-    def enterSimplifiedOverrideRight(self, ctx: GQLParser.SimplifiedOverrideRightContext):
+    def enterSimplifiedOverrideRight(
+        self, ctx: GQLParser.SimplifiedOverrideRightContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#simplifiedOverrideRight.
-    def exitSimplifiedOverrideRight(self, ctx: GQLParser.SimplifiedOverrideRightContext):
+    def exitSimplifiedOverrideRight(
+        self, ctx: GQLParser.SimplifiedOverrideRightContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#simplifiedOverrideLeftOrUndirected.
@@ -2450,11 +2714,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#catalogSchemaParentAndName.
-    def enterCatalogSchemaParentAndName(self, ctx: GQLParser.CatalogSchemaParentAndNameContext):
+    def enterCatalogSchemaParentAndName(
+        self, ctx: GQLParser.CatalogSchemaParentAndNameContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#catalogSchemaParentAndName.
-    def exitCatalogSchemaParentAndName(self, ctx: GQLParser.CatalogSchemaParentAndNameContext):
+    def exitCatalogSchemaParentAndName(
+        self, ctx: GQLParser.CatalogSchemaParentAndNameContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#relativeCatalogSchemaReference.
@@ -2470,11 +2738,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#predefinedSchemaReference.
-    def enterPredefinedSchemaReference(self, ctx: GQLParser.PredefinedSchemaReferenceContext):
+    def enterPredefinedSchemaReference(
+        self, ctx: GQLParser.PredefinedSchemaReferenceContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#predefinedSchemaReference.
-    def exitPredefinedSchemaReference(self, ctx: GQLParser.PredefinedSchemaReferenceContext):
+    def exitPredefinedSchemaReference(
+        self, ctx: GQLParser.PredefinedSchemaReferenceContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#absoluteDirectoryPath.
@@ -2510,11 +2782,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#catalogGraphParentAndName.
-    def enterCatalogGraphParentAndName(self, ctx: GQLParser.CatalogGraphParentAndNameContext):
+    def enterCatalogGraphParentAndName(
+        self, ctx: GQLParser.CatalogGraphParentAndNameContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#catalogGraphParentAndName.
-    def exitCatalogGraphParentAndName(self, ctx: GQLParser.CatalogGraphParentAndNameContext):
+    def exitCatalogGraphParentAndName(
+        self, ctx: GQLParser.CatalogGraphParentAndNameContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#homeGraph.
@@ -2574,11 +2850,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#catalogObjectParentReference.
-    def enterCatalogObjectParentReference(self, ctx: GQLParser.CatalogObjectParentReferenceContext):
+    def enterCatalogObjectParentReference(
+        self, ctx: GQLParser.CatalogObjectParentReferenceContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#catalogObjectParentReference.
-    def exitCatalogObjectParentReference(self, ctx: GQLParser.CatalogObjectParentReferenceContext):
+    def exitCatalogObjectParentReference(
+        self, ctx: GQLParser.CatalogObjectParentReferenceContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#referenceParameterSpecification.
@@ -2594,19 +2874,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#nestedGraphTypeSpecification.
-    def enterNestedGraphTypeSpecification(self, ctx: GQLParser.NestedGraphTypeSpecificationContext):
+    def enterNestedGraphTypeSpecification(
+        self, ctx: GQLParser.NestedGraphTypeSpecificationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#nestedGraphTypeSpecification.
-    def exitNestedGraphTypeSpecification(self, ctx: GQLParser.NestedGraphTypeSpecificationContext):
+    def exitNestedGraphTypeSpecification(
+        self, ctx: GQLParser.NestedGraphTypeSpecificationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#graphTypeSpecificationBody.
-    def enterGraphTypeSpecificationBody(self, ctx: GQLParser.GraphTypeSpecificationBodyContext):
+    def enterGraphTypeSpecificationBody(
+        self, ctx: GQLParser.GraphTypeSpecificationBodyContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#graphTypeSpecificationBody.
-    def exitGraphTypeSpecificationBody(self, ctx: GQLParser.GraphTypeSpecificationBodyContext):
+    def exitGraphTypeSpecificationBody(
+        self, ctx: GQLParser.GraphTypeSpecificationBodyContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#elementTypeList.
@@ -2618,11 +2906,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#elementTypeSpecification.
-    def enterElementTypeSpecification(self, ctx: GQLParser.ElementTypeSpecificationContext):
+    def enterElementTypeSpecification(
+        self, ctx: GQLParser.ElementTypeSpecificationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#elementTypeSpecification.
-    def exitElementTypeSpecification(self, ctx: GQLParser.ElementTypeSpecificationContext):
+    def exitElementTypeSpecification(
+        self, ctx: GQLParser.ElementTypeSpecificationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#nodeTypeSpecification.
@@ -2778,35 +3070,51 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#edgeTypePatternDirected.
-    def enterEdgeTypePatternDirected(self, ctx: GQLParser.EdgeTypePatternDirectedContext):
+    def enterEdgeTypePatternDirected(
+        self, ctx: GQLParser.EdgeTypePatternDirectedContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#edgeTypePatternDirected.
-    def exitEdgeTypePatternDirected(self, ctx: GQLParser.EdgeTypePatternDirectedContext):
+    def exitEdgeTypePatternDirected(
+        self, ctx: GQLParser.EdgeTypePatternDirectedContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#edgeTypePatternPointingRight.
-    def enterEdgeTypePatternPointingRight(self, ctx: GQLParser.EdgeTypePatternPointingRightContext):
+    def enterEdgeTypePatternPointingRight(
+        self, ctx: GQLParser.EdgeTypePatternPointingRightContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#edgeTypePatternPointingRight.
-    def exitEdgeTypePatternPointingRight(self, ctx: GQLParser.EdgeTypePatternPointingRightContext):
+    def exitEdgeTypePatternPointingRight(
+        self, ctx: GQLParser.EdgeTypePatternPointingRightContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#edgeTypePatternPointingLeft.
-    def enterEdgeTypePatternPointingLeft(self, ctx: GQLParser.EdgeTypePatternPointingLeftContext):
+    def enterEdgeTypePatternPointingLeft(
+        self, ctx: GQLParser.EdgeTypePatternPointingLeftContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#edgeTypePatternPointingLeft.
-    def exitEdgeTypePatternPointingLeft(self, ctx: GQLParser.EdgeTypePatternPointingLeftContext):
+    def exitEdgeTypePatternPointingLeft(
+        self, ctx: GQLParser.EdgeTypePatternPointingLeftContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#edgeTypePatternUndirected.
-    def enterEdgeTypePatternUndirected(self, ctx: GQLParser.EdgeTypePatternUndirectedContext):
+    def enterEdgeTypePatternUndirected(
+        self, ctx: GQLParser.EdgeTypePatternUndirectedContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#edgeTypePatternUndirected.
-    def exitEdgeTypePatternUndirected(self, ctx: GQLParser.EdgeTypePatternUndirectedContext):
+    def exitEdgeTypePatternUndirected(
+        self, ctx: GQLParser.EdgeTypePatternUndirectedContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#arcTypePointingRight.
@@ -2834,19 +3142,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#sourceNodeTypeReference.
-    def enterSourceNodeTypeReference(self, ctx: GQLParser.SourceNodeTypeReferenceContext):
+    def enterSourceNodeTypeReference(
+        self, ctx: GQLParser.SourceNodeTypeReferenceContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#sourceNodeTypeReference.
-    def exitSourceNodeTypeReference(self, ctx: GQLParser.SourceNodeTypeReferenceContext):
+    def exitSourceNodeTypeReference(
+        self, ctx: GQLParser.SourceNodeTypeReferenceContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#destinationNodeTypeReference.
-    def enterDestinationNodeTypeReference(self, ctx: GQLParser.DestinationNodeTypeReferenceContext):
+    def enterDestinationNodeTypeReference(
+        self, ctx: GQLParser.DestinationNodeTypeReferenceContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#destinationNodeTypeReference.
-    def exitDestinationNodeTypeReference(self, ctx: GQLParser.DestinationNodeTypeReferenceContext):
+    def exitDestinationNodeTypeReference(
+        self, ctx: GQLParser.DestinationNodeTypeReferenceContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#edgeKind.
@@ -2882,19 +3198,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#endpointPairPointingRight.
-    def enterEndpointPairPointingRight(self, ctx: GQLParser.EndpointPairPointingRightContext):
+    def enterEndpointPairPointingRight(
+        self, ctx: GQLParser.EndpointPairPointingRightContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#endpointPairPointingRight.
-    def exitEndpointPairPointingRight(self, ctx: GQLParser.EndpointPairPointingRightContext):
+    def exitEndpointPairPointingRight(
+        self, ctx: GQLParser.EndpointPairPointingRightContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#endpointPairPointingLeft.
-    def enterEndpointPairPointingLeft(self, ctx: GQLParser.EndpointPairPointingLeftContext):
+    def enterEndpointPairPointingLeft(
+        self, ctx: GQLParser.EndpointPairPointingLeftContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#endpointPairPointingLeft.
-    def exitEndpointPairPointingLeft(self, ctx: GQLParser.EndpointPairPointingLeftContext):
+    def exitEndpointPairPointingLeft(
+        self, ctx: GQLParser.EndpointPairPointingLeftContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#endpointPairUndirected.
@@ -2930,11 +3254,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#destinationNodeTypeAlias.
-    def enterDestinationNodeTypeAlias(self, ctx: GQLParser.DestinationNodeTypeAliasContext):
+    def enterDestinationNodeTypeAlias(
+        self, ctx: GQLParser.DestinationNodeTypeAliasContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#destinationNodeTypeAlias.
-    def exitDestinationNodeTypeAlias(self, ctx: GQLParser.DestinationNodeTypeAliasContext):
+    def exitDestinationNodeTypeAlias(
+        self, ctx: GQLParser.DestinationNodeTypeAliasContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#labelSetPhrase.
@@ -2954,11 +3282,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#propertyTypesSpecification.
-    def enterPropertyTypesSpecification(self, ctx: GQLParser.PropertyTypesSpecificationContext):
+    def enterPropertyTypesSpecification(
+        self, ctx: GQLParser.PropertyTypesSpecificationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#propertyTypesSpecification.
-    def exitPropertyTypesSpecification(self, ctx: GQLParser.PropertyTypesSpecificationContext):
+    def exitPropertyTypesSpecification(
+        self, ctx: GQLParser.PropertyTypesSpecificationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#propertyTypeList.
@@ -3006,19 +3338,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#closedDynamicUnionTypeAtl1.
-    def enterClosedDynamicUnionTypeAtl1(self, ctx: GQLParser.ClosedDynamicUnionTypeAtl1Context):
+    def enterClosedDynamicUnionTypeAtl1(
+        self, ctx: GQLParser.ClosedDynamicUnionTypeAtl1Context
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#closedDynamicUnionTypeAtl1.
-    def exitClosedDynamicUnionTypeAtl1(self, ctx: GQLParser.ClosedDynamicUnionTypeAtl1Context):
+    def exitClosedDynamicUnionTypeAtl1(
+        self, ctx: GQLParser.ClosedDynamicUnionTypeAtl1Context
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#closedDynamicUnionTypeAtl2.
-    def enterClosedDynamicUnionTypeAtl2(self, ctx: GQLParser.ClosedDynamicUnionTypeAtl2Context):
+    def enterClosedDynamicUnionTypeAtl2(
+        self, ctx: GQLParser.ClosedDynamicUnionTypeAtl2Context
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#closedDynamicUnionTypeAtl2.
-    def exitClosedDynamicUnionTypeAtl2(self, ctx: GQLParser.ClosedDynamicUnionTypeAtl2Context):
+    def exitClosedDynamicUnionTypeAtl2(
+        self, ctx: GQLParser.ClosedDynamicUnionTypeAtl2Context
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#pathValueTypeLabel.
@@ -3070,11 +3410,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#openDynamicUnionTypeLabel.
-    def enterOpenDynamicUnionTypeLabel(self, ctx: GQLParser.OpenDynamicUnionTypeLabelContext):
+    def enterOpenDynamicUnionTypeLabel(
+        self, ctx: GQLParser.OpenDynamicUnionTypeLabelContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#openDynamicUnionTypeLabel.
-    def exitOpenDynamicUnionTypeLabel(self, ctx: GQLParser.OpenDynamicUnionTypeLabelContext):
+    def exitOpenDynamicUnionTypeLabel(
+        self, ctx: GQLParser.OpenDynamicUnionTypeLabelContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#typed.
@@ -3166,11 +3510,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#signedBinaryExactNumericType.
-    def enterSignedBinaryExactNumericType(self, ctx: GQLParser.SignedBinaryExactNumericTypeContext):
+    def enterSignedBinaryExactNumericType(
+        self, ctx: GQLParser.SignedBinaryExactNumericTypeContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#signedBinaryExactNumericType.
-    def exitSignedBinaryExactNumericType(self, ctx: GQLParser.SignedBinaryExactNumericTypeContext):
+    def exitSignedBinaryExactNumericType(
+        self, ctx: GQLParser.SignedBinaryExactNumericTypeContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#unsignedBinaryExactNumericType.
@@ -3198,11 +3546,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#decimalExactNumericType.
-    def enterDecimalExactNumericType(self, ctx: GQLParser.DecimalExactNumericTypeContext):
+    def enterDecimalExactNumericType(
+        self, ctx: GQLParser.DecimalExactNumericTypeContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#decimalExactNumericType.
-    def exitDecimalExactNumericType(self, ctx: GQLParser.DecimalExactNumericTypeContext):
+    def exitDecimalExactNumericType(
+        self, ctx: GQLParser.DecimalExactNumericTypeContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#precision.
@@ -3294,11 +3646,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#temporalDurationQualifier.
-    def enterTemporalDurationQualifier(self, ctx: GQLParser.TemporalDurationQualifierContext):
+    def enterTemporalDurationQualifier(
+        self, ctx: GQLParser.TemporalDurationQualifierContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#temporalDurationQualifier.
-    def exitTemporalDurationQualifier(self, ctx: GQLParser.TemporalDurationQualifierContext):
+    def exitTemporalDurationQualifier(
+        self, ctx: GQLParser.TemporalDurationQualifierContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#referenceValueType.
@@ -3334,11 +3690,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#graphReferenceValueType.
-    def enterGraphReferenceValueType(self, ctx: GQLParser.GraphReferenceValueTypeContext):
+    def enterGraphReferenceValueType(
+        self, ctx: GQLParser.GraphReferenceValueTypeContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#graphReferenceValueType.
-    def exitGraphReferenceValueType(self, ctx: GQLParser.GraphReferenceValueTypeContext):
+    def exitGraphReferenceValueType(
+        self, ctx: GQLParser.GraphReferenceValueTypeContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#closedGraphReferenceValueType.
@@ -3354,11 +3714,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#openGraphReferenceValueType.
-    def enterOpenGraphReferenceValueType(self, ctx: GQLParser.OpenGraphReferenceValueTypeContext):
+    def enterOpenGraphReferenceValueType(
+        self, ctx: GQLParser.OpenGraphReferenceValueTypeContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#openGraphReferenceValueType.
-    def exitOpenGraphReferenceValueType(self, ctx: GQLParser.OpenGraphReferenceValueTypeContext):
+    def exitOpenGraphReferenceValueType(
+        self, ctx: GQLParser.OpenGraphReferenceValueTypeContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#bindingTableReferenceValueType.
@@ -3382,19 +3746,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#closedNodeReferenceValueType.
-    def enterClosedNodeReferenceValueType(self, ctx: GQLParser.ClosedNodeReferenceValueTypeContext):
+    def enterClosedNodeReferenceValueType(
+        self, ctx: GQLParser.ClosedNodeReferenceValueTypeContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#closedNodeReferenceValueType.
-    def exitClosedNodeReferenceValueType(self, ctx: GQLParser.ClosedNodeReferenceValueTypeContext):
+    def exitClosedNodeReferenceValueType(
+        self, ctx: GQLParser.ClosedNodeReferenceValueTypeContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#openNodeReferenceValueType.
-    def enterOpenNodeReferenceValueType(self, ctx: GQLParser.OpenNodeReferenceValueTypeContext):
+    def enterOpenNodeReferenceValueType(
+        self, ctx: GQLParser.OpenNodeReferenceValueTypeContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#openNodeReferenceValueType.
-    def exitOpenNodeReferenceValueType(self, ctx: GQLParser.OpenNodeReferenceValueTypeContext):
+    def exitOpenNodeReferenceValueType(
+        self, ctx: GQLParser.OpenNodeReferenceValueTypeContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#edgeReferenceValueType.
@@ -3406,19 +3778,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#closedEdgeReferenceValueType.
-    def enterClosedEdgeReferenceValueType(self, ctx: GQLParser.ClosedEdgeReferenceValueTypeContext):
+    def enterClosedEdgeReferenceValueType(
+        self, ctx: GQLParser.ClosedEdgeReferenceValueTypeContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#closedEdgeReferenceValueType.
-    def exitClosedEdgeReferenceValueType(self, ctx: GQLParser.ClosedEdgeReferenceValueTypeContext):
+    def exitClosedEdgeReferenceValueType(
+        self, ctx: GQLParser.ClosedEdgeReferenceValueTypeContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#openEdgeReferenceValueType.
-    def enterOpenEdgeReferenceValueType(self, ctx: GQLParser.OpenEdgeReferenceValueTypeContext):
+    def enterOpenEdgeReferenceValueType(
+        self, ctx: GQLParser.OpenEdgeReferenceValueTypeContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#openEdgeReferenceValueType.
-    def exitOpenEdgeReferenceValueType(self, ctx: GQLParser.OpenEdgeReferenceValueTypeContext):
+    def exitOpenEdgeReferenceValueType(
+        self, ctx: GQLParser.OpenEdgeReferenceValueTypeContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#pathValueType.
@@ -3438,11 +3818,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#listValueTypeNameSynonym.
-    def enterListValueTypeNameSynonym(self, ctx: GQLParser.ListValueTypeNameSynonymContext):
+    def enterListValueTypeNameSynonym(
+        self, ctx: GQLParser.ListValueTypeNameSynonymContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#listValueTypeNameSynonym.
-    def exitListValueTypeNameSynonym(self, ctx: GQLParser.ListValueTypeNameSynonymContext):
+    def exitListValueTypeNameSynonym(
+        self, ctx: GQLParser.ListValueTypeNameSynonymContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#recordType.
@@ -3454,11 +3838,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#fieldTypesSpecification.
-    def enterFieldTypesSpecification(self, ctx: GQLParser.FieldTypesSpecificationContext):
+    def enterFieldTypesSpecification(
+        self, ctx: GQLParser.FieldTypesSpecificationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#fieldTypesSpecification.
-    def exitFieldTypesSpecification(self, ctx: GQLParser.FieldTypesSpecificationContext):
+    def exitFieldTypesSpecification(
+        self, ctx: GQLParser.FieldTypesSpecificationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#fieldTypeList.
@@ -3542,19 +3930,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#valueTypePredicatePart2.
-    def enterValueTypePredicatePart2(self, ctx: GQLParser.ValueTypePredicatePart2Context):
+    def enterValueTypePredicatePart2(
+        self, ctx: GQLParser.ValueTypePredicatePart2Context
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#valueTypePredicatePart2.
-    def exitValueTypePredicatePart2(self, ctx: GQLParser.ValueTypePredicatePart2Context):
+    def exitValueTypePredicatePart2(
+        self, ctx: GQLParser.ValueTypePredicatePart2Context
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#normalizedPredicatePart2.
-    def enterNormalizedPredicatePart2(self, ctx: GQLParser.NormalizedPredicatePart2Context):
+    def enterNormalizedPredicatePart2(
+        self, ctx: GQLParser.NormalizedPredicatePart2Context
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#normalizedPredicatePart2.
-    def exitNormalizedPredicatePart2(self, ctx: GQLParser.NormalizedPredicatePart2Context):
+    def exitNormalizedPredicatePart2(
+        self, ctx: GQLParser.NormalizedPredicatePart2Context
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#directedPredicate.
@@ -3598,11 +3994,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#sourceDestinationPredicate.
-    def enterSourceDestinationPredicate(self, ctx: GQLParser.SourceDestinationPredicateContext):
+    def enterSourceDestinationPredicate(
+        self, ctx: GQLParser.SourceDestinationPredicateContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#sourceDestinationPredicate.
-    def exitSourceDestinationPredicate(self, ctx: GQLParser.SourceDestinationPredicateContext):
+    def exitSourceDestinationPredicate(
+        self, ctx: GQLParser.SourceDestinationPredicateContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#nodeReference.
@@ -3622,11 +4022,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#destinationPredicatePart2.
-    def enterDestinationPredicatePart2(self, ctx: GQLParser.DestinationPredicatePart2Context):
+    def enterDestinationPredicatePart2(
+        self, ctx: GQLParser.DestinationPredicatePart2Context
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#destinationPredicatePart2.
-    def exitDestinationPredicatePart2(self, ctx: GQLParser.DestinationPredicatePart2Context):
+    def exitDestinationPredicatePart2(
+        self, ctx: GQLParser.DestinationPredicatePart2Context
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#edgeReference.
@@ -3654,11 +4058,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#property_existsPredicate.
-    def enterProperty_existsPredicate(self, ctx: GQLParser.Property_existsPredicateContext):
+    def enterProperty_existsPredicate(
+        self, ctx: GQLParser.Property_existsPredicateContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#property_existsPredicate.
-    def exitProperty_existsPredicate(self, ctx: GQLParser.Property_existsPredicateContext):
+    def exitProperty_existsPredicate(
+        self, ctx: GQLParser.Property_existsPredicateContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#conjunctiveExprAlt.
@@ -3710,11 +4118,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#normalizedPredicateExprAlt.
-    def enterNormalizedPredicateExprAlt(self, ctx: GQLParser.NormalizedPredicateExprAltContext):
+    def enterNormalizedPredicateExprAlt(
+        self, ctx: GQLParser.NormalizedPredicateExprAltContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#normalizedPredicateExprAlt.
-    def exitNormalizedPredicateExprAlt(self, ctx: GQLParser.NormalizedPredicateExprAltContext):
+    def exitNormalizedPredicateExprAlt(
+        self, ctx: GQLParser.NormalizedPredicateExprAltContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#notExprAlt.
@@ -3810,11 +4222,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#subCharacterOrByteString.
-    def enterSubCharacterOrByteString(self, ctx: GQLParser.SubCharacterOrByteStringContext):
+    def enterSubCharacterOrByteString(
+        self, ctx: GQLParser.SubCharacterOrByteStringContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#subCharacterOrByteString.
-    def exitSubCharacterOrByteString(self, ctx: GQLParser.SubCharacterOrByteStringContext):
+    def exitSubCharacterOrByteString(
+        self, ctx: GQLParser.SubCharacterOrByteStringContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#trimSingleCharacterOrByteString.
@@ -3850,35 +4266,51 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#normalizeCharacterString.
-    def enterNormalizeCharacterString(self, ctx: GQLParser.NormalizeCharacterStringContext):
+    def enterNormalizeCharacterString(
+        self, ctx: GQLParser.NormalizeCharacterStringContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#normalizeCharacterString.
-    def exitNormalizeCharacterString(self, ctx: GQLParser.NormalizeCharacterStringContext):
+    def exitNormalizeCharacterString(
+        self, ctx: GQLParser.NormalizeCharacterStringContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#nodeReferenceValueExpression.
-    def enterNodeReferenceValueExpression(self, ctx: GQLParser.NodeReferenceValueExpressionContext):
+    def enterNodeReferenceValueExpression(
+        self, ctx: GQLParser.NodeReferenceValueExpressionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#nodeReferenceValueExpression.
-    def exitNodeReferenceValueExpression(self, ctx: GQLParser.NodeReferenceValueExpressionContext):
+    def exitNodeReferenceValueExpression(
+        self, ctx: GQLParser.NodeReferenceValueExpressionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#edgeReferenceValueExpression.
-    def enterEdgeReferenceValueExpression(self, ctx: GQLParser.EdgeReferenceValueExpressionContext):
+    def enterEdgeReferenceValueExpression(
+        self, ctx: GQLParser.EdgeReferenceValueExpressionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#edgeReferenceValueExpression.
-    def exitEdgeReferenceValueExpression(self, ctx: GQLParser.EdgeReferenceValueExpressionContext):
+    def exitEdgeReferenceValueExpression(
+        self, ctx: GQLParser.EdgeReferenceValueExpressionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#aggregatingValueExpression.
-    def enterAggregatingValueExpression(self, ctx: GQLParser.AggregatingValueExpressionContext):
+    def enterAggregatingValueExpression(
+        self, ctx: GQLParser.AggregatingValueExpressionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#aggregatingValueExpression.
-    def exitAggregatingValueExpression(self, ctx: GQLParser.AggregatingValueExpressionContext):
+    def exitAggregatingValueExpression(
+        self, ctx: GQLParser.AggregatingValueExpressionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#valueExpressionPrimary.
@@ -3890,11 +4322,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#parenthesizedValueExpression.
-    def enterParenthesizedValueExpression(self, ctx: GQLParser.ParenthesizedValueExpressionContext):
+    def enterParenthesizedValueExpression(
+        self, ctx: GQLParser.ParenthesizedValueExpressionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#parenthesizedValueExpression.
-    def exitParenthesizedValueExpression(self, ctx: GQLParser.ParenthesizedValueExpressionContext):
+    def exitParenthesizedValueExpression(
+        self, ctx: GQLParser.ParenthesizedValueExpressionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#nonParenthesizedValueExpressionPrimary.
@@ -3922,11 +4358,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#unsignedValueSpecification.
-    def enterUnsignedValueSpecification(self, ctx: GQLParser.UnsignedValueSpecificationContext):
+    def enterUnsignedValueSpecification(
+        self, ctx: GQLParser.UnsignedValueSpecificationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#unsignedValueSpecification.
-    def exitUnsignedValueSpecification(self, ctx: GQLParser.UnsignedValueSpecificationContext):
+    def exitUnsignedValueSpecification(
+        self, ctx: GQLParser.UnsignedValueSpecificationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#nonNegativeIntegerSpecification.
@@ -3942,11 +4382,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#generalValueSpecification.
-    def enterGeneralValueSpecification(self, ctx: GQLParser.GeneralValueSpecificationContext):
+    def enterGeneralValueSpecification(
+        self, ctx: GQLParser.GeneralValueSpecificationContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#generalValueSpecification.
-    def exitGeneralValueSpecification(self, ctx: GQLParser.GeneralValueSpecificationContext):
+    def exitGeneralValueSpecification(
+        self, ctx: GQLParser.GeneralValueSpecificationContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#dynamicParameterSpecification.
@@ -4154,19 +4598,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#dependentValueExpression.
-    def enterDependentValueExpression(self, ctx: GQLParser.DependentValueExpressionContext):
+    def enterDependentValueExpression(
+        self, ctx: GQLParser.DependentValueExpressionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#dependentValueExpression.
-    def exitDependentValueExpression(self, ctx: GQLParser.DependentValueExpressionContext):
+    def exitDependentValueExpression(
+        self, ctx: GQLParser.DependentValueExpressionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#independentValueExpression.
-    def enterIndependentValueExpression(self, ctx: GQLParser.IndependentValueExpressionContext):
+    def enterIndependentValueExpression(
+        self, ctx: GQLParser.IndependentValueExpressionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#independentValueExpression.
-    def exitIndependentValueExpression(self, ctx: GQLParser.IndependentValueExpressionContext):
+    def exitIndependentValueExpression(
+        self, ctx: GQLParser.IndependentValueExpressionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#element_idFunction.
@@ -4178,11 +4630,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#bindingVariableReference.
-    def enterBindingVariableReference(self, ctx: GQLParser.BindingVariableReferenceContext):
+    def enterBindingVariableReference(
+        self, ctx: GQLParser.BindingVariableReferenceContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#bindingVariableReference.
-    def exitBindingVariableReference(self, ctx: GQLParser.BindingVariableReferenceContext):
+    def exitBindingVariableReference(
+        self, ctx: GQLParser.BindingVariableReferenceContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#pathValueExpression.
@@ -4414,11 +4870,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#absoluteValueExpression.
-    def enterAbsoluteValueExpression(self, ctx: GQLParser.AbsoluteValueExpressionContext):
+    def enterAbsoluteValueExpression(
+        self, ctx: GQLParser.AbsoluteValueExpressionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#absoluteValueExpression.
-    def exitAbsoluteValueExpression(self, ctx: GQLParser.AbsoluteValueExpressionContext):
+    def exitAbsoluteValueExpression(
+        self, ctx: GQLParser.AbsoluteValueExpressionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#modulusExpression.
@@ -4462,19 +4922,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#trigonometricFunctionName.
-    def enterTrigonometricFunctionName(self, ctx: GQLParser.TrigonometricFunctionNameContext):
+    def enterTrigonometricFunctionName(
+        self, ctx: GQLParser.TrigonometricFunctionNameContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#trigonometricFunctionName.
-    def exitTrigonometricFunctionName(self, ctx: GQLParser.TrigonometricFunctionNameContext):
+    def exitTrigonometricFunctionName(
+        self, ctx: GQLParser.TrigonometricFunctionNameContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#generalLogarithmFunction.
-    def enterGeneralLogarithmFunction(self, ctx: GQLParser.GeneralLogarithmFunctionContext):
+    def enterGeneralLogarithmFunction(
+        self, ctx: GQLParser.GeneralLogarithmFunctionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#generalLogarithmFunction.
-    def exitGeneralLogarithmFunction(self, ctx: GQLParser.GeneralLogarithmFunctionContext):
+    def exitGeneralLogarithmFunction(
+        self, ctx: GQLParser.GeneralLogarithmFunctionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#generalLogarithmBase.
@@ -4486,11 +4954,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#generalLogarithmArgument.
-    def enterGeneralLogarithmArgument(self, ctx: GQLParser.GeneralLogarithmArgumentContext):
+    def enterGeneralLogarithmArgument(
+        self, ctx: GQLParser.GeneralLogarithmArgumentContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#generalLogarithmArgument.
-    def exitGeneralLogarithmArgument(self, ctx: GQLParser.GeneralLogarithmArgumentContext):
+    def exitGeneralLogarithmArgument(
+        self, ctx: GQLParser.GeneralLogarithmArgumentContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#commonLogarithm.
@@ -4526,11 +4998,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#numericValueExpressionBase.
-    def enterNumericValueExpressionBase(self, ctx: GQLParser.NumericValueExpressionBaseContext):
+    def enterNumericValueExpressionBase(
+        self, ctx: GQLParser.NumericValueExpressionBaseContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#numericValueExpressionBase.
-    def exitNumericValueExpressionBase(self, ctx: GQLParser.NumericValueExpressionBaseContext):
+    def exitNumericValueExpressionBase(
+        self, ctx: GQLParser.NumericValueExpressionBaseContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#numericValueExpressionExponent.
@@ -4582,11 +5058,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#byteStringValueExpression.
-    def enterByteStringValueExpression(self, ctx: GQLParser.ByteStringValueExpressionContext):
+    def enterByteStringValueExpression(
+        self, ctx: GQLParser.ByteStringValueExpressionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#byteStringValueExpression.
-    def exitByteStringValueExpression(self, ctx: GQLParser.ByteStringValueExpressionContext):
+    def exitByteStringValueExpression(
+        self, ctx: GQLParser.ByteStringValueExpressionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#trimOperands.
@@ -4618,11 +5098,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#trimCharacterOrByteString.
-    def enterTrimCharacterOrByteString(self, ctx: GQLParser.TrimCharacterOrByteStringContext):
+    def enterTrimCharacterOrByteString(
+        self, ctx: GQLParser.TrimCharacterOrByteStringContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#trimCharacterOrByteString.
-    def exitTrimCharacterOrByteString(self, ctx: GQLParser.TrimCharacterOrByteStringContext):
+    def exitTrimCharacterOrByteString(
+        self, ctx: GQLParser.TrimCharacterOrByteStringContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#normalForm.
@@ -4642,11 +5126,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#datetimeValueExpression.
-    def enterDatetimeValueExpression(self, ctx: GQLParser.DatetimeValueExpressionContext):
+    def enterDatetimeValueExpression(
+        self, ctx: GQLParser.DatetimeValueExpressionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#datetimeValueExpression.
-    def exitDatetimeValueExpression(self, ctx: GQLParser.DatetimeValueExpressionContext):
+    def exitDatetimeValueExpression(
+        self, ctx: GQLParser.DatetimeValueExpressionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#datetimeValueFunction.
@@ -4714,19 +5202,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#datetimeFunctionParameters.
-    def enterDatetimeFunctionParameters(self, ctx: GQLParser.DatetimeFunctionParametersContext):
+    def enterDatetimeFunctionParameters(
+        self, ctx: GQLParser.DatetimeFunctionParametersContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#datetimeFunctionParameters.
-    def exitDatetimeFunctionParameters(self, ctx: GQLParser.DatetimeFunctionParametersContext):
+    def exitDatetimeFunctionParameters(
+        self, ctx: GQLParser.DatetimeFunctionParametersContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#durationValueExpression.
-    def enterDurationValueExpression(self, ctx: GQLParser.DurationValueExpressionContext):
+    def enterDurationValueExpression(
+        self, ctx: GQLParser.DurationValueExpressionContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#durationValueExpression.
-    def exitDurationValueExpression(self, ctx: GQLParser.DurationValueExpressionContext):
+    def exitDurationValueExpression(
+        self, ctx: GQLParser.DurationValueExpressionContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#datetimeSubtraction.
@@ -4750,19 +5246,27 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#datetimeValueExpression1.
-    def enterDatetimeValueExpression1(self, ctx: GQLParser.DatetimeValueExpression1Context):
+    def enterDatetimeValueExpression1(
+        self, ctx: GQLParser.DatetimeValueExpression1Context
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#datetimeValueExpression1.
-    def exitDatetimeValueExpression1(self, ctx: GQLParser.DatetimeValueExpression1Context):
+    def exitDatetimeValueExpression1(
+        self, ctx: GQLParser.DatetimeValueExpression1Context
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#datetimeValueExpression2.
-    def enterDatetimeValueExpression2(self, ctx: GQLParser.DatetimeValueExpression2Context):
+    def enterDatetimeValueExpression2(
+        self, ctx: GQLParser.DatetimeValueExpression2Context
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#datetimeValueExpression2.
-    def exitDatetimeValueExpression2(self, ctx: GQLParser.DatetimeValueExpression2Context):
+    def exitDatetimeValueExpression2(
+        self, ctx: GQLParser.DatetimeValueExpression2Context
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#durationValueFunction.
@@ -4782,11 +5286,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#durationFunctionParameters.
-    def enterDurationFunctionParameters(self, ctx: GQLParser.DurationFunctionParametersContext):
+    def enterDurationFunctionParameters(
+        self, ctx: GQLParser.DurationFunctionParametersContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#durationFunctionParameters.
-    def exitDurationFunctionParameters(self, ctx: GQLParser.DurationFunctionParametersContext):
+    def exitDurationFunctionParameters(
+        self, ctx: GQLParser.DurationFunctionParametersContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#objectName.
@@ -4798,11 +5306,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#objectNameOrBindingVariable.
-    def enterObjectNameOrBindingVariable(self, ctx: GQLParser.ObjectNameOrBindingVariableContext):
+    def enterObjectNameOrBindingVariable(
+        self, ctx: GQLParser.ObjectNameOrBindingVariableContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#objectNameOrBindingVariable.
-    def exitObjectNameOrBindingVariable(self, ctx: GQLParser.ObjectNameOrBindingVariableContext):
+    def exitObjectNameOrBindingVariable(
+        self, ctx: GQLParser.ObjectNameOrBindingVariableContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#directoryName.
@@ -4870,11 +5382,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#delimitedBindingTableName.
-    def enterDelimitedBindingTableName(self, ctx: GQLParser.DelimitedBindingTableNameContext):
+    def enterDelimitedBindingTableName(
+        self, ctx: GQLParser.DelimitedBindingTableNameContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#delimitedBindingTableName.
-    def exitDelimitedBindingTableName(self, ctx: GQLParser.DelimitedBindingTableNameContext):
+    def exitDelimitedBindingTableName(
+        self, ctx: GQLParser.DelimitedBindingTableNameContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#procedureName.
@@ -5054,11 +5570,15 @@ class GQLListener(ParseTreeListener):
         pass
 
     # Enter a parse tree produced by GQLParser#approximateNumericLiteral.
-    def enterApproximateNumericLiteral(self, ctx: GQLParser.ApproximateNumericLiteralContext):
+    def enterApproximateNumericLiteral(
+        self, ctx: GQLParser.ApproximateNumericLiteralContext
+    ):
         pass
 
     # Exit a parse tree produced by GQLParser#approximateNumericLiteral.
-    def exitApproximateNumericLiteral(self, ctx: GQLParser.ApproximateNumericLiteralContext):
+    def exitApproximateNumericLiteral(
+        self, ctx: GQLParser.ApproximateNumericLiteralContext
+    ):
         pass
 
     # Enter a parse tree produced by GQLParser#unsignedInteger.

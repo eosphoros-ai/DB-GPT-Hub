@@ -1,7 +1,13 @@
 # Generated from ./GQL.g4 by ANTLR 4.13.2
 import sys
 
-from antlr4 import DFA, ATNDeserializer, Lexer, LexerATNSimulator, PredictionContextCache
+from antlr4 import (
+    DFA,
+    ATNDeserializer,
+    Lexer,
+    LexerATNSimulator,
+    PredictionContextCache,
+)
 
 if sys.version_info[1] > 5:
     from typing import TextIO

@@ -13,6 +13,7 @@ class ModelArguments:
     r"""
     Arguments pertaining to which model/config/tokenizer we are going to fine-tune.
     """
+
     model_name_or_path: str = field(
         metadata={
             "help": "Path to pretrained model or model identifier from huggingface.co/models."
@@ -127,6 +128,7 @@ class GeneratingArguments:
     r"""
     Arguments pertaining to specify the decoding parameters.
     """
+
     do_sample: Optional[bool] = field(
         default=True,
         metadata={
@@ -190,6 +192,7 @@ class FinetuningArguments:
     r"""
     Arguments pertaining to which techniques we are going to fine-tuning with.
     """
+
     stage: Optional[Literal["sft", "rm"]] = field(
         default="sft", metadata={"help": "Which stage will be performed in training."}
     )
@@ -217,18 +220,18 @@ class FinetuningArguments:
             "help": "Number of trainable layers for partial-parameter (freeze) fine-tuning."
         },
     )
-    name_module_trainable: Optional[
-        Literal["mlp", "self_attn", "self_attention"]
-    ] = field(
-        default="mlp",
-        metadata={
-            "help": 'Name of trainable modules for partial-parameter (freeze) fine-tuning. \
+    name_module_trainable: Optional[Literal["mlp", "self_attn", "self_attention"]] = (
+        field(
+            default="mlp",
+            metadata={
+                "help": 'Name of trainable modules for partial-parameter (freeze) fine-tuning. \
                   LLaMA choices: ["mlp", "self_attn"], \
                   BLOOM & Falcon & ChatGLM2   & ChatGLM3choices: ["mlp", "self_attention"], \
                   Baichuan choices: ["mlp", "self_attn"], \
                   Qwen choices: ["mlp", "attn"], \
                   LLaMA-2, InternLM, XVERSE choices: the same as LLaMA.'
-        },
+            },
+        )
     )
     lora_rank: Optional[int] = field(
         default=8, metadata={"help": "The intrinsic dimension for LoRA fine-tuning."}

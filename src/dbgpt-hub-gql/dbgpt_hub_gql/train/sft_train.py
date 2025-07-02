@@ -50,9 +50,11 @@ def run_sft(
     dataset = preprocess_dataset(dataset, tokenizer, data_args, training_args, "sft")
     data_collator = DataCollatorForSeq2Seq(
         tokenizer=tokenizer,
-        label_pad_token_id=IGNORE_INDEX
-        if data_args.ignore_pad_token_for_loss
-        else tokenizer.pad_token_id,
+        label_pad_token_id=(
+            IGNORE_INDEX
+            if data_args.ignore_pad_token_for_loss
+            else tokenizer.pad_token_id
+        ),
     )
 
     # Override the decoding parameters of Seq2SeqTrainer
@@ -75,9 +77,9 @@ def run_sft(
         tokenizer=tokenizer,
         data_collator=data_collator,
         callbacks=callbacks,
-        compute_metrics=ComputeMetrics(tokenizer)
-        if training_args.predict_with_generate
-        else None,
+        compute_metrics=(
+            ComputeMetrics(tokenizer) if training_args.predict_with_generate else None
+        ),
         **split_dataset(dataset, data_args, training_args)
     )
 

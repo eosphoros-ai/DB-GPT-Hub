@@ -22,7 +22,7 @@ setup_spec = SetupSpec()
 def core_dependencies():
     setup_spec.extras["core"] = [
         "transformers>=4.41.2",
-        "datasets>=2.14.7",
+        "datasets==2.14.7",
         "tiktoken>=0.7.0",
         "torch>=2.0.0",
         "peft>=0.4.0",
@@ -35,7 +35,7 @@ def core_dependencies():
         "jieba>=0.42.1",
         "nltk>=3.8.1",
         "matplotlib>=3.8.1",
-        "bitsandbytes==0.41.3.post2",
+        "bitsandbytes>=0.43.2",
         "accelerate",
         "sentencepiece==0.1.99",
         "einops==0.6.1",

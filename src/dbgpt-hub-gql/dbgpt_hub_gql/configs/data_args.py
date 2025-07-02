@@ -67,6 +67,7 @@ class DataArguments:
     r"""
     Arguments pertaining to what data we are going to input our model for training and evaluation.
     """
+
     template: str = field(
         metadata={
             "help": "Which template to use for constructing prompts in training and inference."
@@ -103,9 +104,9 @@ class DataArguments:
             "help": "Size of the buffer to randomly sample examples from in streaming mode."
         },
     )
-    mix_strategy: Optional[
-        Literal["concat", "interleave_under", "interleave_over"]
-    ] = field(default="concat", metadata={"help": "Strategy to use in dataset mixing."})
+    mix_strategy: Optional[Literal["concat", "interleave_under", "interleave_over"]] = (
+        field(default="concat", metadata={"help": "Strategy to use in dataset mixing."})
+    )
     interleave_probs: Optional[str] = field(
         default=None,
         metadata={

@@ -678,7 +678,7 @@ def preprocess_dataset(
         return model_inputs
 
     def preprocess_unsupervised_dataset(
-        examples: Dict[str, List[Any]]
+        examples: Dict[str, List[Any]],
     ) -> Dict[str, Any]:
         # build inputs with format `<bos> X` and labels with format `Y <eos>`
         model_inputs = {"input_ids": [], "attention_mask": [], "labels": []}
@@ -700,7 +700,7 @@ def preprocess_dataset(
         return model_inputs
 
     def preprocess_pairwise_dataset(
-        examples: Dict[str, List[Any]]
+        examples: Dict[str, List[Any]],
     ) -> Dict[str, List[List[int]]]:
         # build input pairs with format `<bos> X`, `Y1 <eos>` and `Y2 <eos>` for rm stage
         model_inputs = {"prompt_ids": [], "chosen_ids": [], "rejected_ids": []}
@@ -837,9 +837,9 @@ def get_dataset(
     model_args: "ModelArguments", data_args: "DataArguments"
 ) -> Union["Dataset", "IterableDataset"]:
     max_samples = data_args.max_samples
-    all_datasets: List[
-        Union["Dataset", "IterableDataset"]
-    ] = []  # support multiple datasets
+    all_datasets: List[Union["Dataset", "IterableDataset"]] = (
+        []
+    )  # support multiple datasets
 
     for dataset_attr in data_args.dataset_list:
         logger.info("Loading dataset {}...".format(dataset_attr))

@@ -200,10 +200,9 @@ class Seq2SeqPeftTrainer(PeftTrainer):
             ignore_keys=ignore_keys,
         )
         if generated_tokens is not None:
-            generated_tokens[
-                :, : max(prompt_len, label_len)
-            ] = self.tokenizer.pad_token_id * torch.ones_like(
-                generated_tokens[:, : max(prompt_len, label_len)]
+            generated_tokens[:, : max(prompt_len, label_len)] = (
+                self.tokenizer.pad_token_id
+                * torch.ones_like(generated_tokens[:, : max(prompt_len, label_len)])
             )
 
         return loss, generated_tokens, labels

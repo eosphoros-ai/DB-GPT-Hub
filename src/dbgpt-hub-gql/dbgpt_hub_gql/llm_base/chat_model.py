@@ -2,6 +2,7 @@ from threading import Thread
 from typing import Any, Dict, Generator, List, Optional, Tuple
 
 import torch
+import gc
 from transformers import GenerationConfig, TextIteratorStreamer
 
 from ..data_process.data_utils import get_template_and_fix_tokenizer
@@ -99,11 +100,15 @@ class ChatModel:
         gen_kwargs, prompt_length = self.process_args(
             query, history, system, **input_kwargs
         )
-        generation_output = self.model.generate(**gen_kwargs)
-        outputs = generation_output.tolist()[0][prompt_length:]
-        response = self.tokenizer.decode(outputs, skip_special_tokens=True)
-        response_length = len(outputs)
-        return response, (prompt_length, response_length)
+        with torch.no_grad():
+            generation_output = self.model.generate(**gen_kwargs)
+            outputs = generation_output.tolist()[0][prompt_length:]
+            response = self.tokenizer.decode(outputs, skip_special_tokens=True)
+            response_length = len(outputs)
+            torch.cuda.empty_cache()
+            torch.cuda.ipc_collect()
+            gc.collect()
+            return response, (prompt_length, response_length)
 
     @torch.inference_mode()
     def stream_chat(

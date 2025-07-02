@@ -37,6 +37,8 @@ src/dbgpt-hub-sql/dbgpt_hub_sql/output/logs/*
 src/dbgpt-hub-sql/dbgpt_hub_sql/output/pred/*
 !src/dbgpt-hub-sql/dbgpt_hub_sql/output/pred/.gitkeep
 
+src/dbgpt-hub-gql
+!src/dbgpt-hub-gql/dbgpt_hub_gql
 src/dbgpt-hub-gql/dbgpt_hub_gql/output/
 src/dbgpt-hub-gql/dbgpt_hub_gql/output/adapter/*
 !src/dbgpt-hub-gql/dbgpt_hub_gql/output/adapter/.gitkeep
